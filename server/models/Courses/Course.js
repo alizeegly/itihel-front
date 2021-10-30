@@ -16,7 +16,7 @@ const CourseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     note_id: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId, ref: 'Note'
     },
     shared_with: [
         {type: mongoose.Schema.Types.ObjectId, ref: "User"}
