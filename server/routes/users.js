@@ -136,6 +136,10 @@ router.post("/login",
                 }
             };
 
+            await User.updateOne(user, {
+                last_connection: Date.now()
+            });
+
             jwt.sign(
                 payload,
                 "randomString", {
@@ -148,6 +152,7 @@ router.post("/login",
                     });
                 }
             );
+
         } catch (e) {
             console.error(e);
             res.status(500).json({
@@ -162,7 +167,8 @@ router.post("/login",
  * @description - Get LoggedIn User
  * @param - /user/me
  */
-router.get("/me", auth, async (req, res) => {
+router.get("/me", 
+auth, async (req, res) => {
     try {
         // request.user is getting fetched from Middleware after token authentication
         const user = await User.findById(req.user.id);
