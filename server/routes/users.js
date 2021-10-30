@@ -1,65 +1,94 @@
-const router = require('express').Router()
-const User = require("../models/Users/User")
 
-// CREATE
-router.post("/", async (req, res) => {
-    const newUser = new User(req.body)
-    try{
-        const savedUser = await newUser.save()
-        res.status(201).json(savedUser)
-    }catch(err){
-        res.status(500).json(err)
-    }
-})
+// Filename : user.js
 
-// UPDATE
-router.put("/:id", async (req, res) => {
-    if(req.user.id === req.params.id){
-        try{
-            const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-            res.status(200).json(updatedUser)
-        } catch(err) {
-            res.status(500).json(err)
+const express = require("express");
+const { check, validationResult} = require("express-validator");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const router = express.Router();
+
+const User = require("../models/Users/User");
+
+/**
+ * @method - POST
+ * @param - /signup
+ * @description - User SignUp
+ */
+
+router.post("/signup",
+    [
+        check("pseudo", "Please Enter a valid Pseudo")
+        .not()
+        .isEmpty(),
+        check("email", "Please enter a valid email").isEmail(),
+        check("password", "Please enter a valid password").isLength({
+            min: 6
+        })
+    ],
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({
+                errors: errors.array()
+            });
         }
-    } else {
-        res.status(403).json("You can update only your account")
-    }
-})
 
-// DELETE
-router.delete("/:id", async (req, res) => {
-    if(req.user.id === req.params.id){
-        try{
-            await User.findByIdAndDelete(req.params.id)
-            res.status(200).json("User has been deleted")
-        } catch(err) {
-            res.status(500).json(err)
+        const {
+            first_name,
+            last_name,
+            pseudo,
+            email,
+            password,
+            profile_picture
+        } = req.body;
+        try {
+            let user = await User.findOne({
+                email
+            });
+            if (user) {
+                return res.status(400).json({
+                    msg: "User Already Exists"
+                });
+            }
+
+            user = new User({
+                first_name,
+                last_name,
+                pseudo,
+                email,
+                password,
+                profile_picture
+            });
+
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(password, salt);
+
+            await user.save();
+
+            const payload = {
+                user: {
+                    id: user.id
+                }
+            };
+
+            jwt.sign(
+                payload,
+                "randomString", {
+                    expiresIn: 10000
+                },
+                (err, token) => {
+                    if (err) throw err;
+                    res.status(200).json({
+                        token
+                    });
+                }
+            );
+        } catch (err) {
+            console.log(err.message);
+            res.status(500).send("Error in Saving");
         }
-    } else {
-        res.status(403).json("You can delete only your account")
     }
-})
+);
 
-// GET
-router.get("/find/:id", async (req, res) => {
-    try{
-        const user = await User.findById(req.params.id)
-        const { password, ...info } = user._doc
-        res.status(200).json(user)
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
 
-// GET ALL
-router.get("/", async (req, res) => {
-    const query = req.query.new
-    try{
-        const users = query ? await User.find().sort({_id:-1}).limit(10) : await User.find()
-        res.status(200).json(users)
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
-
-module.exports = router
+module.exports = router;
