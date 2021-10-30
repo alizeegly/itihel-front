@@ -1,6 +1,11 @@
 const router = require('express').Router()
 const Role = require("../models/Users/Role")
 
+/**
+ * @method - GET
+ * @param - /
+ * @description - Get All
+ */
 router.get("/", async (req, res) => {
     try{
         const roles = await Role.find()

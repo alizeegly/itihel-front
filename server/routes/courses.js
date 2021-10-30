@@ -2,19 +2,26 @@ const router = require('express').Router()
 const Course = require("../models/Courses/Course")
 const User = require("../models/Users/User")
 
-// CREATE
+/**
+ * @method - POST
+ * @param - /
+ * @description - Course create
+ */
 router.post("/", async (req, res) => {
     const newCourse = new Course(req.body)
     try{
         const savedCourse = await newCourse.save()
-        // await User.findOneAndUpdate({ _id: req.user._id }, {$set: {courses: savedCourse._id}}, { new: true })
         res.status(201).json(savedCourse)
     }catch(err){
         res.status(500).json(err)
     }
 })
 
-// UPDATE
+/**
+ * @method - PUT
+ * @param - /:id
+ * @description - Course update
+ */
 router.put("/:id", async (req, res) => {
     try{
         const updatedCourse = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
@@ -24,7 +31,11 @@ router.put("/:id", async (req, res) => {
     }
 })
 
-// DELETE
+/**
+ * @method - DELETE
+ * @param - /:id
+ * @description - Course delete
+ */
 router.delete("/:id", async (req, res) => {
     try{
         await Course.findByIdAndDelete(req.params.id)
@@ -34,7 +45,11 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-// GET
+/**
+ * @method - GET
+ * @param - /find/:id
+ * @description - Get One
+ */
 router.get("/find/:id", async (req, res) => {
     try{
         const course = await Course.findById(req.params.id)
@@ -44,7 +59,11 @@ router.get("/find/:id", async (req, res) => {
     }
 })
 
-// GET ALL
+/**
+ * @method - GET
+ * @param - /
+ * @description - Get All
+ */
 router.get("/", async (req, res) => {
     try{
         const courses = await Course.find()
