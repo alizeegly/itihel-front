@@ -9,10 +9,10 @@ const QuizQuestionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    flip_card_id:  [{
+    flip_card_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'FlipCard',
         required: true
-    }]
+    }
 }, {
     timestamps: true
 })

@@ -5,10 +5,10 @@ const QuizQuestionSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    quiz_id:  [{
+    quiz_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'Quiz',
         required: true
-    }]
+    }
 }, {
     timestamps: true
 })

@@ -5,10 +5,10 @@ const FlipCardSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    course_id:  [{
+    course_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'Course',
         required: true
-    }]
+    }
 }, {
     timestamps: true
 })

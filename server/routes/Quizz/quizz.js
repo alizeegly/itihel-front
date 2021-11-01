@@ -1,16 +1,16 @@
 const router = require('express').Router()
-const Score = require("../models/Quizz/Score")
+const Quiz = require("../../models/Quizz/Quiz")
 
 /**
  * @method - POST
  * @param - /
- * @description - Score create
+ * @description - Quiz create
  */
 router.post("/", async (req, res) => {
-    const newScore = new Note(req.body)
+    const newQuiz = new Quiz(req.body)
     try{
-        const savedScore = await newScore.save()
-        res.status(201).json(savedScore)
+        const savedQuiz = await newQuiz.save()
+        res.status(201).json(savedQuiz)
     }catch(err){
         res.status(500).json(err)
     }
@@ -19,12 +19,12 @@ router.post("/", async (req, res) => {
 /**
  * @method - PUT
  * @param - /:id
- * @description - Score update
+ * @description - Quiz update
  */
 router.put("/:id", async (req, res) => {
     try{
-        const updatedScore = await Score.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        res.status(200).json(updatedScore)
+        const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedQuiz)
     }catch(err){
         res.status(500).json(err)
     }
@@ -33,12 +33,12 @@ router.put("/:id", async (req, res) => {
 /**
  * @method - DELETE
  * @param - /:id
- * @description - Score delete
+ * @description - Quiz delete
  */
 router.delete("/:id", async (req, res) => {
     try{
-        await Score.findByIdAndDelete(req.params.id)
-        res.status(200).json("The score has been deleted")
+        await Quiz.findByIdAndDelete(req.params.id)
+        res.status(200).json("The quiz has been deleted")
     } catch(err) {
         res.status(500).json(err)
     }
@@ -47,12 +47,12 @@ router.delete("/:id", async (req, res) => {
 /**
  * @method - GET
  * @param - /find/:id
- * @description - Score Get One
+ * @description - Quiz Get One
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        const score = await Score.findById(req.params.id)
-        res.status(200).json(score)
+        const quiz = await Quiz.findById(req.params.id)
+        res.status(200).json(quiz)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -61,12 +61,12 @@ router.get("/find/:id", async (req, res) => {
 /**
  * @method - GET
  * @param - /
- * @description - Score Get All
+ * @description - Quiz Get All
  */
 router.get("/", async (req, res) => {
     try{
-        const scores = await Score.find()
-        res.status(200).json(scores)
+        const quizz = await Quiz.find()
+        res.status(200).json(quizz)
     } catch(err) {
         res.status(500).json(err)
     }

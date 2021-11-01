@@ -15,10 +15,10 @@ const QuizSchema = new mongoose.Schema({
         min: 0, 
         max: 59
     },
-    course_id:  [{
+    course_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'Course',
         required: true
-    }]
+    }
 }, {
     timestamps: true
 })

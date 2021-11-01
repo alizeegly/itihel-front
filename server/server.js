@@ -7,6 +7,11 @@ const bodyParser = require("body-parser")
 const userRoute = require('./routes/users')
 const courseRoute = require('./routes/courses')
 const roleRoute = require('./routes/roles')
+const quizzRoute = require('./routes/Quizz/quizz')
+const quizzQuestionsRoute = require('./routes/Quizz/quizz_questions')
+const quizzQuestionOptionsRoute = require('./routes/Quizz/quizz_question_options')
+const scoresRoute = require('./routes/scores')
+const notesRoute = require('./routes/notes')
 
 const PORT = process.env.PORT || 8800
 
@@ -23,7 +28,12 @@ mongoose.connect(
 
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
+app.use('/api/notes', notesRoute)
 app.use('/api/roles', roleRoute)
+app.use('/api/quizz', quizzRoute)
+app.use('/api/quizz-questions', quizzQuestionsRoute)
+app.use('/api/quizz-questions-options', quizzQuestionOptionsRoute)
+app.use('/api/scores', scoresRoute)
 
 app.listen(PORT, () => {
     console.log(`Backend server is listening on port ${PORT} !`)
