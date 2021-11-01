@@ -165,7 +165,7 @@ router.post("/login",
 /**
  * @method - GET
  * @description - Get LoggedIn User
- * @param - /user/me
+ * @param - /me
  */
 router.get("/me", 
 auth, async (req, res) => {
@@ -179,6 +179,34 @@ auth, async (req, res) => {
         });
     }
 });
+
+/**
+ * @method - PUT
+ * @param - /:id
+ * @description - User update
+ */
+ router.put("/:id", auth, async (req, res) => {
+    try{
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedUser)
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - DELETE
+ * @param - /:id
+ * @description - User delete
+ */
+router.delete("/:id", auth, async (req, res) => {
+    try{
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json("The user has been deleted")
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 
 
 module.exports = router;
