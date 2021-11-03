@@ -11,6 +11,15 @@ router.post("/", async (req, res) => {
     const newCourse = new Course(req.body)
     try{
         const savedCourse = await newCourse.save()
+        User.findById(req.body.owner_id, function(err, user) {
+            if (err) return res.send(err);
+            console.log(savedCourse)
+            user.courses.push(savedCourse._id);
+            user.save(function(err) {
+              if (err) return res.send(err);
+              console.log("add")
+            });
+        });
         res.status(201).json(savedCourse)
     }catch(err){
         res.status(500).json(err)
