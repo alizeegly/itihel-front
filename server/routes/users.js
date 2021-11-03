@@ -181,6 +181,20 @@ auth, async (req, res) => {
 });
 
 /**
+ * @method - GET
+ * @description - Get User by Id
+ * @param - /:id
+ */
+router.get("/find/:id", async (req, res) => {
+    try{
+        const user = await User.findById(req.params.id)
+        res.status(200).json(user)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+});
+
+/**
  * @method - PUT
  * @param - /:id
  * @description - User update
@@ -208,5 +222,33 @@ router.delete("/:id", auth, async (req, res) => {
     }
 })
 
+/**
+ * @method - GET
+ * @param - /:id
+ * @description - Get Courses of a User
+ */
+ router.get("/:id/courses", async (req, res) => {
+    try{
+        const courses = await User.findById(req.params.id).courses
+        courses.forEach(course => {
+            console.log("yo")
+        });
+        res.status(200).json(courses)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /logout
+ * @description - User Logout
+ */
+//  router.get("/logout", auth, async (req, res) => {
+//     console.log(req)
+//     req.logout()
+//     req.session = null
+//     res.redirect('/')
+// })
 
 module.exports = router;
