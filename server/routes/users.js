@@ -224,23 +224,6 @@ router.delete("/:id", auth, async (req, res) => {
 
 /**
  * @method - GET
- * @param - /:id
- * @description - Get Courses of a User
- */
- router.get("/:id/courses", async (req, res) => {
-    try{
-        const courses = await User.findById(req.params.id).courses
-        courses.forEach(course => {
-            console.log("yo")
-        });
-        res.status(200).json(courses)
-    } catch(err) {
-        res.status(500).json(err)
-    }
-})
-
-/**
- * @method - GET
  * @param - /logout
  * @description - User Logout
  */
