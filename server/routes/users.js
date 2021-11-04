@@ -224,6 +224,81 @@ router.delete("/:id", auth, async (req, res) => {
 
 /**
  * @method - GET
+ * @param - /:id
+ * @description - User's courses
+ */
+ router.get("/:id/courses", auth, async (req, res) => {
+    try{
+        // mongoose.Types.ObjectId(req.params.id)
+        await User.find()
+            .populate("courses")
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /:id
+ * @description - User's public courses
+ */
+ router.get("/:id/courses/public", auth, async (req, res) => {
+    try{
+        await User.find()
+            .populate({
+                path: 'courses',
+                match: {
+                  is_public: true
+                }
+            })
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /:id
+ * @description - User's private courses
+ */
+ router.get("/:id/courses/private", auth, async (req, res) => {
+    try{
+        await User.find()
+            .populate({
+                path: 'courses',
+                match: {
+                  is_public: false
+                }
+            })
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
+    }catch(err){
+        res.status(500).json(err)
+    }
+})
+
+
+/**
+ * @method - GET
  * @param - /logout
  * @description - User Logout
  */
