@@ -5,12 +5,9 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    isPublic: {
+    is_public: {
         type: Boolean,
         default: false
-    },
-    created_at: {
-        type: Date
     },
     owner_id: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'

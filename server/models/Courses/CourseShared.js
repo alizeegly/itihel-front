@@ -1,10 +1,10 @@
 const mongoose = require('mongoose')
 
 const CourseSharedSchema = new mongoose.Schema({
-    course:  {
+    course_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'Course'
     },
-    user:  {
+    user_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     roles:  [{

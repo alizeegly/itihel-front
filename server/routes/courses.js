@@ -56,7 +56,7 @@ router.delete("/:id", async (req, res) => {
 /**
  * @method - GET
  * @param - /find/:id
- * @description - Get One
+ * @description - Get One Course
  */
 router.get("/find/:id", async (req, res) => {
     try{
@@ -70,13 +70,33 @@ router.get("/find/:id", async (req, res) => {
 /**
  * @method - GET
  * @param - /
- * @description - Get All
+ * @description - Get All courses of all Users
  */
 router.get("/", async (req, res) => {
     try{
         const courses = await Course.find()
         res.status(200).json(courses)
     } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /:id
+ * @description - Get all public courses
+ */
+ router.get("/public", async (req, res) => {
+    try{
+        await Course.find({ is_public: true })
+        .exec(function(err, courses) {
+            if(err) {
+                console.log(err)
+            } else {
+                res.status(200).json(courses)
+            }
+        })
+    }catch(err){
         res.status(500).json(err)
     }
 })
