@@ -30,9 +30,6 @@ const UserSchema = new mongoose.Schema({
     last_connection: {
         type: Date
     },
-    roles: [
-        {type: mongoose.Schema.Types.ObjectId, ref: "Role"}
-    ],
     courses : [
         {type: mongoose.Schema.Types.ObjectId,ref:'Course'}
     ]

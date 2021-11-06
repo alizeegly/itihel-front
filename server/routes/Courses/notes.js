@@ -6,15 +6,24 @@ const Note = require("../../models/Notes/Note")
  * @param - /
  * @description - Note create
  */
-router.post("/", async (req, res) => {
-    const newNote = new Note(req.body)
-    try{
-        const savedNote = await newNote.save()
-        res.status(201).json(savedNote)
-    }catch(err){
-        res.status(500).json(err)
-    }
-})
+// router.post("/", async (req, res) => {
+//     const newNote = new Note(req.body)
+//     try{
+//         const savedNote = await newNote.save()
+//         Course.findByIdAndUpdate(req.body.course_id, { note_id: newNote._id },
+//             function (err, docs) {
+//             if (err){
+//                 console.log(err)
+//             }
+//             else{
+//                 console.log("Updated User : ", docs);
+//             }
+//         })
+//         res.status(200).json(newNote)
+//     }catch(err){
+//         res.status(500).json(err)
+//     }
+// })
 
 /**
  * @method - PUT

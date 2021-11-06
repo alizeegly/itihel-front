@@ -5,6 +5,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    text:  {
+        type: String,
+        default: ""
+    },
     is_public: {
         type: Boolean,
         default: false
@@ -13,12 +17,10 @@ const CourseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User',
         required: true
     },
-    note_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Note'
+    profile_picture: {
+        type: String,
+        default: ""
     },
-    shared_with: [
-        {type: mongoose.Schema.Types.ObjectId, ref: "User"}
-    ]
     
 }, {
     timestamps: true

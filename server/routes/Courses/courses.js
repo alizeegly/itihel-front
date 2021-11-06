@@ -1,26 +1,36 @@
 const router = require('express').Router()
 const mongoose = require('mongoose');
 const Course = require("../../models/Courses/Course")
+const CourseShared = require("../../models/Courses/CourseShared")
 const User = require("../../models/Users/User")
-var ObjectId = require('mongodb').ObjectId;
+const Role = require("../../models/Users/Role")
+const auth = require("../../middleware/auth");
 
 /**
  * @method - POST
  * @param - /
  * @description - Course create
  */
-router.post("/", async (req, res) => {
-    const newCourse = new Course(req.body)
+router.post("/", auth, async (req, res) => {
     try{
-        const savedCourse = await newCourse.save()
-        User.findById(req.body.owner_id, function(err, user) {
-            if (err) return res.send(err);
-            user.courses.push(newCourse._id);
-            user.save(function(err) {
-              if (err) return res.send(err);
-            });
+        const newCourse = new Course(req.body)
+        newCourse.save()
+        
+        User.findOne({_id: mongoose.Types.ObjectId(req.body.owner_id)}, function(err, user) {
+            if (err) return console.log(err)
+            user.courses.push(newCourse._id)
+            user.save()
         });
-        res.status(201).json(savedCourse)
+
+        const role_admin = await Role.findById("618702283f5059816c261d99")
+        const newCourseShared = new CourseShared({
+            course_id: newCourse._id,
+            user_id: newCourse.owner_id,
+            roles: [role_admin._id]
+        })
+        newCourseShared.save()
+        
+        res.redirect("/api/courses");
     }catch(err){
         res.status(500).json(err)
     }
@@ -31,7 +41,7 @@ router.post("/", async (req, res) => {
  * @param - /:id
  * @description - Course update
  */
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     try{
         const updatedCourse = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         res.status(200).json(updatedCourse)
@@ -45,7 +55,7 @@ router.put("/:id", async (req, res) => {
  * @param - id, user
  * @description - Course delete et delete dans user
  */
-router.delete("/:id/:user", async (req, res) => {
+router.delete("/:id/:user", auth, async (req, res) => {
     try{
         await Course.findByIdAndDelete(req.params.id)
 
@@ -64,7 +74,7 @@ router.delete("/:id/:user", async (req, res) => {
  * @param - /find/:id
  * @description - Get One Course
  */
-router.get("/find/:id", async (req, res) => {
+router.get("/find/:id", auth, async (req, res) => {
     try{
         const course = await Course.findById(req.params.id)
         res.status(200).json(course)
@@ -78,9 +88,9 @@ router.get("/find/:id", async (req, res) => {
  * @param - /
  * @description - Get All courses of all Users
  */
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
     try{
-        const courses = await Course.find()
+        const courses = await Course.find(req.query)
         res.status(200).json(courses)
     } catch(err) {
         res.status(500).json(err)
@@ -92,9 +102,9 @@ router.get("/", async (req, res) => {
  * @param - /:id
  * @description - Get all public courses
  */
- router.get("/public", async (req, res) => {
+ router.get("/public", auth, async (req, res) => {
     try{
-        await Course.find({ is_public: true })
+        await Course.find({ $and:[{is_public: true},req.query]})
         .exec(function(err, courses) {
             if(err) {
                 console.log(err)

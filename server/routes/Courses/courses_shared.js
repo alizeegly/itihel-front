@@ -19,6 +19,54 @@ router.post("/", async (req, res) => {
 })
 
 /**
+ * @method - POST
+ * @param - /:course
+ * @description - Get all partage d'un cours
+ */
+ router.get("/course/:course", async (req, res) => {
+    try{
+        await CourseShared
+            .find({course_id: req.params.course})
+            .populate('roles')
+            .populate('course_id')
+            .populate('user_id')
+            .exec(function(err, courses) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(courses)
+                }
+            })
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - POST
+ * @param - /:cours
+ * @description - Get all partage d'un user
+ */
+ router.get("/user/:user", async (req, res) => {
+    try{
+        await CourseShared
+            .find({user_id: req.params.user})
+            .populate('roles')
+            .populate('course_id')
+            .populate('user_id')
+            .exec(function(err, courses) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(courses)
+                }
+            })
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
  * @method - DELETE
  * @param - /:id
  * @description - User ne participe plus au cours
