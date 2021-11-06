@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Note = require("../models/Notes/Note")
+const Note = require("../../models/Notes/Note")
 
 /**
  * @method - POST

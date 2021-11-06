@@ -5,10 +5,10 @@ const {
 } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const auth = require("../middleware/auth");
+const auth = require("../../middleware/auth");
 const router = express.Router();
 
-const User = require("../models/Users/User");
+const User = require("../../models/Users/User");
 
 /**
  * @method - POST

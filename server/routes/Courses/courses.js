@@ -1,6 +1,6 @@
 const router = require('express').Router()
-const Course = require("../models/Courses/Course")
-const User = require("../models/Users/User")
+const Course = require("../../models/Courses/Course")
+const User = require("../../models/Users/User")
 
 /**
  * @method - POST

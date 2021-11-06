@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Role = require("../models/Users/Role")
+const Role = require("../../models/Users/Role")
 
 /**
  * @method - POST

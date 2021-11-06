@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const Score = require("../models/Quizz/Score")
+const Score = require("../../models/Quizz/Score")
 
 /**
  * @method - POST

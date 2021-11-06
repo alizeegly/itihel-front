@@ -4,16 +4,17 @@ const mongoose = require('mongoose')
 const cors = require("cors")
 const bodyParser = require("body-parser")
 
-const userRoute = require('./routes/users')
-const courseRoute = require('./routes/courses')
-const roleRoute = require('./routes/roles')
+const userRoute = require('./routes/Users/users')
+const courseRoute = require('./routes/Courses/courses')
+const coursesSharedRoute = require('./routes/Courses/courses_shared')
+const roleRoute = require('./routes/Users/roles')
 const quizzRoute = require('./routes/Quizz/quizz')
 const quizzQuestionsRoute = require('./routes/Quizz/quizz_questions')
 const quizzQuestionOptionsRoute = require('./routes/Quizz/quizz_question_options')
 const FlipCardsRoute = require('./routes/FlipCards/flip_cards')
 const FlipCardsQuestionsRoute = require('./routes/FlipCards/flip_cards_questions')
-const scoresRoute = require('./routes/scores')
-const notesRoute = require('./routes/notes')
+const scoresRoute = require('./routes/Quizz/scores')
+const notesRoute = require('./routes/Courses/notes')
 
 const PORT = process.env.PORT || 8800
 
@@ -30,6 +31,7 @@ mongoose.connect(
 
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
+app.use('/api/courses-shared', coursesSharedRoute)
 app.use('/api/notes', notesRoute)
 app.use('/api/roles', roleRoute)
 
