@@ -1,6 +1,8 @@
 const router = require('express').Router()
+const mongoose = require('mongoose');
 const Course = require("../../models/Courses/Course")
 const User = require("../../models/Users/User")
+var ObjectId = require('mongodb').ObjectId;
 
 /**
  * @method - POST
@@ -11,7 +13,6 @@ router.post("/", async (req, res) => {
     const newCourse = new Course(req.body)
     try{
         const savedCourse = await newCourse.save()
-        console.log(savedCourse._id)
         User.findById(req.body.owner_id, function(err, user) {
             if (err) return res.send(err);
             user.courses.push(newCourse._id);
@@ -41,13 +42,18 @@ router.put("/:id", async (req, res) => {
 
 /**
  * @method - DELETE
- * @param - /:id
- * @description - Course delete
+ * @param - id, user
+ * @description - Course delete et delete dans user
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/:user", async (req, res) => {
     try{
         await Course.findByIdAndDelete(req.params.id)
-        res.status(200).json("The course has been deleted")
+
+        await User.findByIdAndUpdate(req.params.user, 
+            { $pull: { courses: mongoose.Types.ObjectId(req.params.id)} },
+            { new: true }
+        )
+        res.redirect("/api/courses");
     } catch(err) {
         res.status(500).json(err)
     }

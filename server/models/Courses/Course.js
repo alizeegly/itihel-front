@@ -10,7 +10,8 @@ const CourseSchema = new mongoose.Schema({
         default: false
     },
     owner_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'User'
+        type: mongoose.Schema.Types.ObjectId, ref: 'User',
+        required: true
     },
     note_id: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Note'
