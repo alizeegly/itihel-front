@@ -14,7 +14,6 @@ const quizzQuestionOptionsRoute = require('./routes/Quizz/quizz_question_options
 const FlipCardsRoute = require('./routes/FlipCards/flip_cards')
 const FlipCardsQuestionsRoute = require('./routes/FlipCards/flip_cards_questions')
 const scoresRoute = require('./routes/Quizz/scores')
-// const notesRoute = require('./routes/Courses/notes')
 
 const PORT = process.env.PORT || 8800
 
@@ -32,7 +31,6 @@ mongoose.connect(
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
 app.use('/api/courses-shared', coursesSharedRoute)
-// app.use('/api/notes', notesRoute)
 app.use('/api/roles', roleRoute)
 
 app.use('/api/flip-cards', FlipCardsRoute)

@@ -7,7 +7,7 @@ const Score = require("../../models/Quizz/Score")
  * @description - Score create
  */
 router.post("/", async (req, res) => {
-    const newScore = new Note(req.body)
+    const newScore = new Score(req.body)
     try{
         const savedScore = await newScore.save()
         res.status(201).json(savedScore)
