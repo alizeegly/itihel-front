@@ -63,6 +63,9 @@ router.delete("/:id/:user", auth, async (req, res) => {
             { $pull: { courses: mongoose.Types.ObjectId(req.params.id)} },
             { new: true }
         )
+
+        await CourseShared.deleteOne({ course_id: req.params.id });
+
         res.redirect("/api/courses");
     } catch(err) {
         res.status(500).json(err)
@@ -90,7 +93,7 @@ router.get("/find/:id", auth, async (req, res) => {
  */
 router.get("/", auth, async (req, res) => {
     try{
-        const courses = await Course.find(req.query)
+        const courses = await Course.find(req.query).populate('owner_id')
         res.status(200).json(courses)
     } catch(err) {
         res.status(500).json(err)
