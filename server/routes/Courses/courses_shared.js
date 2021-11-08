@@ -2,7 +2,7 @@ const router = require('express').Router()
 const Course = require("../../models/Courses/Course")
 const CourseShared = require("../../models/Courses/CourseShared")
 const User = require("../../models/Users/User")
-
+const mongoose = require('mongoose');
 /**
  * @method - POST
  * @param - /
@@ -81,26 +81,96 @@ router.post("/", async (req, res) => {
 })
 
 /**
- * @method - PUT
- * @param - /:id
- * @description - Update des roles d'un user sur le cours
+ * @method - GET
+ * @param - /:user and :course
+ * @description - Get the roles of a user in a course
  */
-//  router.put("/:user/:course", async (req, res) => {
-//     try{
-//         const updatedRole = await CourseShared.findOneAndUpdate(
-//             { course_id: mongoose.Types.ObjectId(course), user_id: mongoose.Types.ObjectId(user) }, function (err, course) {
-//                 var role = course.roles.id(req.body.role);
-//                 subDoc = req.body;
-//                 post.save(function (err) {
-//                     if (err) return res.status(500).send(err);
-//                     res.send(post);
-//                 });
-//             });
-//         res.status(200).json(updatedRole)
-//     }catch(err){
-//         res.status(500).json(err)
-//     }
-// })
+ router.get("/:user/:course", async (req, res) => {
+    try{
+        await CourseShared
+        .find({user_id: req.params.user, course_id: req.params.course})
+        .populate('roles')
+        .populate('course_id')
+        .populate('user_id')
+        .exec(function(err, courses) {
+            if(err) {
+                console.log(err)
+            } else {
+                res.status(200).json(courses)
+            }
+        })
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 
+/**
+ * @method - POST
+ * @param - /:user :course
+ * @description - Update un rôle d'un user sur le cours
+ */
+ router.post("/:user/:course", async (req, res) => {
+    try{
+        var courseShared = await CourseShared.findOne({ course_id: mongoose.Types.ObjectId(req.params.course), user_id: mongoose.Types.ObjectId(req.params.user) })
+
+        var hasRole = await courseShared.roles.some(function (role) {
+            return role.equals(req.body.roles);
+        });
+
+        // If the courseShared already has the role, we remove it
+        if(hasRole){
+            CourseShared.findOneAndUpdate(
+                { course_id: mongoose.Types.ObjectId(req.params.course), user_id: mongoose.Types.ObjectId(req.params.user) }, 
+                { $pull: { roles: req.body.roles } },
+               function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.redirect("/api/courses-shared/" + req.params.user + "/" + req.params.course)
+                    }
+                 }
+            );
+        } else { // if the courseShared doesn't have the role, we add it
+            CourseShared.findOneAndUpdate(
+                { course_id: mongoose.Types.ObjectId(req.params.course), user_id: mongoose.Types.ObjectId(req.params.user) }, 
+                { $addToSet: { roles: req.body.roles } },
+               function (error, success) {
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        res.redirect("/api/courses-shared/" + req.params.user + "/" + req.params.course)
+                    }
+                 }
+            );
+        }
+            
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - POST
+ * @param - /:id
+ * @description - Add un rôle d'un user sur le cours
+ */
+ router.post("/remove/:user/:course", async (req, res) => {
+    try{
+        CourseShared.findOneAndUpdate(
+            {course_id: mongoose.Types.ObjectId(req.params.course), user_id: mongoose.Types.ObjectId(req.params.user)}, 
+            { $pull: { roles: req.body.roles  } },
+           function (error, success) {
+                if (error) {
+                    console.log(error);
+                } else {
+                    // res.json(success);
+                    res.redirect("/api/courses-shared/" + req.params.user + "/" + req.params.course)
+                }
+             }
+        );
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 
 module.exports = router
