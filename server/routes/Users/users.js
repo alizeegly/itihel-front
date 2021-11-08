@@ -7,8 +7,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const router = express.Router();
+const cookieParser = require('cookie-parser');
 
 const User = require("../../models/Users/User");
+
 
 /**
  * @method - POST
@@ -78,11 +80,14 @@ router.post("/signup",
                 },
                 (err, token) => {
                     if (err) throw err;
+                    session=req.session
+                    session.user=user
                     res.status(200).json({
                         token
                     });
                 }
             );
+            
         } catch (err) {
             console.log(err.message);
             res.status(500).send("Error in Saving");
@@ -147,6 +152,14 @@ router.post("/login",
                 },
                 (err, token) => {
                     if (err) throw err;
+                    session=req.session
+                    session.user=user
+
+                    console.log(token)
+                    console.log(req.session)
+                    
+                    res.cookie('token', token, { httpOnly: true })
+                    .sendStatus(200);
                     res.status(200).json({
                         token
                     });
@@ -161,6 +174,22 @@ router.post("/login",
         }
     }
 );
+
+/**
+ * @method - GET
+ * @param - /logout
+ * @description - User Logout
+ */
+ router.get("/logout", auth, async (req, res) => {
+    res.clearCookie()
+    req.session.destroy((err) => {
+        if(err) {
+            return console.log(err);
+        }
+        console.log("logout")
+        res.redirect('/api/users');
+    });
+})
 
 /**
  * @method - GET
@@ -296,17 +325,18 @@ router.delete("/:id", auth, async (req, res) => {
     }
 })
 
-
 /**
  * @method - GET
- * @param - /logout
- * @description - User Logout
+ * @param - /
+ * @description - Get All
  */
-//  router.get("/logout", auth, async (req, res) => {
-//     console.log(req)
-//     req.logout()
-//     req.session = null
-//     res.redirect('/')
-// })
+ router.get("/", async (req, res) => {
+    try{
+        const users = await User.find()
+        res.status(200).json(users)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
 
 module.exports = router;
