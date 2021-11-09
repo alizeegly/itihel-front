@@ -15,7 +15,7 @@ router.post("/", async (req, res) => {
             const savedCourse = await newCourse.save()
             res.status(201).json(savedCourse)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -43,7 +43,7 @@ router.post("/", async (req, res) => {
                     }
                 })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -71,7 +71,7 @@ router.post("/", async (req, res) => {
                     }
                 })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
             await CourseShared.findByIdAndDelete(req.params.id)
             res.status(200).json("The course shared has been deleted with this user")
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -117,7 +117,7 @@ router.post("/", async (req, res) => {
                 }
             })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -165,7 +165,7 @@ router.post("/", async (req, res) => {
                 );
             }
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -193,7 +193,7 @@ router.post("/", async (req, res) => {
                 }
             )
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)

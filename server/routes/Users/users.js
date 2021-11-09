@@ -211,12 +211,14 @@ router.post("/login",
 router.get("/me", 
 auth, async (req, res) => {
     try {
-        if(req.session.isAuth){
-            const user = await User.findById(req.user.id);
+        // if(req.session.isAuth){
+            console.log(req.session.user)
+            const user = await User.findById(req.user.id)
+            .populate('courses');
             res.json(user);
-        } else {
-            res.status(500).json({"error": "connection-error"})
-        }
+        // } else {
+        //     res.status(500).json({"message": "Error connection"})
+        // }
     } catch (e) {
         res.send({
             message: "Error in Fetching user"
@@ -235,7 +237,7 @@ router.get("/find/:id", async (req, res) => {
             const user = await User.findById(req.params.id)
             res.status(200).json(user)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -253,7 +255,7 @@ router.get("/find/:id", async (req, res) => {
             const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
             res.status(200).json(updatedUser)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -271,7 +273,7 @@ router.delete("/:id", auth, async (req, res) => {
             await User.findByIdAndDelete(req.params.id)
             res.status(200).json("The user has been deleted")
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -296,7 +298,7 @@ router.delete("/:id", auth, async (req, res) => {
                     }
                 })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -326,7 +328,7 @@ router.delete("/:id", auth, async (req, res) => {
                     }
                 })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -356,7 +358,7 @@ router.delete("/:id", auth, async (req, res) => {
                     }
                 })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -374,7 +376,7 @@ router.delete("/:id", auth, async (req, res) => {
             const users = await User.find()
             res.status(200).json(users)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)

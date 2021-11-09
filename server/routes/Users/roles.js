@@ -13,7 +13,7 @@ const Role = require("../../models/Users/Role")
             const savedRole = await newRole.save()
             res.status(201).json(savedRole)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -31,7 +31,7 @@ const Role = require("../../models/Users/Role")
             const updatedRole = await Role.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
             res.status(200).json(updatedRole)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -49,7 +49,7 @@ router.delete("/:id", async (req, res) => {
             await Role.findByIdAndDelete(req.params.id)
             res.status(200).json("The role has been deleted")
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -67,7 +67,7 @@ router.get("/find/:id", async (req, res) => {
             const role = await Role.findById(req.params.id)
             res.status(200).json(role)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -85,7 +85,7 @@ router.get("/", async (req, res) => {
             const roles = await Role.find()
             res.status(200).json(roles)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)

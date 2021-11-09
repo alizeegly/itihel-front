@@ -33,7 +33,7 @@ router.post("/", auth, async (req, res) => {
             
             res.redirect("/api/courses")
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -51,7 +51,7 @@ router.put("/:id", auth, async (req, res) => {
             const updatedCourse = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
             res.status(200).json(updatedCourse)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
@@ -77,7 +77,7 @@ router.delete("/:id/:user", auth, async (req, res) => {
 
             res.redirect("/api/courses")
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -95,7 +95,7 @@ router.get("/find/:id", auth, async (req, res) => {
             const course = await Course.findById(req.params.id)
             res.status(200).json(course)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         res.status(500).json(err)
@@ -114,7 +114,7 @@ router.get("/", auth, async (req, res) => {
             const courses = await Course.find(req.query).populate('owner_id')
             res.status(200).json(courses)
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     } catch(err) {
         console.log(err)
@@ -139,7 +139,7 @@ router.get("/", auth, async (req, res) => {
                 }
             })
         } else {
-            res.status(500).json({"error": "connection-error"})
+            res.status(500).json({"message": "Error connection"})
         }
     }catch(err){
         res.status(500).json(err)
