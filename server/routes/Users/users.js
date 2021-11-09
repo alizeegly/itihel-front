@@ -11,7 +11,6 @@ const cookieParser = require('cookie-parser');
 
 const User = require("../../models/Users/User");
 
-
 /**
  * @method - POST
  * @param - /signup
@@ -80,8 +79,12 @@ router.post("/signup",
                 },
                 (err, token) => {
                     if (err) throw err;
-                    session=req.session
-                    session.user=user
+                    req.session.isAuth = true
+                    req.session.user = user
+                    req.session.token = token
+        
+                    console.log(req.session)
+
                     res.status(200).json({
                         token
                     });
@@ -152,14 +155,18 @@ router.post("/login",
                 },
                 (err, token) => {
                     if (err) throw err;
-                    session=req.session
-                    session.user=user
+                    req.session.isAuth = true
+                    req.session.user = user
+                    req.session.token = token
 
-                    console.log(token)
-                    console.log(req.session)
+                    if(user.pseudo == "SUPER_ADMIN"){
+                        req.session.isAdmin = true
+                    } else {
+                        req.session.isAdmin = false
+                    }
                     
-                    res.cookie('token', token, { httpOnly: true })
-                    .sendStatus(200);
+                    console.log(req.session)
+
                     res.status(200).json({
                         token
                     });
@@ -182,12 +189,17 @@ router.post("/login",
  */
  router.get("/logout", auth, async (req, res) => {
     res.clearCookie()
+    req.session.isAuth = false
+    req.session.user = null
+    req.session.token = ""
+    req.session.isAdmin = false
     req.session.destroy((err) => {
         if(err) {
             return console.log(err);
         }
-        console.log("logout")
-        res.redirect('/api/users');
+        res.status(500).json({
+            message: "Logout"
+        });
     });
 })
 
@@ -199,9 +211,12 @@ router.post("/login",
 router.get("/me", 
 auth, async (req, res) => {
     try {
-        // request.user is getting fetched from Middleware after token authentication
-        const user = await User.findById(req.user.id);
-        res.json(user);
+        if(req.session.isAuth){
+            const user = await User.findById(req.user.id);
+            res.json(user);
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch (e) {
         res.send({
             message: "Error in Fetching user"
@@ -216,8 +231,12 @@ auth, async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        const user = await User.findById(req.params.id)
-        res.status(200).json(user)
+        if(req.session.isAuth){
+            const user = await User.findById(req.params.id)
+            res.status(200).json(user)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }
@@ -230,8 +249,12 @@ router.get("/find/:id", async (req, res) => {
  */
  router.put("/:id", auth, async (req, res) => {
     try{
-        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        res.status(200).json(updatedUser)
+        if(req.session.isAuth){
+            const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+            res.status(200).json(updatedUser)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -244,8 +267,12 @@ router.get("/find/:id", async (req, res) => {
  */
 router.delete("/:id", auth, async (req, res) => {
     try{
-        await User.findByIdAndDelete(req.params.id)
-        res.status(200).json("The user has been deleted")
+        if(req.session.isAuth){
+            await User.findByIdAndDelete(req.params.id)
+            res.status(200).json("The user has been deleted")
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }
@@ -258,16 +285,19 @@ router.delete("/:id", auth, async (req, res) => {
  */
  router.get("/:id/courses", auth, async (req, res) => {
     try{
-        // mongoose.Types.ObjectId(req.params.id)
-        await User.find()
-            .populate("courses")
-            .exec(function(err, users) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.status(200).json(users)
-                }
-            })
+        if(req.session.isAuth){
+            await User.find()
+                .populate("courses")
+                .exec(function(err, users) {
+                    if(err) {
+                        console.log(err)
+                    } else {
+                        res.status(200).json(users)
+                    }
+                })
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -280,20 +310,24 @@ router.delete("/:id", auth, async (req, res) => {
  */
  router.get("/:id/courses/public", auth, async (req, res) => {
     try{
-        await User.find()
-            .populate({
-                path: 'courses',
-                match: {
-                  is_public: true
-                }
-            })
-            .exec(function(err, users) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.status(200).json(users)
-                }
-            })
+        if(req.session.isAuth){
+            await User.find()
+                .populate({
+                    path: 'courses',
+                    match: {
+                    is_public: true
+                    }
+                })
+                .exec(function(err, users) {
+                    if(err) {
+                        console.log(err)
+                    } else {
+                        res.status(200).json(users)
+                    }
+                })
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -306,20 +340,24 @@ router.delete("/:id", auth, async (req, res) => {
  */
  router.get("/:id/courses/private", auth, async (req, res) => {
     try{
-        await User.find()
-            .populate({
-                path: 'courses',
-                match: {
-                  is_public: false
-                }
-            })
-            .exec(function(err, users) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.status(200).json(users)
-                }
-            })
+        if(req.session.isAuth){
+            await User.find()
+                .populate({
+                    path: 'courses',
+                    match: {
+                    is_public: false
+                    }
+                })
+                .exec(function(err, users) {
+                    if(err) {
+                        console.log(err)
+                    } else {
+                        res.status(200).json(users)
+                    }
+                })
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -332,8 +370,12 @@ router.delete("/:id", auth, async (req, res) => {
  */
  router.get("/", async (req, res) => {
     try{
-        const users = await User.find()
-        res.status(200).json(users)
+        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
+            const users = await User.find()
+            res.status(200).json(users)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }

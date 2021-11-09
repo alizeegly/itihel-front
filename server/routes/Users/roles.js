@@ -9,8 +9,12 @@ const Role = require("../../models/Users/Role")
  router.post("/", async (req, res) => {
     const newRole = new Role(req.body)
     try{
-        const savedRole = await newRole.save()
-        res.status(201).json(savedRole)
+        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
+            const savedRole = await newRole.save()
+            res.status(201).json(savedRole)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -23,8 +27,12 @@ const Role = require("../../models/Users/Role")
  */
  router.put("/:id", async (req, res) => {
     try{
-        const updatedRole = await Role.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-        res.status(200).json(updatedRole)
+        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
+            const updatedRole = await Role.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+            res.status(200).json(updatedRole)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     }catch(err){
         res.status(500).json(err)
     }
@@ -37,8 +45,12 @@ const Role = require("../../models/Users/Role")
  */
 router.delete("/:id", async (req, res) => {
     try{
-        await Role.findByIdAndDelete(req.params.id)
-        res.status(200).json("The role has been deleted")
+        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
+            await Role.findByIdAndDelete(req.params.id)
+            res.status(200).json("The role has been deleted")
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }
@@ -51,8 +63,12 @@ router.delete("/:id", async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        const role = await Role.findById(req.params.id)
-        res.status(200).json(role)
+        if(req.session.isAuth){
+            const role = await Role.findById(req.params.id)
+            res.status(200).json(role)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }
@@ -65,8 +81,12 @@ router.get("/find/:id", async (req, res) => {
  */
 router.get("/", async (req, res) => {
     try{
-        const roles = await Role.find()
-        res.status(200).json(roles)
+        if(req.session.isAuth){
+            const roles = await Role.find()
+            res.status(200).json(roles)
+        } else {
+            res.status(500).json({"error": "connection-error"})
+        }
     } catch(err) {
         res.status(500).json(err)
     }

@@ -5,6 +5,7 @@ const cors = require("cors")
 const bodyParser = require("body-parser")
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
+const MongoDBSession = require('connect-mongodb-session')(session)
 
 const userRoute = require('./routes/Users/users')
 const courseRoute = require('./routes/Courses/courses')
@@ -23,25 +24,8 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser());
 
-app.use(
-    session({
-      key: "user_sid",
-      secret: "somerandomstuffs",
-      resave: false,
-      saveUninitialized: false,
-      cookie: {
-        expires: 600000,
-      },
-    })
-);
 
-app.use((req, res, next) => {
-    if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie("user_sid");
-    }
-    next();
-});
-
+// BDD + Session
 mongoose.connect(
     "mongodb+srv://admin:admin@cluster0.7fyac.mongodb.net/itihel?retryWrites=true&w=majority", 
     {
@@ -50,6 +34,22 @@ mongoose.connect(
 ).then(() => console.log("DB Connection Successful !"))
 .catch((err) => console.log(err))
 
+const store = new MongoDBSession({
+    uri: "mongodb+srv://admin:admin@cluster0.7fyac.mongodb.net/itihel?retryWrites=true&w=majority",
+    collection: "sessions"
+})
+
+app.use(
+    session({
+        secret: "itihel",
+        resave: false,
+        saveUninitialized: false,
+        store: store
+    })
+)
+
+
+// Routes
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
 app.use('/api/courses-shared', coursesSharedRoute)
