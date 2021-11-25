@@ -286,7 +286,7 @@ router.delete("/:id", auth, async (req, res) => {
  router.get("/:id/courses", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
-            await User.find()
+            await User.findById(req.params.id)
                 .populate("courses")
                 .exec(function(err, users) {
                     if(err) {
@@ -311,7 +311,7 @@ router.delete("/:id", auth, async (req, res) => {
  router.get("/:id/courses/public", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
-            await User.find()
+            await User.findById(req.params.id)
                 .populate({
                     path: 'courses',
                     match: {
@@ -341,7 +341,7 @@ router.delete("/:id", auth, async (req, res) => {
  router.get("/:id/courses/private", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
-            await User.find()
+            await User.findById(req.params.id)
                 .populate({
                     path: 'courses',
                     match: {
