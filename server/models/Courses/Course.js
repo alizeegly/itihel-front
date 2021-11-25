@@ -21,7 +21,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         default: ""
     },
-    
+    categories:  [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Role',
+        required: true
+    }]
 }, {
     timestamps: true
 })

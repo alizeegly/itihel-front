@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser')
 const MongoDBSession = require('connect-mongodb-session')(session)
 
 const userRoute = require('./routes/Users/users')
+const categoryRoute = require('./routes/Courses/categories')
 const courseRoute = require('./routes/Courses/courses')
 const coursesSharedRoute = require('./routes/Courses/courses_shared')
 const roleRoute = require('./routes/Users/roles')
@@ -52,6 +53,7 @@ app.use(
 // Routes
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
+app.use('/api/categories', categoryRoute)
 app.use('/api/courses-shared', coursesSharedRoute)
 app.use('/api/roles', roleRoute)
 

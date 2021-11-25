@@ -18,9 +18,9 @@ const User = require("../../models/Users/User");
  */
 router.post("/signup",
     [
-        check("pseudo", "Please Enter a valid Pseudo")
-        .not()
-        .isEmpty(),
+        check("pseudo", "Please enter a Pseudo").not().isEmpty(),
+        check("first_name", "Please enter a first name").not().isEmpty(),
+        check("last_name", "Please enter a last name").not().isEmpty(),
         check("email", "Please enter a valid email").isEmail(),
         check("password", "Please enter a valid password").isLength({
             min: 6
@@ -124,9 +124,7 @@ router.post("/login",
             password
         } = req.body;
         try {
-            let user = await User.findOne({
-                email
-            });
+            let user = await User.findOne({email});
             if (!user)
                 return res.status(400).json({
                     message: "User Not Exist"
