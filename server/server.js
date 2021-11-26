@@ -51,15 +51,17 @@ app.use(
 
 
 // Routes
+app.get('/', function(req, res) {
+    res.send('API is working perfectly');
+});
+  
 app.use('/api/users', userRoute)
 app.use('/api/courses', courseRoute)
 app.use('/api/categories', categoryRoute)
 app.use('/api/courses-shared', coursesSharedRoute)
 app.use('/api/roles', roleRoute)
-
 app.use('/api/flip-cards', FlipCardsRoute)
 app.use('/api/flip-cards-questions', FlipCardsQuestionsRoute)
-
 app.use('/api/quizz', quizzRoute)
 app.use('/api/quizz-questions', quizzQuestionsRoute)
 app.use('/api/quizz-questions-options', quizzQuestionOptionsRoute)
