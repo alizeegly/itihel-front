@@ -181,14 +181,31 @@ router.get("/", auth, async (req, res) => {
  router.post("/:course/categories", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
-            const newCategory = await Category.findById(req.body.category)
+            const newCategory = Category.findById(req.body.category)
+            const newCourse = Course.findById(req.params.course)
 
+            // Ajout de la catégorie dans le tableau categories du cours
             Course.findOne({_id: mongoose.Types.ObjectId(req.params.course)}, function(err, course) {
                 if (err) return console.log(err)
-                course.categories.push(newCategory._id)
-                course.save()
-                res.redirect("/api/courses/" + req.params.course + "/categories")
-            });
+                if(course.categories.includes(mongoose.Types.ObjectId(req.body.category))){ // Si le cours possède déjà la catégorie
+                    console.log("categorie deja existante")
+                } else {
+                    course.categories.push(mongoose.Types.ObjectId(req.body.category))
+                    course.save()
+                }
+            })
+            // Ajout du cours dans le tableau courses de la catégorie
+            Category.findOne({_id: mongoose.Types.ObjectId(req.body.category)}, function(err, category) {
+                if (err) return console.log(err)
+                if(category.courses.includes(mongoose.Types.ObjectId(req.params.course))){ // Si la catégorie possède déjà le cours
+                    console.log("cours deja existant")
+                    res.status(500).json({"message": "error"})
+                } else {
+                    category.courses.push(mongoose.Types.ObjectId(req.params.course))
+                    category.save()   
+                    res.redirect("/api/courses/" + req.params.course + "/categories")
+                }
+            })
         } else {
             res.status(500).json({"message": "Error connection"})
         }
