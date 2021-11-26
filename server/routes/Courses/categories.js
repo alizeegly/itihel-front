@@ -1,12 +1,13 @@
 const router = require('express').Router()
 const Category = require("../../models/Courses/Category")
+const auth = require("../../middleware/auth")
 
 /**
  * @method - POST
  * @param - /
  * @description - Category create
  */
- router.post("/", async (req, res) => {
+ router.post("/", auth, async (req, res) => {
     const newCategory = new Category(req.body)
     try{
         if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
@@ -25,7 +26,7 @@ const Category = require("../../models/Courses/Category")
  * @param - /:id
  * @description - Category update
  */
- router.put("/:id", async (req, res) => {
+ router.put("/:id", auth, async (req, res) => {
     try{
         if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
             const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
@@ -43,7 +44,7 @@ const Category = require("../../models/Courses/Category")
  * @param - /:id
  * @description - Category delete
  */
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     try{
         if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
             await Category.findByIdAndDelete(req.params.id)
@@ -61,7 +62,7 @@ router.delete("/:id", async (req, res) => {
  * @param - /find/:id
  * @description - Get One
  */
-router.get("/find/:id", async (req, res) => {
+router.get("/find/:id", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
             const category = await Category.findById(req.params.id)
@@ -79,10 +80,11 @@ router.get("/find/:id", async (req, res) => {
  * @param - /
  * @description - Get All
  */
-router.get("/", async (req, res) => {
+router.get("/", auth, async (req, res) => {
     try{
         if(req.session.isAuth){
-            const categories = await Category.find()
+            console.log(req.headers)
+            const categories = await Category.find().populate('courses')
             res.status(200).json(categories)
         } else {
             res.status(500).json({"message": "Error connection"})
@@ -92,6 +94,30 @@ router.get("/", async (req, res) => {
     }
 })
 
-
+/**
+ * @method - GET
+ * @param - course
+ * @description - Get All course of one category
+ */
+ router.get("/:category/courses", auth, async (req, res) => {
+    try{
+        if(req.session.isAuth){
+            await Category.findById(req.params.category)
+                .populate("courses")
+                .exec(function(err, courses) {
+                    if(err) {
+                        console.log(err)
+                    } else {
+                        res.status(200).json(courses)
+                    }
+                })
+        } else {
+            res.status(500).json({"message": "Error connection"})
+        }
+    } catch(err) {
+        console.log(err)
+        res.status(500).json(err)
+    }
+})
 
 module.exports = router
