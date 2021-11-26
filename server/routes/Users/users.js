@@ -105,7 +105,6 @@ router.post("/signup",
  */
 router.post("/login",
     [
-        check("email", "Please enter a valid email").isEmail(),
         check("password", "Please enter a valid password").isLength({
             min: 6
         })
@@ -121,10 +120,16 @@ router.post("/login",
 
         const {
             email,
+            pseudo,
             password
         } = req.body;
         try {
-            let user = await User.findOne({email});
+            let user
+            if(email){
+                user = await User.findOne({email});
+            } else if(pseudo){
+                user = await User.findOne({pseudo});
+            }
             if (!user)
                 return res.status(400).json({
                     message: "User Not Exist"
