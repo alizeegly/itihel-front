@@ -1,0 +1,69 @@
+.profil{
+    width: 100%;
+    display: flex;
+
+    .page{
+        width: calc(100% - 310px);
+        height: 100vh;
+        margin-left: 310px;
+
+        .header{
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            width: 90%;
+            margin: 0 auto;
+            height: 150px;
+            .header__button{
+                background: #FFD9E0;
+                text-transform: uppercase;
+                font-weight: 600;
+                font-family: Quicksand;
+                font-size: 20px;
+                padding: 15px 20px;
+                border-radius: 22px;
+            }
+        }
+
+        .container{
+            width: 100%;
+            height: calc(100% - 150px);
+            position: relative;
+            overflow: hidden;
+            .container__wrapper{
+                position: absolute;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -20%);
+                width: 80%;
+                height: 80%;
+                margin: 0 auto;
+                z-index: 30;
+                background: #FFF;
+                border-radius: 10px;
+                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            }
+
+            .carre_jaune{
+                position: absolute;
+                bottom: 0;
+                right: 20px;
+                width: 210px;
+                height: 210px;
+                z-index: 2;
+                background: #F3CD74;
+                transform: rotate(-20deg);
+            }
+            .carre_bleu{
+                position: absolute;
+                bottom: -20px;
+                right: -20px;
+                z-index: 2;
+                width: 210px;
+                height: 210px;
+                border: 2px solid #3D90BD;
+                transform: rotate(-20deg);
+            }
+        }
+    }
+}
