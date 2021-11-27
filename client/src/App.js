@@ -11,9 +11,9 @@ class App extends Component {
     return (
       <div className="App">
         <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="profil" element={<Profil />} />
-          <Route path="404" element={<NotFound />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/profile" element={<Profil />} />
+          <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to ="/404" />}/>
         </Routes>
       </div>

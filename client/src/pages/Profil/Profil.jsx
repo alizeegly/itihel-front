@@ -14,6 +14,8 @@ const Profil = () => {
                     </div>
                 </div>
                 <div className="container">
+                    <div className="carre_bleuc"></div>
+                    <div className="carre_bleuf"></div>
                     <div className="carre_jaune"></div>
                     <div className="carre_bleu"></div>
                     <Container/>
