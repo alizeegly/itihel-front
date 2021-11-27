@@ -9,13 +9,13 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        Salut les gars !
         <Home />
         <Router>
           <Routes>
             <Route path="/" exact />
             <Route path="/login" />
             <Route path="/signup" />
+            <Route path="/profil" />
           </Routes>
         </Router>
       </div>
