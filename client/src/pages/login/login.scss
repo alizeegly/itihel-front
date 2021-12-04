@@ -40,7 +40,7 @@
   }
 
   .main_content {
-    height: 100%;
+    height: calc(100% - 75px);
     position: relative;
 
     .card {
