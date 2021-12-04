@@ -5,7 +5,7 @@ import "./courses.scss"
 
 const Courses = () => {
     return (
-
+        <Sidebar/>
     )
 }
 
