@@ -170,14 +170,15 @@ router.post("/login",
                     
                     console.log(req.session)
 
-                    res.status(200).json({
-                        token
-                    });
+                    res.status(200).json(
+                        req.session
+                    );
                 }
             );
 
         } catch (e) {
             console.error(e);
+            console.log("Server Error")
             res.status(500).json({
                 message: "Server Error"
             });
