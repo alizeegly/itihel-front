@@ -30,19 +30,6 @@
             height: calc(100% - 150px);
             position: relative;
             overflow: hidden;
-            .container__wrapper{
-                position: absolute;
-                top: 20%;
-                left: 50%;
-                transform: translate(-50%, -20%);
-                width: 80%;
-                height: 80%;
-                margin: 0 auto;
-                z-index: 30;
-                background: #FFF;
-                border-radius: 10px;
-                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            }
 
             .carre_jaune{
                 position: absolute;
@@ -84,6 +71,89 @@
                 border: 3px solid #3D90BD;
                 transform: rotate(-30deg);
             }
+
+
+            .container__wrapper{
+                position: absolute;
+                top: 20%;
+                left: 50%;
+                transform: translate(-50%, -20%);
+                width: 80%;
+                height: 80%;
+                margin: 0 auto;
+                z-index: 30;
+                background: #FFF;
+                border-radius: 10px;
+                box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            
+                .container__box{
+                    width: 90%;
+                    height: 90%;
+                    margin: 0 auto;
+                    display: flex;
+                    justify-content: space-between;
+                    flex-direction: column;
+            
+                    .title{
+                        font-family: Quicksand;
+                        font-size: 50px;
+                        font-weight: bold;
+                    }
+            
+                    .form{
+                        display: flex;
+                        align-items: space-between;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        .form__item{
+                            display: flex;
+                            flex-direction: column;
+                            width: 47%;
+                            margin-bottom: 25px;
+                            label{
+                                font-family: Quicksand;
+                                font-size: 18px;
+                                font-weight: 400;
+                            }
+                            input{
+                                width: 85%;
+                                height: 35px;
+                                padding: 5px 15px;
+                                border: 1px solid #DDDDDD;
+                                border-radius: 8px;
+                                outline: none;
+                            }
+                            svg{
+                                cursor: pointer;
+                            }
+                        }
+                    }
+            
+                    button{
+                        font-family: Quicksand;
+                        font-size: 18px;
+                        padding: 15px 20px;
+                        background: #FEE996;
+                        border-radius: 15px;
+                        border: none;
+                        cursor: pointer;
+                        color: #444444;
+                    }
+                }
+            }
         }
+    }
+
+    @media (max-width: 1024px){
+        .page {
+            width: 100vw;
+        }
+    }
+}
+
+@media (max-width: 1024px){
+    .profil {
+        width: 100vw;
+        position: relative;
     }
 }

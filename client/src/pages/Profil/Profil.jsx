@@ -1,16 +1,16 @@
 import React from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import Container from '../../components/User/Container'
 import "./profil.scss"
 
-const Profil = () => {
+function Profil(){
+    
     return (
         <div className="profil">
             <Sidebar/>
             <div className="page">
                 <div className="header">
                     <div className="header__button">
-                        Log out
+                        Se déconnecter
                     </div>
                 </div>
                 <div className="container">
@@ -18,7 +18,44 @@ const Profil = () => {
                     <div className="carre_bleuf"></div>
                     <div className="carre_jaune"></div>
                     <div className="carre_bleu"></div>
-                    <Container/>
+                    <div className="container__wrapper">
+                        <form className="container__box">
+                            <h1 className="title">Mon compte</h1>
+                            <div className="form">
+                                <div className="form__item">
+                                    <label>Nom</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                    />
+                                </div>
+                                <div className="form__item">
+                                    <label>Prénom</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control" 
+                                    />
+                                </div>
+                                <div className="form__item">
+                                    <label>Pseudo</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                    />
+                                </div>
+                                <div className="form__item">
+                                    <label>E-mail</label>
+                                    <input 
+                                        type="text" 
+                                        className="form-control"
+                                    />
+                                </div>
+                            </div>
+                            <div>
+                                <button type="submit">Modifier</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

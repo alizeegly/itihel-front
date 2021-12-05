@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 
 
-const Button = ({text, link, color, background}) => {
+const Button = ({text, link, color="#444444", background="#FEE996", border="1px solid #FEE996"}) => {
 
     const ButtonStyled = styled.button`
         font-family: Quicksand;
@@ -14,13 +14,14 @@ const Button = ({text, link, color, background}) => {
         border-radius: 15px;
         border: none;
         cursor: pointer;
-        color: ${color}
+        color: ${color};
+        border: ${border};
     `;
 
     return (
         <Link to={link}>
             <div>
-                <ButtonStyled theme="pink" to="/">{text}</ButtonStyled>
+                <ButtonStyled to="/">{text}</ButtonStyled>
             </div>
         </Link>
     )
