@@ -4,6 +4,7 @@ var UserProfile = (function() {
     var id = "";
     var token = "";
     var isAdmin = false;
+    var isAuth = false;
 
     var getPseudo = function() {
         return pseudo
@@ -39,6 +40,13 @@ var UserProfile = (function() {
     var setIsAdmin = function(i) {
         isAdmin = i
     };
+
+    var getIsAuth = function() {
+        return isAuth
+    };
+    var setIsAuth = function(i) {
+        isAuth = i
+    };
   
     return {
         getPseudo: getPseudo,
@@ -50,7 +58,9 @@ var UserProfile = (function() {
         getToken: getToken,
         setToken: setToken,
         getIsAdmin: getIsAdmin,
-        setIsAdmin: setIsAdmin
+        setIsAdmin: setIsAdmin,
+        getIsAuth: getIsAuth,
+        setIsAuth: setIsAuth
     }
   
 })();

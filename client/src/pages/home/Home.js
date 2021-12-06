@@ -4,7 +4,6 @@ import "./home.scss"
 import UserProfile from '../../UserProfile'
 
 function Home() {
-    console.log(UserProfile.getPseudo())
     return (
         <div className="wrap">
             <h1>Je suis la home !</h1>

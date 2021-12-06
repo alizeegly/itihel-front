@@ -168,7 +168,8 @@ router.post("/login",
                         req.session.isAdmin = false
                     }
                     
-                    console.log(req.session)
+                    console.log("Connected as", req.session.user.pseudo)
+                    // console.log(req.session)
 
                     res.status(200).json(
                         req.session
@@ -191,13 +192,16 @@ router.post("/login",
  * @param - /logout
  * @description - User Logout
  */
- router.get("/logout", auth, async (req, res) => {
+ router.get("/logout", async (req, res) => {
     res.clearCookie()
+    console.log("------------------------------------------------")
+    console.log(req.session)
     req.session.isAuth = false
     req.session.user = null
     req.session.token = ""
     req.session.isAdmin = false
     req.session.destroy((err) => {
+        console.log(logout)
         if(err) {
             return console.log(err);
         }
@@ -215,14 +219,14 @@ router.post("/login",
 router.get("/me", 
 auth, async (req, res) => {
     try {
-        // if(req.session.isAuth){
+        if(req.session.isAuth){
             console.log(req.session.user)
             const user = await User.findById(req.user.id)
             .populate('courses');
             res.json(user);
-        // } else {
-        //     res.status(500).json({"message": "Error connection"})
-        // }
+        } else {
+            res.status(500).json({"message": "Error connection"})
+        }
     } catch (e) {
         res.send({
             message: "Error in Fetching user"
@@ -237,12 +241,12 @@ auth, async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
+        // if(req.session.isAuth){
             const user = await User.findById(req.params.id)
             res.status(200).json(user)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        // } else {
+        //     res.status(500).json({"message": "Error connection"})
+        // }
     } catch(err) {
         res.status(500).json(err)
     }
@@ -253,14 +257,14 @@ router.get("/find/:id", async (req, res) => {
  * @param - /:id
  * @description - User update
  */
- router.put("/:id", auth, async (req, res) => {
+ router.put("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
+        // if(req.session.isAuth){
             const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
             res.status(200).json(updatedUser)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        // } else {
+        //     res.status(500).json({"message": "Error connection"})
+        // }
     }catch(err){
         res.status(500).json(err)
     }
