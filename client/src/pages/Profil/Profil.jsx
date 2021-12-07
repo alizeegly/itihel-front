@@ -36,13 +36,12 @@ function Profil(){
           ...user,
           [e.target.name]: e.target.value
         })
-      };
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault()
         axios.put("/api/users/" + user._id, user)
             .then((res) => {
-                console.log(res.data)
                 console.log("modifié")
                 navigate("/profile");
             })
@@ -53,6 +52,7 @@ function Profil(){
 
     const getUser = async () => {
         try {
+            console.log(session)
             const user = await axios.get("/api/users/find/" + session.user.id)
             setUser(user.data);
         } catch (err) {

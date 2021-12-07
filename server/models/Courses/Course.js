@@ -17,13 +17,17 @@ const CourseSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, ref: 'User',
         required: true
     },
-    profile_picture: {
+    picture: {
         type: String,
         default: ""
     },
     categories:  [
         {type: mongoose.Schema.Types.ObjectId,ref:'Category'}
-    ]
+    ],
+    description: {
+        type: String,
+        default: ""
+    }
 }, {
     timestamps: true
 })
