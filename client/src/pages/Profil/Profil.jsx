@@ -4,6 +4,8 @@ import "./profil.scss"
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import axios from 'axios'
+import AvatarUploader from 'react-avatar-uploader';
+import Button from '../../components/Button/Button'
 
 function Profil(){
     const navigate = useNavigate()
@@ -21,21 +23,14 @@ function Profil(){
         updatedAt: "",
         _id: ""
     })
+    const [showFormPassword, setShowFormPassword] = useState(false)
 
     const logout = () => {
         clear()
         console.log("logout")
         navigate("/login", {message: "Vous êtes déconnecté"})
     }
-
-    // const handleChange = (e) => {
-    //     const { name, value } = e.target;
-    //     const newUser = user
-    //     newUser[name] = value
-    //     setUser({newUser});
-    //     console.log(user)
-    // }
-
+    
     const handleChange = e => {
         setUser({
           ...user,
@@ -64,21 +59,10 @@ function Profil(){
             console.error(err.message);
         }
     };
-        
+
     useEffect(()=>{
         getUser()
-    },[])
-
-    // if(!user._id){
-        // axios.get("/api/users/find/" + session.user.id)
-        //     .then((res) => {
-        //         console.log(res.data)
-        //         setUser(res.data)
-        //     })
-        //     .catch(err => {
-        //         console.log(err)
-        //     })
-    // }
+    }, [])
 
     return (
         <div className="profil">
@@ -95,51 +79,53 @@ function Profil(){
                     <div className="carre_jaune"></div>
                     <div className="carre_bleu"></div>
                     <div className="container__wrapper">
-                        <form className="container__box" onSubmit={handleSubmit}>
+                        <form className="container__box" onSubmit={handleSubmit} >
                             <h1 className="title">Mon compte</h1>
                             <div className="form">
-                                <div className="form__item">
-                                    <label>Nom</label>
-                                    <input 
-                                        type="text" 
-                                        className="form-control" 
-                                        name="last_name"
-                                        value={user.last_name}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form__item">
-                                    <label>Prénom</label>
-                                    <input 
-                                        type="text" 
-                                        name="first_name"
-                                        className="form-control" 
-                                        value={user.first_name}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form__item">
-                                    <label>Pseudo</label>
-                                    <input 
-                                        type="text" 
-                                        name="pseudo"
-                                        className="form-control"
-                                        value={user.pseudo}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form__item">
-                                    <label>E-mail</label>
-                                    <input 
-                                        type="text" 
-                                        name="email"
-                                        className="form-control"
-                                        value={user.email}
-                                        onChange={handleChange}
-                                    />
+                                <div className="form_inputs">
+                                    <div className="form__item">
+                                        <label>Nom</label>
+                                        <input 
+                                            type="text" 
+                                            className="form-control" 
+                                            name="last_name"
+                                            value={user.last_name}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form__item">
+                                        <label>Prénom</label>
+                                        <input 
+                                            type="text" 
+                                            name="first_name"
+                                            className="form-control" 
+                                            value={user.first_name}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form__item">
+                                        <label>Pseudo</label>
+                                        <input 
+                                            type="text" 
+                                            name="pseudo"
+                                            className="form-control"
+                                            value={user.pseudo}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
+                                    <div className="form__item">
+                                        <label>E-mail</label>
+                                        <input 
+                                            type="text" 
+                                            name="email"
+                                            className="form-control"
+                                            value={user.email}
+                                            onChange={handleChange}
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="form__buttons">
                                 <button type="submit">Modifier</button>
                             </div>
                         </form>

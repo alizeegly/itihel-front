@@ -1,7 +1,5 @@
 import React from 'react'
 import "./home.scss"
-// import ReactSession from 'react-client-session'
-import UserProfile from '../../UserProfile'
 
 function Home() {
     return (

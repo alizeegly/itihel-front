@@ -9,7 +9,7 @@ import { useSession } from  'react-use-session';
 
 function App() {
 
-  // Récupérer
+  // Récupérer la session
   const { session, saveJWT, clear } = useSession('itihel');
 
   return (
@@ -20,10 +20,10 @@ function App() {
         <Route path="404" element={<NotFound />} />
         <Route path="*" element={<Navigate to ="/404" />}/>
         <Route path="profile" element={
-          session ? (
+          session ? ( // Si une session est trouvée (= si on est connecté)
             <Profil />
           ) : (
-            <Navigate to="login" />
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
         }/>
       </Routes>

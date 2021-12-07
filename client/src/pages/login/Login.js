@@ -2,17 +2,16 @@ import React, { useState } from 'react'
 import "./login.scss"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
-import UserProfile from '../../UserProfile'
 import { useSession } from  'react-use-session';
 
 const initialState = {email: "", password: ""}
 
-function Login({message = ""}) {
+function Login({message}) {
     const [formData, setFormData] = useState(initialState)
     const [error, setError] = useState('')
-    
+
     const navigate = useNavigate()
-    const { session, saveJWT, clear } = useSession('itihel');
+    const { session, saveJWT, clear } = useSession('itihel'); // Récupérer la session itihel
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -22,10 +21,9 @@ function Login({message = ""}) {
         } else {
             axios.post("/api/users/login", {email: formData.email, password: formData.password})
                 .then((res) => {
-                    console.log(res.data)
-                    saveJWT(res.data.token)
+                    saveJWT(res.data.token) // Créer la session
                     console.log(session)
-                    navigate("/profile");
+                    navigate("/profile"); // Redirection vers la page profile
                 })
             .catch(err => {
                 setError("Mauvais email ou mauvais mot de passe")
@@ -49,10 +47,10 @@ function Login({message = ""}) {
                 </div>
             </div>
             <div className="main_content">
+                {message}
                 <form className="card" onSubmit={handleSubmit}>
                     <div className="log_in">
                         <h2>Log in</h2>
-                        {message}
                     </div>
                     <div className="form">
                         <div className="email_pseudo">
