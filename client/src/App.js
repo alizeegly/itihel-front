@@ -5,6 +5,7 @@ import Home from "./pages/home/Home";
 import Login from "./pages/login/Login";
 import NotFound from './pages/Errors/NotFound';
 import { useSession } from  'react-use-session';
+import Courses from "./pages/Courses/Courses";
 
 
 function App() {
@@ -22,6 +23,20 @@ function App() {
         <Route path="profile" element={
           session ? ( // Si une session est trouvée (= si on est connecté)
             <Profil />
+          ) : (
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+          )
+        }/>
+        <Route path="/courses/create" element={
+          session ? ( // Si une session est trouvée (= si on est connecté)
+            <Profil />
+          ) : (
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+          )
+        }/>
+        <Route path="/courses" element={
+          session ? ( // Si une session est trouvée (= si on est connecté)
+            <Courses />
           ) : (
             <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
