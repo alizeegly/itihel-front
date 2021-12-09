@@ -121,6 +121,13 @@
             flex-direction: column;
             margin-top: 15px;
           }
+
+          .password {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-bottom: 30px;
+          }
         }
 
         .form-col-right {
@@ -136,6 +143,13 @@
             flex-direction: column;
             margin-top: 15px;
           }
+
+          .password_confirm {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-bottom: 30px;
+          }
         }
 
         label {
@@ -146,12 +160,6 @@
           height: 30px;
           border-radius: 5px;
           border: 1px solid #d3d3d5;
-        }
-        .password {
-          display: flex;
-          flex-direction: column;
-          margin-top: 15px;
-          margin-bottom: 30px;
         }
       }
 
