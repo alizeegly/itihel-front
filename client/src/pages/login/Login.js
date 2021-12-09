@@ -3,7 +3,6 @@ import "./login.scss"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
-
 const initialState = {email: "", password: ""}
 
 function Login({message}) {
@@ -47,6 +46,10 @@ function Login({message}) {
                 </div>
             </div>
             <div className="main_content">
+                <div className="carre_bleu_c"></div>
+                <div className="carre_bleu_f"></div>
+                <div className="carre_jaune"></div>
+                <div className="carre_bleu"></div>
                 {message}
                 <form className="card" onSubmit={handleSubmit}>
                     <div className="log_in">

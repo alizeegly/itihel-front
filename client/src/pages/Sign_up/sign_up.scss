@@ -1,4 +1,4 @@
-.login_page {
+.signup_page {
   height: 100vh;
 
   .header {
@@ -51,7 +51,7 @@
       width: 230px;
       height: 230px;
       z-index: 2;
-      background: #F3CD74;
+      background: #94DDDE;
       transform: rotate(-20deg);
     }
     .carre_bleu{
@@ -71,7 +71,7 @@
       width: 230px;
       height: 230px;
       z-index: 2;
-      background: #94DDDE;
+      background: #F3CD74;
       transform: rotate(-30deg);
     }
     .carre_bleu_f{
@@ -86,7 +86,7 @@
     }
 
     .card {
-      width: 500px;
+      width: 850px;
       position: absolute;
       top: 40%;
       left: 50%;
@@ -96,7 +96,7 @@
       border-radius: 10px;
       box-shadow: 0 0 20px 8px #d0d0d0;
 
-      .log_in {
+      .sign_up {
         h2 {
           font-size: 50px;
           margin-top: 0;
@@ -105,6 +105,39 @@
       }
 
       .form {
+        display: flex;
+        justify-content: space-between;
+
+        .form-col-left {
+          width: 45%;
+
+          .last_name {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .pseudo {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+          }
+        }
+
+        .form-col-right {
+          width: 45%;
+
+          .first_name {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .email {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+          }
+        }
+
         label {
           margin-bottom: 5px;
           font-family: 'Quicksand', sans-serif;
@@ -114,10 +147,6 @@
           border-radius: 5px;
           border: 1px solid #d3d3d5;
         }
-        .email_pseudo {
-          display: flex;
-          flex-direction: column;
-        }
         .password {
           display: flex;
           flex-direction: column;
@@ -126,7 +155,7 @@
         }
       }
 
-      .button_login {
+      .signup_login {
         font-family: 'Quicksand', sans-serif;
         text-transform: uppercase;
         text-decoration: none;

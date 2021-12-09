@@ -4,7 +4,6 @@ import "./profil.scss"
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import axios from 'axios'
-import AvatarUploader from 'react-avatar-uploader';
 import Button from '../../components/Button/Button'
 
 function Profil(){
