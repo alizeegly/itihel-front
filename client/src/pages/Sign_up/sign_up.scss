@@ -1,0 +1,184 @@
+.signup_page {
+  height: 100vh;
+
+  .header {
+    display: flex;
+    position: relative;
+    padding-top: 25px;
+    align-items: center;
+
+    .logo {
+      margin-left: 50px;
+
+      p {
+        margin: 0;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 40px;
+        font-weight: bold;
+      }
+    }
+
+    .options {
+      position: absolute;
+      right: 0;
+      margin-right: 50px;
+
+      a {
+        font-family: 'Quicksand', sans-serif;
+        text-transform: uppercase;
+        font-size: 20px;
+        text-decoration: none;
+      }
+
+      .login_button {
+        background: #FFD9E0;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 16px;
+        padding: 15px 25px;
+        border-radius: 22px;
+        outline: none;
+        border: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .main_content {
+    height: calc(100% - 75px);
+    position: relative;
+    overflow: hidden;
+
+    .carre_jaune{
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+      width: 230px;
+      height: 230px;
+      z-index: 2;
+      background: #94DDDE;
+      transform: rotate(-20deg);
+    }
+    .carre_bleu{
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      border: 3px solid #3D90BD;
+      transform: rotate(-20deg);
+    }
+    .carre_bleu_c{
+      position: absolute;
+      top: 80px;
+      left: -20px;
+      width: 230px;
+      height: 230px;
+      z-index: 2;
+      background: #F3CD74;
+      transform: rotate(-30deg);
+    }
+    .carre_bleu_f{
+      position: absolute;
+      top: 90px;
+      left: 15px;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      border: 3px solid #3D90BD;
+      transform: rotate(-30deg);
+    }
+
+    .card {
+      width: 850px;
+      position: absolute;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      margin: auto;
+      padding: 50px;
+      border-radius: 10px;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+
+      .sign_up {
+        h2 {
+          font-size: 50px;
+          margin-top: 0;
+          margin-bottom: 25px;
+        }
+      }
+
+      .form {
+        display: flex;
+        justify-content: space-between;
+
+        .form-col-left {
+          width: 45%;
+
+          .last_name {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .pseudo {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+          }
+
+          .password {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-bottom: 30px;
+          }
+        }
+
+        .form-col-right {
+          width: 45%;
+
+          .first_name {
+            display: flex;
+            flex-direction: column;
+          }
+
+          .email {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+          }
+
+          .password_confirm {
+            display: flex;
+            flex-direction: column;
+            margin-top: 15px;
+            margin-bottom: 30px;
+          }
+        }
+
+        label {
+          margin-bottom: 5px;
+          font-family: 'Quicksand', sans-serif;
+        }
+        input {
+          height: 30px;
+          border-radius: 5px;
+          border: 1px solid #d3d3d5;
+        }
+      }
+
+      .button_signup {
+        font-family: 'Quicksand', sans-serif;
+        font-size: 18px;
+        padding: 15px 20px;
+        background: #FEE996;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        color: #444444;
+      }
+    }
+  }
+}
