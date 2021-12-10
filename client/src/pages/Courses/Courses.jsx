@@ -36,7 +36,7 @@ const Courses = () => {
              <ul>
                 {courses && courses.courses && courses.courses.map((user) => (
                     <div key={user._id} className="user">
-                        <Course title={user.title} description={user.description}/>
+                        <Course title={user.title} description={user.description} />
 
                     </div>
                 ))}
