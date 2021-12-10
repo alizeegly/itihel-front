@@ -1,14 +1,129 @@
-.wrap {
-    margin: 0 auto;
-    width: 80%;
-    height: 80vh;
-    background-color: black;
-    h1 {
-        color: red;
-        text-align: center;
+h1, p, a {
+    font-family: Quicksand;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.home {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    overflow: hidden;
+
+    // Section de gauche avec box shadow
+    .left_home {
+        width: 35%;
+        padding: 30px 30px 50px;
+        background-color: white;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        position: relative;
+        display: flex;
+
+        > div { 
+            margin-top: 150px;
+            h1 {
+                font-size: 44px;
+                padding: 10px 0 25px;
+
+                span {
+                    color: #95DDDC;
+                }
+            }
+
+            p {
+                font-size: 18px;
+                line-height: 25px;
+                max-width: 80%;
+                text-align: justify;
+            }
+
+            a {
+                font-weight: 600;
+                transition: 0.3s;
+
+                &:hover {
+                    padding-left: 25px;
+                    background-image: url('../../assets/img/right-arrow.png');
+                    background-position: left center;
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                }
+            }
+    
+            a:hover {
+                color: #1C2143;
+            }
+        }
     }
-    p {
-        color: blue;
-        text-align: center;
+
+    // Partie de droite (décoration)
+    .right_home {
+        width: 60%;
+        padding: 30px;
+        position: relative;
+
+        a {
+            padding: 10px 15px;
+            margin: 0 10px;
+            border-radius: 4px;
+            float: right;
+            background-color: #FFD9E0;
+            border: 2px solid transparent;
+            transition: 0.3s;
+
+            &:hover {
+                background-color: white;
+                border: 2px solid #FFD9E0;
+            }
+        }
+
+        // Block de couleur de décoration
+        .shape {
+            position: absolute;
+
+            &:first-of-type {
+                background-color: #95DDDC;
+                top: 60%;
+                left: -12%;
+                height: 250px;
+                width: 250px;
+                transform: rotate(35deg);
+                z-index: -1;
+
+                &::before {
+                    content: "";
+                    height: 250px;
+                    width: 250px;
+                    position: absolute;
+                    top: -10%;
+                    right: -10%;
+                    border: 3px solid #3B8FBF;
+                }
+            }
+
+            &:last-of-type {
+                border: 3px solid #3B8FBF;
+                top: 10%;
+                right: -8%;
+                transform: rotate(35deg);
+                z-index: -1;
+                height: 200px;
+                width: 200px;
+
+                &::before {
+                    content: "";
+                    height: 200px;
+                    width: 200px;
+                    position: absolute;
+                    top: -8%;
+                    right: -8%;
+                    border: 3px solid #F3CD74;
+                }
+            }
+        }
     }
 }
