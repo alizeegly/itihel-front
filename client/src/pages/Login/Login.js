@@ -40,10 +40,11 @@ function Login({message}) {
         <div className="login_page">
             <div className="header">
                 <div className="logo">
-                    <p>Itihel</p>
+                    <a href="/">Itihel</a>
                 </div>
                 <div className="options">
-                    <button className="signup_button" href="#">Sign up</button>
+                    <a className="login_button" href="/login">Login</a>
+                    <a className="signup_button" href="/signup">Sign up</a>
                 </div>
             </div>
             <div className="main_content">
