@@ -27,7 +27,7 @@ function Profil(){
     const logout = () => {
         clear()
         console.log("logout")
-        navigate("/login", {message: "Vous êtes déconnecté"})
+        navigate("/login", {message: "Vous êtes déconnecté"})// redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
     }
     
     const handleChange = e => {
@@ -39,10 +39,10 @@ function Profil(){
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.put("/api/users/" + user._id, user)
+        axios.put("/api/users/" + user._id, user) // Lien pour modifier un user
             .then((res) => {
                 console.log("modifié")
-                navigate("/profile");
+                navigate("/profile") // redirect vers page profile
             })
             .catch(err => {
                 console.log(err)

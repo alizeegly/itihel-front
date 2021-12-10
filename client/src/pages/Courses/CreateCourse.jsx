@@ -18,14 +18,14 @@ const customStyles = {
       transform: 'translate(-50%, -50%)',
       padding: 35,
       width: "40%"
-    },
+    }
 };
 
 Modal.setAppElement('#root');
 
 const CreateCourse = () => {
     const [modalIsOpen, setIsOpen] = useState(false)
-    const { session, saveJWT, clear } = useSession('itihel')
+    const { session, saveJWT, clear } = useSession('itihel') // Récup session itihel
     const navigate = useNavigate()
     const [course, setCourse] = useState({
         title: "",
@@ -53,10 +53,10 @@ const CreateCourse = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        axios.post("/api/courses/", course)
+        axios.post("/api/courses/", course) // Lien create course de l'api
             .then((res) => {
                 console.log("ajouté !")
-                navigate("/courses");
+                navigate("/courses") // redirect vers page listes des courses
             })
             .catch(err => {
                 console.log(err)
