@@ -21,14 +21,14 @@ function App() {
         <Route path="sign_up" element={<Sign_up />} />
         <Route path="404" element={<NotFound />} />
         <Route path="*" element={<Navigate to ="/404" />}/>
-        <Route path="profile" element={<Profil />}/>
-        {/*<Route path="profile" element={*/}
-        {/*  session ? ( // Si une session est trouvée (= si on est connecté)*/}
-        {/*    <Profil />*/}
-        {/*  ) : (*/}
-        {/*    <Navigate to="login" /> // Sinon on est renvoyé vers 404*/}
-        {/*  )*/}
-        {/*}/>*/}
+        {/*<Route path="profile" element={<Profil />}/>*/}
+        <Route path="profile" element={
+          session ? ( // Si une session est trouvée (= si on est connecté)
+            <Profil />
+          ) : (
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+          )
+        }/>
       </Routes>
     </div>
   );
