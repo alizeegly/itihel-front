@@ -45,10 +45,11 @@ function Sign_up() {
         <div className="signup_page">
             <div className="header">
                 <div className="logo">
-                    <p>Itihel</p>
+                    <a href="/">Itihel</a>
                 </div>
                 <div className="options">
-                    <button className="login_button" href="#">Login</button>
+                    <a className="signup_button" href="/login">Sign up</a>
+                    <a className="login_button" href="/login">Login</a>
                 </div>
             </div>
             <div className="main_content">
