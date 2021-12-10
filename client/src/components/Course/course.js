@@ -13,6 +13,7 @@ const Course = (props) => {
         <div class="information">
             <h1>{props.title}</h1>
                 <p>{props.description}</p>
+                <p>{props.date}</p>
         </div>
 
         </div>
