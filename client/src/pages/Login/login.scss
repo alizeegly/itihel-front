@@ -30,11 +30,17 @@
         text-decoration: none;
       }
 
-      .signup_option {
-        margin-left: 70px;
-        padding: 10px 20px;
-        background-color: #FEE996;
-        border-radius: 20px;
+      .signup_button {
+        background: #FFD9E0;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 16px;
+        padding: 15px 25px;
+        border-radius: 22px;
+        outline: none;
+        border: none;
+        cursor: pointer;
       }
     }
   }
@@ -42,6 +48,48 @@
   .main_content {
     height: calc(100% - 75px);
     position: relative;
+    overflow: hidden;
+
+    .carre_jaune{
+      position: absolute;
+      bottom: 0;
+      right: 20px;
+      width: 230px;
+      height: 230px;
+      z-index: 2;
+      background: #F3CD74;
+      transform: rotate(-20deg);
+    }
+    .carre_bleu{
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      border: 3px solid #3D90BD;
+      transform: rotate(-20deg);
+    }
+    .carre_bleu_c{
+      position: absolute;
+      top: 80px;
+      left: -20px;
+      width: 230px;
+      height: 230px;
+      z-index: 2;
+      background: #94DDDE;
+      transform: rotate(-30deg);
+    }
+    .carre_bleu_f{
+      position: absolute;
+      top: 90px;
+      left: 15px;
+      z-index: 2;
+      width: 230px;
+      height: 230px;
+      border: 3px solid #3D90BD;
+      transform: rotate(-30deg);
+    }
 
     .card {
       width: 500px;
@@ -52,7 +100,7 @@
       margin: auto;
       padding: 50px;
       border-radius: 10px;
-      box-shadow: 0 0 20px 8px #d0d0d0;
+      box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
       .log_in {
         h2 {
@@ -86,11 +134,13 @@
 
       .button_login {
         font-family: 'Quicksand', sans-serif;
-        text-transform: uppercase;
-        text-decoration: none;
-        padding: 10px 20px;
-        background-color: #FEE996;
-        border-radius: 20px;
+        font-size: 18px;
+        padding: 15px 20px;
+        background: #FEE996;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        color: #444444;
       }
     }
   }

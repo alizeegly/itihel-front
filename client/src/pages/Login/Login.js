@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import "./login.scss"
+import Button from '../../components/Button/Button'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
@@ -42,11 +43,14 @@ function Login({message}) {
                     <p>Itihel</p>
                 </div>
                 <div className="options">
-                    <button className="login_option" href="#">Log in</button>
-                    <button className="signup_option" href="#">Sign up</button>
+                    <button className="signup_button" href="#">Sign up</button>
                 </div>
             </div>
             <div className="main_content">
+                <div className="carre_bleu_c"></div>
+                <div className="carre_bleu_f"></div>
+                <div className="carre_jaune"></div>
+                <div className="carre_bleu"></div>
                 {message}
                 <form className="card" onSubmit={handleSubmit}>
                     <div className="log_in">
