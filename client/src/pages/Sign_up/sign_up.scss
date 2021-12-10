@@ -30,11 +30,17 @@
         text-decoration: none;
       }
 
-      .signup_option {
-        margin-left: 70px;
-        padding: 10px 20px;
-        background-color: #FEE996;
-        border-radius: 20px;
+      .login_button {
+        background: #FFD9E0;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-family: 'Quicksand', sans-serif;
+        font-size: 16px;
+        padding: 15px 25px;
+        border-radius: 22px;
+        outline: none;
+        border: none;
+        cursor: pointer;
       }
     }
   }
@@ -163,13 +169,15 @@
         }
       }
 
-      .signup_login {
+      .button_signup {
         font-family: 'Quicksand', sans-serif;
-        text-transform: uppercase;
-        text-decoration: none;
-        padding: 10px 20px;
-        background-color: #FEE996;
-        border-radius: 20px;
+        font-size: 18px;
+        padding: 15px 20px;
+        background: #FEE996;
+        border-radius: 15px;
+        border: none;
+        cursor: pointer;
+        color: #444444;
       }
     }
   }

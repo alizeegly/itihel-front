@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import "./login.scss"
+import Button from '../../components/Button/Button'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
+
 const initialState = {email: "", password: ""}
 
 function Login({message}) {
@@ -41,8 +43,7 @@ function Login({message}) {
                     <p>Itihel</p>
                 </div>
                 <div className="options">
-                    <button className="login_option" href="#">Log in</button>
-                    <button className="signup_option" href="#">Sign up</button>
+                    <button className="signup_button" href="#">Sign up</button>
                 </div>
             </div>
             <div className="main_content">
