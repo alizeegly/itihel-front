@@ -56,7 +56,7 @@ function Sign_up() {
                 <div className="carre_bleu_f"></div>
                 <div className="carre_jaune"></div>
                 <div className="carre_bleu"></div>
-                <form className="card">
+                <form className="card" onSubmit={handleSubmit}>
                     <div className="sign_up">
                         <h2>Sign up</h2>
                     </div>
@@ -90,6 +90,7 @@ function Sign_up() {
                             </div>
                         </div>
                     </div>
+                    <p>{error}</p>
                     <button className="button_signup" type="submit">Sign up</button>
                 </form>
             </div>
