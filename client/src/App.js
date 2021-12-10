@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Courses from "./pages/Courses/Courses";
 import Profil from "./pages/Profil/Profil";
 import Home from "./pages/home/Home";
+import CourseParameters from "./pages/Course/CourseParameters";
+import Course from "./pages/Course/Course";
 import Login from "./pages/Login/Login";
 import Sign_up from "./pages/Sign_up/Sign_up";
 import NotFound from './pages/Errors/NotFound';
@@ -32,6 +34,20 @@ function App() {
         <Route path="/courses" element={
           session ? ( // Si une session est trouvée (= si on est connecté)
             <Courses />
+          ) : (
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+          )
+        }/>
+        <Route path="/course/:id" exact element={
+          session ? ( // Si une session est trouvée (= si on est connecté)
+            <Course />
+          ) : (
+            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+          )
+        }/> 
+        <Route path="/course/:id/parameters" exact element={
+          session ? ( // Si une session est trouvée (= si on est connecté)
+            <CourseParameters />
           ) : (
             <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
