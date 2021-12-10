@@ -9,7 +9,6 @@ import { useSession } from  'react-use-session';
 
 
 function App() {
-
   // Récupérer la session
   const { session, saveJWT, clear } = useSession('itihel');
 
