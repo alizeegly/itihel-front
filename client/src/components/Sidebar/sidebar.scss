@@ -58,4 +58,19 @@
             }
         }
     }
+
+    @media (max-width: 1024px){
+        .s-sidebar__trigger {
+            width: 32px;
+            position: absolute;
+            top: 18px;
+            left: 250px;
+        }
+    }
+
+    @media (min-width: 1024px){
+        .s-sidebar__trigger {
+            display: none
+         }
+    }
 }

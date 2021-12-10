@@ -12,30 +12,26 @@ const auth = require("../../middleware/auth")
  * @param - /
  * @description - Course create
  */
-router.post("/", auth, async (req, res) => {
+router.post("/", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const newCourse = new Course(req.body)
-            newCourse.save()
-            
-            User.findOne({_id: mongoose.Types.ObjectId(req.body.owner_id)}, function(err, user) {
-                if (err) return console.log(err)
-                user.courses.push(newCourse._id)
-                user.save()
-            });
+        const newCourse = new Course(req.body)
+        newCourse.save()
+        
+        User.findOne({_id: mongoose.Types.ObjectId(req.body.owner_id)}, function(err, user) {
+            if (err) return console.log(err)
+            user.courses.push(newCourse._id)
+            user.save()
+        });
 
-            const role_admin = await Role.findById("618702283f5059816c261d99")
-            const newCourseShared = new CourseShared({
-                course_id: newCourse._id,
-                user_id: newCourse.owner_id,
-                roles: [role_admin._id]
-            })
-            newCourseShared.save()
-            
-            res.redirect("/api/courses")
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const role_admin = await Role.findById("618702283f5059816c261d99")
+        const newCourseShared = new CourseShared({
+            course_id: newCourse._id,
+            user_id: newCourse.owner_id,
+            roles: [role_admin._id]
+        })
+        newCourseShared.save()
+        
+        res.redirect("/api/courses")
     }catch(err){
         res.status(500).json(err)
     }
@@ -46,14 +42,10 @@ router.post("/", auth, async (req, res) => {
  * @param - /:id
  * @description - Course update
  */
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const updatedCourse = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-            res.status(200).json(updatedCourse)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const updatedCourse = await Course.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedCourse)
     }catch(err){
         res.status(500).json(err)
     }
@@ -64,22 +56,18 @@ router.put("/:id", auth, async (req, res) => {
  * @param - id, user
  * @description - Course delete et delete dans user
  */
-router.delete("/:id/:user", auth, async (req, res) => {
+router.delete("/:id/:user", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await Course.findByIdAndDelete(req.params.id)
+       await Course.findByIdAndDelete(req.params.id)
 
-            await User.findByIdAndUpdate(req.params.user, 
-                { $pull: { courses: mongoose.Types.ObjectId(req.params.id)} },
-                { new: true }
-            )
+        await User.findByIdAndUpdate(req.params.user, 
+            { $pull: { courses: mongoose.Types.ObjectId(req.params.id)} },
+            { new: true }
+        )
 
-            await CourseShared.deleteOne({ course_id: req.params.id });
+        await CourseShared.deleteOne({ course_id: req.params.id });
 
-            res.redirect("/api/courses")
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        res.redirect("/api/courses")
     } catch(err) {
         res.status(500).json(err)
     }
@@ -90,14 +78,10 @@ router.delete("/:id/:user", auth, async (req, res) => {
  * @param - /find/:id
  * @description - Get One Course
  */
-router.get("/find/:id", auth, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const course = await Course.findById(req.params.id)
-            res.status(200).json(course)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const course = await Course.findById(req.params.id)
+        res.status(200).json(course)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -108,15 +92,10 @@ router.get("/find/:id", auth, async (req, res) => {
  * @param - /
  * @description - Get All courses of all Users
  */
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
     try{
-        console.log(req.session)
-        if(req.session.isAuth){
-            const courses = await Course.find(req.query).populate('owner_id')
-            res.status(200).json(courses)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const courses = await Course.find(req.query).populate('owner_id')
+        res.status(200).json(courses)
     } catch(err) {
         console.log(err)
         res.status(500).json(err)
@@ -128,20 +107,16 @@ router.get("/", auth, async (req, res) => {
  * @param - /:id
  * @description - Get all public courses
  */
- router.get("/public", auth, async (req, res) => {
+ router.get("/public", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await Course.find({ $and:[{is_public: true},req.query]})
-            .exec(function(err, courses) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.status(200).json(courses)
-                }
-            })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await Course.find({ $and:[{is_public: true},req.query]})
+        .exec(function(err, courses) {
+            if(err) {
+                console.log(err)
+            } else {
+                res.status(200).json(courses)
+            }
+        })
     }catch(err){
         res.status(500).json(err)
     }
@@ -152,21 +127,17 @@ router.get("/", auth, async (req, res) => {
  * @param - course
  * @description - Get All categories of one course
  */
- router.get("/:course/categories", auth, async (req, res) => {
+ router.get("/:course/categories", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await Course.findById(req.params.course)
-                .populate("categories")
-                .exec(function(err, categories) {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        res.status(200).json(categories)
-                    }
-                })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await Course.findById(req.params.course)
+            .populate("categories")
+            .exec(function(err, categories) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(categories)
+                }
+            })
     } catch(err) {
         console.log(err)
         res.status(500).json(err)
@@ -178,37 +149,33 @@ router.get("/", auth, async (req, res) => {
  * @param - course
  * @description - Add a categorie to a course
  */
- router.post("/:course/categories", auth, async (req, res) => {
+ router.post("/:course/categories", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const newCategory = Category.findById(req.body.category)
-            const newCourse = Course.findById(req.params.course)
+        const newCategory = Category.findById(req.body.category)
+        const newCourse = Course.findById(req.params.course)
 
-            // Ajout de la catégorie dans le tableau categories du cours
-            Course.findOne({_id: mongoose.Types.ObjectId(req.params.course)}, function(err, course) {
-                if (err) return console.log(err)
-                if(course.categories.includes(mongoose.Types.ObjectId(req.body.category))){ // Si le cours possède déjà la catégorie
-                    console.log("categorie deja existante")
-                } else {
-                    course.categories.push(mongoose.Types.ObjectId(req.body.category))
-                    course.save()
-                }
-            })
-            // Ajout du cours dans le tableau courses de la catégorie
-            Category.findOne({_id: mongoose.Types.ObjectId(req.body.category)}, function(err, category) {
-                if (err) return console.log(err)
-                if(category.courses.includes(mongoose.Types.ObjectId(req.params.course))){ // Si la catégorie possède déjà le cours
-                    console.log("cours deja existant")
-                    res.status(500).json({"message": "error"})
-                } else {
-                    category.courses.push(mongoose.Types.ObjectId(req.params.course))
-                    category.save()   
-                    res.redirect("/api/courses/" + req.params.course + "/categories")
-                }
-            })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        // Ajout de la catégorie dans le tableau categories du cours
+        Course.findOne({_id: mongoose.Types.ObjectId(req.params.course)}, function(err, course) {
+            if (err) return console.log(err)
+            if(course.categories.includes(mongoose.Types.ObjectId(req.body.category))){ // Si le cours possède déjà la catégorie
+                console.log("categorie deja existante")
+            } else {
+                course.categories.push(mongoose.Types.ObjectId(req.body.category))
+                course.save()
+            }
+        })
+        // Ajout du cours dans le tableau courses de la catégorie
+        Category.findOne({_id: mongoose.Types.ObjectId(req.body.category)}, function(err, category) {
+            if (err) return console.log(err)
+            if(category.courses.includes(mongoose.Types.ObjectId(req.params.course))){ // Si la catégorie possède déjà le cours
+                console.log("cours deja existant")
+                res.status(500).json({"message": "error"})
+            } else {
+                category.courses.push(mongoose.Types.ObjectId(req.params.course))
+                category.save()   
+                res.redirect("/api/courses/" + req.params.course + "/categories")
+            }
+        })
     } catch(err) {
         console.log(err)
         res.status(500).json(err)
@@ -220,17 +187,13 @@ router.get("/", auth, async (req, res) => {
  * @param - course
  * @description - Delete a categorie to a course
  */
- router.put("/:course/categories", auth, async (req, res) => {
+ router.put("/:course/categories", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await Course.findByIdAndUpdate(req.params.course, 
-                { $pull: { categories: mongoose.Types.ObjectId(req.body.category)} },
-                { new: true }
-            )
-            res.redirect("/api/courses/" + req.params.course + "/categories")
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await Course.findByIdAndUpdate(req.params.course, 
+        { $pull: { categories: mongoose.Types.ObjectId(req.body.category)} },
+        { new: true }
+        )
+        res.redirect("/api/courses/" + req.params.course + "/categories")
     } catch(err) {
         console.log(err)
         res.status(500).json(err)

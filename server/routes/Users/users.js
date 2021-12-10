@@ -168,16 +168,18 @@ router.post("/login",
                         req.session.isAdmin = false
                     }
                     
-                    console.log(req.session)
+                    console.log("Connected as", req.session.user.pseudo)
+                    // console.log(req.session)
 
-                    res.status(200).json({
-                        token
-                    });
+                    res.status(200).json(
+                        req.session
+                    );
                 }
             );
 
         } catch (e) {
             console.error(e);
+            console.log("Server Error")
             res.status(500).json({
                 message: "Server Error"
             });
@@ -190,13 +192,16 @@ router.post("/login",
  * @param - /logout
  * @description - User Logout
  */
- router.get("/logout", auth, async (req, res) => {
+ router.get("/logout", async (req, res) => {
     res.clearCookie()
+    console.log("------------------------------------------------")
+    console.log(req.session)
     req.session.isAuth = false
     req.session.user = null
     req.session.token = ""
     req.session.isAdmin = false
     req.session.destroy((err) => {
+        console.log(logout)
         if(err) {
             return console.log(err);
         }
@@ -212,16 +217,12 @@ router.post("/login",
  * @param - /me
  */
 router.get("/me", 
-auth, async (req, res) => {
+async (req, res) => {
     try {
-        // if(req.session.isAuth){
-            console.log(req.session.user)
-            const user = await User.findById(req.user.id)
-            .populate('courses');
-            res.json(user);
-        // } else {
-        //     res.status(500).json({"message": "Error connection"})
-        // }
+       console.log(req.session.user)
+        const user = await User.findById(req.user.id)
+        .populate('courses');
+        res.json(user);
     } catch (e) {
         res.send({
             message: "Error in Fetching user"
@@ -236,12 +237,8 @@ auth, async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const user = await User.findById(req.params.id)
-            res.status(200).json(user)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const user = await User.findById(req.params.id)
+        res.status(200).json(user)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -252,14 +249,10 @@ router.get("/find/:id", async (req, res) => {
  * @param - /:id
  * @description - User update
  */
- router.put("/:id", auth, async (req, res) => {
+ router.put("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-            res.status(200).json(updatedUser)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const updatedUser = await User.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedUser)
     }catch(err){
         res.status(500).json(err)
     }
@@ -270,14 +263,10 @@ router.get("/find/:id", async (req, res) => {
  * @param - /:id
  * @description - User delete
  */
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await User.findByIdAndDelete(req.params.id)
-            res.status(200).json("The user has been deleted")
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await User.findByIdAndDelete(req.params.id)
+        res.status(200).json("The user has been deleted")
     } catch(err) {
         res.status(500).json(err)
     }
@@ -288,21 +277,17 @@ router.delete("/:id", auth, async (req, res) => {
  * @param - /:id
  * @description - User's courses
  */
- router.get("/:id/courses", auth, async (req, res) => {
+ router.get("/:id/courses", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await User.findById(req.params.id)
-                .populate("courses")
-                .exec(function(err, users) {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        res.status(200).json(users)
-                    }
-                })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await User.findById(req.params.id)
+            .populate("courses")
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
     }catch(err){
         res.status(500).json(err)
     }
@@ -313,26 +298,22 @@ router.delete("/:id", auth, async (req, res) => {
  * @param - /:id
  * @description - User's public courses
  */
- router.get("/:id/courses/public", auth, async (req, res) => {
+ router.get("/:id/courses/public", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await User.findById(req.params.id)
-                .populate({
-                    path: 'courses',
-                    match: {
-                    is_public: true
-                    }
-                })
-                .exec(function(err, users) {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        res.status(200).json(users)
-                    }
-                })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await User.findById(req.params.id)
+            .populate({
+                path: 'courses',
+                match: {
+                is_public: true
+                }
+            })
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
     }catch(err){
         res.status(500).json(err)
     }
@@ -343,26 +324,22 @@ router.delete("/:id", auth, async (req, res) => {
  * @param - /:id
  * @description - User's private courses
  */
- router.get("/:id/courses/private", auth, async (req, res) => {
+ router.get("/:id/courses/private", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await User.findById(req.params.id)
-                .populate({
-                    path: 'courses',
-                    match: {
-                    is_public: false
-                    }
-                })
-                .exec(function(err, users) {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        res.status(200).json(users)
-                    }
-                })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await User.findById(req.params.id)
+            .populate({
+                path: 'courses',
+                match: {
+                is_public: false
+                }
+            })
+            .exec(function(err, users) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(users)
+                }
+            })
     }catch(err){
         res.status(500).json(err)
     }
@@ -375,12 +352,8 @@ router.delete("/:id", auth, async (req, res) => {
  */
  router.get("/", async (req, res) => {
     try{
-        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
-            const users = await User.find()
-            res.status(200).json(users)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const users = await User.find()
+        res.status(200).json(users)
     } catch(err) {
         res.status(500).json(err)
     }

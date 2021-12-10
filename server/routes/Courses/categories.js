@@ -7,15 +7,11 @@ const auth = require("../../middleware/auth")
  * @param - /
  * @description - Category create
  */
- router.post("/", auth, async (req, res) => {
+ router.post("/", async (req, res) => {
     const newCategory = new Category(req.body)
     try{
-        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
-            const savedCategory = await newCategory.save()
-            res.status(201).json(savedCategory)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const savedCategory = await newCategory.save()
+        res.status(201).json(savedCategory)
     }catch(err){
         res.status(500).json(err)
     }
@@ -26,14 +22,10 @@ const auth = require("../../middleware/auth")
  * @param - /:id
  * @description - Category update
  */
- router.put("/:id", auth, async (req, res) => {
+ router.put("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
-            const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
-            res.status(200).json(updatedCategory)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const updatedCategory = await Category.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedCategory)
     }catch(err){
         res.status(500).json(err)
     }
@@ -44,14 +36,10 @@ const auth = require("../../middleware/auth")
  * @param - /:id
  * @description - Category delete
  */
-router.delete("/:id", auth, async (req, res) => {
+router.delete("/:id", async (req, res) => {
     try{
-        if(req.session.isAuth && req.session.isAdmin && req.session.user.pseudo === "SUPER_ADMIN"){
-            await Category.findByIdAndDelete(req.params.id)
-            res.status(200).json("The category has been deleted")
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await Category.findByIdAndDelete(req.params.id)
+        res.status(200).json("The category has been deleted")
     } catch(err) {
         res.status(500).json(err)
     }
@@ -62,14 +50,10 @@ router.delete("/:id", auth, async (req, res) => {
  * @param - /find/:id
  * @description - Get One
  */
-router.get("/find/:id", auth, async (req, res) => {
+router.get("/find/:id", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            const category = await Category.findById(req.params.id)
-            res.status(200).json(category)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        const category = await Category.findById(req.params.id)
+        res.status(200).json(category)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -80,15 +64,11 @@ router.get("/find/:id", auth, async (req, res) => {
  * @param - /
  * @description - Get All
  */
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            console.log(req.headers)
-            const categories = await Category.find().populate('courses')
-            res.status(200).json(categories)
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        console.log(req.headers)
+        const categories = await Category.find().populate('courses')
+        res.status(200).json(categories)
     } catch(err) {
         res.status(500).json(err)
     }
@@ -99,21 +79,17 @@ router.get("/", auth, async (req, res) => {
  * @param - course
  * @description - Get All course of one category
  */
- router.get("/:category/courses", auth, async (req, res) => {
+ router.get("/:category/courses", async (req, res) => {
     try{
-        if(req.session.isAuth){
-            await Category.findById(req.params.category)
-                .populate("courses")
-                .exec(function(err, courses) {
-                    if(err) {
-                        console.log(err)
-                    } else {
-                        res.status(200).json(courses)
-                    }
-                })
-        } else {
-            res.status(500).json({"message": "Error connection"})
-        }
+        await Category.findById(req.params.category)
+            .populate("courses")
+            .exec(function(err, courses) {
+                if(err) {
+                    console.log(err)
+                } else {
+                    res.status(200).json(courses)
+                }
+            })
     } catch(err) {
         console.log(err)
         res.status(500).json(err)

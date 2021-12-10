@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from '../Button/Button'
 import './container.scss'
 
 const Container = () => {
@@ -28,9 +29,7 @@ const Container = () => {
                         <input type="text"/>
                     </div>
                 </div>
-                <div>
-                    <button>Modifier</button>
-                </div>
+                <Button background="#FEE996" color="#444444" text="Modifier" link="/"/>
            </div>
         </div>
     )
