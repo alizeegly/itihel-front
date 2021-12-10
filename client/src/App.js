@@ -38,14 +38,14 @@ function App() {
             <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
         }/>
-        <Route path="/course/:id" exact element={
+        <Route path="/courses/:id" exact element={
           session ? ( // Si une session est trouvée (= si on est connecté)
             <Course />
           ) : (
             <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
         }/> 
-        <Route path="/course/:id/parameters" exact element={
+        <Route path="/courses/:id/parameters" exact element={
           session ? ( // Si une session est trouvée (= si on est connecté)
             <CourseParameters />
           ) : (

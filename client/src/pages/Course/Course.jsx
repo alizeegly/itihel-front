@@ -29,7 +29,7 @@ function Course(){
         <div className="course">
             Course
             <p>
-                <Link to={"/course/" + id + "/parameters"}>Parameters</Link>
+                <Link to={"/courses/" + id + "/parameters"}>Parameters</Link>
             </p>
         </div>
     )
