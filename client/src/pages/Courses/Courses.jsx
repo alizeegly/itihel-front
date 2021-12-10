@@ -9,7 +9,10 @@ const Courses = () => {
     return (
         <>
             <CreateCourse/>
-            <Course/>
+            <ul>
+            <Course title="titre" description="description"/>
+            <Course title="titre 2" description="description 2"/>
+            </ul>
         </>
     )
 }
