@@ -2,17 +2,18 @@ import React from 'react'
 import "./sidebar_course.scss";
 import { FaBars } from 'react-icons/fa';
 import { FiSettings } from 'react-icons/fi';
+import { Link } from "react-router-dom"
 
-const SidebarCourseComponent = ({user}) => {
+const SidebarCourseComponent = ({course}) => {
     
     return (
         <div className="sidebar">
             <div className="sidebar__container">
                 <div className="menu">
                     <ul className="menu__item">
-                        <li>Prise de notes</li>
-                        <li>Quiz</li>
-                        <li>Flip cards</li>
+                        <li><Link to={"/courses/" + course._id}>Prise de notes</Link></li>
+                        <li><Link to={"/courses/" + course._id}>Quiz</Link></li>
+                        <li><Link to={"/courses/" + course._id}>Flip cards</Link></li>
                     </ul>
                 </div>
                 <div className="parameters">
