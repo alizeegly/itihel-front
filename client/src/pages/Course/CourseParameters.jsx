@@ -7,10 +7,11 @@ import axios from 'axios'
 import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
 import Navbar from '../../components/Navbar/Navbar'
 import Checkbox from 'react-simple-checkbox'
-import CourseSharedModal from './Modal/CourseSharedModal'
-import EditCourseShared from './Modal/EditCourseShared'
+import SharedModal from './Modal/SharedModal'
 import { FiEdit2 } from 'react-icons/fi'
 import { FaRegTrashAlt } from 'react-icons/fa'
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 
 function CourseParameters(){
     const navigate = useNavigate()
@@ -32,6 +33,7 @@ function CourseParameters(){
     })
     const { id } = useParams()
     const [userShared, setUserShared] = useState('')
+    const [cs, setCs] = useState({})
 
     const getCourse = async () => {
         try {
@@ -46,6 +48,16 @@ function CourseParameters(){
         try {
             const user = await axios.get("/api/users/find/" + session.user.id)
             setUser(user.data);
+            // setUserShared(user.data._id)
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const getCourseSharedOf = async (user) => {
+        try {
+            const cs = await axios.get("/api/courses-shared/" + user + "/" + course._id)
+            setCs(cs.data[0])
         } catch (err) {
             console.error(err.message);
         }
@@ -59,6 +71,33 @@ function CourseParameters(){
             console.error(err.message);
         }
     };
+
+    const handleDelete = (cs) => {
+        console.log("hey")
+        confirmAlert({
+            title: '',
+            message: 'Êtes-vous sûre de vouloir supprimer?',
+            buttons: [
+              {
+                label: 'Oui',
+                onClick: () => {        
+                    axios.delete("/api/courses-shared/" + cs._id)
+                    .then((res) => {
+                        console.log("supprimé")
+                        navigate("/courses/" + course._id)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+                }
+              },
+              {
+                label: 'Non',
+                onClick: () => {return}
+              }
+            ]
+        });
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -77,6 +116,8 @@ function CourseParameters(){
         getUser()
         getShared()
     }, [])
+
+    console.log(shared)
 
     return (
         <>
@@ -133,23 +174,34 @@ function CourseParameters(){
                                         <h6>Utilisateurs</h6>
                                         {shared.map(s => {
                                             return(
-                                                <div className="role_user">
+                                                <div className="role_user" key={s._id}>
                                                     <p onClick={() => {setUserShared(s.user_id._id)}} key={s._id}>
                                                         {s.user_id.pseudo} {s.user_id._id === user._id ? "(Moi)" : ""}
                                                     </p>
-                                                    {s.user_id._id === user._id ? "" : (<p><EditCourseShared/> <FaRegTrashAlt/></p>)}
+                                                    {
+                                                        s.user_id._id === user._id ? "" : (
+                                                            <p>
+                                                                <SharedModal modal="edit" user={s.user_id} userroles={s.roles} courseid={course._id} id={s._id}/>
+                                                                <div onClick={function(e) {
+                                                                    handleDelete(s); //can pass arguments this.btnTapped(foo, bar);          
+                                                                }}>
+                                                                    <FaRegTrashAlt/>
+                                                                </div>
+                                                            </p>
+                                                        )
+                                                    }
                                                 </div>
                                             )
                                         })}
-                                        <CourseSharedModal course={course._id}/>
+                                        <SharedModal modal="add" user={null} userroles={null} courseid={course._id} id={null}/>
                                     </div>
                                     <div className="shared_bloc2">
                                         <h6>Rôles</h6>
                                         {
-                                            userShared && shared
+                                            userShared && shared ? shared
                                                 .find(element => element.user_id._id === userShared).roles.map(r => (
                                                 <p key={r._id}>{r.name}</p>
-                                            ))
+                                            )) :  <p key={user._id}>Administrateur</p>
                                         }
                                     </div>
                                 </div>

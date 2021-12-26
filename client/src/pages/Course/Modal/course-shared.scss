@@ -72,6 +72,11 @@
                     align-items: center;
                     padding: 5px 0px;
                 }
+
+                .role-checkbox{
+                    top: 0;
+                    margin-right: 10px;
+                }
             }
         }
     }
@@ -107,6 +112,8 @@
     color: #444444;
     text-transform: uppercase;
     font-weight: 600;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
 .button-icon-modal{

@@ -13,6 +13,7 @@
     "react-autocomplete": "^1.8.1",
     "react-autocomplete-input": "^1.0.18",
     "react-client-session": "0.0.7",
+    "react-confirm-alert": "^2.7.0",
     "react-customizable-autocomplete": "^0.1.2",
     "react-dom": "^17.0.2",
     "react-fa": "^5.0.0",

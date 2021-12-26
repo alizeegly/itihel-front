@@ -111,14 +111,13 @@
                             }
                         }
                         .form__item2{
-                            display: flex;
-                            justify-content: space-between;
                             width: 60%;
                             margin-bottom: 25px;
                             label{
                                 font-family: Quicksand;
                                 font-size: 19px;
                                 font-weight: 500;
+                                margin-right: 30px;
                             }
                             input{
                                 width: 35px;
@@ -145,15 +144,17 @@
                         width: 50%;
                         border-radius: 10px 0px 0px 10px;
                         border: 1px solid #DDDDDD;
-                        padding: 10px 10px;
                         h6{
                             padding: 0;
                             margin: 0;
                             text-transform: uppercase;
                             font-size: 16px;
+                            padding: 10px;
                         }
                         p{
                             cursor: pointer;
+                            padding-left: 10px;
+                            padding-right: 10px;
                         }
                         .button-add{
                             background: #DDDDDD;
@@ -172,6 +173,10 @@
                             width: 100%;
                             display: flex;
                             justify-content: space-between;
+                        }
+
+                        .role-active{
+                            background: #ebebeb;
                         }
                     }
                     .shared_bloc2{
