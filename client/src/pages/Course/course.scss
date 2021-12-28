@@ -1,0 +1,70 @@
+.course-parameters{
+    z-index: 130;
+}
+   
+.page{
+    width: calc(100% - 310px);
+    height: 100vh;
+    margin-left: 310px;
+    overflow: hidden;
+
+    .container2{
+        width: 100%;
+        height: 100%;
+        margin-top: 70px;
+        overflow: hidden;
+
+        .container__page2{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: space-around;
+            .container__wrapper2{
+                width: 80%;
+                z-index: 30;
+                border-radius: 10px;
+                height: 80%;
+            }
+
+            .background-wrapper{
+                box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                background: #FFF;
+            }
+
+            .container__text{
+                // height: 100%;
+                padding: 20px;
+                form{
+                    height: 100%;
+                    padding: 20px;
+                    .editor{
+                        height: 80%;
+                        box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+                        padding: 20px;
+                    }
+                }
+            }
+    
+            .form__buttons2{
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                height: 80%;
+            
+                .button-save{
+                    font-family: Quicksand;
+                    font-size: 18px;
+                    padding: 15px 20px;
+                    background: #FEE996;
+                    border-radius: 15px;
+                    border: none;
+                    cursor: pointer;
+                    color: #444444;
+                    text-transform: uppercase;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}

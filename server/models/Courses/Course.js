@@ -6,8 +6,8 @@ const CourseSchema = new mongoose.Schema({
         required: true
     },
     text:  {
-        type: String,
-        default: ""
+        type: Object,
+        default: {}
     },
     is_public: {
         type: Boolean,

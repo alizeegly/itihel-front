@@ -19,7 +19,7 @@ const SidebarCourseComponent = ({course}) => {
                 <div className="parameters">
                     <FiSettings size="2em"/>
                     <div>
-                        Parametres
+                        <Link to={"/courses/" + course._id + "/parameters"}>Parametres</Link>
                     </div>
                 </div>
             </div>
