@@ -3,12 +3,18 @@ import "./course.scss";
 import styled from 'styled-components';
 
 
-const Course = () => {
+const Course = (props) => {
     return (
-        <div className="course">
-            <h1>Titre de la carte</h1>
-            <p>Voici la description de la carte</p>
-            <img src={""}></img>
+    <div className="card_cours">
+        <div class="image">
+            {/* <img src="{this.props.img}"></img> */}
+        </div>
+
+        <div class="information">
+            <h1>{props.title}</h1>
+                <p>{props.description}</p>
+        </div>
+
         </div>
     )
 }
