@@ -11,7 +11,7 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
-
+import moment from 'moment'
 
 function Course(){
     const navigate = useNavigate()
@@ -80,6 +80,7 @@ function Course(){
     useEffect(()=>{
         getCourse()
         getUser()
+        console.log(course)
     }, [])
 
     return (
@@ -88,9 +89,22 @@ function Course(){
             <SidebarCourseComponent course={course}/>
             <div className="page">
                 <div className="container2">
-                    <div class="container__page2">
+                    <div className='container2-header'>
+                        <div>
+                            <p>
+                                Modifié le {moment(course.updatedAt).format('DD/MM/YYYY, hh:mm a')}
+                            </p>
+                            <h1 className="title-course">{course.title}</h1>
+                            <p className='description-course'>{course.description}</p>
+                        </div>
+                        <div>
+                            <p>By @{course && course.owner_id && course.owner_id.pseudo ? course.owner_id.pseudo : ""}</p>
+                            <p className={course.is_public ? "badge-public public" : "badge-public prive"}>{course.is_public ? "Public" : "Privé"}</p>
+                        </div>
+                    </div>
+                    <div className="container__page2">
                         <div className={`container__wrapper2 ${!showEdit ? "background-wrapper" : ""}`}>
-                            <div class="container__text">
+                            <div className="container__text">
                                 {
                                     !showEdit ? ReactHtmlParser(course.text) : (
                                         <>
@@ -102,7 +116,7 @@ function Course(){
                                                     editorClassName="editor"
                                                     onEditorStateChange={handleChange}
                                                 />
-                                                <button type="submit">Modifier</button>
+                                                <button type="submit" className='button-save button-form'>Modifier</button>
                                             </form>
                                         </>
                                     )

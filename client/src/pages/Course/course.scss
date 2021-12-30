@@ -14,12 +14,47 @@
         margin-top: 70px;
         overflow: hidden;
 
+        .title-course{
+            width: 95%;
+            margin: 0 auto;
+            margin-top: 50px;
+            margin-bottom: 30px;
+        }
+        .description-course{
+            width: 95%;
+            margin: 0 auto;
+            margin-bottom: 30px;
+        }
+
+        &-header{
+            display: flex;
+            width: 95%;
+            margin: 0 auto;
+            margin-top: 30px;
+            justify-content: space-between;
+
+            .badge-public{
+                padding: 10px;
+                width: auto;
+                text-align: center;
+                font-weight: bold;
+                border-radius: 10px;
+            }
+            .public{
+                background: #FFD9E0;
+            }
+            .prive{
+                background: #3D90BD;
+                color: #FFF;
+            }
+        }
+
         .container__page2{
-            height: 100%;
             display: flex;
             align-items: center;
-            width: 100%;
-            justify-content: space-around;
+            width: 95%;
+            justify-content: space-between;
+            margin: 0 auto;
             .container__wrapper2{
                 width: 80%;
                 z-index: 30;
@@ -38,10 +73,12 @@
                 form{
                     height: 100%;
                     padding: 20px;
+                    width: 100%;
                     .editor{
                         height: 80%;
                         box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
                         padding: 20px;
+                        width: 100%;
                     }
                 }
             }
@@ -51,19 +88,22 @@
                 justify-content: space-between;
                 align-items: flex-start;
                 height: 80%;
-            
-                .button-save{
-                    font-family: Quicksand;
-                    font-size: 18px;
-                    padding: 15px 20px;
-                    background: #FEE996;
-                    border-radius: 15px;
-                    border: none;
-                    cursor: pointer;
-                    color: #444444;
-                    text-transform: uppercase;
-                    font-weight: 600;
-                }
+            }
+            .button-save{
+                font-family: Quicksand;
+                font-size: 18px;
+                padding: 15px 20px;
+                background: #FEE996;
+                border-radius: 15px;
+                border: none;
+                cursor: pointer;
+                color: #444444;
+                text-transform: uppercase;
+                font-weight: 600;
+            }
+
+            .button-form{
+                margin-top: 50px;
             }
         }
     }

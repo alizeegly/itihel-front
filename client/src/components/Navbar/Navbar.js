@@ -17,11 +17,15 @@ const Navbar = ({user}) => {
                     </ul>
                 </div>
                 <div className="account">
-                    <Link to={"/profile"}>
-                        <div>
-                            {user.first_name[0] + user.last_name[0]}
-                        </div>
-                    </Link>
+                    <div>
+                        <Link to={"/profile"}>
+                            {
+                                user && user.first_name && user.last_name ? 
+                                    user.first_name[0] + user.last_name[0]
+                                : ""
+                            }
+                        </Link>
+                    </div>
                 </div>
             </div>
         </div>
