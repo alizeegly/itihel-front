@@ -148,6 +148,17 @@ function CourseParameters(){
                                                     })}
                                                 />
                                             </div>
+                                            <div className="form__item">
+                                                <label>Description du cours</label>
+                                                <textarea 
+                                                    className="input-description" 
+                                                    name="description"
+                                                    onChange={(e) => setCourse({
+                                                        ...course,
+                                                        description: e.target.value
+                                                    })}
+                                                >{course.description}</textarea>
+                                            </div>
                                             <div className="form__item2">
                                                 <label>Rendre ce cours public ?</label>
                                                 <Checkbox 
