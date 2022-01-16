@@ -27,13 +27,12 @@ app.use(cors())
 app.use(express.json())
 app.use(cookieParser());
 
+app.use(express.static(path.join(__dirname, "client", "build")))
+
 
 // BDD + Session
-mongoose.connect(process.env.MONGODB_URI, 
-    {
-        useNewUrlParser: true
-    }
-).then(() => console.log("DB Connection Successful !"))
+mongoose.connect( process.env.MONGODB_URI, {useNewUrlParser: true} )
+.then(() => console.log("DB Connection Successful !"))
 .catch((err) => console.log(err))
 
 const store = new MongoDBSession({
