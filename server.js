@@ -18,6 +18,8 @@ const quizzQuestionOptionsRoute = require('./routes/Quizz/quizz_question_options
 const FlipCardsRoute = require('./routes/FlipCards/flip_cards')
 const FlipCardsQuestionsRoute = require('./routes/FlipCards/flip_cards_questions')
 const scoresRoute = require('./routes/Quizz/scores')
+const path = require("path")
+require("dotenv").config()
 
 const PORT = process.env.PORT || 8800
 
@@ -27,8 +29,7 @@ app.use(cookieParser());
 
 
 // BDD + Session
-mongoose.connect(
-    "mongodb+srv://admin:admin@cluster0.7fyac.mongodb.net/itihel?retryWrites=true&w=majority", 
+mongoose.connect(process.env.MONGODB_URI, 
     {
         useNewUrlParser: true
     }
@@ -36,7 +37,7 @@ mongoose.connect(
 .catch((err) => console.log(err))
 
 const store = new MongoDBSession({
-    uri: "mongodb+srv://admin:admin@cluster0.7fyac.mongodb.net/itihel?retryWrites=true&w=majority",
+    uri: process.env.MONGODB_URI,
     collection: "sessions"
 })
 
@@ -66,6 +67,10 @@ app.use('/api/quizz', quizzRoute)
 app.use('/api/quizz-questions', quizzQuestionsRoute)
 app.use('/api/quizz-questions-options', quizzQuestionOptionsRoute)
 app.use('/api/scores', scoresRoute)
+
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 app.listen(PORT, () => {
     console.log(`Backend server is listening on port ${PORT} !`)
