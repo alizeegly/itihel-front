@@ -29,7 +29,7 @@ const CreateCourse = () => {
     const navigate = useNavigate()
     const [course, setCourse] = useState({
         title: "",
-        text: "",
+        text: {},
         isPublic: false,
         owner_id: session.user.id,
         profile_picture: "",

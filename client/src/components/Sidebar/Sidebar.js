@@ -95,13 +95,13 @@ export const SidebarRoute = styled(LinkR)`
     justify-content: center;
 `;
 
-const SidebarComponent = () => {
+const SidebarComponent = ({user}) => {
     
     return (
         <div className="navbar">
-            <a className="s-sidebar__trigger" href="#">
+            <button className="s-sidebar__trigger" href="#">
                 <FaBars size={32} color="#444444"/>
-            </a>
+            </button>
             <div className="navbar__container">
                 <div className="logo">
                     Itihel
@@ -115,7 +115,7 @@ const SidebarComponent = () => {
                 </div>
                 <div className="account">
                     <div>
-                        TG
+                        {user.first_name[0] + user.last_name[0]}
                     </div>
                 </div>
             </div>

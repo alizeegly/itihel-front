@@ -1,0 +1,130 @@
+.modal{
+    position: relative;
+    .title{
+        font-family: Quicksand;
+        font-size: 50px;
+        font-weight: bold;
+        margin-top: 0;
+    }
+
+    .closeIcon{
+        color:#cacaca;
+        font-size: 27px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        cursor: pointer;
+    }
+    
+    .form{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .form_uploader{
+            width: 80px;
+            height: 80px;
+            div{
+                width: 100%;
+                height: 100%;
+            }
+        }   
+    
+        .form_inputs{
+            // display:flex;
+            // align-items: space-between;
+            // justify-content: space-between;
+            // flex-wrap: wrap;
+            width: 100%;
+    
+            .form__item{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin-bottom: 25px;
+                label{
+                    font-family: Quicksand;
+                    font-size: 18px;
+                    font-weight: 400;
+                }
+                input{
+                    width: 94%;
+                    height: 35px;
+                    padding: 5px 15px;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 8px;
+                    outline: none;
+                }
+                svg{
+                    cursor: pointer;
+                }
+
+                .description{
+                    height: 100px;
+                    width: 94%;
+                    padding: 15px 15px;
+                    border: 1px solid #DDDDDD;
+                    border-radius: 8px;
+                    outline: none;
+                }
+
+                .roles{
+                    display: flex;
+                    align-items: center;
+                    padding: 5px 0px;
+                }
+
+                .role-checkbox{
+                    top: 0;
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+    
+    .form__buttons{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    
+        .button-save{
+            font-family: Quicksand;
+            font-size: 18px;
+            padding: 15px 20px;
+            background: #FEE996;
+            border-radius: 15px;
+            border: none;
+            cursor: pointer;
+            color: #444444;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+    }
+}
+
+.button-modal{
+    font-family: Quicksand;
+    font-size: 18px;
+    padding: 5px 10px!important;
+    background: #DDDDDD!important;
+    border-radius: 10px!important;
+    border: none;
+    cursor: pointer;
+    color: #444444;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.button-icon-modal{
+    font-family: Quicksand;
+    font-size: 18px;
+    padding: 5px 10px!important;
+    background: none!important;
+    border-radius: 10px!important;
+    border: none;
+    cursor: pointer;
+    color: #444444;
+    text-transform: uppercase;
+    font-weight: 600;
+}

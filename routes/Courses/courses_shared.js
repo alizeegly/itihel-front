@@ -105,6 +105,23 @@ router.post("/", async (req, res) => {
 })
 
 /**
+ * @method - PUT
+ * @param - /:id
+ * @description - Update des roles
+ */
+ router.put("/:id", async (req, res) => {
+    try{
+        const updatedCourse = await CourseShared.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
+        res.status(200).json(updatedCourse)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+
+
+// DEPRECATED
+/**
  * @method - POST
  * @param - /:user :course
  * @description - Update un rôle d'un user sur le cours

@@ -80,7 +80,7 @@ router.delete("/:id/:user", async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        const course = await Course.findById(req.params.id)
+        const course = await Course.findById(req.params.id).populate("owner_id")
         res.status(200).json(course)
     } catch(err) {
         res.status(500).json(err)

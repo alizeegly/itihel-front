@@ -65,7 +65,7 @@ function Profil(){
 
     return (
         <div className="profil">
-            <Sidebar/>
+            <Sidebar user={user}/>
             <div className="page">
                 <div className="header">
                     <button className="header__button" onClick={logout}>
