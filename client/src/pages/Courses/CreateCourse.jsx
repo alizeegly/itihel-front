@@ -65,7 +65,7 @@ const CreateCourse = () => {
 
     return (
         <>
-            <button onClick={openModal}>Créer un cours</button>
+            <button className="add_cours" onClick={openModal}>Créer un cours</button>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
