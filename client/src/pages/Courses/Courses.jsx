@@ -33,10 +33,14 @@ const Courses = () => {
 
     return (
         <>
+        
             <CreateCourse/>
 
-            <Sidebar/>
+           
           <div class="mes_cours">
+            <div class="title_mes_cours">
+                <h1>Mes Cours</h1>
+            </div>
              <ul>
                 {courses && courses.courses && courses.courses.map((user) => (
                     <div key={user._id} className="user">
