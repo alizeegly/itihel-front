@@ -9,7 +9,7 @@ import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import Navbar from '../../components/Navbar/Navbar'
 import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
-
+import moment from 'moment'
 
 
 
