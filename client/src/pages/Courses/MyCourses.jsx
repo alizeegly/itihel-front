@@ -1,29 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import "./courses.scss"
-import CreateCourse from './CreateCourse'
-import Sidebar from '../../components/Sidebar/Sidebar.js'
-import Course from '../../components/Course/course.js'
+import "./mycourses.scss"
 import axios from 'axios'
+
 import { useNavigate, Link } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
-import moment from 'moment'
 
 
-
-const Courses = () => {
+const MyCourses = () => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
-    const [courses, setCourses] = useState({
-            createdAt:"",
-    })
+    const [mycourses, setCourses] = useState({})
     const { id } = useParams();
 
-    console.log(courses)
+    console.log(mycourses)
     const getCourses = async () => {
         try {
-            const courses = await axios.get("/api/users/"+session.user.id+"/courses")
-            setCourses(courses.data);
+            const mycourses = await axios.get("/api/users/"+session.user.id+"/courses")
+            setCourses(mycourses.data);
         } catch (err) {
             console.error(err.message);
         }
@@ -43,16 +37,13 @@ const Courses = () => {
             <div class="title_mes_cours">
                 <h1>Mes Cours</h1>
             </div>
-            <div class="title_tous_les_cours">
-                <h1>Tous les cours</h1>
-            </div>
              <ul>
-                {courses && courses.courses && courses.courses.map((user) => (
+                {mycourses && mycourses.courses && mycourses.courses.map((user) => (
                     <div key={user._id} className="user">
                         <Course
                             title={user.title}
                             description={user.description}
-                            date={moment(user.createdAt).format('lll')}
+                            date={user.createdAt}
                         />
                     </div>
                 ))}
@@ -62,4 +53,15 @@ const Courses = () => {
     )
 }
 
-export default Courses
+
+
+
+
+
+
+
+
+
+
+
+export default MyCourses
