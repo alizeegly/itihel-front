@@ -2,7 +2,7 @@ import React from 'react'
 import "./sidebar.scss";
 import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
-import {Link as LinkS} from 'react-scroll';
+import {Link, Link as LinkS} from 'react-scroll';
 import {Link as LinkR} from 'react-router-dom';
 
 export const SidebarContainer = styled.aside`
@@ -108,9 +108,9 @@ const SidebarComponent = ({user}) => {
                 </div>
                 <div className="menu">
                     <ul className="menu__item">
-                        <li>Mes cours</li>
-                        <li>Partagés avec moi</li>
-                        <li>Tous les cours</li>
+                        <li><a href="/courses">Mes cours</a></li>
+                        <li><a href="/shared-whith-me-courses">Partagés avec moi</a></li>
+                        <li><a href="/public-courses">Tous les cours</a></li>
                     </ul>
                 </div>
                 <div className="account">

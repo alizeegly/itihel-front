@@ -31,13 +31,31 @@ function App() {
             <Navigate to="login" /> // Sinon on est renvoyé vers 404
           )
         }/>
+
+
         <Route path="/courses" element={
-          session ? ( // Si une session est trouvée (= si on est connecté)
-            <Courses />
+          session ? ( 
+            <Courses page={"mes-cours"} />
           ) : (
-            <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            <Navigate to="login" /> 
           )
         }/>
+        <Route path="/public-courses" exact element={
+          session ? ( 
+            <Courses page={"cours-publics"} />
+          ) : (
+            <Navigate to="login" /> 
+          )
+        }/>
+        <Route path="/shared-whith-me-courses" exact element={
+          session ? ( 
+            <Courses page={"partages-avec-moi"} />
+          ) : (
+            <Navigate to="login" /> 
+          )
+        }/>
+
+
         <Route path="/courses/:id" exact element={
           session ? ( // Si une session est trouvée (= si on est connecté)
             <Course />
