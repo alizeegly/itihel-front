@@ -43,7 +43,7 @@ const MyCourses = () => {
                         <Course
                             title={user.title}
                             description={user.description}
-                            date={user.createdAt}
+                            date={moment(user.createdAt).format('lll')}
                         />
                     </div>
                 ))}
