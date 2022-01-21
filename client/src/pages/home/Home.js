@@ -1,9 +1,26 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
+import lottie from 'lottie-web'
 import "./home.scss"
 
 function Home() {
+
+    const container = useRef(null)
+
+    useEffect (() => {
+        lottie.loadAnimation({
+            container: container.current,
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            animationData: require("../../assets/json/home_animation.json")
+        })
+    })
+
     return (
         <div className="home">
+            <div className="shape shape1"></div>
+            <div className="shape shape2"></div>
+            <div className="shape shape3"></div>
             <div className="wrap">
                 <div className="left">
                     <h1>Bienvenue sur <br />
@@ -24,12 +41,12 @@ function Home() {
                         </div>
                     </div>
                     <p>
-                        <a href="/signup" className="btn">S'inscrire</a>
                         <a href="/login" className="btn">Se connecter</a>
+                        <a href="/signup" className="btn">S'inscrire</a>
                     </p>
                 </div>
                 <div className="right">
-
+                    <div className="container" ref={container} data-aos="fade-down"></div>
                 </div>
             </div>
         </div>

@@ -1,7 +1,12 @@
 //wrapper
 .wrap {
-    width: 1280px;
+    width: 1440px;
+    padding: 0 4%;
     margin: 0 auto;
+
+    @media only screen and (max-width: $desktop) {
+        width: 1280;
+    }
 }
 
 section {
