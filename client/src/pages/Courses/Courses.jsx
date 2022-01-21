@@ -87,7 +87,7 @@ const Courses = ({page}) => {
                                 </div>
                             </div>
                             
-                            <div className="d-inline wrap">
+                            <div className="d-inline d-wrap">
                                 {courses.length > 0 && courses.map((course, index) => (
                                     <CourseItem
                                         key={index}

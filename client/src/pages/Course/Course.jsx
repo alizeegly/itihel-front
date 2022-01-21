@@ -12,6 +12,9 @@ import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import moment from 'moment'
+import ReactCardFlip from 'react-card-flip';
+import Quiz from 'react-quiz-component';
+import { quiz } from './quiz';
 
 function Course(){
     const navigate = useNavigate()
@@ -33,6 +36,7 @@ function Course(){
     })
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState({})
+    const [isFlipped, setIsFlipped] = useState(false)
 
 
     const getCourse = async () => {
@@ -75,6 +79,11 @@ function Course(){
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const handleFlippedCard = (e) => {
+        e.preventDefault();
+        setIsFlipped(!isFlipped)
     }
 
     useEffect(()=>{
@@ -128,11 +137,23 @@ function Course(){
                                         </>
                                     )
                                 }
+                                <div className='mt-5'>
+                                    <h1>FLIP CARDS</h1>
+                                    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+                                        <div className='flip-card flip-card-front' onClick={handleFlippedCard}>
+                                            A quelle date eu lieu l'armistice ?
+                                        </div>
+
+                                        <div className='flip-card flip-card-back' onClick={handleFlippedCard}>
+                                            Le 8 mai 1945
+                                        </div>
+                                    </ReactCardFlip>
+
+                                    <h1>QUIZ</h1>
+                                    <Quiz quiz={quiz}/>
+                                </div>
                             </div>
                         </div>
-                        {/* <div className="form__buttons2">
-                            
-                        </div> */}
                     </div>
                 </div>
             </div>

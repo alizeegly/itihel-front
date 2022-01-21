@@ -28,12 +28,12 @@ const CourseItem = (props) => {
                 {
                     props.page === "partages-avec-moi" && props.course.course_id ? (
                         <>
-                            <h3>{props.course.course_id.title}</h3>
+                            <h4>{props.course.course_id.title}</h4>
                             <p className="card__description">{props.course.course_id.description}</p>
                         </>
                     ) : (
                         <>
-                            <h3>{props.title}</h3>
+                            <h4>{props.title}</h4>
                             <p className="card__description">{props.description}</p>
                         </>
                     )
