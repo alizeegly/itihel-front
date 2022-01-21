@@ -100,6 +100,13 @@ function Course(){
                         <div>
                             <p>By @{course && course.owner_id && course.owner_id.pseudo ? course.owner_id.pseudo : ""}</p>
                             <p className={course.is_public ? "badge-public public" : "badge-public prive"}>{course.is_public ? "Public" : "Privé"}</p>
+                            {
+                                !showEdit ? (
+                                    <button className="button-save" onClick={() => setShowEdit(!showEdit)} type="submit">Modifier</button>
+                                ) : (
+                                    ""
+                                )
+                            }
                         </div>
                     </div>
                     <div className="container__page2">
@@ -123,15 +130,9 @@ function Course(){
                                 }
                             </div>
                         </div>
-                        <div className="form__buttons2">
-                            {
-                                !showEdit ? (
-                                    <button className="button-save" onClick={() => setShowEdit(!showEdit)} type="submit">Modifier</button>
-                                ) : (
-                                    ""
-                                )
-                            }
-                        </div>
+                        {/* <div className="form__buttons2">
+                            
+                        </div> */}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 .login_page {
   height: 100vh;
+  font-family: 'Quicksand', sans-serif;
 
   .header {
     display: flex;
@@ -127,9 +128,11 @@
           font-family: 'Quicksand', sans-serif;
         }
         input {
-          height: 30px;
+          height: 35px;
           border-radius: 5px;
           border: 1px solid #d3d3d5;
+          padding: 0px 10px;
+          outline: none;
         }
         .email_pseudo {
           display: flex;

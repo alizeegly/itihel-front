@@ -11,9 +11,9 @@ const Navbar = ({user}) => {
                 </div>
                 <div className="menu">
                     <ul className="menu__item">
-                        <li><Link to={"/courses"}>Mes cours</Link></li>
-                        <li><Link to={"/courses"}>Partagés avec moi</Link></li>
-                        <li><Link to={"/courses"}>Tous les cours</Link></li>
+                        <li><a href="/courses">Mes cours</a></li>
+                        <li><a href="/shared-whith-me-courses">Partagés avec moi</a></li>
+                        <li><a href="/public-courses">Tous les cours</a></li>
                     </ul>
                 </div>
                 <div className="account">

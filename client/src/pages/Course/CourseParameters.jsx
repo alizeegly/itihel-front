@@ -38,7 +38,7 @@ function CourseParameters(){
     const getCourse = async () => {
         try {
             const course = await axios.get("/api/courses/find/" + id)
-            setCourse(course.data);
+            setCourse(course.data)
         } catch (err) {
             console.error(err.message);
         }
@@ -117,14 +117,12 @@ function CourseParameters(){
         getShared()
     }, [])
 
-    console.log(shared)
-
     return (
         <>
             <div className="course-parameters">
                 <Navbar user={user} />
                 <SidebarCourseComponent course={course}/>
-                <div className="page">
+                <div className="page page3">
                     <div className="container">
                         <div className="carre_1"></div>
                         <div className="carre_2"></div>

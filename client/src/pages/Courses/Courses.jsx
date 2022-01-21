@@ -9,7 +9,6 @@ import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import Navbar from '../../components/Navbar/Navbar'
 import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
-import moment from 'moment'
 
 
 
@@ -34,21 +33,19 @@ const Courses = ({page}) => {
 
     const getCourses = async () => {
         try {
+            var courses = []
             if(page === "mes-cours"){
-                const courses = await axios.get("/api/users/"+session.user.id+"/courses")
-                setCourses(courses.data)
-                console.log(page)
-                console.log(courses.data.courses)
+                courses = await axios.get("/api/users/"+session.user.id+"/courses")
+                setCourses(courses.data.courses)
+                // console.log(courses)
             } else if(page === "partages-avec-moi"){
-                const courses = await axios.get("/api/courses-shared/user/"+session.user.id)
+                courses = await axios.get("/api/courses-shared/user/"+session.user.id)
                 setCourses(courses.data)
-                console.log(page)
-                console.log(courses.data.courses)
+                console.log(courses.data)
             } else if(page === "cours-publics"){
-                const courses = await axios.get("/api/courses/public")
+                courses = await axios.get("/api/courses/public")
                 setCourses(courses.data)
-                console.log(page)
-                console.log(courses.data.courses)
+                // console.log(courses)
             }
         } catch (err) {
             console.error(err.message);
@@ -73,7 +70,7 @@ const Courses = ({page}) => {
     return (
         <div className="courses">
             <Sidebar user={user} />
-            <div className="page">
+            <div className="page page2">
                 <div className="container">
                     <div className="carre_1"></div>
                     <div className="carre_2"></div>
@@ -86,19 +83,24 @@ const Courses = ({page}) => {
                                     {page === "mes-cours" ? "Mes Cours" : page === "partages-avec-moi" ? "Partagés avec moi" : page === "cours-publics" ? "Cours publics" : ""}
                                 </h1>
                                 <div>
-                                    <CreateCourse/>
+                                {page === "mes-cours" ? (<CreateCourse/>) : ""}
                                 </div>
                             </div>
                             
-                            {courses && courses.courses && courses.courses.map((course, index) => (
-                                <div key={index} className="user">
+                            <div className="d-inline wrap">
+                                {courses.length > 0 && courses.map((course, index) => (
                                     <CourseItem
-                                        title={user.title}
-                                        description={user.description}
-                                        date={user.createdAt}
+                                        key={index}
+                                        title={course.title}
+                                        description={course.description}
+                                        date={course.createdAt}
+                                        creator={course.owner_id}
+                                        id={course._id}
+                                        page={page}
+                                        course={course}
                                     />
-                                </div>
-                            ))}
+                                ))}
+                            </div>
                         </div>
                     </div>
                 </div>

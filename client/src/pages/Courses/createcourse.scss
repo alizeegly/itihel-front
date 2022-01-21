@@ -54,6 +54,10 @@
                     border: 1px solid #DDDDDD;
                     border-radius: 8px;
                     outline: none;
+                    font-family: Quicksand;
+                }
+                textarea{
+                    font-family: Quicksand;
                 }
                 svg{
                     cursor: pointer;
@@ -89,4 +93,8 @@
             font-weight: 600;
         }
     }
+}
+
+.button-create{
+    cursor: pointer;
 }

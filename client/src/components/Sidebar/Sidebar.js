@@ -115,7 +115,7 @@ const SidebarComponent = ({user}) => {
                 </div>
                 <div className="account">
                     <div>
-                        {user.first_name[0] + user.last_name[0]}
+                        <a href={"/profile"}>{user.first_name[0] + user.last_name[0]}</a>
                     </div>
                 </div>
             </div>

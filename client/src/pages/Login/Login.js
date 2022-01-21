@@ -24,7 +24,7 @@ function Login({message}) {
                 .then((res) => {
                     saveJWT(res.data.token) // Créer la session
                     console.log(session)
-                    navigate("/profile"); // Redirection vers la page profile
+                    navigate("/courses"); // Redirection vers la page profile
                 })
             .catch(err => {
                 setError("Mauvais email ou mauvais mot de passe")

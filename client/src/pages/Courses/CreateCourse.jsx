@@ -17,8 +17,10 @@ const customStyles = {
       marginRight: '-50%',
       transform: 'translate(-50%, -50%)',
       padding: 35,
-      width: "40%"
-    }
+      width: "40%",
+      zIndex: 1000
+    },
+    overlay: {zIndex: 1000}
 };
 
 Modal.setAppElement('#root');
@@ -29,7 +31,7 @@ const CreateCourse = () => {
     const navigate = useNavigate()
     const [course, setCourse] = useState({
         title: "",
-        text: {},
+        text: "",
         isPublic: false,
         owner_id: session.user.id,
         profile_picture: "",
@@ -65,7 +67,7 @@ const CreateCourse = () => {
 
     return (
         <>
-            <button onClick={openModal}>Créer un cours</button>
+            <button onClick={openModal} className='button-create'>Créer un cours</button>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
