@@ -39,6 +39,7 @@ function CourseParameters(){
         try {
             const course = await axios.get("/api/courses/find/" + id)
             setCourse(course.data)
+            console.log(course)
         } catch (err) {
             console.error(err.message);
         }
@@ -73,7 +74,6 @@ function CourseParameters(){
     };
 
     const handleDelete = (cs) => {
-        console.log("hey")
         confirmAlert({
             title: '',
             message: 'Êtes-vous sûre de vouloir supprimer?',
@@ -151,11 +151,12 @@ function CourseParameters(){
                                                 <textarea 
                                                     className="input-description" 
                                                     name="description"
+                                                    value={course.description}
                                                     onChange={(e) => setCourse({
                                                         ...course,
                                                         description: e.target.value
                                                     })}
-                                                >{course.description}</textarea>
+                                                />
                                             </div>
                                             <div className="form__item2">
                                                 <label>Rendre ce cours public ?</label>
@@ -189,14 +190,14 @@ function CourseParameters(){
                                                     </p>
                                                     {
                                                         s.user_id._id === user._id ? "" : (
-                                                            <p>
+                                                            <div className='d-flex align-center'>
                                                                 <SharedModal modal="edit" user={s.user_id} userroles={s.roles} courseid={course._id} id={s._id}/>
                                                                 <div onClick={function(e) {
                                                                     handleDelete(s); //can pass arguments this.btnTapped(foo, bar);          
                                                                 }}>
                                                                     <FaRegTrashAlt/>
                                                                 </div>
-                                                            </p>
+                                                            </div>
                                                         )
                                                     }
                                                 </div>
