@@ -73,7 +73,7 @@ function Sign_up() {
                             </div>
                             <div className="password">
                                 <label>Mot de passe</label>
-                                <input name="password" onChange={handleChange}/>
+                                <input type="password" name="password" onChange={handleChange}/>
                             </div>
                         </div>
                         <div className="form-col-right">
@@ -87,7 +87,7 @@ function Sign_up() {
                             </div>
                             <div className="password_confirm">
                                 <label>Confirmation du mot de passe</label>
-                                <input name="password_confirm" onChange={handleChange}/>
+                                <input type="password" name="password_confirm" onChange={handleChange}/>
                             </div>
                         </div>
                     </div>

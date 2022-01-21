@@ -64,7 +64,7 @@ function Login({message}) {
                         </div>
                         <div className="password">
                             <label>Password</label>
-                            <input name="password" onChange={handleChange}/>
+                            <input type="password" name="password" onChange={handleChange}/>
                         </div>
                     </div>
                     <p>{error}</p>
