@@ -138,7 +138,7 @@ div.public-DraftEditor-content {
     }
 }
 
-.card{
+.flip-card{
     width: 500px;
     height: 300px;
     display: flex;
@@ -147,10 +147,11 @@ div.public-DraftEditor-content {
     font-size: 20px;
     margin: 0 auto;
     border-radius: 5px;
+    cursor: pointer;
 }
-.card-front{
+.flip-card-front{
     background: #FFD9E0;
 }
-.card-back{
+.flip-card-back{
     background: #94DDDE;
 }
