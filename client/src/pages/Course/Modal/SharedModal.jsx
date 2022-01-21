@@ -143,9 +143,6 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
         }
     }, [])
     
-    console.log(courseShared)
-    console.log(courseid)
-    
     return (
         <>
             {
