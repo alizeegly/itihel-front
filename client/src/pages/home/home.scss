@@ -3,9 +3,79 @@
 .home {
     height: 100vh;
     background-color: rgb(255, 255, 255);
-    padding-top: 100px;
+    padding-top: 125px;
+    position: relative;
+    overflow: hidden;
+
+    .shape {
+        position: absolute;
+        z-index: 0;
+
+        &::after {
+            content: "";
+            display: inline-block;
+            position: relative;
+        }
+
+        &.shape1 {
+            left: -50px;
+            top: 20%;
+            background-color: $main_blue;
+            transform: rotate(60deg);
+            width: 200px;
+            height: 200px;
+
+            &::after {
+                width: 200px;
+                height: 200px;
+                border: 3px solid $second_blue;
+                top: -25px;
+                left: 20px;
+            }
+
+        }
+
+        &.shape2 {
+            right: -150px;
+            bottom: 30%;
+            background-color: $pink;
+            transform: rotate(110deg);
+            width: 250px;
+            height: 250px;
+
+            &::after {
+                width: 250px;
+                height: 250px;
+                border: 3px solid $main_blue;
+                top: 25px;
+                left: 25px;
+            }
+
+        }
+
+        &.shape3 {
+            left: 40%;
+            bottom: -10%;
+            background-color: $yellow;
+            transform: rotate(60deg);
+            width: 200px;
+            height: 200px;
+
+            &::after {
+                width: 200px;
+                height: 200px;
+                border: 3px solid $main_blue;
+                top: -20px;
+                left: -20px;
+            }
+
+        }
+    }
+
 
     .wrap {
+        position: relative;
+        z-index: 2;
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
