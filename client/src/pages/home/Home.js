@@ -24,7 +24,7 @@ function Home() {
             <div className="wrap">
                 <div className="left">
                     <h1>Bienvenue sur <br />
-                    <span className="color">ITHIEL&nbsp;!</span></h1>
+                    <span className="color">ITIHEL&nbsp;!</span></h1>
                     <h3>La plateforme étudiante de partage de cours !</h3>
                     <div className="features">
                         <div className="join" data-aos="fade-up" data-aos-delay="500">
