@@ -43,8 +43,8 @@ function Login({message}) {
                     <a href="/">Itihel</a>
                 </div>
                 <div className="options">
-                    <a className="login_button" href="/login">Login</a>
-                    <a className="signup_button" href="/signup">Sign up</a>
+                    <a className="link" href="/login">Se connecter</a>
+                    <a className="btn" href="/signup">S'inscrire</a>
                 </div>
             </div>
             <div className="main_content">
@@ -55,20 +55,20 @@ function Login({message}) {
                 {message}
                 <form className="card" onSubmit={handleSubmit}>
                     <div className="log_in">
-                        <h2>Log in</h2>
+                        <h2>Se connecter</h2>
                     </div>
                     <div className="form">
                         <div className="email_pseudo">
-                            <label>Email</label>
+                            <label>Adresse mail</label>
                             <input name="email" onChange={handleChange}/>
                         </div>
                         <div className="password">
-                            <label>Password</label>
+                            <label>Mot de passe</label>
                             <input name="password" onChange={handleChange}/>
                         </div>
                     </div>
                     <p>{error}</p>
-                    <button className="button_login" type="submit">Log in</button>
+                    <button className="btn" type="submit">Se connecter</button>
                 </form>
             </div>
         </div>

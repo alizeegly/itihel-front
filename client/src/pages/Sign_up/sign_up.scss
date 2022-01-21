@@ -12,7 +12,7 @@
 
       a {
         margin: 0;
-        font-family: 'Quicksand', sans-serif;
+
         font-size: 40px;
         font-weight: bold;
         color: black;
@@ -25,33 +25,9 @@
       right: 0;
       margin-right: 50px;
 
-      a {
-        font-family: 'Quicksand', sans-serif;
-        text-transform: uppercase;
-        font-size: 16px;
-        text-decoration: none;
-      }
-
-      .signup_button {
-        font-weight: 600;
-        color: black;
-        border-radius: 22px;
-        margin-left: 70px;
-        outline: none;
-        border: none;
-        cursor: pointer;
-      }
-
-      .login_button {
-        background: #FFD9E0;
-        font-weight: 600;
-        color: black;
-        padding: 15px 25px;
-        border-radius: 22px;
-        margin-left: 70px;
-        outline: none;
-        border: none;
-        cursor: pointer;
+      .link {
+        display: inline-block;
+        margin-right: 32px;
       }
     }
   }
@@ -61,7 +37,7 @@
     position: relative;
     overflow: hidden;
 
-    .carre_jaune{
+    .carre_jaune {
       position: absolute;
       bottom: 0;
       right: 20px;
@@ -71,7 +47,8 @@
       background: #94DDDE;
       transform: rotate(-20deg);
     }
-    .carre_bleu{
+
+    .carre_bleu {
       position: absolute;
       bottom: -20px;
       right: -20px;
@@ -81,7 +58,8 @@
       border: 3px solid #3D90BD;
       transform: rotate(-20deg);
     }
-    .carre_bleu_c{
+
+    .carre_bleu_c {
       position: absolute;
       top: 80px;
       left: -20px;
@@ -91,7 +69,8 @@
       background: #F3CD74;
       transform: rotate(-30deg);
     }
-    .carre_bleu_f{
+
+    .carre_bleu_f {
       position: absolute;
       top: 90px;
       left: 15px;
@@ -115,7 +94,6 @@
 
       .sign_up {
         h2 {
-          font-size: 50px;
           margin-top: 0;
           margin-bottom: 25px;
         }
@@ -171,8 +149,9 @@
 
         label {
           margin-bottom: 5px;
-          font-family: 'Quicksand', sans-serif;
+
         }
+
         input {
           height: 30px;
           border-radius: 5px;
@@ -181,7 +160,7 @@
       }
 
       .button_signup {
-        font-family: 'Quicksand', sans-serif;
+
         font-size: 18px;
         padding: 15px 20px;
         background: #FEE996;
