@@ -1,0 +1,86 @@
+// variable de couleur
+$main_blue: #95DDDC;
+$second_blue: #3B8FBF;
+$pink: #FFD9E0;
+$yellow: #FEE996;
+$white: #fff;
+$black: #000;
+
+// font
+$font: 'Quicksand', sans-serif;
+
+// font-weight
+$normal: 400;
+$medium: 500;
+$semi: 600;
+
+// Définition des tailles de responsive
+$desktop: 1440px;
+$laptop: 1280px;
+$tablet: 1024px;
+$mobile: 768px;
+$smallmobile: 480px;
+
+
+@import 'partials';
+@import 'form';
+
+* {
+    box-sizing: border-box;
+}
+
+del {
+    text-transform: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+::selection {
+    color: black;
+    background-color: $pink;
+}
+
+::-moz-selection {
+    color: black;
+    background-color: $pink;
+}
+
+// Conteneurs principaux
+html, body {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-size: 16px;
+    font-family: $font;
+    font-weight: $medium;
+
+}
+
+.center {
+    text-align: center;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.left {
+    text-align: left;
+}
+
+.right {
+    text-align: right;
+}
+
+.color {
+    color: $main_blue;
+}

@@ -48,8 +48,8 @@ function Sign_up() {
                     <a href="/">Itihel</a>
                 </div>
                 <div className="options">
-                    <a className="signup_button" href="/login">Sign up</a>
-                    <a className="login_button" href="/login">Login</a>
+                    <a className="link" href="/login">Se connecter</a>
+                    <a className="btn" href="/signup">S'inscrire</a>
                 </div>
             </div>
             <div className="main_content">
@@ -59,7 +59,7 @@ function Sign_up() {
                 <div className="carre_bleu"></div>
                 <form className="card" onSubmit={handleSubmit}>
                     <div className="sign_up">
-                        <h2>Sign up</h2>
+                        <h2>S'inscrire</h2>
                     </div>
                     <div className="form">
                         <div className="form-col-left">
@@ -92,7 +92,7 @@ function Sign_up() {
                         </div>
                     </div>
                     <p>{error}</p>
-                    <button className="button_signup" type="submit">Sign up</button>
+                    <button className="btn" type="submit">S'inscrire</button>
                 </form>
             </div>
         </div>
