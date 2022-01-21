@@ -141,11 +141,11 @@ function Course(){
                                     <h1>FLIP CARDS</h1>
                                     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
                                         <div className='flip-card flip-card-front' onClick={handleFlippedCard}>
-                                            A quelle date Hitler attaque-t-il l'URSS ?
+                                            A quelle date eu lieu l'armistice ?
                                         </div>
 
                                         <div className='flip-card flip-card-back' onClick={handleFlippedCard}>
-                                            Le 22 juin 1941
+                                            Le 8 mai 1945
                                         </div>
                                     </ReactCardFlip>
 
