@@ -129,3 +129,28 @@ div.DraftEditor-editorContainer,
 div.public-DraftEditor-content {
     height: 100%;
 }
+
+
+.mt-5{
+    margin: 150px 0px;
+    h1{
+        margin-top: 75px;
+    }
+}
+
+.card{
+    width: 500px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+.card-front{
+    background: #FFD9E0;
+}
+.card-back{
+    background: #94DDDE;
+}

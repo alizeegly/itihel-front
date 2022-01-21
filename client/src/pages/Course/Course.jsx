@@ -12,6 +12,7 @@ import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import moment from 'moment'
+import ReactCardFlip from 'react-card-flip';
 
 function Course(){
     const navigate = useNavigate()
@@ -33,6 +34,7 @@ function Course(){
     })
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState({})
+    const [isFlipped, setIsFlipped] = useState(false)
 
 
     const getCourse = async () => {
@@ -75,6 +77,11 @@ function Course(){
             .catch(err => {
                 console.log(err)
             })
+    }
+
+    const handleFlippedCard = (e) => {
+        e.preventDefault();
+        setIsFlipped(!isFlipped)
     }
 
     useEffect(()=>{
@@ -128,11 +135,22 @@ function Course(){
                                         </>
                                     )
                                 }
+                                <div className='mt-5'>
+                                    <h1>FLIP CARDS</h1>
+                                    <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
+                                        <div className='card card-front' onClick={handleFlippedCard}>
+                                            A quelle date Hitler attaque-t-il l'URSS ?
+                                        </div>
+
+                                        <div className='card card-back' onClick={handleFlippedCard}>
+                                            Le 22 juin 1941
+                                        </div>
+                                    </ReactCardFlip>
+
+                                    <h1>QUIZ</h1>
+                                </div>
                             </div>
                         </div>
-                        {/* <div className="form__buttons2">
-                            
-                        </div> */}
                     </div>
                 </div>
             </div>
