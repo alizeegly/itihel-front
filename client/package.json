@@ -26,6 +26,7 @@
     "react-html-parser": "^2.0.2",
     "react-icons": "^4.3.1",
     "react-modal": "^3.14.4",
+    "react-quiz-component": "^0.3.9",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",

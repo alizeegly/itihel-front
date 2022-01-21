@@ -13,6 +13,8 @@ import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import moment from 'moment'
 import ReactCardFlip from 'react-card-flip';
+import Quiz from 'react-quiz-component';
+import { quiz } from './quiz';
 
 function Course(){
     const navigate = useNavigate()
@@ -138,16 +140,17 @@ function Course(){
                                 <div className='mt-5'>
                                     <h1>FLIP CARDS</h1>
                                     <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
-                                        <div className='card card-front' onClick={handleFlippedCard}>
+                                        <div className='flip-card flip-card-front' onClick={handleFlippedCard}>
                                             A quelle date Hitler attaque-t-il l'URSS ?
                                         </div>
 
-                                        <div className='card card-back' onClick={handleFlippedCard}>
+                                        <div className='flip-card flip-card-back' onClick={handleFlippedCard}>
                                             Le 22 juin 1941
                                         </div>
                                     </ReactCardFlip>
 
                                     <h1>QUIZ</h1>
+                                    <Quiz quiz={quiz}/>
                                 </div>
                             </div>
                         </div>
