@@ -39,7 +39,7 @@ export const quiz =  {
       {
         "question": "Quel est le nom des 2 bombes nucléaires qui ont explosées sur le Japon à la fin de la guerre ?",
         "questionType": "text",
-        "answerSelectionType": "single",
+        "answerSelectionType": "multiple",
         "answers": [
           "Hiroshima",
           "Nagazaki",
