@@ -190,14 +190,14 @@ function CourseParameters(){
                                                     </p>
                                                     {
                                                         s.user_id._id === user._id ? "" : (
-                                                            <p className='d-flex align-center'>
+                                                            <div className='d-flex align-center'>
                                                                 <SharedModal modal="edit" user={s.user_id} userroles={s.roles} courseid={course._id} id={s._id}/>
                                                                 <div onClick={function(e) {
                                                                     handleDelete(s); //can pass arguments this.btnTapped(foo, bar);          
                                                                 }}>
                                                                     <FaRegTrashAlt/>
                                                                 </div>
-                                                            </p>
+                                                            </div>
                                                         )
                                                     }
                                                 </div>
