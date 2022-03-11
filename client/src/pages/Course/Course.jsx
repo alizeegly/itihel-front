@@ -103,6 +103,15 @@ function Course(){
                             <p>
                                 Modifié le {moment(course.updatedAt).format('DD/MM/YYYY, hh:mm a')}
                             </p>
+                            <div className='box-tags d-flex flex-wrap align-center'>
+                                {
+                                    course.categories && course.categories.map((category, index) => (
+                                        <div key={index} className='tag' style={{background: category.color ? category.color : "#fff"}}>
+                                            {category.name}
+                                        </div>
+                                    ))
+                                }
+                            </div>
                             <h1 className="title-course">{course.title}</h1>
                             <p className='description-course'>{course.description}</p>
                         </div>

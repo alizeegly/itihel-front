@@ -80,7 +80,10 @@ router.delete("/:id/:user", async (req, res) => {
  */
 router.get("/find/:id", async (req, res) => {
     try{
-        const course = await Course.findById(req.params.id).populate("owner_id")
+        const course = await Course
+        .findById(req.params.id)
+        .populate("owner_id")
+        .populate("categories")
         res.status(200).json(course)
     } catch(err) {
         res.status(500).json(err)
@@ -108,16 +111,28 @@ router.get("/", async (req, res) => {
  * @description - Get all public courses
  */
  router.get("/public", async (req, res) => {
+    let query = { is_public: { $gte: true } }; // default query
+    let queryParams = req.query; // query params from FE
+    let protectedKeys = ['text']; // protected keys == not searchable/filterable
+    let populate = [
+        { path: 'owner_id', model: 'User' },
+        { path: 'categories', model: 'Category' }
+    ]
+
     try{
-        await Course.find({ $and:[{is_public: true},req.query]})
-        .exec(function(err, courses) {
-            if(err) {
-                console.log(err)
-            } else {
-                res.status(200).json(courses)
-            }
+        await Course
+        .findAndFilter(query, queryParams, protectedKeys, populate,
+            (err, courses) => {
+              if (err) return next(err);
+              res.status(200).json(courses);
         })
-    }catch(err){
+        .then((courses) => {
+            res.status(200).json(courses);
+        })
+        .catch((err) => {
+            return next(err);
+        })
+    } catch(err) {
         res.status(500).json(err)
     }
 })

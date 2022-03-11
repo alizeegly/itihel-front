@@ -280,7 +280,12 @@ router.delete("/:id", async (req, res) => {
  router.get("/:id/courses", async (req, res) => {
     try{
         await User.findById(req.params.id)
-            .populate("courses")
+            .populate({
+                path : 'courses',
+                populate : {
+                    path : 'categories'
+                }
+            })
             .exec(function(err, users) {
                 if(err) {
                     console.log(err)
@@ -304,7 +309,7 @@ router.delete("/:id", async (req, res) => {
             .populate({
                 path: 'courses',
                 match: {
-                is_public: true
+                    is_public: true
                 }
             })
             .exec(function(err, users) {

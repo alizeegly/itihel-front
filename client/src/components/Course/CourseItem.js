@@ -8,19 +8,20 @@ import axios from 'axios'
 const CourseItem = (props) => {
     const [creator, setCreator] = useState({})
 
-    const getCreator = async () => {
-        try {
-            var creator = await axios.get("/api/users/find/" + props.creator)
-            setCreator(creator.data)
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
+    // const getCreator = async () => {
+    //     try {
+    //         var creator = await axios.get("/api/users/find/" + props.creator)
+    //         setCreator(creator.data)
+    //     } catch (err) {
+    //         console.error(err.message);
+    //     }
+    // };
 
     useEffect(()=>{
-        if(props.page === "cours-publics"){
-            getCreator()
-        }
+        // if(props.page === "cours-publics"){
+            // getCreator()
+        // }
+        console.log(props.course)
     }, [])
     return (
         <a href={"/courses/" + props.id} className="card_cours">
@@ -43,23 +44,28 @@ const CourseItem = (props) => {
                     props.page === "cours-publics" ? (
                         <div className="d-flex justify-between w-full">
                             <p>{moment(props.date).format('DD/MM/YYYY')}</p>
-                            <p>@{creator.pseudo}</p>
+                            <p>@{props.course.owner_id.pseudo}</p>
                         </div>
                     ) : props.page === "partages-avec-moi" ? (
                         <div className="d-flex justify-between w-full">
                             <p>{moment(props.date).format('DD/MM/YYYY')}</p>
                             {
-                                props.page === "partages-avec-moi" && props.course ? (
-                                    <p>@{props.course.user_id.pseudo}</p>
-                                ) : (
-                                    <p>@{creator.pseudo}</p>
-                                )
+                                <p>@{props.course.owner_id.pseudo}</p>
                             }
                         </div>
                     ) :(
                         <p>{moment(props.date).format('DD/MM/YYYY')}</p>
                     )
                 }
+                <div className='box-tags d-flex flex-wrap align-center'>
+                    {
+                        props.course.categories.map((category, index) => (
+                            <div key={index} className='tag' style={{background: category.color ? category.color : "#fff"}}>
+                                {category.name}
+                            </div>
+                        ))
+                    }
+                </div>
             </div>
         </a>
     )

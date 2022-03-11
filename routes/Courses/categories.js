@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const Category = require("../../models/Courses/Category")
+const Course = require("../../models/Courses/Course")
 const auth = require("../../middleware/auth")
 
 /**
@@ -67,33 +68,32 @@ router.get("/find/:id", async (req, res) => {
 router.get("/", async (req, res) => {
     try{
         console.log(req.headers)
-        const categories = await Category.find().populate('courses')
+        const categories = await Category.find()
         res.status(200).json(categories)
     } catch(err) {
         res.status(500).json(err)
     }
 })
 
-/**
- * @method - GET
- * @param - course
- * @description - Get All course of one category
- */
- router.get("/:category/courses", async (req, res) => {
-    try{
-        await Category.findById(req.params.category)
-            .populate("courses")
-            .exec(function(err, courses) {
-                if(err) {
-                    console.log(err)
-                } else {
-                    res.status(200).json(courses)
-                }
-            })
-    } catch(err) {
-        console.log(err)
-        res.status(500).json(err)
-    }
-})
+// /**
+//  * @method - GET
+//  * @param - course
+//  * @description - Get All course of one category
+//  */
+//  router.get("/:category/courses", async (req, res) => {
+//     try{
+//         const courses = await Course.findById(req.params.category)
+//             .exec(function(err, courses) {
+//                 if(err) {
+//                     console.log(err)
+//                 } else {
+//                     res.status(200).json(courses)
+//                 }
+//             })
+//     } catch(err) {
+//         console.log(err)
+//         res.status(500).json(err)
+//     }
+// })
 
 module.exports = router

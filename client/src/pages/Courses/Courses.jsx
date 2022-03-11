@@ -88,18 +88,41 @@ const Courses = ({page}) => {
                             </div>
                             
                             <div className="d-inline d-wrap">
-                                {courses.length > 0 && courses.map((course, index) => (
-                                    <CourseItem
-                                        key={index}
-                                        title={course.title}
-                                        description={course.description}
-                                        date={course.createdAt}
-                                        creator={course.owner_id}
-                                        id={course._id}
-                                        page={page}
-                                        course={course}
-                                    />
-                                ))}
+                                {
+                                    courses.length > 0 && courses.map((course, index) => {
+                                        if(page !== "partages-avec-moi"){
+                                            return (
+                                                (
+                                                    <CourseItem
+                                                        key={index}
+                                                        title={course.title}
+                                                        description={course.description}
+                                                        date={course.createdAt}
+                                                        creator={course.owner_id}
+                                                        id={course._id}
+                                                        page={page}
+                                                        course={course}
+                                                    />
+                                                )
+                                            )
+                                        } else {
+                                            // return (
+                                            //     (
+                                            //         <CourseItem
+                                            //             key={index}
+                                            //             title={course.title}
+                                            //             description={course.description}
+                                            //             date={course.createdAt}
+                                            //             creator={course.owner_id}
+                                            //             id={course._id}
+                                            //             page={page}
+                                            //             course={course}
+                                            //         />
+                                            //     )
+                                            // )
+                                        }
+                                    })
+                                }
                             </div>
                         </div>
                     </div>

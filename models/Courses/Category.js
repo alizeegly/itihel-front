@@ -5,9 +5,9 @@ const CategorySchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    courses: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Course'
-    }]
+    color: {
+        type: String
+    }
 }, {
     timestamps: true
 })

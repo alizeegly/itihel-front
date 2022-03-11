@@ -53,6 +53,12 @@ router.post("/", async (req, res) => {
             .find({user_id: req.params.user})
             .populate('roles')
             .populate('course_id')
+            .populate({
+                path : 'course_id',
+                populate : {
+                    path : 'categories'
+                }
+            })
             .populate('user_id')
             .exec(function(err, courses) {
                 if(err) {

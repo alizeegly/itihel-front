@@ -23,6 +23,7 @@
     "express-validator": "^6.13.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.0.12",
+    "mongoose-find-and-filter": "^1.0.0",
     "nodemon": "^2.0.14",
     "passport": "^0.5.0",
     "passport-local-mongoose": "^6.1.0"

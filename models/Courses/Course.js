@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const mongooseFindAndFilter = require('mongoose-find-and-filter');
 
 const CourseSchema = new mongoose.Schema({
     title: { 
@@ -31,5 +32,7 @@ const CourseSchema = new mongoose.Schema({
 }, {
     timestamps: true
 })
+
+CourseSchema.plugin(mongooseFindAndFilter);
 
 module.exports = mongoose.model("Course", CourseSchema)
