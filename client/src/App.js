@@ -11,67 +11,98 @@ import NotFound from './pages/Errors/NotFound';
 import { useSession } from  'react-use-session';
 
 
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+      primary: {
+        light: '#94DDDE',
+        main: '#94DDDE',
+        dark: '#94DDDE',
+        contrastText: '#fff',
+      },
+      secondary: {
+          main: '#444',
+      },
+      light: {
+          main: "#DDDDDD"
+      }
+  },
+  typography: {
+      fontFamily: '"Quicksand", sans-serif',
+      h1: {
+          fontSize: 55,
+          fontWeight: 700,
+          color: "#444"
+      }
+  }
+})
+
+
 function App() {
   // Récupérer la session
   const { session, saveJWT, clear } = useSession('itihel');
 
   return (
-    <div className="App">
-      <Routes>
-        <Route path="" element={<Home />} />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Sign_up />} />
-        <Route path="404" element={<NotFound />} />
-        <Route path="*" element={<Navigate to ="/404" />}/>
-        {/*<Route path="profile" element={<Profil />}/>*/}
-        <Route path="profile" element={
-          session ? ( // Si une session est trouvée (= si on est connecté)
-            <Profil />
-          ) : (
-            <Navigate to="login" /> // Sinon on est renvoyé vers 404
-          )
-        }/>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <Routes>
+          <Route path="" element={<Home />} />
+          <Route path="login" element={<Login />} />
+          <Route path="signup" element={<Sign_up />} />
+          <Route path="404" element={<NotFound />} />
+          <Route path="*" element={<Navigate to ="/404" />}/>
+          {/*<Route path="profile" element={<Profil />}/>*/}
+          <Route path="profile" element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <Profil />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/>
 
 
-        <Route path="/courses" element={
-          session ? ( 
-            <Courses page={"mes-cours"} />
-          ) : (
-            <Navigate to="login" /> 
-          )
-        }/>
-        <Route path="/public-courses" exact element={
-          session ? ( 
-            <Courses page={"cours-publics"} />
-          ) : (
-            <Navigate to="login" /> 
-          )
-        }/>
-        <Route path="/shared-whith-me-courses" exact element={
-          session ? ( 
-            <Courses page={"partages-avec-moi"} />
-          ) : (
-            <Navigate to="login" /> 
-          )
-        }/>
+          <Route path="/courses" element={
+            session ? ( 
+              <Courses page={"mes-cours"} />
+            ) : (
+              <Navigate to="login" /> 
+            )
+          }/>
+          <Route path="/public-courses" exact element={
+            session ? ( 
+              <Courses page={"cours-publics"} />
+            ) : (
+              <Navigate to="login" /> 
+            )
+          }/>
+          <Route path="/shared-whith-me-courses" exact element={
+            session ? ( 
+              <Courses page={"partages-avec-moi"} />
+            ) : (
+              <Navigate to="login" /> 
+            )
+          }/>
 
 
-        <Route path="/courses/:id" exact element={
-          session ? ( // Si une session est trouvée (= si on est connecté)
-            <Course />
-          ) : (
-            <Navigate to="login" /> // Sinon on est renvoyé vers 404
-          )
-        }/> 
-        <Route path="/courses/:id/parameters" exact element={
-          session ? ( // Si une session est trouvée (= si on est connecté)
-            <CourseParameters />
-          ) : (
-            <Navigate to="login" /> // Sinon on est renvoyé vers 404
-          )
-        }/>
-      </Routes>
-    </div>
+          <Route path="/courses/:id" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <Course />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+          <Route path="/courses/:id/parameters" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <CourseParameters />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/>
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 

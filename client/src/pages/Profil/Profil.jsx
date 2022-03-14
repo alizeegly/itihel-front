@@ -4,7 +4,16 @@ import "./profil.scss"
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import axios from 'axios'
-import Button from '../../components/Button/Button'
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+
+import { Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@mui/material'
+import ProfileCard from './ProfilCard'
+import SettingsCard from './SettingCard'
+
+const drawerWidth = 240;
+
 
 function Profil(){
     const navigate = useNavigate()
@@ -63,75 +72,58 @@ function Profil(){
         getUser()
     }, [])
 
+
     return (
-        <div className="profil">
-            <Sidebar user={user}/>
-            <div className="page">
-                <div className="header">
-                    <button className="header__button" onClick={logout}>
-                        Se déconnecter
-                    </button>
-                </div>
-                <div className="container">
-                    <div className="carre_bleuc"></div>
-                    <div className="carre_bleuf"></div>
-                    <div className="carre_jaune"></div>
-                    <div className="carre_bleu"></div>
-                    <div className="container__wrapper">
-                        <form className="container__box" onSubmit={handleSubmit} >
-                            <h1 className="title">Mon compte</h1>
-                            <div className="form">
-                                <div className="form_inputs">
-                                    <div className="form__item">
-                                        <label>Nom</label>
-                                        <input 
-                                            type="text" 
-                                            className="form-control" 
-                                            name="last_name"
-                                            value={user.last_name}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className="form__item">
-                                        <label>Prénom</label>
-                                        <input 
-                                            type="text" 
-                                            name="first_name"
-                                            className="form-control" 
-                                            value={user.first_name}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className="form__item">
-                                        <label>Pseudo</label>
-                                        <input 
-                                            type="text" 
-                                            name="pseudo"
-                                            className="form-control"
-                                            value={user.pseudo}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className="form__item">
-                                        <label>E-mail</label>
-                                        <input 
-                                            type="text" 
-                                            name="email"
-                                            className="form-control"
-                                            value={user.email}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="form__buttons">
-                                <button type="submit">Modifier</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Box sx={{ display: 'flex' }}>
+            <Sidebar/>
+            <Box
+                component="main"
+                sx={{ 
+                    flexGrow: 1, 
+                    width: { sm: `calc(100% - ${drawerWidth}px)` } 
+                }}
+            >
+                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                <Grid
+                    container
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={3}
+                    sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
+                >
+                    {/* PROFILE CARD */}
+                    <Grid item md={3}>
+                        <ProfileCard
+                            firstname={user.first_name}
+                            lastname={user.last_name}
+                            pseudo={user.pseudo}
+                            lastconnection={user.last_connection}
+                            email={user.email}
+                            password={user.password}
+                            picture={user.profile_picture}
+                            courses={user.courses}
+                            createdAt={user.createdAt}
+                            id={user._id}
+                        ></ProfileCard>
+                    </Grid>
+
+                    {/* SETTINGS CARD */}
+                    <Grid item md={9}>
+                        <SettingsCard
+                            firstname={user.first_name}
+                            lastname={user.last_name}
+                            pseudo={user.pseudo}
+                            lastconnection={user.last_connection}
+                            email={user.email}
+                            password={user.password}
+                            picture={user.profile_picture}
+                            courses={user.courses}
+                            createdAt={user.createdAt}
+                            id={user._id}
+                        ></SettingsCard>
+                    </Grid>
+                </Grid>
+            </Box>
+        </Box>
     )
 }
 
