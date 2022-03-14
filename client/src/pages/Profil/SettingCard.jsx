@@ -1,9 +1,9 @@
-import React, { createRef, useState } from "react";
+import React, { createRef, useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Avatar, Grid } from "@mui/material";
+import { Alert, Avatar, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -12,8 +12,9 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import {
     CloudUpload as UploadIcon,
-    Delete as DeleteIcon,
+    Edit as EditIcon,
 } from "@mui/icons-material";
+import { useSession } from "react-use-session";
 
 const styles = {
   label: {
@@ -52,6 +53,21 @@ export default function SettingsCard(props) {
     const [value, setValue] = React.useState(0);
     const [image, _setImage] = useState(null);
     const inputFileRef = createRef(null);
+    const { session, saveJWT, clear } = useSession('itihel')
+    const [user, setUser] = useState({
+        courses: [],
+        createdAt: "",
+        email: "",
+        first_name: "",
+        last_connection: "",
+        last_name: "",
+        password: "",
+        profile_picture: "",
+        pseudo: "",
+        updatedAt: "",
+        _id: ""
+    })
+
 
     const cleanup = () => {
         URL.revokeObjectURL(image);
@@ -63,13 +79,16 @@ export default function SettingsCard(props) {
             cleanup();
         }
         _setImage(newImage);
+        const pic = "profile_picture"
+        setUser({ ...user, [pic]: newImage })
     };
 
     const handleOnChange = (event) => {
+        console.log(event)
         const newImage = event.target?.files?.[0];
 
         if (newImage) {
-        setImage(URL.createObjectURL(newImage));
+            setImage(URL.createObjectURL(newImage));
         }
     };
 
@@ -77,33 +96,26 @@ export default function SettingsCard(props) {
         setValue(newValue);
     };
 
-     const [user, setUser] = useState({
-        courses: props.courses,
-        createdAt: props.createdAt,
-        email: props.email,
-        first_name: props.firstname,
-        last_connection: props.lastconnection,
-        last_name: props.lastname,
-        password: props.password,
-        profile_picture: props.profilepicture,
-        pseudo: props.pseudo,
-        updatedAt: props.updatedAt,
-        _id: props.id
-    })
-
     const handleChange = e => {
-        setUser({
-        ...user,
-        [e.target.name]: e.target.value
-        })
+        if(e.target.files){
+            const newImage = e.target?.files?.[0]
+            if (newImage) {
+                setImage(URL.createObjectURL(newImage));
+            }
+        }
+        setUser({ ...user, [e.target.name]: e.target.value })
     };
+
 
     const handleSubmit = (e) => {
         e.preventDefault()
+        console.log("submit")
+        console.log(e)
         axios.put("/api/users/" + user._id, user) // Lien pour modifier un user
             .then((res) => {
                 console.log("modifié")
-                Navigate("/profile") // redirect vers page profile
+                // Navigate("/profile") // redirect vers page profile
+                props.handleCallback(true)
             })
             .catch(err => {
                 console.log(err)
@@ -117,90 +129,114 @@ export default function SettingsCard(props) {
         }
     };
 
-  return (
-    <Card variant="outlined" sx={{ height: "100%", p: 2 }}>
-        <Container sx={{ height: "100%" }}>
-            <form style={{ position: "relative", height: "100%"}} onSubmit={handleSubmit} >
-                <Tabs
-                    sx={{ mb: 3 }}
-                    value={value}
-                    onChange={handleChangeValue}
-                    textColor="secondary"
-                    indicatorColor="secondary"
-                >
-                    <Tab label="Données privées" value={0} />
-                    <Tab label="Données publiques" value={1} />
-                </Tabs>
+    const getUser = async () => {
+        try {
+            console.log(session)
+            const user = await axios.get("/api/users/find/" + session.user.id)
+            setUser(user.data);
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
 
-                <Grid container direction={{ xs: "column", md: "row" }} >
-                    <TabPanel value={value} index={0} >
-                        <TextField
-                            id="lastname"
-                            label="Nom"
-                            variant="outlined"
-                            sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
-                            value={props.lastname}
-                        />
-                        <TextField
-                            id="firstname"
-                            label="Prénom"
-                            variant="outlined"
-                            sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
-                            value={props.firstname}
-                        />
-                        <TextField
-                            id="email"
-                            label="Email"
-                            variant="outlined"
-                            sx={{ width: { sm: "40%", xs: "100%" }, mb: {sm: 2, xs: 10} }}
-                            value={props.email}
-                        />
-                    </TabPanel>
-                    <TabPanel value={value} index={1} >
-                        <TextField
-                            id="pseudo"
-                            label="Pseudo"
-                            variant="outlined"
-                            sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
-                            value={props.pseudo}
-                        />
-                        <Grid direction="row" sx={{ width: "100%" }}>
-                            <Box sx={{ display: "flex", gap: 3, mb:2, alignItems: "center" }}>
-                                <Avatar
-                                    alt="Avatar"
-                                    src={image || "/static/img/avatars/default-profile.svg"}
-                                    sx={{ width: 56, height: 56 }}
-                                />
-                                <input
-                                    ref={inputFileRef}
-                                    accept="image/*"
-                                    hidden
-                                    id="avatar-image-upload"
-                                    type="file"
-                                    onChange={handleOnChange}
-                                />
-                                <label htmlFor="avatar-image-upload">
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        component="span"
-                                        mb={2}
-                                        onClick={handleClick}
-                                    >
-                                        {image ? <DeleteIcon mr={2} /> : <UploadIcon mr={2} />}
-                                        {image ? " Delete" : " Upload"}
-                                    </Button>
-                                </label>
-                            </Box>
-                            <Typography variant="caption" display="block" gutterBottom sx={{ mb: {sm: 2, xs: 10} }}>
-                                Pour de meilleurs résultats, utiliser une image de moins de 128px x 128px
-                            </Typography>
-                        </Grid>
-                    </TabPanel>
-                </Grid>
-                <Button variant="contained" style={{ position: "absolute", bottom: 0 }}>Modifier</Button>
-            </form>
-        </Container>
-    </Card>
-  );
+    useEffect(()=>{
+        getUser()
+    }, [])
+
+    return (
+        <Card variant="outlined" sx={{ height: "100%", p: 2 }}>
+            <Container sx={{ height: "100%" }}>
+                <form style={{ position: "relative", height: "100%"}} onSubmit={handleSubmit} >
+                    <Tabs
+                        sx={{ mb: 3 }}
+                        value={value}
+                        onChange={handleChangeValue}
+                        textColor="secondary"
+                        indicatorColor="secondary"
+                    >
+                        <Tab label="Données privées" value={0} />
+                        <Tab label="Données publiques" value={1} />
+                    </Tabs>
+
+                    <Grid container direction={{ xs: "column", md: "row" }} >
+                        <TabPanel value={value} index={0} >
+                            <TextField
+                                id="lastname"
+                                label="Nom"
+                                variant="outlined"
+                                name="last_name"
+                                sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
+                                value={user.last_name}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                id="firstname"
+                                label="Prénom"
+                                variant="outlined"
+                                name="first_name"
+                                sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
+                                value={user.first_name}
+                                onChange={handleChange}
+                            />
+                            <TextField
+                                id="email"
+                                label="Email"
+                                variant="outlined"
+                                name="email"
+                                sx={{ width: { sm: "40%", xs: "100%" }, mb: {sm: 2, xs: 10} }}
+                                value={user.email}
+                                onChange={handleChange}
+                            />
+                        </TabPanel>
+                        <TabPanel value={value} index={1} >
+                            <TextField
+                                id="pseudo"
+                                label="Pseudo"
+                                variant="outlined"
+                                name="pseudo"
+                                sx={{ width: { sm: "40%", xs: "100%" }, mb: 2 }}
+                                value={user.pseudo}
+                                onChange={handleChange}
+                            />
+                            <Grid container sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
+                                <Box sx={{ display: "flex", gap: 3, mb:2, alignItems: "center" }}>
+                                    <Avatar
+                                        alt="Avatar"
+                                        src={user.profile_picture || "/static/img/avatars/default-profile.svg"}
+                                        sx={{ width: 56, height: 56 }}
+                                    />
+                                    <input
+                                        ref={inputFileRef}
+                                        accept="image/*"
+                                        hidden
+                                        name="profile_picture"
+                                        id="avatar-image-upload"
+                                        type="file"
+                                        onChange={handleOnChange}
+                                    />
+                                    <label htmlFor="avatar-image-upload">
+                                        <Button
+                                            variant="contained"
+                                            color="secondary"
+                                            component="span"
+                                            name="profile_picture"
+                                            mb={2}
+                                            onClick={handleClick}
+                                            onChange={handleOnChange}
+                                        >
+                                            <UploadIcon mr={2} /> &nbsp;Upload
+                                        </Button>
+                                    </label>
+                                </Box>
+                                <Typography variant="caption" display="block" gutterBottom sx={{ mb: {sm: 2, xs: 10} }}>
+                                    Pour de meilleurs résultats, utiliser une image de moins de 128px x 128px
+                                </Typography>
+                            </Grid>
+                        </TabPanel>
+                    </Grid>
+                    <Button type="submit" variant="contained" style={{ position: "absolute", bottom: 0 }}>Modifier</Button>
+                </form>
+            </Container>
+        </Card>
+    );
 }

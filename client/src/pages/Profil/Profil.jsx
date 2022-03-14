@@ -7,8 +7,10 @@ import axios from 'axios'
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import CheckIcon from '@mui/icons-material/Check';
+import WarningIcon from '@mui/icons-material/Warning';
 
-import { Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@mui/material'
+import { Alert, Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@mui/material'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingCard'
 
@@ -16,62 +18,11 @@ const drawerWidth = 240;
 
 
 function Profil(){
-    const navigate = useNavigate()
-    const { session, saveJWT, clear } = useSession('itihel')
-    const [user, setUser] = useState({
-        courses: [],
-        createdAt: "",
-        email: "",
-        first_name: "",
-        last_connection: "",
-        last_name: "",
-        password: "",
-        profile_picture: "",
-        pseudo: "",
-        updatedAt: "",
-        _id: ""
-    })
-    const [showFormPassword, setShowFormPassword] = useState(false)
+    const [isModified, setIsModified] = useState(false);
 
-    const logout = () => {
-        clear()
-        console.log("logout")
-        navigate("/login", {message: "Vous êtes déconnecté"})// redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
+    const handleCallback = (childData) =>{
+        setIsModified(childData)
     }
-    
-    const handleChange = e => {
-        setUser({
-          ...user,
-          [e.target.name]: e.target.value
-        })
-    };
-
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        axios.put("/api/users/" + user._id, user) // Lien pour modifier un user
-            .then((res) => {
-                console.log("modifié")
-                navigate("/profile") // redirect vers page profile
-            })
-            .catch(err => {
-                console.log(err)
-            })
-    }
-
-    const getUser = async () => {
-        try {
-            console.log(session)
-            const user = await axios.get("/api/users/find/" + session.user.id)
-            setUser(user.data);
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
-    useEffect(()=>{
-        getUser()
-    }, [])
-
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -84,6 +35,15 @@ function Profil(){
                 }}
             >
                 <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                
+                {
+                    isModified ? (
+                        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {setIsModified(false)}}>Votre profil a bien été modifié.</Alert>
+                    ) : (
+                        ""
+                    )
+                }
+                
                 <Grid
                     container
                     direction={{ xs: "column", md: "row" }}
@@ -92,34 +52,12 @@ function Profil(){
                 >
                     {/* PROFILE CARD */}
                     <Grid item md={3}>
-                        <ProfileCard
-                            firstname={user.first_name}
-                            lastname={user.last_name}
-                            pseudo={user.pseudo}
-                            lastconnection={user.last_connection}
-                            email={user.email}
-                            password={user.password}
-                            picture={user.profile_picture}
-                            courses={user.courses}
-                            createdAt={user.createdAt}
-                            id={user._id}
-                        ></ProfileCard>
+                        <ProfileCard></ProfileCard>
                     </Grid>
 
                     {/* SETTINGS CARD */}
                     <Grid item md={9}>
-                        <SettingsCard
-                            firstname={user.first_name}
-                            lastname={user.last_name}
-                            pseudo={user.pseudo}
-                            lastconnection={user.last_connection}
-                            email={user.email}
-                            password={user.password}
-                            picture={user.profile_picture}
-                            courses={user.courses}
-                            createdAt={user.createdAt}
-                            id={user._id}
-                        ></SettingsCard>
+                        <SettingsCard handleCallback={handleCallback}></SettingsCard>
                     </Grid>
                 </Grid>
             </Box>
