@@ -1,9 +1,40 @@
 import React, { useState } from 'react'
 import "./login.scss"
-import Button from '../../components/Button/Button'
+// import Button from '../../components/Button/Button'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
+
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import MenuIcon from '@mui/icons-material/Menu';
+import { Alert, AppBar, IconButton, List, ListItem, Toolbar } from '@mui/material';
+
+
+
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="/">
+          Itihel
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+}
 
 const initialState = {email: "", password: ""}
 
@@ -37,41 +68,92 @@ function Login({message}) {
     }
 
     return (
-        <div className="login_page">
-            <div className="header">
-                <div className="logo">
-                    <a href="/">Itihel</a>
-                </div>
-                <div className="options">
-                    <a className="link" href="/login">Se connecter</a>
-                    <a className="btn" href="/signup">S'inscrire</a>
-                </div>
-            </div>
-            <div className="main_content">
-                <div className="carre_bleu_c"></div>
-                <div className="carre_bleu_f"></div>
-                <div className="carre_jaune"></div>
-                <div className="carre_bleu"></div>
-                {message}
-                <form className="card" onSubmit={handleSubmit}>
-                    <div className="log_in">
-                        <h2>Se connecter</h2>
-                    </div>
-                    <div className="form">
-                        <div className="email_pseudo">
-                            <label>Adresse mail</label>
-                            <input name="email" onChange={handleChange}/>
-                        </div>
-                        <div className="password">
-                            <label>Mot de passe</label>
-                            <input type="password" name="password" onChange={handleChange}/>
-                        </div>
-                    </div>
-                    <p>{error}</p>
-                    <button className="btn" type="submit">Se connecter</button>
-                </form>
-            </div>
-        </div>
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" color="secondary">
+                    <Toolbar>
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                        Itihel
+                    </Typography>
+                    <Button color="inherit" href="/login">Se connecter</Button>
+                    <Button color="inherit" href="/signup">S'inscrire</Button>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+
+            {
+                error !== "" ? (
+                    <Alert severity="error">{error}</Alert>
+                ) : ""
+            }
+
+            <Container component="main" maxWidth="xs">
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Se connecter
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="email"
+                            label="Adresse mail"
+                            name="email"
+                            autoComplete="email"
+                            autoFocus
+                            onChange={handleChange}
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Mot de passe"
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                            onChange={handleChange}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Se souvenir de moi"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Se connecter
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Mot de passe oublié?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="/signup" variant="body2">
+                                    {"Pas encore inscrit?"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                <Copyright sx={{ mt: 8, mb: 4 }} />
+            </Container>
+        </>
     )
 }
 

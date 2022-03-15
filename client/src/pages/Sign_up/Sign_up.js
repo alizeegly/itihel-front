@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
 import "./sign_up.scss"
-import Button from '../../components/Button/Button'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
+import { Alert, AppBar, Avatar, Checkbox, Button, Container, FormControlLabel, Grid, Link, TextField, Toolbar, Typography } from '@mui/material'
+import { Box } from '@mui/system'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const initialState = {last_name: "", first_name: "", pseudo: "", email:"", password: "", password_confirm: ""}
 
+function Copyright(props) {
+    return (
+      <Typography variant="body2" color="text.secondary" align="center" {...props}>
+        {'Copyright © '}
+        <Link color="inherit" href="/">
+          Itihel
+        </Link>{' '}
+        {new Date().getFullYear()}
+        {'.'}
+      </Typography>
+    );
+}
+  
 function Sign_up() {
     const [formData, setFormData] = useState(initialState)
     const [error, setError] = useState('')
@@ -42,60 +57,115 @@ function Sign_up() {
     }
 
     return (
-        <div className="signup_page">
-            <div className="header">
-                <div className="logo">
-                    <a href="/">Itihel</a>
-                </div>
-                <div className="options">
-                    <a className="link" href="/login">Se connecter</a>
-                    <a className="btn" href="/signup">S'inscrire</a>
-                </div>
-            </div>
-            <div className="main_content">
-                <div className="carre_bleu_c"></div>
-                <div className="carre_bleu_f"></div>
-                <div className="carre_jaune"></div>
-                <div className="carre_bleu"></div>
-                <form className="card" onSubmit={handleSubmit}>
-                    <div className="sign_up">
-                        <h2>S'inscrire</h2>
-                    </div>
-                    <div className="form">
-                        <div className="form-col-left">
-                            <div className="last_name">
-                                <label>Nom</label>
-                                <input name="last_name" onChange={handleChange}/>
-                            </div>
-                            <div className="pseudo">
-                                <label>Pseudo</label>
-                                <input name="pseudo" onChange={handleChange}/>
-                            </div>
-                            <div className="password">
-                                <label>Mot de passe</label>
-                                <input type="password" name="password" onChange={handleChange}/>
-                            </div>
-                        </div>
-                        <div className="form-col-right">
-                            <div className="first_name">
-                                <label>Prénom</label>
-                                <input name="first_name" onChange={handleChange}/>
-                            </div>
-                            <div className="email">
-                                <label>E-mail</label>
-                                <input name="email" onChange={handleChange}/>
-                            </div>
-                            <div className="password_confirm">
-                                <label>Confirmation du mot de passe</label>
-                                <input type="password" name="password_confirm" onChange={handleChange}/>
-                            </div>
-                        </div>
-                    </div>
-                    <p>{error}</p>
-                    <button className="btn" type="submit">S'inscrire</button>
-                </form>
-            </div>
-        </div>
+        <>
+            <Box sx={{ flexGrow: 1 }}>
+                <AppBar position="static" color="secondary">
+                    <Toolbar>
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            Itihel
+                        </Typography>
+                        <Button color="inherit" href="/login">Se connecter</Button>
+                        <Button color="inherit" href="/signup">S'inscrire</Button>
+                    </Toolbar>
+                </AppBar>
+            </Box>
+
+            {
+                error !== "" ? (
+                    <Alert severity="error">{error}</Alert>
+                ) : ""
+            }
+
+            <Container component="main" maxWidth="xs">
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        S'inscrire
+                    </Typography>
+                    <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    autoComplete="given-name"
+                                    name="first_name"
+                                    required
+                                    fullWidth
+                                    id="first_name"
+                                    label="First Name"
+                                    autoFocus
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12} sm={6}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="last_name"
+                                    label="Last Name"
+                                    name="last_name"
+                                    autoComplete="family-name"
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    name="email"
+                                    autoComplete="email"
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    name="password"
+                                    label="Password"
+                                    type="password"
+                                    id="password"
+                                    autoComplete="new-password"
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControlLabel
+                                    control={<Checkbox value="allowExtraEmails" color="primary" />}
+                                    label="I want to receive inspiration, marketing promotions and updates via email."
+                                />
+                            </Grid>
+                        </Grid>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            S'inscrire
+                        </Button>
+                        <Grid container justifyContent="flex-end">
+                            <Grid item>
+                                <Link href="/login" variant="body2">
+                                    Déjà un compte ?
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+                <Copyright sx={{ mt: 5 }} />
+            </Container>
+        </>
     )
 }
 
