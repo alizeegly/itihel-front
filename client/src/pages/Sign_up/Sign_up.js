@@ -100,7 +100,7 @@ function Sign_up() {
                                     required
                                     fullWidth
                                     id="first_name"
-                                    label="First Name"
+                                    label="Prénom"
                                     autoFocus
                                     onChange={handleChange}
                                 />
@@ -110,7 +110,7 @@ function Sign_up() {
                                     required
                                     fullWidth
                                     id="last_name"
-                                    label="Last Name"
+                                    label="Nom"
                                     name="last_name"
                                     autoComplete="family-name"
                                     onChange={handleChange}
@@ -121,7 +121,7 @@ function Sign_up() {
                                     required
                                     fullWidth
                                     id="email"
-                                    label="Email Address"
+                                    label="Adresse mail"
                                     name="email"
                                     autoComplete="email"
                                     onChange={handleChange}
@@ -132,19 +132,19 @@ function Sign_up() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="Mot de passe"
                                     type="password"
                                     id="password"
                                     autoComplete="new-password"
                                     onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item xs={12}>
+                            {/* <Grid item xs={12}>
                                 <FormControlLabel
                                     control={<Checkbox value="allowExtraEmails" color="primary" />}
                                     label="I want to receive inspiration, marketing promotions and updates via email."
                                 />
-                            </Grid>
+                            </Grid> */}
                         </Grid>
                         <Button
                             type="submit"
