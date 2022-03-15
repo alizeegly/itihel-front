@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import "./profil.scss"
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import axios from 'axios'
@@ -14,6 +13,7 @@ import { Alert, Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingCard'
 import Papers from '../../components/Papers/Papers'
+import { BrowserView } from 'react-device-detect'
 
 const drawerWidth = 240;
 
@@ -74,13 +74,14 @@ function Profil(){
                 }
 
 
-
-                <Papers
-                    bg1="#94DDDE"
-                    border1="#3D90BD"
-                    bg2="#F3CD74"
-                    border2="#3D90BD"
-                />
+                <BrowserView>
+                    <Papers
+                        bg1="#94DDDE"
+                        border1="#3D90BD"
+                        bg2="#F3CD74"
+                        border2="#3D90BD"
+                    />
+                </BrowserView>
 
 
                 <Grid
@@ -90,12 +91,12 @@ function Profil(){
                     sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
                 >
                     {/* PROFILE CARD */}
-                    <Grid item md={3}>
+                    <Grid item lg={3} md={9}>
                         <ProfileCard></ProfileCard>
                     </Grid>
 
                     {/* SETTINGS CARD */}
-                    <Grid item md={9}>
+                    <Grid item lg={9} md={9}>
                         <SettingsCard handleCallback={handleCallback}></SettingsCard>
                     </Grid>
                 </Grid>

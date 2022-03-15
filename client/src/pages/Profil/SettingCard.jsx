@@ -158,7 +158,7 @@ export default function SettingsCard(props) {
                         <Tab label="Données publiques" value={1} />
                     </Tabs>
 
-                    <Grid container direction={{ xs: "column", md: "row" }} >
+                    <Grid container direction={{ xs: "column", md: "row" }} sx={{ mb: {md: 10} }}>
                         <TabPanel value={value} index={0} >
                             <TextField
                                 id="lastname"
@@ -199,7 +199,7 @@ export default function SettingsCard(props) {
                                 onChange={handleChange}
                             />
                             <Grid container sx={{ width: "100%", display: "flex", flexDirection: "column" }}>
-                                <Box sx={{ display: "flex", gap: 3, mb:2, alignItems: "center" }}>
+                                <Box sx={{ display: "flex", gap: 3, mb: 2, alignItems: "center" }}>
                                     <Avatar
                                         alt="Avatar"
                                         src={user.profile_picture || "/static/img/avatars/default-profile.svg"}
