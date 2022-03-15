@@ -13,6 +13,8 @@ import { useSession } from  'react-use-session';
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ForgotPassword from "./pages/Login/ForgotPassword";
+import ResetPassword from "./pages/Login/ResetPassword";
 
 const theme = createTheme({
   palette: {
@@ -51,6 +53,8 @@ function App() {
           <Route path="" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Sign_up />} />
+          <Route path="forgot" element={<ForgotPassword />} />
+          <Route path="reset" element={<ResetPassword />} />
           <Route path="404" element={<NotFound />} />
           <Route path="*" element={<Navigate to ="/404" />}/>
           {/*<Route path="profile" element={<Profil />}/>*/}
