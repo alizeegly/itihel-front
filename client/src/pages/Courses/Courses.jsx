@@ -15,7 +15,11 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
+import { Avatar, Box, CardMedia, Divider, Grid, Menu, MenuItem } from '@mui/material'
+import { BrowserView } from 'react-device-detect'
+import Papers from '../../components/Papers/Papers'
 
+const drawerWidth = 240;
 
 
 const Courses = ({page}) => {
@@ -36,6 +40,7 @@ const Courses = ({page}) => {
         updatedAt: "",
         _id: ""
     })
+    const [anchorEl, setAnchorEl] = React.useState(null);
 
     const getCourses = async () => {
         try {
@@ -68,92 +73,103 @@ const Courses = ({page}) => {
         }
     };
 
+    const handleMenu = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
     useEffect(()=>{
         getCourses()
         getUser()
     }, [])
 
     return (
-        <div className="courses">
-            <Sidebar user={user} />
-            <div className="page page2">
-                <div className="container">
-                    <div className="carre_1"></div>
-                    <div className="carre_2"></div>
-                    <div className="carre_3"></div>
-                    <div className="carre_4"></div>
-                    <div className="container__wrapper">
-                        <div className="container__box">
-                            <div className="d-flex align-center justify-between">
-                                <h1 className="title text-center">
-                                    {page === "mes-cours" ? "Mes Cours" : page === "partages-avec-moi" ? "Partagés avec moi" : page === "cours-publics" ? "Cours publics" : ""}
-                                </h1>
-                                <div>
-                                {page === "mes-cours" ? (<CreateCourse/>) : ""}
-                                </div>
-                            </div>
-                            
-                            <div className="d-inline d-wrap">
-                                {
-                                    courses.length > 0 && courses.map((course, index) => {
-                                        if(page !== "partages-avec-moi"){
-                                            return (
-                                                (
-                                                    <CourseItem
-                                                        key={index}
-                                                        title={course.title}
-                                                        description={course.description}
-                                                        date={course.createdAt}
-                                                        creator={course.owner_id}
-                                                        id={course._id}
-                                                        page={page}
-                                                        course={course}
-                                                    />
-                                                    // <Card variant="outlined">
-                                                    //     <CardContent>
-                                                    //         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                                    //         {/* {course.owner_id} */}
-                                                    //         </Typography>
-                                                    //         <Typography variant="h5" component="div">
-                                                    //         {course.title}
-                                                    //         </Typography>
-                                                    //         <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                                                    //         {course.createdAt}
-                                                    //         </Typography>
-                                                    //         <Typography variant="body2">
-                                                    //         {course.description}
-                                                    //         </Typography>
-                                                    //     </CardContent>
-                                                    //     <CardActions>
-                                                    //         <Button size="small">Learn More</Button>
-                                                    //     </CardActions>
-                                                    // </Card>
-                                                )
-                                            )
-                                        } else {
-                                            // return (
-                                            //     (
-                                                    <CourseItem/>
-                                            //             key={index}
-                                            //             title={course.title}
-                                            //             description={course.description}
-                                            //             date={course.createdAt}
-                                            //             creator={course.owner_id}
-                                            //             id={course._id}
-                                            //             page={page}
-                                            //             course={course}
-                                            //         />
-                                            //     )
-                                            // )
-                                        }
-                                    })
-                                }
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <Box sx={{ display: 'flex', position: "relative" }}>
+            <Sidebar user={user}/>
+            <Box
+                component="main"
+                sx={{ 
+                    flexGrow: 1, 
+                    width: { sm: `calc(100% - ${drawerWidth}px)` } 
+                }}
+            >
+                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+
+                <BrowserView>
+                    <Papers
+                        bg1="#94DDDE"
+                        border1="#3D90BD"
+                        bg2="#F3CD74"
+                        border2="#3D90BD"
+                    />
+                </BrowserView>
+
+                <Grid
+                    container
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={3}
+                    sx={{ 
+                        mb: 2, 
+                        px: { xs: 0, md: 7 } ,
+                        display: "flex",
+                        gap: 10,
+                        margin: "0 auto",
+                        mt: 3
+                    }}
+                >
+                    {
+                        courses.length > 0 && courses.map((course, index) => (
+                            <Card sx={{ maxWidth: 345, position: "relative" }}>
+                                <CardMedia
+                                    component="img"
+                                    height="140"
+                                    image="https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"
+                                    alt="green iguana"
+                                />
+                                <CardContent sx={{mb: 7}}>
+                                    <Typography gutterBottom variant="h5" component="div">
+                                        {course.title}
+                                    </Typography>
+                                    <Typography variant="body2" color="text.secondary">
+                                        {course.description}
+                                    </Typography>
+                                </CardContent>
+                                <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
+                                    <Avatar 
+                                        onClick={handleMenu}
+                                        src={course.owner_id.profile_picture}
+                                        sx={{cursor: "pointer"}}
+                                    >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
+                                    <Menu
+                                        sx={{ mt: '45px', boxShadow: 1 }}
+                                        id="menu-appbar"
+                                        anchorEl={anchorEl}
+                                        anchorOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'center',
+                                        }}
+                                        keepMounted
+                                        transformOrigin={{
+                                            vertical: 'top',
+                                            horizontal: 'center',
+                                        }}
+                                        open={Boolean(anchorEl)}
+                                        onClose={handleClose}
+                                    >
+                                        <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir le profil</MenuItem>
+                                        <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir tous les cours</MenuItem>
+                                    </Menu>
+                                    <Button size="small">Voir le cours</Button>
+                                </CardActions>
+                            </Card>
+                        ))
+                    }
+                </Grid>
+            </Box>
+        </Box>
     )
 }
 

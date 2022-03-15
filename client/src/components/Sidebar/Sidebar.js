@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import {Link, Link as LinkS} from 'react-scroll';
 import {Link as LinkR, Navigate} from 'react-router-dom';
-import { AppBar, Avatar, Box, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 import { useSession } from 'react-use-session';
@@ -32,7 +32,7 @@ const SidebarComponent = (props) => {
     const logout = () => {
         clear()
         console.log("logout")
-        Navigate("/login", {message: "Vous êtes déconnecté"})// redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
+        Navigate("/login") // redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
     }
     
     const drawer = (
@@ -50,15 +50,15 @@ const SidebarComponent = (props) => {
                 </ListItem>
             </List>
             <List>
-                <ListItem component='a' href={"/courses"}>
-                    <ListItemText button primary="Mes cours" className="sidebar-item"/>
-                </ListItem>
-                <ListItem component='a' href={"/shared-whith-me-courses"}>
-                    <ListItemText button primary="Partagés avec moi" className="sidebar-item"/>
-                </ListItem>
-                <ListItem component='a' href={"/public-courses"}>
-                    <ListItemText button primary="Tous les cours" className="sidebar-item"/>
-                </ListItem>
+                <ListItemButton component='a' href={"/courses"}>
+                    <ListItemText primary="Mes cours"/>
+                </ListItemButton>
+                <ListItemButton component='a' href={"/shared-whith-me-courses"}>
+                    <ListItemText primary="Partagés avec moi"/>
+                </ListItemButton>
+                <ListItemButton component='a' href={"/public-courses"}>
+                    <ListItemText primary="Tous les cours"/>
+                </ListItemButton>
             </List>
             <div>
                 <Avatar
