@@ -204,7 +204,7 @@ export default function SettingsCard(props) {
                                         alt="Avatar"
                                         src={user.profile_picture || "/static/img/avatars/default-profile.svg"}
                                         sx={{ width: 56, height: 56 }}
-                                    />
+                                    >{!user.profile_picture ? user.first_name[0] + user.last_name[0] : ""}</Avatar>
                                     <input
                                         ref={inputFileRef}
                                         accept="image/*"

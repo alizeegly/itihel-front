@@ -18,15 +18,43 @@ const drawerWidth = 240;
 
 
 function Profil(){
-    const [isModified, setIsModified] = useState(false);
+    const [isModified, setIsModified] = useState(false)
+    const { session, saveJWT, clear } = useSession('itihel')
+    const [user, setUser] = useState({
+        courses: [],
+        createdAt: "",
+        email: "",
+        first_name: "",
+        last_connection: "",
+        last_name: "",
+        password: "",
+        profile_picture: "",
+        pseudo: "",
+        updatedAt: "",
+        _id: ""
+    })
 
     const handleCallback = (childData) =>{
         setIsModified(childData)
     }
 
+    const getUser = async () => {
+        try {
+            console.log(session)
+            const user = await axios.get("/api/users/find/" + session.user.id)
+            setUser(user.data);
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    useEffect(()=>{
+        getUser()
+    }, [])
+
     return (
         <Box sx={{ display: 'flex' }}>
-            <Sidebar/>
+            <Sidebar user={user}/>
             <Box
                 component="main"
                 sx={{ 

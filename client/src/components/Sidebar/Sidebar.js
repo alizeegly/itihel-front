@@ -3,10 +3,11 @@ import "./sidebar.scss";
 import styled from 'styled-components';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import {Link, Link as LinkS} from 'react-scroll';
-import {Link as LinkR} from 'react-router-dom';
+import {Link as LinkR, Navigate} from 'react-router-dom';
 import { AppBar, Avatar, Box, Drawer, IconButton, List, ListItem, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { useSession } from 'react-use-session';
 
 
 const drawerWidth = 240;
@@ -15,6 +16,7 @@ const SidebarComponent = (props) => {
     const { window } = props;
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const { session, saveJWT, clear } = useSession('itihel')
 
     const handleMenu = (event) => {
       setAnchorEl(event.currentTarget);
@@ -27,6 +29,12 @@ const SidebarComponent = (props) => {
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
     };
+
+    const logout = () => {
+        clear()
+        console.log("logout")
+        Navigate("/login", {message: "Vous êtes déconnecté"})// redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
+    }
     
     const drawer = (
         <div style={{
@@ -36,18 +44,22 @@ const SidebarComponent = (props) => {
             height: "90vh"
         }}>
             <List>
-                <ListItem button>
+                <ListItem button  component='a' href={"/"}>
                     <Typography variant="h1"  component="h1">
                         Itihel
                     </Typography>
                 </ListItem>
             </List>
             <List>
-                {['Mes cours', 'Partagés avec moi', 'Tous les cours'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemText primary={text} className="sidebar-item"/>
-                    </ListItem>
-                ))}
+                <ListItem component='a' href={"/courses"}>
+                    <ListItemText button primary="Mes cours" className="sidebar-item"/>
+                </ListItem>
+                <ListItem component='a' href={"/shared-whith-me-courses"}>
+                    <ListItemText button primary="Partagés avec moi" className="sidebar-item"/>
+                </ListItem>
+                <ListItem component='a' href={"/public-courses"}>
+                    <ListItemText button primary="Tous les cours" className="sidebar-item"/>
+                </ListItem>
             </List>
             <div>
                 <Avatar
@@ -59,9 +71,8 @@ const SidebarComponent = (props) => {
                         bgcolor: "primary.main"
                     }}
                     onClick={handleMenu}
-                >
-                    AG
-                </Avatar>
+                    src={props.user.profile_picture}
+                >{props.user.first_name[0] + props.user.last_name[0]}</Avatar>
                 <Menu
                     sx={{ mt: '45px' }}
                     id="menu-appbar"
@@ -78,7 +89,8 @@ const SidebarComponent = (props) => {
                     open={Boolean(anchorEl)}
                     onClose={handleClose}
                 >
-                    <MenuItem onClick={handleClose}>Se déconnecter</MenuItem>
+                    <MenuItem onClick={handleClose} component='a' href={"/profile"}>Mon profil</MenuItem>
+                    <MenuItem onClick={logout}>Se déconnecter</MenuItem>
                 </Menu>
             </div>
         </div>

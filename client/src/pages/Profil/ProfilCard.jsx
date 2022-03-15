@@ -68,7 +68,7 @@ export default function ProfileCard(props) {
                     <Avatar
                         sx={{ width: 100, height: 100, mb: 1.5, margin: "0 auto" }}
                         src={user.profile_picture}
-                    ></Avatar>
+                    >{user.first_name[0]+user.last_name[0]}</Avatar>
                     <Typography variant="h5" sx={{ textAlign: "center" }}>{user.pseudo}</Typography>
                     <Typography color="text.secondary" sx={{ textAlign: "center" }}></Typography>
                 </Grid>
@@ -89,6 +89,7 @@ export default function ProfileCard(props) {
                         color="secondary"
                         variant="outlined"
                         sx={{ width: "99%", p: 1, my: 2 }}
+                        href={"/public-courses?owner_id=" + user._id}
                     >
                         Voir les cours
                     </Button>
