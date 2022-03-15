@@ -13,6 +13,7 @@ import WarningIcon from '@mui/icons-material/Warning';
 import { Alert, Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@mui/material'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingCard'
+import Papers from '../../components/Papers/Papers'
 
 const drawerWidth = 240;
 
@@ -53,7 +54,7 @@ function Profil(){
     }, [])
 
     return (
-        <Box sx={{ display: 'flex' }}>
+        <Box sx={{ display: 'flex', position: "relative" }}>
             <Sidebar user={user}/>
             <Box
                 component="main"
@@ -71,7 +72,17 @@ function Profil(){
                         ""
                     )
                 }
-                
+
+
+
+                <Papers
+                    bg1="#94DDDE"
+                    border1="#3D90BD"
+                    bg2="#F3CD74"
+                    border2="#3D90BD"
+                />
+
+
                 <Grid
                     container
                     direction={{ xs: "column", md: "row" }}
