@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import "./courses.scss"
 import CreateCourse from './CreateCourse'
 import Sidebar from '../../components/Sidebar/Sidebar.js'
 import CourseItem from '../../components/Course/CourseItem.js'
@@ -13,14 +12,26 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, TextField } from '@mui/material'
+import { Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, Modal, TextField } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
+import ProfileCard from '../Profil/ProfilCard'
 
 const drawerWidth = 240;
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 10,
+    p: 4,
+};
 
 const Courses = ({page}) => {
     const navigate = useNavigate()
@@ -40,8 +51,15 @@ const Courses = ({page}) => {
         updatedAt: "",
         _id: ""
     })
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [search, setSearch] = useState('');
+    const [anchorEl, setAnchorEl] = useState(null);
+    const { search } = window.location;
+    const query = new URLSearchParams(search).get('q');
+    const [searchQuery, setSearchQuery] = useState(query || '');
+    // const [open, setOpen] = useState(null);
+    // const handleOpen = (index) => setOpen(index);
+    // const handleCloseModal = () => setOpen(false); 
+    const [showModal, setShowModal] = useState(false);
+    const [activeObject, setActiveObject] = useState(null);
 
     const getCourses = async () => {
         try {
@@ -73,21 +91,43 @@ const Courses = ({page}) => {
       setAnchorEl(null);
     };
 
-
-    const filteredCourses = courses.filter(course => {
-        if(courses.length > 0){
-            return course.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 || course.description.toLowerCase().indexOf(search.toLowerCase()) !== -1 || course.owner_id.pseudo.toLowerCase().indexOf(search.toLowerCase()) !== -1 
+    const filterPosts = (posts, query) => {
+        if (!query) {
+            return posts;
         }
-        return false
-    });
     
-
+        return posts.filter((post) => {
+            const postName = post.title.toLowerCase()
+            const description = post.description.toLowerCase()
+            const pseudo = post.owner_id.pseudo.toLowerCase()
+            return postName.includes(query) || description.includes(query) || pseudo.includes(query)
+        });
+    };
+    
+    const filteredPosts = filterPosts(courses, query);
 
     useEffect(()=>{
         getCourses()
         getUser()
-        console.log("courses", courses)
     }, [])
+
+    //  const ModalObject = ({ object: { course } }) => (
+    //     <Modal
+    //         open={true}
+    //         // onClose={handleCloseModal(index)}
+    //         aria-labelledby="modal-modal-title"
+    //         aria-describedby="modal-modal-description"
+    //         >
+    //         <Box sx={style}>
+    //             <ProfileCard 
+    //                 pseudo={course.owner_id.pseudo} 
+    //                 picture={course.owner_id.profile_picture}
+    //                 nb_courses={course.owner_id.courses.length}
+    //                 last_connection={course.owner_id.last_connection}
+    //             />
+    //         </Box>
+    //     </Modal>
+    // );
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
@@ -118,27 +158,32 @@ const Courses = ({page}) => {
                         mb: 2, 
                         px: { xs: 0, md: 7 },
                         display: "flex",
+                        justifyContent: "space-between",
                         gap: 10,
                         margin: "0 auto",
                         mt: 3
                     }}
                 >
-                    <TextField
-                        type="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        className="input"
-                        placeholder="Rechercher"
-                        sx={{
-                            width: "40%",
-                            margin: "0 auto",
-                            outline: "none",
-                            pl: 1
-                        }}
-                        InputProps={{
-                            startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
-                        }}
-                    />
+                    <Box component="form" sx={{ width: "50%", margin: "0 auto", display: "flex", justifyContent: "space-between"}}>
+                        <TextField
+                            type="search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="input"
+                            placeholder="Rechercher"
+                            name="q"
+                            sx={{
+                                outline: "none",
+                                pl: 1,
+                                width: "80%"
+                            }}
+                            InputProps={{
+                                startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
+                            }}
+                        />
+                        <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
+                    </Box>
+                    <CreateCourse/>
                 </Grid>
 
                 <Grid
@@ -155,7 +200,7 @@ const Courses = ({page}) => {
                     }}
                 >
                     {
-                        filteredCourses.map((course, index) => (
+                        filteredPosts.map((course, index) => (
                             <Card sx={{ maxWidth: 345, position: "relative" }} key={index}>
                                 <CardMedia
                                     component="img"
@@ -177,7 +222,7 @@ const Courses = ({page}) => {
                                         // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
                                         sx={{cursor: "pointer"}}
                                     >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
-                                    <Menu
+                                    {/* <Menu
                                         sx={{ mt: '45px', boxShadow: 1 }}
                                         id="menu-appbar"
                                         anchorEl={anchorEl}
@@ -192,10 +237,14 @@ const Courses = ({page}) => {
                                         }}
                                         open={Boolean(anchorEl)}
                                         onClose={handleClose}
-                                    >
-                                        <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir le profil</MenuItem>
-                                        <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir tous les cours</MenuItem>
-                                    </Menu>
+                                    > */}
+                                        {/* <MenuItem component='a' onClick={() => {
+                                            setActiveObject({ id, course });
+                                            setShowModal(true);
+                                        }}>Voir le profil</MenuItem> */}
+                                        {/* <MenuItem onClick={handleClose} component='a' href={"?q=" + course.owner_id.pseudo}>Voir tous les cours</MenuItem> */}
+                                        {/* {showModal ? <ModalObject object={activeObject} /> : null} */}
+                                    {/* </Menu> */}
                                     <Button size="small" href={"/courses/" + course._id}>Voir le cours</Button>
                                 </CardActions>
                             </Card>

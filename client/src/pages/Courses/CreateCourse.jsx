@@ -7,6 +7,8 @@ import { FaTimes } from "react-icons/fa";
 import { useSession } from  'react-use-session'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
+import { Button, TextField, Typography } from '@mui/material'
+import { Box } from '@mui/system'
 
 const customStyles = {
     content: {
@@ -67,7 +69,7 @@ const CreateCourse = () => {
 
     return (
         <>
-            <button onClick={openModal} className='button-create'>Créer un cours</button>
+            <Button onClick={openModal} color="primary" variant="contained">Créer un cours</Button>
             <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
@@ -77,34 +79,35 @@ const CreateCourse = () => {
                 <div className="modal">
                     <FaTimes className="closeIcon" onClick={closeModal}/>
                     <form onSubmit={handleSubmit}>
-                        <h1 className="title">Créer un cours</h1>
-                        <div className="form">
-                            <div className="form_inputs">
-                                <div className="form__item">
-                                    <label>Titre</label>
-                                    <input 
-                                        type="text" 
-                                        className="form-control" 
-                                        name="title"
-                                        value={course.title}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                                <div className="form__item">
-                                    <label>Description</label>
-                                    <textarea 
-                                        type="text" 
-                                        name="description"
-                                        className="form-control description" 
-                                        value={course.description}
-                                        onChange={handleChange}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                        <div className="form__buttons">
-                            <button type="submit">Ajouter</button>
-                        </div>
+                        <Typography variant="h4">Créer un cours</Typography>
+                        <Box sx={{ mb: 4 }}>
+                            <TextField
+                                id="title"
+                                label="Titre"
+                                variant="outlined"
+                                name="title"
+                                value={course.title}
+                                onChange={handleChange}
+                                sx={{
+                                    width: "100%",
+                                    mt: 5
+                                }}
+                            />
+                            <TextField
+                                id="filled-multiline-static"
+                                label="Description"
+                                multiline
+                                rows={4}
+                                variant="outlined"
+                                value={course.description}
+                                onChange={handleChange}
+                                sx={{
+                                    width: "100%",
+                                    mt: 3
+                                }}
+                            />
+                        </Box>
+                        <Button type="submit" variant="contained" color="primary">Ajouter</Button>
                     </form>
                 </div>
             </Modal>

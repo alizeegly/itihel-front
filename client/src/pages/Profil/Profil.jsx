@@ -92,7 +92,12 @@ function Profil(){
                 >
                     {/* PROFILE CARD */}
                     <Grid item lg={3} md={9}>
-                        <ProfileCard></ProfileCard>
+                        <ProfileCard 
+                            pseudo={user.pseudo} 
+                            picture={user.profile_picture}
+                            nb_courses={user.length}
+                            last_connection={user.last_connection}
+                        />
                     </Grid>
 
                     {/* SETTINGS CARD */}

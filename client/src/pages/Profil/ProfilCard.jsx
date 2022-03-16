@@ -26,35 +26,7 @@ const styles = {
   }
 };
 
-export default function ProfileCard(props) {
-    const { session, saveJWT, clear } = useSession('itihel')
-    const [user, setUser] = useState({
-        courses: [],
-        createdAt: "",
-        email: "",
-        first_name: "",
-        last_connection: "",
-        last_name: "",
-        password: "",
-        profile_picture: "",
-        pseudo: "",
-        updatedAt: "",
-        _id: ""
-    })
-
-    const getUser = async () => {
-        try {
-            console.log(session)
-            const user = await axios.get("/api/users/find/" + session.user.id)
-            setUser(user.data);
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
-
-    useEffect(()=>{
-        getUser()
-    }, [])
+export default function ProfileCard({pseudo, picture, nb_courses, last_connection}) {
 
     return (
         <Card variant="outlined">
@@ -67,9 +39,9 @@ export default function ProfileCard(props) {
                 <Grid item sx={{ p: "1.5rem 0rem" }}>
                     <Avatar
                         sx={{ width: 100, height: 100, mb: 1.5, margin: "0 auto" }}
-                        src={user.profile_picture}
-                    >{user.first_name[0]+user.last_name[0]}</Avatar>
-                    <Typography variant="h5" sx={{ textAlign: "center" }}>{user.pseudo}</Typography>
+                        src={picture}
+                    >{pseudo[0]}</Avatar>
+                    <Typography variant="h5" sx={{ textAlign: "center" }}>{pseudo}</Typography>
                     <Typography color="text.secondary" sx={{ textAlign: "center" }}></Typography>
                 </Grid>
 
@@ -79,8 +51,8 @@ export default function ProfileCard(props) {
                         <Typography style={styles.details}>Nombre de cours</Typography>
                     </Grid>
                     <Grid item xs={6} sx={{ textAlign: "end" }}>
-                        <Typography style={styles.value}>{moment(user.lastconnection).format('DD/MM/YYYY')}</Typography>
-                        <Typography style={styles.value}>{user.courses.length}</Typography>
+                        <Typography style={styles.value}>{moment(last_connection).format('DD/MM/YYYY')}</Typography>
+                        <Typography style={styles.value}>{nb_courses}</Typography>
                     </Grid>
                 </Grid>
 
@@ -89,7 +61,7 @@ export default function ProfileCard(props) {
                         color="secondary"
                         variant="outlined"
                         sx={{ width: "99%", p: 1, my: 2 }}
-                        href={"/public-courses?owner_id=" + user._id}
+                        href={"/public-courses?q=" + pseudo}
                     >
                         Voir les cours
                     </Button>
