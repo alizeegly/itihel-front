@@ -7,17 +7,17 @@ import axios from 'axios'
 import { useNavigate, Link } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
-import Navbar from '../../components/Navbar/Navbar'
-import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
-
+import Clear from '@mui/icons-material/Clear'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Avatar, Box, CardMedia, Divider, Grid, Menu, MenuItem } from '@mui/material'
+import { Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, TextField } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
+import SearchIcon from '@mui/icons-material/Search';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const drawerWidth = 240;
 
@@ -25,7 +25,7 @@ const drawerWidth = 240;
 const Courses = ({page}) => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
-    const [courses, setCourses] = useState({})
+    const [courses, setCourses] = useState([])
     const { id } = useParams()
     const [user, setUser] = useState({
         courses: [],
@@ -41,23 +41,14 @@ const Courses = ({page}) => {
         _id: ""
     })
     const [anchorEl, setAnchorEl] = React.useState(null);
+    const [search, setSearch] = useState('');
 
     const getCourses = async () => {
         try {
             var courses = []
-            if(page === "mes-cours"){
-                courses = await axios.get("/api/users/"+session.user.id+"/courses")
-                setCourses(courses.data.courses)
-                // console.log(courses)
-            } else if(page === "partages-avec-moi"){
-                courses = await axios.get("/api/courses-shared/user/"+session.user.id)
-                setCourses(courses.data)
-                console.log(courses.data)
-            } else if(page === "cours-publics"){
-                courses = await axios.get("/api/courses/public")
-                setCourses(courses.data)
-                // console.log(courses)
-            }
+            courses = await axios.get("/api/courses/public")
+            setCourses(courses.data)
+            console.log(courses)
         } catch (err) {
             console.error(err.message);
         }
@@ -80,6 +71,16 @@ const Courses = ({page}) => {
     const handleClose = () => {
       setAnchorEl(null);
     };
+
+
+    const filteredCourses = courses.filter(course => {
+        if(courses.length > 0){
+            return course.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+        }
+        return false
+    });
+    
+
 
     useEffect(()=>{
         getCourses()
@@ -112,6 +113,34 @@ const Courses = ({page}) => {
                     direction={{ xs: "column", md: "row" }}
                     spacing={3}
                     sx={{ 
+                        mb: 5, 
+                        margin: "0 auto",
+                        mt: 3
+                    }}
+                >
+                    <TextField
+                        type="text"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        className="input"
+                        placeholder="Rechercher"
+                        sx={{
+                            margin: "0 auto",
+                            width: "80%",
+                            outline: "none"
+                        }}
+                        InputProps={{
+                            startAdornment: <SearchIcon color="secondary"/>,
+                            // endAdornment: <ClearIcon color="secondary" onClick={setSearch("")}/>
+                        }}
+                    />
+                </Grid>
+
+                <Grid
+                    container
+                    direction={{ xs: "column", md: "row" }}
+                    spacing={3}
+                    sx={{ 
                         mb: 2, 
                         px: { xs: 0, md: 7 } ,
                         display: "flex",
@@ -121,8 +150,8 @@ const Courses = ({page}) => {
                     }}
                 >
                     {
-                        courses.length > 0 && courses.map((course, index) => (
-                            <Card sx={{ maxWidth: 345, position: "relative" }}>
+                        filteredCourses.map((course, index) => (
+                            <Card sx={{ maxWidth: 345, position: "relative" }} key={index}>
                                 <CardMedia
                                     component="img"
                                     height="140"
@@ -140,7 +169,7 @@ const Courses = ({page}) => {
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
                                     <Avatar 
                                         onClick={handleMenu}
-                                        src={course.owner_id.profile_picture}
+                                        // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
                                         sx={{cursor: "pointer"}}
                                     >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
                                     <Menu

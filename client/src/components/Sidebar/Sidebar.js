@@ -61,7 +61,7 @@ const SidebarComponent = (props) => {
                 </ListItemButton>
             </List>
             <div>
-                <Avatar
+                {/* <Avatar
                     sx={{ 
                         width: 56, 
                         height: 56,
@@ -70,8 +70,8 @@ const SidebarComponent = (props) => {
                         bgcolor: "primary.main"
                     }}
                     onClick={handleMenu}
-                    src={props.user.profile_picture}
-                >{props.user.first_name[0] + props.user.last_name[0]}</Avatar>
+                    // src={props.user.profile_picture}
+                >{props.user.first_name[0] + props.user.last_name[0]}</Avatar> */}
                 <Menu
                     sx={{ mt: '45px' }}
                     id="menu-appbar"
