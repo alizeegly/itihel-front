@@ -90,6 +90,27 @@ router.get("/find/:id", async (req, res) => {
     }
 })
 
+
+/**
+ * @method - GET
+ * @param - /find/:id
+ * @description - Get Courses of a user
+ */
+ router.get("/user/:id", async (req, res) => {
+    try{
+        const courses = await Course.find({owner_id: req.params.id })
+        res.status(200).json(courses)
+        // const course = await Course
+        // .find({owner_id: req.params.id }, function(err,courses) { 
+        //     console.log(err)
+        //     res.status(200).json(courses)
+        // })
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+
 /**
  * @method - GET
  * @param - /

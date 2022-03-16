@@ -280,14 +280,14 @@ router.delete("/:id", async (req, res) => {
  * @param - /:id
  * @description - User's courses
  */
- router.get("/:id/courses", async (req, res) => {
+ router.get("/:id/courses/hhhhhhhhhh", async (req, res) => {
     try{
         await User.findById(req.params.id)
             .populate({
                 path : 'courses',
-                populate : {
-                    path : 'categories'
-                }
+                // populate : {
+                //     path : 'categories'
+                // }
             })
             .exec(function(err, users) {
                 if(err) {
@@ -367,8 +367,6 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-
-
 /**
  * @method - PUT
  * @param - /:id
@@ -386,9 +384,6 @@ router.delete("/:id", async (req, res) => {
         res.status(500).json(err)
     }
 })
-
-
-
 
 router.post('/forgotPassword', (req, res) => {
     console.log("")

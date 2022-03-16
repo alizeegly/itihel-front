@@ -45,10 +45,11 @@ const Courses = ({page}) => {
 
     const getCourses = async () => {
         try {
-            var courses = []
-            courses = await axios.get("/api/courses/public")
+            let courses = await axios.get("/api/courses/public")
+            // let courses2 = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
+            // console.log(courses2.data)
+            // setCourses(courses2.data)
             setCourses(courses.data)
-            console.log(courses)
         } catch (err) {
             console.error(err.message);
         }
@@ -85,10 +86,11 @@ const Courses = ({page}) => {
     useEffect(()=>{
         getCourses()
         getUser()
+        console.log("courses", courses)
     }, [])
 
     return (
-        <Box sx={{ display: 'flex', position: "relative" }}>
+        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
             <Sidebar user={user}/>
             <Box
                 component="main"
@@ -144,7 +146,7 @@ const Courses = ({page}) => {
                     direction={{ xs: "column", md: "row" }}
                     spacing={3}
                     sx={{ 
-                        mb: 2, 
+                        mb: 5, 
                         px: { xs: 0, md: 7 },
                         display: "flex",
                         gap: 10,
@@ -194,7 +196,7 @@ const Courses = ({page}) => {
                                         <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir le profil</MenuItem>
                                         <MenuItem onClick={handleClose} component='a' href={"/profile"}>Voir tous les cours</MenuItem>
                                     </Menu>
-                                    <Button size="small">Voir le cours</Button>
+                                    <Button size="small" href={"/courses/" + course._id}>Voir le cours</Button>
                                 </CardActions>
                             </Card>
                         ))
