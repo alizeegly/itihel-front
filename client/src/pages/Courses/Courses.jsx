@@ -75,7 +75,7 @@ const Courses = ({page}) => {
 
     const filteredCourses = courses.filter(course => {
         if(courses.length > 0){
-            return course.title.toLowerCase().indexOf(search.toLowerCase()) !== -1;
+            return course.title.toLowerCase().indexOf(search.toLowerCase()) !== -1 || course.description.toLowerCase().indexOf(search.toLowerCase()) !== -1 || course.owner_id.pseudo.toLowerCase().indexOf(search.toLowerCase()) !== -1 
         }
         return false
     });
@@ -113,25 +113,28 @@ const Courses = ({page}) => {
                     direction={{ xs: "column", md: "row" }}
                     spacing={3}
                     sx={{ 
-                        mb: 5, 
+                        mb: 2, 
+                        px: { xs: 0, md: 7 },
+                        display: "flex",
+                        gap: 10,
                         margin: "0 auto",
                         mt: 3
                     }}
                 >
                     <TextField
-                        type="text"
+                        type="search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
                         className="input"
                         placeholder="Rechercher"
                         sx={{
+                            width: "40%",
                             margin: "0 auto",
-                            width: "80%",
-                            outline: "none"
+                            outline: "none",
+                            pl: 1
                         }}
                         InputProps={{
-                            startAdornment: <SearchIcon color="secondary"/>,
-                            // endAdornment: <ClearIcon color="secondary" onClick={setSearch("")}/>
+                            startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
                         }}
                     />
                 </Grid>
@@ -142,7 +145,7 @@ const Courses = ({page}) => {
                     spacing={3}
                     sx={{ 
                         mb: 2, 
-                        px: { xs: 0, md: 7 } ,
+                        px: { xs: 0, md: 7 },
                         display: "flex",
                         gap: 10,
                         margin: "0 auto",
