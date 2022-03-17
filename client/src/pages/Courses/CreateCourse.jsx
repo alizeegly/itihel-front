@@ -1,7 +1,6 @@
-import React, {useState} from 'react'
+import React, {createRef, useState} from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
 import Container from '../../components/User/Container'
-import "./createcourse.scss"
 import Modal from 'react-modal'
 import { FaTimes } from "react-icons/fa";
 import { useSession } from  'react-use-session'
@@ -9,6 +8,10 @@ import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { Button, TextField, Typography } from '@mui/material'
 import { Box } from '@mui/system'
+import {
+    CloudUpload as UploadIcon,
+    Edit as EditIcon,
+} from "@mui/icons-material";
 
 const customStyles = {
     content: {
@@ -27,7 +30,7 @@ const customStyles = {
 
 Modal.setAppElement('#root');
 
-const CreateCourse = () => {
+const CreateCourse = (props) => {
     const [modalIsOpen, setIsOpen] = useState(false)
     const { session, saveJWT, clear } = useSession('itihel') // Récup session itihel
     const navigate = useNavigate()
@@ -40,6 +43,8 @@ const CreateCourse = () => {
         categories: [],
         description: ""
     })
+    const inputFileRef = createRef(null);
+    const [image, _setImage] = useState(null);
 
     function openModal() {
         setIsOpen(true)
@@ -60,12 +65,43 @@ const CreateCourse = () => {
         axios.post("/api/courses/", course) // Lien create course de l'api
             .then((res) => {
                 console.log("ajouté !")
-                navigate("/courses") // redirect vers page listes des courses
+                setIsOpen(false)
+                props.handleCallback(true)
             })
             .catch(err => {
                 console.log(err)
             })
     }
+
+    const cleanup = () => {
+        URL.revokeObjectURL(image);
+        inputFileRef.current.value = null;
+    };
+
+    const setImage = (newImage) => {
+        if (image) {
+            cleanup();
+        }
+        _setImage(newImage);
+        const pic = "picture"
+        setCourse({ ...course, [pic]: newImage })
+    };
+
+    const handleOnChangeImage = (event) => {
+        console.log(event)
+        const newImage = event.target?.files?.[0];
+
+        if (newImage) {
+            setImage(URL.createObjectURL(newImage));
+        }
+    };
+
+    const handleClick = (event) => {
+        if (image) {
+            event.preventDefault();
+            setImage(null);
+        }
+    };
 
     return (
         <>
@@ -80,7 +116,41 @@ const CreateCourse = () => {
                     <FaTimes className="closeIcon" onClick={closeModal}/>
                     <form onSubmit={handleSubmit}>
                         <Typography variant="h4">Créer un cours</Typography>
-                        <Box sx={{ mb: 4 }}>
+                        <Box sx={{ mb: 4, mt: 3}}>
+                            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+                                {
+                                    course.picture ? (
+                                        <img
+                                            alt="Cours"
+                                            src={course.picture}
+                                            style={{ width: 140, height: 100, objectFit: "cover"}}
+                                        />
+                                    ) : null
+                                }
+                                <input
+                                    ref={inputFileRef}
+                                    accept="image/*"
+                                    hidden
+                                    name="picture"
+                                    id="image-upload"
+                                    type="file"
+                                    onChange={handleOnChangeImage}
+                                />
+                                <label htmlFor="image-upload">
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        component="span"
+                                        name="profile_picture"
+                                        mb={2}
+                                        onClick={handleClick}
+                                        onChange={handleOnChangeImage}
+                                    >
+                                        <UploadIcon mr={2} /> &nbsp;Upload
+                                    </Button>
+                                </label>
+                            </Box>
+
                             <TextField
                                 id="title"
                                 label="Titre"
@@ -96,6 +166,7 @@ const CreateCourse = () => {
                             <TextField
                                 id="filled-multiline-static"
                                 label="Description"
+                                name="description"
                                 multiline
                                 rows={4}
                                 variant="outlined"

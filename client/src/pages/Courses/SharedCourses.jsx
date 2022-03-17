@@ -12,12 +12,14 @@ import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, Modal, TextField } from '@mui/material'
+import { Alert, Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, TextField, Modal } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
 import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import ProfileCard from '../Profil/ProfilCard'
+import CheckIcon from '@mui/icons-material/Check';
+// import Modal from 'react-modal'
 
 const drawerWidth = 240;
 
@@ -29,11 +31,29 @@ const style = {
     width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
-    boxShadow: 10,
-    p: 4,
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+  };
+const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      padding: 35,
+      width: "40%",
+      zIndex: 1000
+    },
+    overlay: {zIndex: 1000}
 };
 
-const Courses = ({page}) => {
+// Modal.setAppElement('#root');
+
+const SharedCourses = ({page}) => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
     const [courses, setCourses] = useState([])
@@ -55,11 +75,6 @@ const Courses = ({page}) => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
-    // const [open, setOpen] = useState(null);
-    // const handleOpen = (index) => setOpen(index);
-    // const handleCloseModal = () => setOpen(false); 
-    const [showModal, setShowModal] = useState(false);
-    const [activeObject, setActiveObject] = useState(null);
 
     const getCourses = async () => {
         try {
@@ -87,7 +102,7 @@ const Courses = ({page}) => {
       setAnchorEl(event.currentTarget);
     };
   
-    const handleClose = () => {
+    const handleCloseMenu = () => {
       setAnchorEl(null);
     };
 
@@ -106,28 +121,54 @@ const Courses = ({page}) => {
     
     const filteredPosts = filterPosts(courses, query);
 
+    
+    const [isCreated, setIsCreated] = useState(false)
+    const handleCallback = (childData) =>{
+        setIsCreated(childData)
+    }
+
+    // TEST MODAL (A REVOIR) 
+    // **********************************************************************
+    // const [modalInfo, setModalInfo] = useState({})
+    // const [showModal, setShowModal] = useState(false)
+    // const [show, setShow] = useState(false)
+    // const handleClose = () => setShow(false)
+    // const handleShow = () => setShow(true)
+
+    // const click = (course) => {
+    //     console.log(course)
+    //     // setModalInfo(course);
+    //     // setShowModal(handleShow)
+    // }
+
+    // const ModalContent = () => {
+    //     return (
+    //         <Modal
+    //             hideBackdrop
+    //             open={show}
+    //             onClose={handleClose}
+    //             aria-labelledby="child-modal-title"
+    //             aria-describedby="child-modal-description"
+    //         >
+    //             <Box>
+    //                 <h2 id="child-modal-title">{modalInfo.title}</h2>
+    //                 <p id="child-modal-description">
+    //                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+    //                 </p>
+    //                 <Button onClick={handleClose}>Close Child Modal</Button>
+    //             </Box>
+    //         </Modal>
+    //     )
+    // }
+
+
+
+
     useEffect(()=>{
         getCourses()
         getUser()
     }, [])
 
-    //  const ModalObject = ({ object: { course } }) => (
-    //     <Modal
-    //         open={true}
-    //         // onClose={handleCloseModal(index)}
-    //         aria-labelledby="modal-modal-title"
-    //         aria-describedby="modal-modal-description"
-    //         >
-    //         <Box sx={style}>
-    //             <ProfileCard 
-    //                 pseudo={course.owner_id.pseudo} 
-    //                 picture={course.owner_id.profile_picture}
-    //                 nb_courses={course.owner_id.courses.length}
-    //                 last_connection={course.owner_id.last_connection}
-    //             />
-    //         </Box>
-    //     </Modal>
-    // );
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
@@ -140,6 +181,14 @@ const Courses = ({page}) => {
                 }}
             >
                 <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+
+                {
+                    isCreated ? (
+                        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {setIsCreated(false)}}>Le cours a bien été créé.</Alert>
+                    ) : (
+                        ""
+                    )
+                }
 
                 <BrowserView>
                     <Papers
@@ -183,7 +232,7 @@ const Courses = ({page}) => {
                         />
                         <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
                     </Box>
-                    <CreateCourse/>
+                    <CreateCourse handleCallback={handleCallback}/>
                 </Grid>
 
                 <Grid
@@ -222,7 +271,9 @@ const Courses = ({page}) => {
                                         // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
                                         sx={{cursor: "pointer"}}
                                     >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
-                                    {/* <Menu
+
+                                    {/* VOIR ICI POUR AJOUTER UN MODAL AVEC LE COMPONENT PROFILCARD LORS DU CLIC SUR VOIR LE PROFIL */}
+                                    <Menu
                                         sx={{ mt: '45px', boxShadow: 1 }}
                                         id="menu-appbar"
                                         anchorEl={anchorEl}
@@ -236,24 +287,26 @@ const Courses = ({page}) => {
                                             horizontal: 'center',
                                         }}
                                         open={Boolean(anchorEl)}
-                                        onClose={handleClose}
-                                    > */}
-                                        {/* <MenuItem component='a' onClick={() => {
-                                            setActiveObject({ id, course });
-                                            setShowModal(true);
-                                        }}>Voir le profil</MenuItem> */}
-                                        {/* <MenuItem onClick={handleClose} component='a' href={"?q=" + course.owner_id.pseudo}>Voir tous les cours</MenuItem> */}
-                                        {/* {showModal ? <ModalObject object={activeObject} /> : null} */}
-                                    {/* </Menu> */}
-                                    <Button size="small" href={"/courses/" + course._id}>Voir le cours</Button>
+                                        onClose={handleCloseMenu}
+                                    >
+                                        {/* <MenuItem component="a">Voir le profil</MenuItem> */}
+                                        <MenuItem onClick={handleCloseMenu} component='a' href={"?q=" + course.owner_id.pseudo}>Voir tous les cours</MenuItem>
+                                    </Menu>
+                                    <Button 
+                                        size="small" 
+                                        href={"/courses/" + course._id}
+                                    >Voir le cours</Button>
                                 </CardActions>
                             </Card>
                         ))
                     }
                 </Grid>
+                {/* {
+                    show ? <ModalContent/> : null
+                } */}
             </Box>
         </Box>
     )
 }
 
-export default Courses
+export default SharedCourses

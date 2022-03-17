@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Courses from "./pages/Courses/Courses";
+import PublicCourses from "./pages/Courses/PublicCourses";
+import MyCourses from "./pages/Courses/MyCourses";
+import SharedCourses from "./pages/Courses/SharedCourses";
 import Profil from "./pages/Profil/Profil";
 import Home from "./pages/home/Home";
 import CourseParameters from "./pages/Course/CourseParameters";
@@ -69,21 +71,21 @@ function App() {
 
           <Route path="/courses" element={
             session ? ( 
-              <Courses page={"mes-cours"} />
+              <MyCourses page={"mes-cours"} />
             ) : (
               <Navigate to="login" /> 
             )
           }/>
           <Route path="/public-courses" exact element={
             session ? ( 
-              <Courses page={"cours-publics"} />
+              <PublicCourses page={"cours-publics"} />
             ) : (
               <Navigate to="login" /> 
             )
           }/>
           <Route path="/shared-whith-me-courses" exact element={
             session ? ( 
-              <Courses page={"partages-avec-moi"} />
+              <SharedCourses page={"partages-avec-moi"} />
             ) : (
               <Navigate to="login" /> 
             )
