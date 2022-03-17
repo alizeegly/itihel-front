@@ -18,7 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import ResetPassword from "./pages/Login/ResetPassword";
 
-const theme = createTheme({
+export const theme = createTheme({
   palette: {
       primary: {
         light: '#94DDDE',

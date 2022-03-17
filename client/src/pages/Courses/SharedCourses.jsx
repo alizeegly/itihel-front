@@ -19,6 +19,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import ProfileCard from '../Profil/ProfilCard'
 import CheckIcon from '@mui/icons-material/Check';
+import Highlighter from "react-highlight-words";
+import {theme} from '../../App';
 // import Modal from 'react-modal'
 
 const drawerWidth = 240;
@@ -230,7 +232,6 @@ const SharedCourses = ({page}) => {
                         />
                         <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
                     </Box>
-                    <CreateCourse handleCallback={handleCallback}/>
                 </Grid>
 
                 <Grid
@@ -257,10 +258,20 @@ const SharedCourses = ({page}) => {
                                 />
                                 <CardContent sx={{mb: 7}}>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        {course.course_id.title}
+                                        <Highlighter
+                                            highlightStyle={{background: theme.palette.primary.main}}
+                                            searchWords={[searchQuery]}
+                                            autoEscape={true}
+                                            textToHighlight={course.course_id.title}
+                                        />,
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {course.course_id.description}
+                                        <Highlighter
+                                            highlightStyle={{background: theme.palette.primary.main}}
+                                            searchWords={[searchQuery]}
+                                            autoEscape={true}
+                                            textToHighlight={course.course_id.description}
+                                        />,
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>

@@ -19,7 +19,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import ClearIcon from '@mui/icons-material/Clear';
 import ProfileCard from '../Profil/ProfilCard'
 import CheckIcon from '@mui/icons-material/Check';
-// import Modal from 'react-modal'
+import Highlighter from "react-highlight-words";
+import {theme} from '../../App';
 
 const drawerWidth = 240;
 
@@ -85,8 +86,6 @@ const MyCourses = ({page}) => {
     const handleCallback = (childData) =>{
         setIsCreated(childData)
     }
-
-
 
     useEffect(()=>{
         getCourses()
@@ -184,10 +183,20 @@ const MyCourses = ({page}) => {
                                     />
                                     <CardContent sx={{mb: 7}}>
                                         <Typography gutterBottom variant="h5" component="div">
-                                            {course.title}
+                                            <Highlighter
+                                                highlightStyle={{background: theme.palette.primary.main}}
+                                                searchWords={[searchQuery]}
+                                                autoEscape={true}
+                                                textToHighlight={course.title}
+                                            />,
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            {course.description}
+                                            <Highlighter
+                                                highlightStyle={{background: theme.palette.primary.main}}
+                                                searchWords={[searchQuery]}
+                                                autoEscape={true}
+                                                textToHighlight={course.description}
+                                            />,
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
