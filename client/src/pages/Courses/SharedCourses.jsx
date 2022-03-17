@@ -78,10 +78,8 @@ const SharedCourses = ({page}) => {
 
     const getCourses = async () => {
         try {
-            let courses = await axios.get("/api/courses/public")
-            // let courses2 = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
-            // console.log(courses2.data)
-            // setCourses(courses2.data)
+            let courses = await axios.get("/api/courses-shared/user/" + session.user.id)
+            console.log(courses.data)
             setCourses(courses.data)
         } catch (err) {
             console.error(err.message);
@@ -112,10 +110,10 @@ const SharedCourses = ({page}) => {
         }
     
         return posts.filter((post) => {
-            const postName = post.title.toLowerCase()
-            const description = post.description.toLowerCase()
-            const pseudo = post.owner_id.pseudo.toLowerCase()
-            return postName.includes(query) || description.includes(query) || pseudo.includes(query)
+            const postName = post.course_id.title.toLowerCase()
+            const description = post.course_id.description.toLowerCase()
+            const pseudo = post.user_id.pseudo.toLowerCase()
+            return postName.includes(query) || description.includes(query) || pseudo.includes(query);
         });
     };
     
@@ -249,8 +247,8 @@ const SharedCourses = ({page}) => {
                     }}
                 >
                     {
-                        filteredPosts.map((course, index) => (
-                            <Card sx={{ maxWidth: 345, position: "relative" }} key={index}>
+                        filteredPosts.filter((c) => {return c.roles[0].identifiant !== "ROLE_ADMIN"}).map((course, index) => (
+                            <Card sx={{ width: 345, position: "relative" }} key={index}>
                                 <CardMedia
                                     component="img"
                                     height="140"
@@ -259,10 +257,10 @@ const SharedCourses = ({page}) => {
                                 />
                                 <CardContent sx={{mb: 7}}>
                                     <Typography gutterBottom variant="h5" component="div">
-                                        {course.title}
+                                        {course.course_id.title}
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
-                                        {course.description}
+                                        {course.course_id.description}
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
@@ -270,7 +268,7 @@ const SharedCourses = ({page}) => {
                                         onClick={handleMenu}
                                         // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
                                         sx={{cursor: "pointer"}}
-                                    >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
+                                    >{course.course_id.owner_id.first_name[0]}{course.course_id.owner_id.last_name[0]}</Avatar>
 
                                     {/* VOIR ICI POUR AJOUTER UN MODAL AVEC LE COMPONENT PROFILCARD LORS DU CLIC SUR VOIR LE PROFIL */}
                                     <Menu
@@ -290,7 +288,7 @@ const SharedCourses = ({page}) => {
                                         onClose={handleCloseMenu}
                                     >
                                         {/* <MenuItem component="a">Voir le profil</MenuItem> */}
-                                        <MenuItem onClick={handleCloseMenu} component='a' href={"?q=" + course.owner_id.pseudo}>Voir tous les cours</MenuItem>
+                                        <MenuItem onClick={handleCloseMenu} component='a' href={"?q=" + course.course_id.owner_id.pseudo}>Voir tous les cours</MenuItem>
                                     </Menu>
                                     <Button 
                                         size="small" 

@@ -98,7 +98,7 @@ router.get("/find/:id", async (req, res) => {
  */
  router.get("/user/:id", async (req, res) => {
     try{
-        const courses = await Course.find({owner_id: req.params.id })
+        const courses = await Course.find({owner_id: req.params.id }).populate("owner_id")
         res.status(200).json(courses)
         // const course = await Course
         // .find({owner_id: req.params.id }, function(err,courses) { 

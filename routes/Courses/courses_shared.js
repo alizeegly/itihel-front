@@ -56,7 +56,7 @@ router.post("/", async (req, res) => {
             .populate({
                 path : 'course_id',
                 populate : {
-                    path : 'categories'
+                    path : 'owner_id'
                 }
             })
             .populate('user_id')

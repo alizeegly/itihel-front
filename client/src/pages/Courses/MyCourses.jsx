@@ -48,10 +48,7 @@ const MyCourses = ({page}) => {
 
     const getCourses = async () => {
         try {
-            let courses = await axios.get("/api/courses/public")
-            // let courses2 = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
-            // console.log(courses2.data)
-            // setCourses(courses2.data)
+            let courses = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
             setCourses(courses.data)
         } catch (err) {
             console.error(err.message);
@@ -176,33 +173,35 @@ const MyCourses = ({page}) => {
                     }}
                 >
                     {
-                        filteredPosts.map((course, index) => (
-                            <Card sx={{ maxWidth: 345, position: "relative" }} key={index}>
-                                <CardMedia
-                                    component="img"
-                                    height="140"
-                                    image="https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"
-                                    alt="green iguana"
-                                />
-                                <CardContent sx={{mb: 7}}>
-                                    <Typography gutterBottom variant="h5" component="div">
-                                        {course.title}
-                                    </Typography>
-                                    <Typography variant="body2" color="text.secondary">
-                                        {course.description}
-                                    </Typography>
-                                </CardContent>
-                                <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
-                                    <Avatar 
-                                        // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
-                                    >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
-                                    <Button 
-                                        size="small" 
-                                        href={"/courses/" + course._id}
-                                    >Voir le cours</Button>
-                                </CardActions>
-                            </Card>
-                        ))
+                        filteredPosts && filteredPosts.length > 0 && filteredPosts.map((course, index) => {
+                            return(
+                                <Card sx={{ width: 345, position: "relative" }} key={index}>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image={course.picture || "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
+                                        alt={course.title}
+                                    />
+                                    <CardContent sx={{mb: 7}}>
+                                        <Typography gutterBottom variant="h5" component="div">
+                                            {course.title}
+                                        </Typography>
+                                        <Typography variant="body2" color="text.secondary">
+                                            {course.description}
+                                        </Typography>
+                                    </CardContent>
+                                    <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
+                                        <Avatar 
+                                            // src={course.owner_id.profile_picture !== "" ? course.owner_id.profile_picture : ""}
+                                        >{course.owner_id.first_name[0]}{course.owner_id.last_name[0]}</Avatar>
+                                        <Button 
+                                            size="small" 
+                                            href={"/courses/" + course._id}
+                                        >Voir le cours</Button>
+                                    </CardActions>
+                                </Card>
+                            )
+                        })
                     }
                 </Grid>
             </Box>

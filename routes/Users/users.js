@@ -280,7 +280,7 @@ router.delete("/:id", async (req, res) => {
  * @param - /:id
  * @description - User's courses
  */
- router.get("/:id/courses/hhhhhhhhhh", async (req, res) => {
+ router.get("/:id/courses", async (req, res) => {
     try{
         await User.findById(req.params.id)
             .populate({

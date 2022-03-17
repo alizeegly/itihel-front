@@ -79,9 +79,6 @@ const PublicCourses = ({page}) => {
     const getCourses = async () => {
         try {
             let courses = await axios.get("/api/courses/public")
-            // let courses2 = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
-            // console.log(courses2.data)
-            // setCourses(courses2.data)
             setCourses(courses.data)
         } catch (err) {
             console.error(err.message);
@@ -241,11 +238,11 @@ const PublicCourses = ({page}) => {
                 >
                     {
                         filteredPosts.map((course, index) => (
-                            <Card sx={{ maxWidth: 345, position: "relative" }} key={index}>
+                            <Card sx={{ width: 345, position: "relative" }} key={index}>
                                 <CardMedia
                                     component="img"
                                     height="140"
-                                    image="https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"
+                                    image={course.picture || "https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
                                     alt="green iguana"
                                 />
                                 <CardContent sx={{mb: 7}}>
