@@ -11,7 +11,6 @@ import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import moment from 'moment'
-import ReactCardFlip from 'react-card-flip';
 import Quiz from 'react-quiz-component';
 import { quiz } from './quiz';
 import { Box } from '@mui/system'
@@ -21,6 +20,7 @@ import Papers from '../../components/Papers/Papers'
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from './Navbar'
 import HeaderCourse from './HeaderCourse'
+import FlipCard from './FlipCards/FlipCard'
 
 const drawerWidth = 240;
 
@@ -42,7 +42,6 @@ function Course(){
         updatedAt: "",
         _id: ""
     })
-    const [isFlipped, setIsFlipped] = useState(false)
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
@@ -161,6 +160,9 @@ function Course(){
                                 </>
                             )
                         }
+                    </Box>
+                    <Box sx={{ mt: 5, width: "100%" }}>
+                        <FlipCard course={course}/>
                     </Box>
                 </Grid>
             </Box>
