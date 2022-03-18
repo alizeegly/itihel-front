@@ -9,7 +9,7 @@ import CourseParameters from "./pages/Course/CourseParameters";
 import Course from "./pages/Course/Course";
 import Login from "./pages/Login/Login";
 import Sign_up from "./pages/Sign_up/Sign_up";
-import NotFound from './pages/Errors/NotFound';
+import NotFound from "./pages/Errors/NotFound"
 import { useSession } from  'react-use-session';
 
 
