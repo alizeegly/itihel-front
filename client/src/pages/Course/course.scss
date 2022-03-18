@@ -121,7 +121,7 @@
 }
 
 div.DraftEditor-root {
-    height: 350px;
+    height: 100%;
     width: 100%;
     overflow-y: auto;
 }
@@ -129,6 +129,15 @@ div.DraftEditor-editorContainer,
 div.public-DraftEditor-content {
     height: 100%;
 }
+
+.wrapperEditor{
+    border: 1px solid #F1F1F1;
+}
+
+.editor{
+    padding: 0px 20px;
+}
+
 
 
 .mt-5{

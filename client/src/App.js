@@ -20,33 +20,34 @@ import ResetPassword from "./pages/Login/ResetPassword";
 
 export const theme = createTheme({
   palette: {
-      primary: {
-        light: '#94DDDE',
-        main: '#94DDDE',
-        dark: '#94DDDE',
-        contrastText: '#fff',
-      },
-      secondary: {
-        main: '#444',
-      },
-      light: {
-        main: "#DDDDDD"
-      },
-      success: {
-        main: "#fff"
-      },
-      danger: {
-        main: "#fff"
-      },
-      warning: {
-        main: "#fff"
-      },
-      info: {
-        main: "#fff"
-      }
+    primary: {
+      light: '#94DDDE',
+      main: '#94DDDE',
+      dark: '#94DDDE',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#444',
+    },
+    light: {
+      main: "#DDDDDD"
+    },
+    success: {
+      main: "#fff"
+    },
+    danger: {
+      main: "#fff"
+    },
+    warning: {
+      main: "#fff"
+    },
+    info: {
+      main: "#fff"
+    }
   },
   typography: {
       fontFamily: '"Quicksand", sans-serif',
+      // fontFamily: '"Gilroy-black", sans-serif',
       h1: {
           fontSize: 55,
           fontWeight: 700,

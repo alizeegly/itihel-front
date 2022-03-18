@@ -42,8 +42,9 @@ function Course(){
         updatedAt: "",
         _id: ""
     })
-    const [editorState, setEditorState] = useState({})
     const [isFlipped, setIsFlipped] = useState(false)
+    const [showEdit, setShowEdit] = useState(false)
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
 
 
 
@@ -82,15 +83,11 @@ function Course(){
             .then((res) => {
                 console.log(res)
                 console.log("modifié")
+                setShowEdit(false)
             })
             .catch(err => {
                 console.log(err)
             })
-    }
-
-    const handleFlippedCard = (e) => {
-        e.preventDefault();
-        setIsFlipped(!isFlipped)
     }
 
     useEffect(()=>{
@@ -132,9 +129,38 @@ function Course(){
                     <Box sx={{ mb: 2, mt: 2 }}>
                         <Typography variant="h1">{course.title}</Typography>
                         <Typography variant="body" sx={{ mt: 2 }}>{course.description}</Typography>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3, mb: 2 }}>
+                            {
+                                !showEdit ? (
+                                    <Button onClick={() => setShowEdit(!showEdit)} variant="contained" sx={{ margin: "0 auto" }}>Modifier</Button>
+                                ) : (
+                                    ""
+                                )
+                            }
+                        </Box>
                     </Box>
                     <Box>
-                        {ReactHtmlParser(course.text)}
+                        {
+                            !showEdit ? ReactHtmlParser(course.text) : (
+                                <>
+                                    <form onSubmit={handleSubmit} style={{ background: "#FFF", padding: 20 }}>
+                                        <Editor
+                                            editorState={editorState}
+                                            toolbarClassName="toolbarClassName"
+                                            wrapperClassName="wrapperEditor"
+                                            editorClassName="editor"
+                                            onEditorStateChange={handleChange}
+                                            toolbar={{
+                                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history']
+                                            }}
+                                        />
+                                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3, mb: 2 }}>
+                                            <Button type="submit" variant="contained">Modifier</Button>
+                                        </Box>
+                                    </form>
+                                </>
+                            )
+                        }
                     </Box>
                 </Grid>
             </Box>
