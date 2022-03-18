@@ -33,16 +33,16 @@ export const theme = createTheme({
         main: "#DDDDDD"
       },
       success: {
-        main: "green"
+        main: "#fff"
       },
       danger: {
-        main: "red"
+        main: "#fff"
       },
       warning: {
-        main: "orange"
+        main: "#fff"
       },
-      info: {
-        main: "blue"
+      info: {
+        main: "#fff"
       }
   },
   typography: {
