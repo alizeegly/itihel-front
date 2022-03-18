@@ -42,10 +42,14 @@ function Course(){
         updatedAt: "",
         _id: ""
     })
+    const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState({})
     const [isFlipped, setIsFlipped] = useState(false)
 
 
+    const handleButtonEdit = (childData) =>{
+        showEdit(childData)
+    }
 
     const getCourse = async () => {
         try {
@@ -82,6 +86,7 @@ function Course(){
             .then((res) => {
                 console.log(res)
                 console.log("modifié")
+                setShowEdit(false)
             })
             .catch(err => {
                 console.log(err)
@@ -101,7 +106,7 @@ function Course(){
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden" }}>
-            <SidebarCourseComponent course={course}/>
+            <SidebarCourseComponent course={course} handleButtonEdit={handleButtonEdit}/>
             <Box
                 component="main"
                 sx={{ 
@@ -129,13 +134,22 @@ function Course(){
                     spacing={3}
                     sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
                 >
-                    <Box sx={{ mb: 2, mt: 2 }}>
-                        <Typography variant="h1">{course.title}</Typography>
-                        <Typography variant="body" sx={{ mt: 2 }}>{course.description}</Typography>
-                    </Box>
-                    <Box>
-                        {ReactHtmlParser(course.text)}
-                    </Box>
+                    {
+                        !showEdit ? ReactHtmlParser(course.text) : (
+                            <>
+                                <form onSubmit={handleSubmit}>
+                                    <Editor
+                                        editorState={editorState}
+                                        toolbarClassName="toolbarClassName"
+                                        wrapperClassName="wrapperEditor"
+                                        editorClassName="editor"
+                                        onEditorStateChange={handleChange}
+                                    />
+                                    <button type="submit" className='button-save button-form'>Modifier</button>
+                                </form>
+                            </>
+                        )
+                    }
                 </Grid>
             </Box>
         </Box>

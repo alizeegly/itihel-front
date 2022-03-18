@@ -27,10 +27,22 @@ export const theme = createTheme({
         contrastText: '#fff',
       },
       secondary: {
-          main: '#444',
+        main: '#444',
       },
       light: {
-          main: "#DDDDDD"
+        main: "#DDDDDD"
+      },
+      success: {
+        main: "green"
+      },
+      danger: {
+        main: "red"
+      },
+      warning: {
+        main: "orange"
+      },
+      info: {
+        main: "blue"
       }
   },
   typography: {
