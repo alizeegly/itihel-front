@@ -24,7 +24,7 @@ import {theme} from '../../App';
 
 const drawerWidth = 240;
 
-const MyCourses = ({page}) => {
+const MyCourses = () => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
     const [courses, setCourses] = useState([])

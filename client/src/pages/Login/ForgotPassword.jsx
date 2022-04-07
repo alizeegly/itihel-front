@@ -102,7 +102,7 @@ function ResetPassword() {
             }
             {
                 error === false && messageFromServer === "recovery email sent"? (
-                    <Alert severity="success">
+                    <Alert severity="info">
                         Veuillez vérifier votre boite mail ({email.email}).<br/>
                         <Typography variant="caption" onClick={handleSubmit} sx={{ cursor: "pointer" }}>
                             Je n'ai pas reçue l'email

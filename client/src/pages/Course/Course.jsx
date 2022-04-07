@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./course.scss"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
@@ -14,19 +14,22 @@ import moment from 'moment'
 import Quiz from 'react-quiz-component';
 import { quiz } from './quiz';
 import { Box } from '@mui/system'
-import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
+import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from './Navbar'
 import HeaderCourse from './HeaderCourse'
 import FlipCard from './FlipCards/FlipCard'
+import {Carousel} from '3d-react-carousal';
 
 const drawerWidth = 240;
 
-function Course(){
+
+const Course = () => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
+    const location = useLocation()
     const [course, setCourse] = useState({})
     const { id } = useParams();
     const [user, setUser] = useState({
@@ -44,7 +47,12 @@ function Course(){
     })
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
+    const [flipcards, setFlipcards] = useState([])
 
+    const cards = []
+    flipcards.length > 0 && flipcards.map((card, index) => {
+        cards.push(<FlipCard card={card} key={index}/>)
+    })
 
 
     const getCourse = async () => {
@@ -68,6 +76,15 @@ function Course(){
         }
     };
 
+    const getFlipCards = async (course) => {
+        try {
+            const flipcards = await axios.get("/api/flip-cards/courses/" + id)
+            setFlipcards(flipcards.data);
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
     const handleChange = (editorState) => {
         setEditorState(editorState)
         setCourse({
@@ -80,7 +97,6 @@ function Course(){
         e.preventDefault()
         axios.put("/api/courses/" + course._id, course)
             .then((res) => {
-                console.log(res)
                 console.log("modifié")
                 setShowEdit(false)
             })
@@ -92,11 +108,11 @@ function Course(){
     useEffect(()=>{
         getCourse()
         getUser()
-        console.log(course)
+        getFlipCards(course)
     }, [])
 
     return (
-        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden" }}>
+        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden", overflowY: "hidden" }}>
             <SidebarCourseComponent course={course}/>
             <Box
                 component="main"
@@ -161,8 +177,15 @@ function Course(){
                             )
                         }
                     </Box>
+
                     <Box sx={{ mt: 5, width: "100%" }}>
-                        <FlipCard course={course}/>
+                        <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
+                            <Typography variant="h1" component="div">FLIP CARDS</Typography>
+                            <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
+                        </Toolbar>
+                        <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
+                            <Carousel slides={cards} arrows={true} />
+                        </Stack>
                     </Box>
                 </Grid>
             </Box>

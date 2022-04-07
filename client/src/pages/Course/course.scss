@@ -170,3 +170,28 @@ div.public-DraftEditor-content {
     background: #3D90BD!important;
     color: #fff!important;
 }
+
+
+
+
+
+
+.cards-slider {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cards-slider .react-3d-carousel {
+    width: 100%;
+}
+
+.react-3d-carousel .slider-left div {
+    border: 0!important;
+    color: #444444;
+}
+
+.react-3d-carousel .slider-right div {
+    border: 0!important;
+    color: #444444!important;
+}

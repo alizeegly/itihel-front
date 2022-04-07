@@ -73,5 +73,19 @@ router.get("/", async (req, res) => {
     }
 })
 
+/**
+ * @method - GET
+ * @param - /
+ * @description - FlipCard Get All from a course
+ */
+ router.get("/courses/:id", async (req, res) => {
+    try{
+        const flipCards = await FlipCard.find({course_id: req.params.id})
+        res.status(200).json(flipCards)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
 
 module.exports = router

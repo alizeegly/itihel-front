@@ -1,8 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import ReactCardFlip from 'react-card-flip'
-import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
+import axios from 'axios'
 
-const FlipCard = (props) => {
+const FlipCard = ({card}) => {
     const [isFlipped, setIsFlipped] = useState(false)
 
     const handleFlippedCard = (e) => {
@@ -10,19 +10,19 @@ const FlipCard = (props) => {
         setIsFlipped(!isFlipped)
     }
 
+    useEffect(()=>{
+        // console.log(card)
+    }, [])
+
     return (
         <>
-            <Toolbar sx={{ width: "100%", justifyContent: "space-between" }}>
-                <Typography variant="h1" component="div">FLIP CARDS</Typography>
-                <Button variant="contained" color="primary" href={"/courses/" + props.course._id + "/flip-cards"}>Ajouter</Button>
-            </Toolbar>
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
                 <div className='flip-card flip-card-front' onClick={handleFlippedCard}>
-                    A quelle date eu lieu l'armistice ?
+                    {card.question}
                 </div>
 
                 <div className='flip-card flip-card-back' onClick={handleFlippedCard}>
-                    Le 8 mai 1945
+                    {card.answer}
                 </div>
             </ReactCardFlip>
         </>
