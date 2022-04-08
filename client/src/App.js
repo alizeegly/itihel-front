@@ -24,9 +24,9 @@ import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
 export const theme = createTheme({
    palette: {
       primary: {
-         light: '#9ac1ae',
-         main: '#81B29A', 
-         dark: '#5a7c6b',
+        light:'#03a9f4',
+        main: "#0288d1",
+        dark:'#01579b',
          contrastText: '#fff',
       },
       secondary: {
@@ -35,9 +35,9 @@ export const theme = createTheme({
          dark: '#2a2c3f'
       },
       light: {
-         light: '#f6f3e4',
-         main: '#F4F1DE',
-         dark:'#aaa89b'
+        light: '#FFFFFF',
+        main: '#FFFFFF',
+        dark:'#8FB399'
       },
       success: {
          light:'#94cb9d',
@@ -46,14 +46,14 @@ export const theme = createTheme({
       },
       danger: {
          light:'#e94b4b',
-         main: '#E41F1F',
+         main: '#F02222',
          dark:'#9f1515',
 
       },
       warning: {
          dark:'#9c5542',
          main: '#E07A5F',
-         light:'#e6947f'
+         light:'#e6947f',
       },
       info: {
          light:'#03a9f4',
