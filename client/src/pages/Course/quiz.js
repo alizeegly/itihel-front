@@ -6,7 +6,7 @@ export const quiz =  {
       {
         "question": "Quels sont les états restés neutre ?",
         "questionType": "text",
-        "questionPic": "", // if you need to display Picture in Question
+        "questionPic": "", 
         "answerSelectionType": "multiple",
         "answers": [
           "l'Espagne",
@@ -16,8 +16,6 @@ export const quiz =  {
           "les Etats-Unis"
         ],
         "correctAnswer": [1, 2, 3, 4],
-        "messageForCorrectAnswer": "Correct answer. Good job.",
-        "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
         "explanation": "Voir le cours pour l'explication",
         "point": "20"
       },
@@ -31,8 +29,6 @@ export const quiz =  {
           "La bataille de Stalingrad"
         ],
         "correctAnswer": "3",
-        "messageForCorrectAnswer": "Correct answer. Good job.",
-        "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
         "explanation": "Elle opposa les allemands aux russes de l'URSS",
         "point": "20"
       },
@@ -47,8 +43,6 @@ export const quiz =  {
           "Tsar Bomba"
         ],
         "correctAnswer": ["1", "2"],
-        "messageForCorrectAnswer": "Correct answer. Good job.",
-        "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
         "explanation": "Voir le cours",
         "point": "10"
       }

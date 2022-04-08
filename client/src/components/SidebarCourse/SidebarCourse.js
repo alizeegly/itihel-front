@@ -49,11 +49,11 @@ const SidebarCourseComponent = (props) => {
                 <ListItemButton component='a' href={"/courses/" + props.course._id + "#notes"}>
                     <ListItemText primary="Prise de notes" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"/courses/" + props.course._id + "#quiz"}>
-                    <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
-                </ListItemButton>
                 <ListItemButton component='a' href={"/courses/" + props.course._id + "#flip-cards"}>
                     <ListItemText primary="Flip cards" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
+                <ListItemButton component='a' href={"/courses/" + props.course._id + "#quiz"}>
+                    <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
             </List>
             {/* <List>

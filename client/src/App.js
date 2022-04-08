@@ -18,6 +18,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import ResetPassword from "./pages/Login/ResetPassword";
 import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
+import AddQuizz from "./pages/Course/Quizz/AddQuizz";
 
 export const theme = createTheme({
   palette: {
@@ -116,6 +117,13 @@ function App() {
            <Route path="/courses/:id/flip-cards" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <FlipCardAdd />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+           <Route path="/courses/:id/quiz" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <AddQuizz />
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )

@@ -9,11 +9,12 @@ import Typography from '@mui/material/Typography';
 import CheckIcon from '@mui/icons-material/Check';
 import WarningIcon from '@mui/icons-material/Warning';
 
-import { Alert, Avatar, Button, Grid, Menu, MenuItem, Paper, TextField } from '@mui/material'
+import { Avatar, Button, Grid, Menu, MenuItem, Paper, Stack, TextField } from '@mui/material'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingCard'
 import Papers from '../../components/Papers/Papers'
 import { BrowserView } from 'react-device-detect'
+import Alert from '@mui/material/Alert';
 
 const drawerWidth = 240;
 
@@ -67,7 +68,9 @@ function Profil(){
                 
                 {
                     isModified ? (
-                        <Alert icon={<CheckIcon fontSize="inherit" />} severity="success" onClose={() => {setIsModified(false)}}>Votre profil a bien été modifié.</Alert>
+                        <Stack sx={{ width: '95%', margin: "0 auto", color: "#5EB760", fontWeight: "bold" }} spacing={2}>
+                            <Alert icon={<CheckIcon fontSize="inherit" color='#5EB760' />} severity="success" onClose={() => {setIsModified(false)}} sx={{ background: "#EDF7ED", color: "#5EB760", fontWeight: "bold" }}>Votre profil a bien été modifié.</Alert>
+                        </Stack>
                     ) : (
                         ""
                     )

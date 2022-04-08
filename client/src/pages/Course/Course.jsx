@@ -11,8 +11,6 @@ import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
 import moment from 'moment'
-import Quiz from 'react-quiz-component';
-import { quiz } from './quiz';
 import { Box } from '@mui/system'
 import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
@@ -22,6 +20,9 @@ import Navbar from './Navbar'
 import HeaderCourse from './HeaderCourse'
 import FlipCard from './FlipCards/FlipCard'
 import {Carousel} from '3d-react-carousal';
+// import Quiz from './Quizz/Quiz'
+import Quiz from "react-quiz-component";
+// import { quiz } from './quiz';
 
 const drawerWidth = 240;
 
@@ -48,6 +49,7 @@ const Course = () => {
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [flipcards, setFlipcards] = useState([])
+    const [quiz, setQuiz] = useState({})
 
     const cards = []
     flipcards.length > 0 && flipcards.map((card, index) => {
@@ -71,6 +73,16 @@ const Course = () => {
             const user = await axios.get("/api/users/find/" + session.user.id)
             setUser(user.data);
             // setUserShared(user.data._id)
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const getQuiz = async () => {
+        try {
+            const quiz = await axios.get("/api/quiz/course/" + course._id)
+            console.log(quiz)
+            setQuiz(quiz.data);
         } catch (err) {
             console.error(err.message);
         }
@@ -109,6 +121,7 @@ const Course = () => {
         getCourse()
         getUser()
         getFlipCards(course)
+        getQuiz()
     }, [])
 
     return (
@@ -154,7 +167,7 @@ const Course = () => {
                             }
                         </Box>
                     </Box>
-                    <Box>
+                    <Box id="notes">
                         {
                             !showEdit ? ReactHtmlParser(course.text) : (
                                 <>
@@ -178,7 +191,7 @@ const Course = () => {
                         }
                     </Box>
 
-                    <Box sx={{ mt: 5, width: "100%" }}>
+                    <Box sx={{ mt: 5, width: "100%" }} id="flip-cards">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
                             <Typography variant="h1" component="div">FLIP CARDS</Typography>
                             <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
@@ -186,6 +199,16 @@ const Course = () => {
                         <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
                             <Carousel slides={cards} arrows={true} />
                         </Stack>
+                    </Box>
+
+                    <Box sx={{ mt: 5, width: "100%" }} id="quiz">
+                        <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
+                            <Typography variant="h1" component="div">Quizz</Typography>
+                            <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter une question</Button>
+                        </Toolbar>
+                        {/* <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
+                            <Quiz quiz={quiz}/>
+                        </Stack> */}
                     </Box>
                 </Grid>
             </Box>

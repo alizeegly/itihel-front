@@ -11,9 +11,9 @@ import CheckIcon from '@mui/icons-material/Check';
 
 const drawerWidth = 240;
 
-const FlipCardAdd = () => {
+const AddQuizz = () => {
     const [course, setCourse] = useState({})
-    const [flipcard, setFlipcard] = useState({})
+    
     const { id } = useParams();
     const [isCreated, setIsCreated] = useState(false);
 
@@ -27,25 +27,12 @@ const FlipCardAdd = () => {
     };
 
     const handleChange = e => {
-        setFlipcard({
-          ...flipcard,
-          [e.target.name]: e.target.value
-        })
+        
     };
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        setFlipcard({
-            ...flipcard,
-            course_id: course._id
-        })
-        setIsCreated(true)
-        axios.post("/api/flip-cards", flipcard) // Lien create course de l'api
-            .then((res) => {
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        
     }
 
     useEffect(()=>{
@@ -92,34 +79,10 @@ const FlipCardAdd = () => {
                     spacing={3}
                     sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
                 >
-                    <Typography variant="h1" component="div">FLIP CARDS</Typography>
+                    <Typography variant="h1" component="div">Quiz</Typography>
 
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 10 }}>
-                        <TextField
-                            id="question"
-                            label="Question"
-                            variant="outlined"
-                            name="question"
-                            value={flipcard.question}
-                            onChange={handleChange}
-                            sx={{
-                                width: "100%",
-                                mt: 5
-                            }}
-                        />
-                        <TextField
-                            id="answer"
-                            label="Réponse"
-                            variant="outlined"
-                            name="answer"
-                            value={flipcard.answer}
-                            onChange={handleChange}
-                            sx={{
-                                width: "100%",
-                                mt: 5
-                            }}
-                        />
-                        <Button type="submit" variant="contained" color="primary" sx={{ mt: 5 }}>Ajouter</Button>
+
                     </Box>
                 </Grid>
             </Box>
@@ -127,4 +90,4 @@ const FlipCardAdd = () => {
     )
 }
 
-export default FlipCardAdd
+export default AddQuizz
