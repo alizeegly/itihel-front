@@ -6,7 +6,7 @@ const FlipCard = require("../../models/FlipCards/FlipCard")
  * @param - /
  * @description - FlipCard create
  */
-router.post("/", async (req, res) => {
+router.post("/create", async (req, res) => {
     const newFlipCard = new FlipCard(req.body)
     try{
         const savedFlipCard = await newFlipCard.save()

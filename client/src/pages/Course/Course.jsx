@@ -195,21 +195,37 @@ const Course = () => {
                     <Box sx={{ mt: 5, width: "100%" }} id="flip-cards">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
                             <Typography variant="h1" component="div">FLIP CARDS</Typography>
-                            <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
+                                <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/flip-cards"}>Modifier</Button>
+                                <Button variant="contained" color="danger" href={"/courses/" + course._id + "/flip-cards"}>Supprimer</Button>
+                            </Stack>
                         </Toolbar>
                         <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
-                            <Carousel slides={cards} arrows={true} />
+                            {
+                                cards.length > 1 ? (
+                                    <Carousel slides={cards} arrows={true} />
+                                ) : cards[0]
+                            }
                         </Stack>
                     </Box>
 
                     <Box sx={{ mt: 5, width: "100%" }} id="quiz">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
                             <Typography variant="h1" component="div">Quizz</Typography>
-                            <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter une question</Button>
+                            {
+                                !quizz || !quizz.quizTitle ? (
+                                    <Stack direction="row" spacing={1}>
+                                        <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter</Button>
+                                        <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/quiz"}>Modifier</Button>
+                                        <Button variant="contained" color="danger" href={"/courses/" + course._id + "/quiz"}>Supprimer</Button>
+                                    </Stack>
+                                ) : null
+                            }
                         </Toolbar>
                         <Stack direction="row" spacing={2} style={{ margin: "30px auto" }}>
                             {
-                                quizz.quizTitle ? (<Quiz quiz={quizz}/>) : "Pas de quiz"
+                                quizz && quizz.quizTitle ? (<Quiz quiz={quizz}/>) : "Pas de quiz"
                             }
                         </Stack>
                     </Box>

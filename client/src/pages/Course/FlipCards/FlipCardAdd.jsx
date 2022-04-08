@@ -16,6 +16,8 @@ const FlipCardAdd = () => {
     const [flipcard, setFlipcard] = useState({})
     const { id } = useParams();
     const [isCreated, setIsCreated] = useState(false);
+    const [question, setQuestion] = useState("")
+    const [answer, setAnswer] = useState("")
 
     const getCourse = async () => {
         try {
@@ -26,22 +28,20 @@ const FlipCardAdd = () => {
         }
     };
 
-    const handleChange = e => {
-        setFlipcard({
-          ...flipcard,
-          [e.target.name]: e.target.value
-        })
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault()
-        setFlipcard({
-            ...flipcard,
-            course_id: course._id
-        })
-        setIsCreated(true)
-        axios.post("/api/flip-cards", flipcard) // Lien create course de l'api
+        const data = {
+            course_id: course._id,
+            question,
+            answer
+        }
+        setFlipcard(data)
+        axios.post("http://localhost:8800/api/flip-cards/create", flipcard)
             .then((res) => {
+                setIsCreated(true)
+                setQuestion("")
+                setAnswer("")
+                console.log("ajouté")
             })
             .catch(err => {
                 console.log(err)
@@ -100,8 +100,8 @@ const FlipCardAdd = () => {
                             label="Question"
                             variant="outlined"
                             name="question"
-                            value={flipcard.question}
-                            onChange={handleChange}
+                            value={question}
+                            onChange={(e) => setQuestion(e.target.value)}
                             sx={{
                                 width: "100%",
                                 mt: 5
@@ -112,8 +112,8 @@ const FlipCardAdd = () => {
                             label="Réponse"
                             variant="outlined"
                             name="answer"
-                            value={flipcard.answer}
-                            onChange={handleChange}
+                            value={answer}
+                            onChange={(e) => setAnswer(e.target.value)}
                             sx={{
                                 width: "100%",
                                 mt: 5
