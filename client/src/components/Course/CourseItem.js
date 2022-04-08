@@ -21,7 +21,7 @@ const CourseItem = (props) => {
         // if(props.page === "cours-publics"){
             // getCreator()
         // }
-        console.log(props.course)
+        // console.log(props.course)
     }, [])
     return (
         <a href={"/courses/" + props.id} className="card_cours">

@@ -49,7 +49,7 @@ const Course = () => {
     const [showEdit, setShowEdit] = useState(false)
     const [editorState, setEditorState] = useState(EditorState.createEmpty())
     const [flipcards, setFlipcards] = useState([])
-    const [quiz, setQuiz] = useState({})
+    const [quizz, setQuizz] = useState({})
 
     const cards = []
     flipcards.length > 0 && flipcards.map((card, index) => {
@@ -80,15 +80,15 @@ const Course = () => {
 
     const getQuiz = async () => {
         try {
-            const quiz = await axios.get("/api/quiz/course/" + course._id)
-            console.log(quiz)
-            setQuiz(quiz.data);
+            const quiz = await axios.get("/api/quizz/course/" + id)
+            console.log(quiz.data)
+            setQuizz(quiz.data[0]);
         } catch (err) {
             console.error(err.message);
         }
     };
 
-    const getFlipCards = async (course) => {
+    const getFlipCards = async () => {
         try {
             const flipcards = await axios.get("/api/flip-cards/courses/" + id)
             setFlipcards(flipcards.data);
@@ -120,8 +120,9 @@ const Course = () => {
     useEffect(()=>{
         getCourse()
         getUser()
-        getFlipCards(course)
+        getFlipCards()
         getQuiz()
+        console.log(quizz)
     }, [])
 
     return (
@@ -206,9 +207,11 @@ const Course = () => {
                             <Typography variant="h1" component="div">Quizz</Typography>
                             <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter une question</Button>
                         </Toolbar>
-                        {/* <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
-                            <Quiz quiz={quiz}/>
-                        </Stack> */}
+                        <Stack direction="row" spacing={2} style={{ margin: "30px auto" }}>
+                            {
+                                quizz.quizTitle ? (<Quiz quiz={quizz}/>) : "Pas de quiz"
+                            }
+                        </Stack>
                     </Box>
                 </Grid>
             </Box>

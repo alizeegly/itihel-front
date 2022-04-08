@@ -65,7 +65,7 @@ router.get("/find/:id", async (req, res) => {
  */
  router.get("/course/:id", async (req, res) => {
     try{
-        const quiz = await Quiz.find({course_id: id})
+        const quiz = await Quiz.find({course_id: req.params.id})
         res.status(200).json(quiz)
     } catch(err) {
         res.status(500).json(err)
