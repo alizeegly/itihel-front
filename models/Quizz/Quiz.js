@@ -1,19 +1,16 @@
 const mongoose = require('mongoose')
 
 const QuizSchema = new mongoose.Schema({
-    title:  {
+    quizTitle:  {
         type: String,
         required: true
     },
-    minutes: {
-        type: Number, 
-        min: 0, 
-        max: 59
+    quizSynopsis:  {
+        type: String,
+        required: true
     },
-    seconds: {
-        type: Number, 
-        min: 0, 
-        max: 59
+    questions: {
+        type: Array
     },
     course_id:  {
         type: mongoose.Schema.Types.ObjectId, ref: 'Course',

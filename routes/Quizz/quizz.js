@@ -60,6 +60,20 @@ router.get("/find/:id", async (req, res) => {
 
 /**
  * @method - GET
+ * @param - /find/:id
+ * @description - Quiz Get Quiz of a course
+ */
+ router.get("/course/:id", async (req, res) => {
+    try{
+        const quiz = await Quiz.find({course_id: id})
+        res.status(200).json(quiz)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
  * @param - /
  * @description - Quiz Get All
  */

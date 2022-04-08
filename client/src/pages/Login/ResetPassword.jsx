@@ -66,20 +66,22 @@ function ResetPassword() {
 
 
     const handleSubmit = (e) => {
-        axios.put("/api/users/" + searchParams.get('user_id') + "/reset-password", user) // Lien pour modifier un user
-            .then((res) => {
-                navigate("/login")
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        if(searchParams.get('user_id')){
+            axios.put("/api/users/" + searchParams.get('user_id') + "/reset-password", user) // Lien pour modifier un user
+                .then((res) => {
+                    navigate("/login")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }
 
     const getUser = async () => {
         try {
-            console.log(session)
             const user = await axios.get("/api/users/find/" + searchParams.get('user_id'))
             setUser(user.data);
+            console.log(user)
         } catch (err) {
             console.error(err.message);
         }
@@ -120,6 +122,7 @@ function ResetPassword() {
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
+                            type="password"
                             margin="normal"
                             required
                             fullWidth

@@ -16,6 +16,7 @@ router.post("/", async (req, res) => {
     }
 })
 
+
 /**
  * @method - PUT
  * @param - /:id
@@ -65,7 +66,21 @@ router.get("/find/:id", async (req, res) => {
  */
 router.get("/", async (req, res) => {
     try{
-        const flipCards = await FlipCard.find()
+        const flipCards = await FlipCard.find().populate("course_id")
+        res.status(200).json(flipCards)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /
+ * @description - FlipCard Get All from a course
+ */
+ router.get("/courses/:id", async (req, res) => {
+    try{
+        const flipCards = await FlipCard.find({course_id: req.params.id})
         res.status(200).json(flipCards)
     } catch(err) {
         res.status(500).json(err)

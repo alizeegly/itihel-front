@@ -17,36 +17,39 @@ import { useSession } from  'react-use-session';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import ResetPassword from "./pages/Login/ResetPassword";
+import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
+import AddQuizz from "./pages/Course/Quizz/AddQuizz";
 
 export const theme = createTheme({
   palette: {
-      primary: {
-        light: '#94DDDE',
-        main: '#94DDDE',
-        dark: '#94DDDE',
-        contrastText: '#fff',
-      },
-      secondary: {
-        main: '#232246',
-      },
-      light: {
-        main: "#DDDDDD"
-      },
-      success: {
-        main: "#fff"
-      },
-      danger: {
-        main: "#fff"
-      },
-      warning: {
-        main: "#fff"
-      },
-      info: {
-        main: "#fff"
-      }
+    primary: {
+      light: '#94DDDE',
+      main: '#94DDDE',
+      dark: '#94DDDE',
+      contrastText: '#fff',
+    },
+    secondary: {
+      main: '#444',
+    },
+    light: {
+      main: "#DDDDDD"
+    },
+    success: {
+      main: "#fff"
+    },
+    danger: {
+      main: "#fff"
+    },
+    warning: {
+      main: "#fff"
+    },
+    info: {
+      main: "#fff"
+    }
   },
   typography: {
       fontFamily: '"Quicksand", sans-serif',
+      // fontFamily: '"Gilroy-black", sans-serif',
       h1: {
           fontSize: 55,
           fontWeight: 700,
@@ -107,6 +110,20 @@ function App() {
           <Route path="/courses/:id" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <Course />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/>
+           <Route path="/courses/:id/flip-cards" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <FlipCardAdd />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+           <Route path="/courses/:id/quiz" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <AddQuizz />
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )
