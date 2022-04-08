@@ -18,7 +18,7 @@ const HeaderCourse = (props) => {
                         Modifié le {moment(props.course.updatedAt).format('DD/MM/YYYY, hh:mm a')}
                     </Typography>
                     <div>
-                        By @{props.course && props.course.owner_id && props.course.owner_id.pseudo ? props.course.owner_id.pseudo : ""}
+                        Par @{props.course && props.course.owner_id && props.course.owner_id.pseudo ? props.course.owner_id.pseudo : ""}
                         <Chip label={props.course.is_public ? "Public" : "Privé"} variant="outlined" color="secondary" sx={{ ml: 3 }}/>
                     </div>
                 </Box>
