@@ -171,7 +171,7 @@ const SharedCourses = ({page}) => {
 
 
     return (
-        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
+        <Box sx={{ display: 'flex', position: "relative", overflow: "hidden"  }}>
             <Sidebar user={user}/>
             <Box
                 component="main"
@@ -180,7 +180,6 @@ const SharedCourses = ({page}) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
 
                 {
                     isCreated ? (

@@ -170,7 +170,7 @@ const PublicCourses = ({page}) => {
 
 
     return (
-        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
+        <Box sx={{ display: 'flex', position: "relative", overflow: "hidden"  }}>
             <Sidebar user={user}/>
             <Box
                 component="main"
