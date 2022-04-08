@@ -21,39 +21,54 @@ import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
 import AddQuizz from "./pages/Course/Quizz/AddQuizz";
 
 export const theme = createTheme({
-  palette: {
-    primary: {
-      light: '#94DDDE',
-      main: '#94DDDE',
-      dark: '#94DDDE',
-      contrastText: '#fff',
-    },
-    secondary: {
-      main: '#444',
-    },
-    light: {
-      main: "#DDDDDD"
-    },
-    success: {
-      main: "#fff"
-    },
-    danger: {
-      main: "#fff"
-    },
-    warning: {
-      main: "#fff"
-    },
-    info: {
-      main: "#fff"
-    }
-  },
+   palette: {
+      primary: {
+         light: '#9ac1ae',
+         main: '#81B29A', 
+         dark: '#5a7c6b',
+         contrastText: '#fff',
+      },
+      secondary: {
+         light: '#63667b',
+         main: '#3D405B',
+         dark: '#2a2c3f'
+      },
+      light: {
+         light: '#f6f3e4',
+         main: '#F4F1DE',
+         dark:'#aaa89b'
+      },
+      success: {
+         light:'#94cb9d',
+         main: '#7ABF85',
+         dark:'#55855d'
+      },
+      danger: {
+         light:'#e94b4b',
+         main: '#E41F1F',
+         dark:'#9f1515',
+
+      },
+      warning: {
+         dark:'#9c5542',
+         main: '#E07A5F',
+         light:'#e6947f'
+      },
+      info: {
+         light:'#03a9f4',
+         main: "#0288d1",
+         dark:'#01579b'
+      }
+   },
+
   typography: {
       fontFamily: '"Quicksand", sans-serif',
       // fontFamily: '"Gilroy-black", sans-serif',
       h1: {
-          fontSize: 55,
-          fontWeight: 700,
-          color: "#444"
+        fontSize: 40,
+        fontWeight: 700,
+        color: "#444",
+        marginBottom: 30
       }
   }
 })

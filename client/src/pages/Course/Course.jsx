@@ -153,10 +153,10 @@ const Course = () => {
                     container
                     direction={{ xs: "column", md: "row" }}
                     spacing={3}
-                    sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
+                    sx={{ mb: 2, mt: 3, px: { xs: 5, md: 7 } }}
                 >
                     <Box sx={{ mb: 2, mt: 2 }}>
-                        <Typography variant="h1">{course.title}</Typography>
+                        <Typography variant="h1" className="h1_notes">{course.title}</Typography>
                         <Typography variant="body" sx={{ mt: 2 }}>{course.description}</Typography>
                         <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3, mb: 2 }}>
                             {
