@@ -212,7 +212,7 @@ const Course = () => {
 
                     <Box sx={{ mt: 5, width: "100%" }} id="quiz">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
-                            <Typography variant="h1" component="div">Quizz</Typography>
+                            <Typography variant="h1" component="div">Quiz</Typography>
                             {
                                 !quizz || !quizz.quizTitle ? (
                                     <Stack direction="row" spacing={1}>
