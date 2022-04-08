@@ -197,8 +197,7 @@ const Course = () => {
                             <Typography variant="h1" component="div">FLIP CARDS</Typography>
                             <Stack direction="row" spacing={1}>
                                 <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
-                                <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/flip-cards"}>Modifier</Button>
-                                <Button variant="contained" color="danger" href={"/courses/" + course._id + "/flip-cards"}>Supprimer</Button>
+                                <Button variant="contained" color="info" href={"/courses/" + course._id + "/flip-cards/edit"}>Modifier</Button>
                             </Stack>
                         </Toolbar>
                         <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
@@ -217,8 +216,7 @@ const Course = () => {
                                 !quizz || !quizz.quizTitle ? (
                                     <Stack direction="row" spacing={1}>
                                         <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter</Button>
-                                        <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/quiz"}>Modifier</Button>
-                                        <Button variant="contained" color="danger" href={"/courses/" + course._id + "/quiz"}>Supprimer</Button>
+                                        <Button variant="contained" color="info" href={"/courses/" + course._id + "/quiz"}>Modifier</Button>
                                     </Stack>
                                 ) : null
                             }

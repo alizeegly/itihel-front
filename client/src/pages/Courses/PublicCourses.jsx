@@ -254,7 +254,7 @@ const PublicCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.title}
-                                        />,
+                                        />
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         <Highlighter
@@ -262,7 +262,7 @@ const PublicCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.description}
-                                        />,
+                                        />
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>

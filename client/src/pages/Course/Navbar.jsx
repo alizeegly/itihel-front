@@ -19,7 +19,7 @@ const Navbar = () => {
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 <div>
                     <Button color="inherit" href="/courses">Mes cours</Button>
-                    <Button color="inherit" href="/shared-whith-me-courses">Partagés avec moi</Button>
+                    <Button color="inherit" href="/shared-whith-me-courses">Partagé avec moi</Button>
                     <Button color="inherit" href="/public-courses">Tous les cours</Button>
                 </div>
                 <div>

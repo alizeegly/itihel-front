@@ -262,7 +262,7 @@ const SharedCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.course_id.title}
-                                        />,
+                                        />
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         <Highlighter
@@ -270,7 +270,7 @@ const SharedCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.course_id.description}
-                                        />,
+                                        />
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>

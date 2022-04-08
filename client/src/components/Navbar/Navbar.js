@@ -12,7 +12,7 @@ const Navbar = ({user}) => {
                 <div className="menu">
                     <ul className="menu__item">
                         <li><a href="/courses">Mes cours</a></li>
-                        <li><a href="/shared-whith-me-courses">Partagés avec moi</a></li>
+                        <li><a href="/shared-whith-me-courses">Partagé avec moi</a></li>
                         <li><a href="/public-courses">Tous les cours</a></li>
                     </ul>
                 </div>

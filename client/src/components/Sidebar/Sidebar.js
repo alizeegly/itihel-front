@@ -54,7 +54,7 @@ const SidebarComponent = (props) => {
                     <ListItemText primary="Mes cours" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
                 <ListItemButton component='a' href={"/shared-whith-me-courses"}>
-                    <ListItemText primary="Partagés avec moi" primaryTypographyProps={{fontSize: '18px'}} />
+                    <ListItemText primary="Partagé avec moi" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
                 <ListItemButton component='a' href={"/public-courses"}>
                     <ListItemText primary="Tous les cours" primaryTypographyProps={{fontSize: '18px'}} />

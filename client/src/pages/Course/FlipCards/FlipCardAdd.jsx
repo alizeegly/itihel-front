@@ -3,11 +3,11 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { BrowserView } from 'react-device-detect'
 import { useParams } from 'react-router-dom'
-import Navbar from '../../../components/Navbar/Navbar'
 import Papers from '../../../components/Papers/Papers'
 import SidebarCourseComponent from '../../../components/SidebarCourse/SidebarCourse'
 import HeaderCourse from '../HeaderCourse'
 import CheckIcon from '@mui/icons-material/Check';
+import Navbar from '../Navbar'
 
 const drawerWidth = 240;
 
@@ -88,11 +88,11 @@ const FlipCardAdd = () => {
 
                 <Grid
                     container
-                    direction={{ xs: "column", md: "row" }}
+                    direction="column"
                     spacing={3}
                     sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
                 >
-                    <Typography variant="h1" component="div">FLIP CARDS</Typography>
+                    <Typography variant="h1" component="div">AJOUTER UNE FLIP CARD</Typography>
 
                     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 10 }}>
                         <TextField
