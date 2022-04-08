@@ -11,7 +11,7 @@ const HeaderCourse = (props) => {
                 container
                 direction={{ xs: "column", md: "row" }}
                 spacing={3}
-                sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
+                sx={{ mb: 2, mt: 3, px: { xs: 5, md: 7 } }}
             >
                 <Box sx={{ width: "100%", display: "flex", justifyContent: "space-between" }}>
                     <Typography>

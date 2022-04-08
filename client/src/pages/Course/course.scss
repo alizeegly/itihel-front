@@ -2,6 +2,12 @@
     z-index: 130;
     font-family: 'Quicksand', sans-serif;
 }
+
+.h1_notes {
+    h1 {
+        margin: 0 0 30px !important;
+    }
+}
    
 .page{
     width: calc(100% - 310px);

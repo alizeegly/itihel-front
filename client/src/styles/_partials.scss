@@ -26,7 +26,7 @@ h1,
     font-size: 44px;
     line-height: 55px;
     font-weight: 600;
-    margin: 0 0 50px;
+    margin: 30px 0 50px;
     color: $black;
 
     span {
@@ -53,6 +53,7 @@ h2,
     font-size: 32px;
     line-height: 40px;
     color: $black;
+    margin: 30px 0 24px;
 
     span {
         font-size: 32px;
@@ -64,7 +65,7 @@ h3,
 .h3 {
     font-size: 24px;
     line-height: 32px;
-    margin: 0 0 24px;
+    margin: 20px 0;
     color: $black;
 
     span {
@@ -81,8 +82,6 @@ h4,
     color: $black;
     margin-bottom: 24px;
 }
-
-
 
 p {
     font-size: 16px;
