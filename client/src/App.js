@@ -20,6 +20,7 @@ import ResetPassword from "./pages/Login/ResetPassword";
 import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
 import AddQuizz from "./pages/Course/Quizz/AddQuizz";
 import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
+import EditQuizz from "./pages/Course/Quizz/EditQuizz";
 
 export const theme = createTheme({
    palette: {
@@ -145,13 +146,21 @@ function App() {
             )
           }/> 
 
-           <Route path="/courses/:id/quiz" exact element={
+          <Route path="/courses/:id/quiz" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <AddQuizz />
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )
           }/> 
+          <Route path="/courses/:id/quiz/edit" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <EditQuizz />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+
           <Route path="/courses/:id/parameters" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <CourseParameters />

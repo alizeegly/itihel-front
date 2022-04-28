@@ -212,14 +212,15 @@ const Course = () => {
                     <Box sx={{ mt: 5, width: "100%" }} id="quiz">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
                             <Typography variant="h1" component="div">Quiz</Typography>
-                            {
-                                !quizz || !quizz.quizTitle ? (
-                                    <Stack direction="row" spacing={1}>
+                            <Stack direction="row" spacing={1}>
+                                {
+                                    !quizz || !quizz.quizTitle ? (
                                         <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter</Button>
-                                        <Button variant="contained" color="info" href={"/courses/" + course._id + "/quiz"}>Modifier</Button>
-                                    </Stack>
-                                ) : null
-                            }
+                                    ) : (
+                                        <Button variant="contained" color="info" href={"/courses/" + course._id + "/quiz/edit"}>Modifier</Button>
+                                    )
+                                }
+                            </Stack>
                         </Toolbar>
                         <Stack direction="row" spacing={2} style={{ margin: "30px auto" }}>
                             {
