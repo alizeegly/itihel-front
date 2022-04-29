@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="60e16f4c-dac1-4bc9-9bac-d65a58726772" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/home/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/pages/home/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/home/home.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,6 +48,7 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_package_manager_path" value="npm" />
+    <property name="ts.external.directory.path" value="C:\Users\julie\AppData\Local\JetBrains\Toolbox\apps\WebStorm\ch-0\212.5457.55\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -62,7 +61,8 @@
       <updated>1639127406813</updated>
       <workItem from="1639127409463" duration="2127000" />
       <workItem from="1649402143559" duration="5918000" />
-      <workItem from="1649418261045" duration="9841000" />
+      <workItem from="1649418261045" duration="9895000" />
+      <workItem from="1651216551658" duration="7760000" />
     </task>
     <servers />
   </component>

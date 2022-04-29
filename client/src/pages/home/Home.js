@@ -2,7 +2,8 @@ import React, { useEffect, useRef } from 'react'
 import lottie from 'lottie-web';
 import "./home.scss";
 import { useSession } from  'react-use-session';
-import Button from '@mui/material/Button';
+import { Button, TextField } from '@mui/material/';
+import { Box } from '@mui/system'
 
 function Home() {
     const { session, saveJWT, clear } = useSession('itihel');
@@ -86,6 +87,38 @@ function Home() {
                         <p>Testez vos connaissances à l'aide de plusieurs mini jeux ! Réalisez des flip cards ou des quizz afin de tester vos amis sur leurs connaissances sur un cours ! De cette manière, apprenez tout en vous amusant ! Les flips cards comportent des cartes virtuelles avec des questions sur une face et les réponses de l'autre, et les quizz comportent une listes de questions avec la bonne réponses à choisir !.</p>
                     </div>
                     <div className="home-presentation-img home-img-3"></div>
+                </div>
+
+                <h2 class="form-title">Contactez-nous !</h2>
+
+                <div class="contact-form-container">
+                    <Box component="form" class="contact-form">
+                        <div className="form-field field-email">
+                            <label>Adresse mail :</label>
+                            <TextField id="email"
+                                       name="email"
+                                       multiline
+                                       rows={1}
+                                       variant="outlined"
+                                       sx={{
+                                           width: "100%",
+                                           mt: 2
+                                       }}/>
+                        </div>
+                        <div className="form-field field-message">
+                            <label>Message :</label>
+                            <TextField id="message"
+                                       name="message"
+                                       multiline
+                                       rows={4}
+                                       variant="outlined"
+                                       sx={{
+                                           width: "100%",
+                                           mt: 2
+                                       }}/>
+                        </div>
+                        <Button type="submit" variant="contained" color="primary">Envoyer</Button>
+                    </Box>
                 </div>
             </div>
             <div class="home-footer">

@@ -132,6 +132,34 @@
     }
     .home-presentation {
 
+        .form-title {
+            text-align: center;
+        }
+
+        .contact-form-container {
+            display: flex;
+            height: fit-content;
+            width: 1350px;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0 0 20px;
+            justify-content: center;
+
+            .contact-form {
+                width: 550px;
+
+                .form-field {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .field-message {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
         .home-presentation-container {
             display: flex;
             height: fit-content;
