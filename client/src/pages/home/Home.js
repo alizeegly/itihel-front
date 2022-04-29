@@ -39,7 +39,7 @@ function Home() {
                             <p>Crée ou rejoint un cours !</p>
                         </div>
                         <div className="add_note" data-aos="fade-up" data-aos-delay="800">
-                            <p>Ajoute des prises notes !</p>
+                            <p>Ajoute des prises de notes !</p>
                         </div>
                         <div className="share" data-aos="fade-up" data-aos-delay="1100">
                             <p>Partage le cours à tes camarades !</p>
