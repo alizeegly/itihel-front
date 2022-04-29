@@ -4,8 +4,7 @@
     height: 100vh;
     background-color: rgb(255, 255, 255);
     position: relative;
-    overflow: hidden;
-    display: flex;
+    overflow-x: hidden;
 
     .shape {
         position: absolute;
@@ -78,7 +77,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin: auto;
+        height: 100vh;
 
         .left {
             width: 60%;
@@ -136,6 +135,109 @@
 
         .right {
             width: 40%;
+        }
+    }
+    .home-presentation {
+
+        .form-title {
+            text-align: center;
+        }
+
+        .contact-form-container {
+            display: flex;
+            height: fit-content;
+            width: 1350px;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 0 0 20px;
+            justify-content: center;
+
+            .contact-form {
+                width: 550px;
+
+                .form-field {
+                    display: flex;
+                    flex-direction: column;
+                }
+
+                .field-message {
+                    margin-top: 20px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+
+        .home-presentation-container {
+            display: flex;
+            height: fit-content;
+            width: 1350px;
+            margin-right: auto;
+            margin-left: auto;
+            padding: 75px 0 20px;
+
+            .home-presentation-text {
+                width: 850px;
+                height: 300px;
+                padding: 35px;
+
+                .home-seperation-left {
+                    width: 400px;
+                    margin-right: 100%
+                }
+
+                h2 {
+                    margin-top: 0px;
+                }
+            }
+
+            .home-presentation-text.home-text-left {
+                padding: 35px 50px 0 0;
+            }
+
+            .home-presentation-text.home-text-right {
+                padding: 35px 0 0 50px;
+            }
+
+            .home-presentation-img {
+                width: 500px;
+                height: auto;
+                background-size: cover;
+                border-radius: 10px;
+            }
+
+            .home-img-1 {
+                background: url("../../assets/img/home-image-1.jpg") no-repeat;
+            }
+
+            .home-img-2 {
+                background: url("../../assets/img/home-image-2.jpg") no-repeat bottom;
+            }
+
+            .home-img-3 {
+                background: url("../../assets/img/home-image-3.jpg") no-repeat center;
+            }
+        }
+    }
+
+    .home-footer {
+        background-color: #95DDDC;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+
+        .home-footer-container {
+            display: flex;
+            align-items: center;
+
+            .home-footer-redirection {
+                margin-left: 125px;
+
+                a {
+                    margin-left: 25px;
+                    color: black;
+                    text-decoration: underline;
+                }
+            }
         }
     }
 }
