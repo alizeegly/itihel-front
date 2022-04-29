@@ -7,12 +7,12 @@ import { Box } from '@mui/system'
 import AOS from 'aos';
 
 function Home() {
-
-    const animation = useRef(null)
+    const { session, saveJWT, clear } = useSession('itihel');
+    const container = useRef(null)
 
     useEffect (() => {
         lottie.loadAnimation({
-            container: animation.current,
+            container: container.current,
             renderer: 'svg',
             loop: true,
             autoplay: true,
@@ -25,35 +25,55 @@ function Home() {
     });
 
     return (
-        <section id="home">
-            {/* <div className="shape shape1"></div>
+        <div className="home">
+            <div className="shape shape1"></div>
             <div className="shape shape2"></div>
-            <div className="shape shape3"></div> */}
+            <div className="shape shape3"></div>
             <div className="wrap">
                 <div className="left">
                     <h1>Bienvenue sur <br />
-                    <span className="color">Itihel</span></h1>
-                    <p className='big'>Easy to learn</p>
-                    <h2>La plateforme étudiante de partage de cours</h2>
+                        <span className="color">ITIHEL&nbsp;!</span></h1>
+                    <h3>La plateforme étudiante de partage de cours !</h3>
                     <div className="features">
                         <div className="join" data-aos="fade-up" data-aos-delay="500">
-                            <p>Crée ou rejoint un cours</p>
+                            <p>Crée ou rejoint un cours !</p>
                         </div>
                         <div className="add_note" data-aos="fade-up" data-aos-delay="800">
                             <p>Ajoute des prises de notes !</p>
                         </div>
                         <div className="share" data-aos="fade-up" data-aos-delay="1100">
-                            <p>Partage le cours à tes camarades</p>
+                            <p>Partage le cours à tes camarades !</p>
                         </div>
                         <div className="public" data-aos="fade-up" data-aos-delay="1400">
-                            <p>Ajoute un cours en public</p>
+                            <p>Ajoute un cours en public !</p>
                         </div>
                     </div>
-                    <Button sx={{ mr: "30px" }} href="/login" variant="outlined" color="secondary">Se connecter</Button>
-                    <Button href="/signup" variant="contained" color="secondary">S'inscrire</Button>
+                    {
+                        session ? (
+                            <>
+                                <Button sx={{ mr: "30px" }} href="/public-courses" variant="outlined" color="secondary">Tous les cours</Button>
+                                <Button href="/courses" variant="contained" color="secondary">Mes cours</Button>
+                            </>
+                        ) : (
+                            <>
+                                <Button sx={{ mr: "30px" }} href="/login" variant="outlined" color="secondary">Se connecter</Button>
+                                <Button href="/signup" variant="contained" color="secondary">S'inscrire</Button>
+                            </>
+                        )
+                    }
                 </div>
                 <div className="right">
-                    <div className="animation" ref={animation} data-aos="fade-down"></div>
+                    <div className="container" ref={container} data-aos="fade-down"></div>
+                </div>
+            </div>
+            <div class="home-presentation">
+                <div class="home-presentation-container">
+                    <div className="home-presentation-text home-text-left">
+                        <h2>Bienvenue sur ITIHEL !</h2>
+                        <hr className="home-seperation-left"></hr>
+                        <p>Il nous ai tous arrivé d'avoir loupé certains de nos cours car nous étions malade ou pour d'autres raisons. Quand c'est le cas, on demande en général à nos amis de nous envoyer le cours manqué et nous nous retrouvons par exemple avec des photos floutées. Avec ITIHEL, nous comptons faciliter le partage de vos notes et vous viter ce genre de problèmes !</p>
+                    </div>
+                    <div className="home-presentation-img home-img-1"></div>
                 </div>
 
                 <div data-aos="fade-down" data-aos-duration="500" className="home-presentation-container">
@@ -116,9 +136,9 @@ function Home() {
                 </div>
             </div>
             <div>
-                
+
             </div>
-        </section>
+        </div>
     )
 }
 
