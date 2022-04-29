@@ -1,4 +1,4 @@
-import { Alert, Box, Grid, TextField, Button, Typography, Stack, Paper, RadioGroup, FormControlLabel, Radio } from '@mui/material'
+import { Alert, Box, Grid, TextField, Button, Typography, Stack, Paper, Collapse, Switch, IconButton } from '@mui/material'
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { BrowserView } from 'react-device-detect'
@@ -10,6 +10,7 @@ import HeaderCourse from '../HeaderCourse'
 import CheckIcon from '@mui/icons-material/Check';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CancelIcon from '@mui/icons-material/Cancel';
+import AddRounded from '@mui/icons-material/AddRounded';
 
 const drawerWidth = 240;
 
@@ -18,10 +19,25 @@ const EditQuizz = () => {
     
     const { id } = useParams();
     const [isCreated, setIsCreated] = useState(false);
+    const [collapse, setCollapse] = useState(false);
+    const [quizzId, setQuizzId] = useState("")
     const [quizz, setQuizz] = useState({})
     const [title, setTitle] = useState("")
     const [synopsis, setSynopsis] = useState("")
     const [questions, setQuestions] = useState([])
+    const [errors, setErrors] = useState([])
+    const [newQuestion, setNewQuestion] = useState({
+        question: "",
+        questionType: "text",
+        questionPic: "",
+        answerSelectionType: "",
+        answers: [],
+        correctAnswer: [1],
+        messageForCorrectAnswer: "Correct answer. Good job.",
+        messageForIncorrectAnswer: "Incorrect answer. Please try again.",
+        explanation: "",
+        point: "20"
+    })
 
     const getCourse = async () => {
         try {
@@ -39,24 +55,59 @@ const EditQuizz = () => {
             setTitle(quiz.data[0].quizTitle)
             setSynopsis(quiz.data[0].quizSynopsis)
             setQuestions(quiz.data[0].questions)
+            setQuizzId(quiz.data[0]._id)
         } catch (err) {
             console.error(err.message);
         }
     };
 
-    const handleChange = e => {
-        
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault()
+
+        const newQuestions = [...questions]
+
+        if(newQuestion.question !== "" && newQuestion.answers.length > 0 && newQuestion.correctAnswer.length > 0){
+            newQuestions.push(newQuestion)
+        }
+
+        newQuestions.forEach((question, index) => {
+            let newAnswers = [...question.correctAnswer];
+            if(newAnswers.length === 1){
+                newAnswers = newAnswers[0].toString()
+                question.answerSelectionType = "single"
+            } else {
+                newAnswers.forEach((newAnswer, indexA) => {
+                    newAnswer = parseInt(newAnswer)
+                });
+                question.answerSelectionType = "multiple"
+            }
+            newQuestions[index].correctAnswer = newAnswers
+            setQuestions(newQuestions)
+        });
         
+        if(errors.length === 0){
+            const data = {
+                quizTitle: title,
+                quizSynopsis: synopsis,
+                course_id: course._id,
+                nrOfQuestions: questions.length.toString(),
+                questions,
+                _id: quizzId
+            }
+     
+            axios.put("/api/quizz/" + data._id, data)
+                .then((res) => {
+                    console.log("modifié")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }
 
     useEffect(()=>{
         getCourse()
         getQuiz()
-        console.log(quizz)
     }, [])
 
     return (
@@ -102,7 +153,7 @@ const EditQuizz = () => {
                     <Grid item xs={10}>
                         <Typography variant="h1" component="div">Quiz</Typography>
 
-                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 10 }}>
+                        <Box component="form" onSubmit={handleSubmit} sx={{ mt: 5 }}>
                             <TextField
                                 id="title"
                                 label="Titre du quiz"
@@ -131,7 +182,7 @@ const EditQuizz = () => {
                                 questions && questions.length > 0 && questions.map((question, index) => {
                                     // console.log(question)
                                     return (
-                                        <Paper sx={{ mt: 3, p: 2 }} key={index}>
+                                        <Paper sx={{ mt: 3, p: 3 }} key={index}>
                                             <Grid container columns={12} columnSpacing={2}>
                                                 <Grid item xs={6}>
                                                     <Typography variant="h6">Question</Typography>
@@ -141,37 +192,51 @@ const EditQuizz = () => {
                                                         multiline
                                                         name={"question-" + index}
                                                         value={question.question}
-                                                        onChange={(e) => setTitle(e.target.value)}
+                                                        onChange={(e) => {
+                                                            const newQuestions = [...questions];
+                                                            newQuestions[index].question = e.target.value;
+                                                            setQuestions(newQuestions);
+                                                        }}
                                                         sx={{
                                                             mt: 1,
                                                             mb: 3,
                                                             width: "100%",
                                                         }}
                                                     />
-                                                    <Typography variant="h6">Type de réponse</Typography>
-                                                    <RadioGroup
-                                                        aria-labelledby="demo-radio-buttons-group-label"
-                                                        name="radio-buttons-group"
-                                                        value={question.answerSelectionType}
-                                                        onChange={(e) => console.log(e)}
-                                                        sx={{
-                                                            mt: 1,
-                                                            mb: 3,
-                                                            width: "100%",
-                                                        }}
-                                                    >
-                                                        <FormControlLabel value="single" control={<Radio />} label="Simple" />
-                                                        <FormControlLabel value="multiple" control={<Radio />} label="Multiple" />
-                                                    </RadioGroup>
                                                     <Typography variant="h6">Nombre de points</Typography>
                                                     <TextField
                                                         id={"question-" + index}
                                                         variant="outlined"
                                                         name={"question-" + index}
-                                                        defaultValue={question.point}
-                                                        // onChange={(e) => setTitle(e.target.value)}
-                                                       
+                                                        value={question.point}
+                                                        onChange={(e) => {
+                                                            const newQuestions = [...questions];
+                                                            newQuestions[index].point = e.target.value;
+                                                            setQuestions(newQuestions);
+                                                        }}
                                                         inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} 
+                                                        sx={{
+                                                            mt: 1,
+                                                            mb: 3,
+                                                        }}
+                                                    />
+                                                    <Typography variant="h6">Explication</Typography>
+                                                    <TextField
+                                                        id={"explanation"}
+                                                        variant="outlined"
+                                                        multiline
+                                                        name={"explanation"}
+                                                        value={question.explanation}
+                                                        onChange={(e) => {
+                                                            const newQuestions = [...questions];
+                                                            newQuestions[index].explanation = e.target.value;
+                                                            setQuestions(newQuestions);
+                                                        }}
+                                                        sx={{
+                                                            mt: 1,
+                                                            mb: 3,
+                                                            width: "100%",
+                                                        }}
                                                     />
                                                 </Grid>
                                                 <Grid item xs={6}>
@@ -189,15 +254,39 @@ const EditQuizz = () => {
                                                                                 multiline
                                                                                 name={"reponse-" + indexA}
                                                                                 value={answer}
-                                                                                onChange={(e) => setTitle(e.target.value)}
+                                                                                onChange={(e) => {
+                                                                                    const newAnswers = [...question.answers];
+                                                                                    newAnswers[indexA] = e.target.value
+                                                                                    const newQuestions = [...questions]
+                                                                                    newQuestions[index].answers = newAnswers
+                                                                                    setQuestions(newQuestions)
+                                                                                }}
                                                                                 sx={{
                                                                                     width: "90%",
                                                                                     mt: 1
                                                                                 }}
                                                                             />
-                                                                            {
-                                                                                question.correctAnswer.includes((indexA+1).toString()) ? (<CheckCircleIcon color='success' />) : question.correctAnswer.includes((indexA+1)) ? (<CheckCircleIcon color='success' />) : (<CancelIcon color='danger' />) 
-                                                                            }
+                                                                            <Switch
+                                                                                checked={question.correctAnswer.includes((indexA+1).toString()) || question.correctAnswer.includes((indexA+1))}
+                                                                                onChange={(e) => {
+                                                                                    const newAnswers = [...question.correctAnswer];
+                                                                                    // question.correctAnswer.length > 1 ? question.correctAnswer.map(Number) : Number(question.correctAnswer)
+
+                                                                                    if(newAnswers.includes((indexA+1).toString()) || newAnswers.includes((indexA+1))){
+                                                                                        console.log("suppression")
+                                                                                        newAnswers.splice(newAnswers.indexOf(indexA+1), 1)
+                                                                                    } else {
+                                                                                        console.log("ajout")
+                                                                                        newAnswers.push((indexA+1))
+                                                                                    }
+
+                                                                                    const newQuestions = [...questions]
+                                                                                    newQuestions[index].correctAnswer = newAnswers
+                                                                                    setQuestions(newQuestions)
+                                                                                    console.log(question.correctAnswer)
+                                                                                }}
+                                                                                inputProps={{ 'aria-label': 'controlled' }}
+                                                                            />
                                                                         </Stack>
                                                                     </Grid>
                                                                 )
@@ -205,27 +294,116 @@ const EditQuizz = () => {
                                                         }
                                                     </Grid>
                                                 </Grid>
-                                                <Grid item xs={12}>
-                                                    <Typography variant="h6">Explication</Typography>
-                                                    <TextField
-                                                        id={"explanation"}
-                                                        variant="outlined"
-                                                        multiline
-                                                        name={"explanation"}
-                                                        value={question.explanation}
-                                                        onChange={(e) => setTitle(e.target.value)}
-                                                        sx={{
-                                                            mt: 2,
-                                                            mb: 3,
-                                                            width: "100%",
-                                                        }}
-                                                    />
-                                                </Grid>
                                             </Grid>
                                         </Paper>
                                     )
                                 })
                             }
+                            <Collapse in={collapse}>
+                                <Paper sx={{ mt: 10, p: 3 }}>
+                                    <Grid container columns={12} columnSpacing={2}>
+                                        <Grid item xs={6}>
+                                            <Typography variant="h6">Question</Typography>
+                                            <TextField
+                                                id={"question-" + questions.length+1}
+                                                variant="outlined"
+                                                multiline
+                                                name={"question-" + questions.length+1}
+                                                value={newQuestion.question}
+                                                onChange={(e) => setNewQuestion({...newQuestion, question: e.target.value})}
+                                                sx={{
+                                                    mt: 1,
+                                                    mb: 3,
+                                                    width: "100%",
+                                                }}
+                                            />
+                                            <Typography variant="h6">Nombre de points</Typography>
+                                            <TextField
+                                                id={"question-" + questions.length+1}
+                                                variant="outlined"
+                                                name={"question-" + questions.length+1}
+                                                value={newQuestion.point}
+                                                onChange={(e) => setNewQuestion({...newQuestion, point: e.target.value})}
+                                                inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} 
+                                                sx={{
+                                                    mt: 1,
+                                                    mb: 3,
+                                                }}
+                                            />
+                                            <Typography variant="h6">Explication</Typography>
+                                            <TextField
+                                                id={"explanation"}
+                                                variant="outlined"
+                                                multiline
+                                                name={"explanation"}
+                                                value={newQuestion.explanation}
+                                                onChange={(e) => setNewQuestion({...newQuestion, explanation: e.target.value})}
+                                                sx={{
+                                                    mt: 1,
+                                                    mb: 3,
+                                                    width: "100%",
+                                                }}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={6}>
+                                            <Typography variant="h6">Réponses</Typography>
+                                            <Grid container direction={{ xs: "column", md: "row" }} spacing={1}>
+                                                <Grid item xs={8}>
+                                                    <Stack direction="row" alignItems="center" justifyContent="space-between">
+                                                        <TextField
+                                                            id={"reponse-"}
+                                                            label={"Réponse "}
+                                                            variant="outlined"
+                                                            multiline
+                                                            name={"reponse-" }
+                                                            value={newQuestion.answers[0]}
+                                                            onChange={(e) => {
+                                                                const newAnswers = [...newQuestion.answers];
+                                                                newAnswers[0] = e.target.value
+                                                                setNewQuestion({...newQuestion, answers: newAnswers})
+                                                            }}
+                                                            sx={{
+                                                                width: "90%",
+                                                                mt: 1
+                                                            }}
+                                                        />
+                                                        <Switch
+                                                            defaultChecked={false}
+                                                            // checked={question.correctAnswer.includes((indexA+1).toString()) || question.correctAnswer.includes((indexA+1))}
+                                                            // onChange={(e) => {
+                                                            //     const newAnswers = [...question.correctAnswer];
+                                                            //     // question.correctAnswer.length > 1 ? question.correctAnswer.map(Number) : Number(question.correctAnswer)
+
+                                                            //     if(newAnswers.includes((indexA+1).toString()) || newAnswers.includes((indexA+1))){
+                                                            //         console.log("suppression")
+                                                            //         newAnswers.splice(newAnswers.indexOf(indexA+1), 1)
+                                                            //     } else {
+                                                            //         console.log("ajout")
+                                                            //         newAnswers.push((indexA+1))
+                                                            //     }
+
+                                                            //     const newQuestions = [...questions]
+                                                            //     newQuestions[index].correctAnswer = newAnswers
+                                                            //     setQuestions(newQuestions)
+                                                            //     console.log(question.correctAnswer)
+                                                            // }}
+                                                            inputProps={{ 'aria-label': 'controlled' }}
+                                                        />
+                                                    </Stack>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                </Paper>
+                            </Collapse>
+
+                            <Box sx={{ mt: 3, mb: 3, textAlign: "center" }}>
+                                <IconButton aria-label="Add a question" size="large" color="primary" onClick={() => setCollapse((prev) => !prev)}>
+                                    <AddRounded fontSize="small" sx={{ fontSize: 35 }} />
+                                </IconButton>
+                            </Box>
+                            
+                            <Button type="submit" variant="contained" color="secondary" sx={{ margin: "0 auto", mt: 5, textAlign: "center" }}>Modifier</Button>
                         </Box>
                     </Grid>
                 </Grid>

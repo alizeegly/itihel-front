@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
  * @description - Quiz update
  */
 router.put("/:id", async (req, res) => {
+    console.log(req.params.id)
     try{
         const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         res.status(200).json(updatedQuiz)

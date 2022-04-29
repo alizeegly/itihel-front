@@ -44,12 +44,12 @@ const FlipCardEdit = () => {
         e.preventDefault()
         flipcards.forEach(card => {
             axios.put("/api/flip-cards/" + card._id, card)
-            .then((res) => {
-                console.log("modifié")
-            })
-            .catch(err => {
-                console.log(err)
-            })
+                .then((res) => {
+                    console.log("modifié")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
         });
         setIsModified(true)
     }
