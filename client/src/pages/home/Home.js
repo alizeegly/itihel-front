@@ -4,6 +4,7 @@ import "./home.scss";
 import { useSession } from  'react-use-session';
 import { Button, TextField } from '@mui/material/';
 import { Box } from '@mui/system'
+import AOS from 'aos';
 
 function Home() {
     const { session, saveJWT, clear } = useSession('itihel');
@@ -18,6 +19,10 @@ function Home() {
             animationData: require("../../assets/json/home_animation.json")
         })
     })
+
+    AOS.init({
+        startEvent: 'DOMContentLoaded'
+    });
 
     return (
         <div className="home">
@@ -75,7 +80,7 @@ function Home() {
                     <div className="home-presentation-img home-img-2"></div>
                     <div className="home-presentation-text home-text-right">
                         <h2>Partagez vos notes entre amis !</h2>
-
+                        <hr className="home-seperation-left"></hr>
                         <p>Créez un cours avec l'ensemble de vos notes sur le sujet de votre choix, élaborez des mini jeux si vous souhaitez créer du challenge, puis partagez vos cours avec les personnes de votre choix ! Plus de soucis de photos de mauvaises qualité et en plus vous pouvez tester vos connaissances entre amis !</p>
                     </div>
                 </div>
@@ -83,7 +88,7 @@ function Home() {
                 <div className="home-presentation-container">
                     <div className="home-presentation-text home-text-left">
                         <h2>Testez vos connaissances !</h2>
-
+                        <hr className="home-seperation-left"></hr>
                         <p>Testez vos connaissances à l'aide de plusieurs mini jeux ! Réalisez des flip cards ou des quizz afin de tester vos amis sur leurs connaissances sur un cours ! De cette manière, apprenez tout en vous amusant ! Les flips cards comportent des cartes virtuelles avec des questions sur une face et les réponses de l'autre, et les quizz comportent une listes de questions avec la bonne réponses à choisir !.</p>
                     </div>
                     <div className="home-presentation-img home-img-3"></div>

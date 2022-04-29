@@ -1,4 +1,5 @@
 @import "../../styles/main.scss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400&display=swap');
 
 .home {
     height: 100vh;
@@ -174,21 +175,36 @@
                 padding: 35px;
 
                 .home-seperation-left {
-                    width: 400px;
-                    margin-right: 100%
+                    width: 150px;
+                    margin-right: 100%;
+                    height: 4px;
+                    background-color: black;
+                    margin-bottom: 20px;
                 }
 
                 h2 {
-                    margin-top: 0px;
+                    margin-top: 0;
+                    margin-bottom: 16px;
+                    color: #95DDDC;
                 }
             }
 
             .home-presentation-text.home-text-left {
-                padding: 35px 50px 0 0;
+                padding: 35px 190px 0 0;
+
+                p {
+                    text-align: justify;
+                    font-family: 'Nunito', sans-serif;
+                }
             }
 
             .home-presentation-text.home-text-right {
-                padding: 35px 0 0 50px;
+                padding: 35px 0 0 190px;
+
+                p {
+                    text-align: justify;
+                    font-family: 'Nunito', sans-serif;
+                }
             }
 
             .home-presentation-img {
