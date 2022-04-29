@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="60e16f4c-dac1-4bc9-9bac-d65a58726772" name="Changes" comment="" />
+=======
+    <list default="true" id="60e16f4c-dac1-4bc9-9bac-d65a58726772" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/home/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/pages/home/home.scss" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/pages/home/home.scss" afterDir="false" />
+    </list>
+>>>>>>> home
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -54,6 +64,12 @@
       <option name="presentableId" value="Default" />
       <updated>1639127406813</updated>
       <workItem from="1639127409463" duration="2127000" />
+<<<<<<< HEAD
+=======
+      <workItem from="1649402143559" duration="5918000" />
+      <workItem from="1649418261045" duration="9895000" />
+      <workItem from="1651216551658" duration="11237000" />
+>>>>>>> home
     </task>
     <servers />
   </component>
