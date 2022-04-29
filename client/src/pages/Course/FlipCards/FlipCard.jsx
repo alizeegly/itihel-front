@@ -1,4 +1,3 @@
-import { Alert, Box, Grid, TextField, Button, Typography, Stack } from '@mui/material'
 import React, {useState, useEffect} from 'react'
 import ReactCardFlip from 'react-card-flip'
 import axios from 'axios'
@@ -17,17 +16,15 @@ const FlipCard = ({card}) => {
 
     return (
         <>
-        <Grid>
             <ReactCardFlip isFlipped={isFlipped} flipDirection="horizontal">
                 <div className='flip-card flip-card-front' onClick={handleFlippedCard}>
-                    <Typography sx={{ fontWeight: 'bold', }} component="div">{card.question}</Typography>
+                    {card.question}
                 </div>
 
                 <div className='flip-card flip-card-back' onClick={handleFlippedCard}>
-                <Typography sx={{ fontWeight: 'bold', }} component="div">{card.answer}</Typography>
+                    {card.answer}
                 </div>
             </ReactCardFlip>
-        </Grid>
         </>
     )
 }
