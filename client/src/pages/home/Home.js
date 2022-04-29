@@ -65,13 +65,13 @@ function Home() {
                 <div class="home-presentation-container">
                     <div className="home-presentation-text home-text-left">
                         <h2>Bienvenue sur ITIHEL !</h2>
-
+                        <hr className="home-seperation-left"></hr>
                         <p>Il nous ai tous arrivé d'avoir loupé certains de nos cours car nous étions malade ou pour d'autres raisons. Quand c'est le cas, on demande en général à nos amis de nous envoyer le cours manqué et nous nous retrouvons par exemple avec des photos floutées. Avec ITIHEL, nous comptons faciliter le partage de vos notes et vous viter ce genre de problèmes !</p>
                     </div>
                     <div className="home-presentation-img home-img-1"></div>
                 </div>
 
-                <div className="home-presentation-container">
+                <div data-aos="fade-down" data-aos-duration="500" className="home-presentation-container">
                     <div className="home-presentation-img home-img-2"></div>
                     <div className="home-presentation-text home-text-right">
                         <h2>Partagez vos notes entre amis !</h2>
