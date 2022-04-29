@@ -1,17 +1,10 @@
 import React, { useEffect, useRef } from 'react'
-<<<<<<< HEAD
-import lottie from 'lottie-web'
-import Button from '@mui/material/Button';
-import { Alert, AppBar, IconButton, List, ListItem, Toolbar } from '@mui/material';
-import "./home.scss"
-=======
 import lottie from 'lottie-web';
 import "./home.scss";
 import { useSession } from  'react-use-session';
 import { Button, TextField } from '@mui/material/';
 import { Box } from '@mui/system'
 import AOS from 'aos';
->>>>>>> home
 
 function Home() {
 
@@ -62,8 +55,6 @@ function Home() {
                 <div className="right">
                     <div className="animation" ref={animation} data-aos="fade-down"></div>
                 </div>
-<<<<<<< HEAD
-=======
 
                 <div data-aos="fade-down" data-aos-duration="500" className="home-presentation-container">
                     <div className="home-presentation-img home-img-2"></div>
@@ -126,7 +117,6 @@ function Home() {
             </div>
             <div>
                 
->>>>>>> home
             </div>
         </section>
     )
