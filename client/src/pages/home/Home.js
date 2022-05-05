@@ -63,7 +63,7 @@ function Home() {
                 </div>
             </div>
             <div class="home-presentation">
-                <div class="home-presentation-container">
+                <div data-aos="fade-down" class="home-presentation-container first-presentation-div">
                     <div className="home-presentation-text home-text-left">
                         <h2>Bienvenue sur ITIHEL !</h2>
                         <hr className="home-seperation-left"></hr>
@@ -72,7 +72,7 @@ function Home() {
                     <div className="home-presentation-img home-img-1"></div>
                 </div>
 
-                <div id="test" data-aos="fade-down" data-aos-duration="500" data-aos-anchor="#test" data-aos-anchor-placement="top-center" className="home-presentation-container">
+                <div data-aos="fade-down" className="home-presentation-container">
                     <div className="home-presentation-img home-img-2"></div>
                     <div className="home-presentation-text home-text-right">
                         <h2>Partagez vos notes entre amis !</h2>
@@ -81,7 +81,7 @@ function Home() {
                     </div>
                 </div>
 
-                <div className="home-presentation-container">
+                <div data-aos="fade-down" className="home-presentation-container">
                     <div className="home-presentation-text home-text-left">
                         <h2>Testez vos connaissances !</h2>
                         <hr className="home-seperation-left"></hr>
@@ -90,9 +90,9 @@ function Home() {
                     <div className="home-presentation-img home-img-3"></div>
                 </div>
 
-                <h2 class="form-title">Contactez-nous !</h2>
+                <h2 data-aos="fade-down" class="form-title">Contactez-nous !</h2>
 
-                <div class="contact-form-container">
+                <div data-aos="fade-down" class="contact-form-container">
                     <Box component="form" class="contact-form">
                         <div className="form-field field-email">
                             <label>Adresse mail :</label>

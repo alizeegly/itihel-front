@@ -6,7 +6,6 @@
     background-color: rgb(255, 255, 255);
     padding-top: 125px;
     position: relative;
-    overflow-x: hidden;
 
     .shape {
         position: absolute;
@@ -147,7 +146,8 @@
             width: 1350px;
             margin-right: auto;
             margin-left: auto;
-            padding: 0 0 20px;
+            padding: 0 0 0px;
+            margin-bottom: 150px;
             justify-content: center;
 
             .contact-form {
@@ -229,6 +229,10 @@
             .home-img-3 {
                 background: url("../../assets/img/home-image-3.jpg") no-repeat center;
             }
+        }
+
+        .first-presentation-div {
+            padding-top: 0;
         }
     }
 
