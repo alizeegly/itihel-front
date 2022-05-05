@@ -25,6 +25,7 @@
             transform: rotate(60deg);
             width: 200px;
             height: 200px;
+            position: fixed;
 
             &::after {
                 width: 200px;
@@ -43,6 +44,7 @@
             transform: rotate(110deg);
             width: 250px;
             height: 250px;
+            position: fixed;
 
             &::after {
                 width: 250px;
@@ -61,6 +63,8 @@
             transform: rotate(60deg);
             width: 200px;
             height: 200px;
+            position: fixed;
+            z-index: 1;
 
             &::after {
                 width: 200px;
@@ -233,6 +237,8 @@
         display: flex;
         justify-content: center;
         margin-top: 50px;
+        z-index: 100;
+        position: inherit;
 
         .home-footer-container {
             display: flex;

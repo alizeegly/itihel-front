@@ -18,10 +18,6 @@ function Home() {
             autoplay: true,
             animationData: require("../../assets/json/home_animation.json")
         })
-    })
-
-    AOS.init({
-        startEvent: 'DOMContentLoaded'
     });
 
     return (
@@ -76,7 +72,7 @@ function Home() {
                     <div className="home-presentation-img home-img-1"></div>
                 </div>
 
-                <div data-aos="fade-down" data-aos-duration="500" className="home-presentation-container">
+                <div id="test" data-aos="fade-down" data-aos-duration="500" data-aos-anchor="#test" data-aos-anchor-placement="top-center" className="home-presentation-container">
                     <div className="home-presentation-img home-img-2"></div>
                     <div className="home-presentation-text home-text-right">
                         <h2>Partagez vos notes entre amis !</h2>
