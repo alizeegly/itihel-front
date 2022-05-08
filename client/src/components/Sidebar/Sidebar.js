@@ -1,11 +1,8 @@
 import React from 'react'
-import styled from 'styled-components';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import {Link, Link as LinkS} from 'react-scroll';
 import {Link as LinkR, Navigate} from 'react-router-dom';
-import { AppBar, Avatar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { MobileView } from 'react-device-detect';
 import { useSession } from 'react-use-session';
 
 

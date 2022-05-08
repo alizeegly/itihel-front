@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../../components/Sidebar/Sidebar'
-import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import axios from 'axios'
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import CheckIcon from '@mui/icons-material/Check';
-import WarningIcon from '@mui/icons-material/Warning';
 
-import { Avatar, Button, Grid, Menu, MenuItem, Paper, Stack, TextField } from '@mui/material'
+import { Grid, Stack } from '@mui/material'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingCard'
 import Papers from '../../components/Papers/Papers'

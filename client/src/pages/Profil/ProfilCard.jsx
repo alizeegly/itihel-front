@@ -4,9 +4,7 @@ import { Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import moment from 'moment';
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useSession } from "react-use-session";
+
 
 const styles = {
   details: {

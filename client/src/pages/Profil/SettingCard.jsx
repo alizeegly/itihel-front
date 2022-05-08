@@ -3,13 +3,12 @@ import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Alert, Avatar, Grid } from "@mui/material";
+import { Avatar, Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
 import {
     CloudUpload as UploadIcon,
     Edit as EditIcon,

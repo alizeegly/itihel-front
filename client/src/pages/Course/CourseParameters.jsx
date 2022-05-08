@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./courseParameters.scss"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
@@ -8,7 +8,6 @@ import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse
 import Navbar from '../../components/Navbar/Navbar'
 import Checkbox from 'react-simple-checkbox'
 import SharedModal from './Modal/SharedModal'
-import { FiEdit2 } from 'react-icons/fi'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';

@@ -3,7 +3,7 @@ import "./sign_up.scss"
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session';
-import { Alert, AppBar, Avatar, Checkbox, Button, Container, FormControlLabel, Grid, Link, TextField, Toolbar, Typography } from '@mui/material'
+import { Alert, AppBar, Avatar, Button, Container, Grid, Link, TextField, Toolbar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
