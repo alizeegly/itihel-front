@@ -2,6 +2,12 @@
     z-index: 130;
     font-family: 'Quicksand', sans-serif;
 }
+
+.h1_notes {
+    h1 {
+        margin: 0 0 30px !important;
+    }
+}
    
 .page{
     width: calc(100% - 310px);
@@ -121,7 +127,7 @@
 }
 
 div.DraftEditor-root {
-    height: 350px;
+    height: 100%;
     width: 100%;
     overflow-y: auto;
 }
@@ -129,6 +135,15 @@ div.DraftEditor-editorContainer,
 div.public-DraftEditor-content {
     height: 100%;
 }
+
+.wrapperEditor{
+    border: 1px solid #F1F1F1;
+}
+
+.editor{
+    padding: 0px 20px;
+}
+
 
 
 .mt-5{
@@ -160,4 +175,49 @@ div.public-DraftEditor-content {
 .react-quiz-container .startQuizWrapper .startQuizBtn {
     background: #3D90BD!important;
     color: #fff!important;
+}
+
+
+
+
+
+
+.cards-slider {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.cards-slider .react-3d-carousel {
+    width: 100%;
+}
+
+.react-3d-carousel .slider-left div {
+    border: 0!important;
+    color: #444444;
+}
+
+.react-3d-carousel .slider-right div {
+    border: 0!important;
+    color: #444444!important;
+}
+
+
+.slider-left > div {
+    background: none;
+    border: none;   
+}
+
+.slider-single-content {
+    box-shadow: none!important;
+}
+
+.slider-left div, .slider-right div {
+    border: none!important;
+    color: #444444!important;
+    font-size: 30px;
+}
+
+.react-quiz-container {
+    margin: 0 auto!important;
 }

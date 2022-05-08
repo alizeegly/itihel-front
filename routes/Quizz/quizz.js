@@ -22,6 +22,7 @@ router.post("/", async (req, res) => {
  * @description - Quiz update
  */
 router.put("/:id", async (req, res) => {
+    console.log(req.params.id)
     try{
         const updatedQuiz = await Quiz.findByIdAndUpdate(req.params.id, {$set: req.body}, {new: true})
         res.status(200).json(updatedQuiz)
@@ -52,6 +53,20 @@ router.delete("/:id", async (req, res) => {
 router.get("/find/:id", async (req, res) => {
     try{
         const quiz = await Quiz.findById(req.params.id)
+        res.status(200).json(quiz)
+    } catch(err) {
+        res.status(500).json(err)
+    }
+})
+
+/**
+ * @method - GET
+ * @param - /find/:id
+ * @description - Quiz Get Quiz of a course
+ */
+ router.get("/course/:id", async (req, res) => {
+    try{
+        const quiz = await Quiz.find({course_id: req.params.id})
         res.status(200).json(quiz)
     } catch(err) {
         res.status(500).json(err)

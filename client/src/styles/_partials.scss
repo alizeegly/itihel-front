@@ -1,16 +1,19 @@
 //wrapper
 .wrap {
-    width: 1440px;
-    padding: 0 4%;
+    width: 1280px;
     margin: 0 auto;
 
     @media only screen and (max-width: $desktop) {
-        width: 1280;
+        width: 980px;
     }
 }
 
 section {
-    padding: 140px 0;
+    padding: 60px 0;
+
+    #home & {
+        padding: 40px 0;
+    }
 
     @media only screen and (max-width: $desktop) {
         padding: 80px 0;
@@ -22,6 +25,8 @@ h1,
 .h1 {
     font-size: 44px;
     line-height: 55px;
+    font-weight: 600;
+    margin: 30px 0 50px;
     color: $black;
 
     span {
@@ -48,6 +53,7 @@ h2,
     font-size: 32px;
     line-height: 40px;
     color: $black;
+    margin: 30px 0 24px;
 
     span {
         font-size: 32px;
@@ -59,7 +65,7 @@ h3,
 .h3 {
     font-size: 24px;
     line-height: 32px;
-    margin: 0 0 24px;
+    margin: 20px 0;
     color: $black;
 
     span {
@@ -76,8 +82,6 @@ h4,
     color: $black;
     margin-bottom: 24px;
 }
-
-
 
 p {
     font-size: 16px;

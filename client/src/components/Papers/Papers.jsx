@@ -15,7 +15,7 @@ const Papers = (props) => {
                     transform: "rotate(-15deg)",
                     bottom: 20,
                     left: 180,
-                    zIndex: -1
+                    zIndex: -1,
                 }}
             />
             <Paper 

@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
 const FlipCardSchema = new mongoose.Schema({
-    title:  {
+    question:  {
+        type: String,
+        required: true
+    },
+    answer:  {
         type: String,
         required: true
     },

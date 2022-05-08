@@ -9,7 +9,7 @@ import CourseParameters from "./pages/Course/CourseParameters";
 import Course from "./pages/Course/Course";
 import Login from "./pages/Login/Login";
 import Sign_up from "./pages/Sign_up/Sign_up";
-import NotFound from './pages/Errors/NotFound';
+import NotFound from "./pages/Errors/NotFound"
 import { useSession } from  'react-use-session';
 
 
@@ -17,40 +17,60 @@ import { useSession } from  'react-use-session';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ForgotPassword from "./pages/Login/ForgotPassword";
 import ResetPassword from "./pages/Login/ResetPassword";
+import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
+import AddQuizz from "./pages/Course/Quizz/AddQuizz";
+import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
+import EditQuizz from "./pages/Course/Quizz/EditQuizz";
 
 export const theme = createTheme({
-  palette: {
+   palette: {
       primary: {
-        light: '#94DDDE',
-        main: '#94DDDE',
-        dark: '#94DDDE',
-        contrastText: '#fff',
+        light:'#03a9f4',
+        main: "#0288d1",
+        dark:'#01579b',
+         contrastText: '#fff',
       },
       secondary: {
-        main: '#444',
+         light: '#63667b',
+         main: '#3D405B',
+         dark: '#2a2c3f'
       },
       light: {
-        main: "#DDDDDD"
+        light: '#FFFFFF',
+        main: '#FFFFFF',
+        dark:'#8FB399'
       },
       success: {
-        main: "#fff"
+         light:'#94cb9d',
+         main: '#7ABF85',
+         dark:'#55855d'
       },
       danger: {
-        main: "#fff"
+         light:'#e94b4b',
+         main: '#F02222',
+         dark:'#9f1515',
+
       },
       warning: {
-        main: "#fff"
+         dark:'#9c5542',
+         main: '#E07A5F',
+         light:'#e6947f',
       },
       info: {
-        main: "#fff"
+         light:'#03a9f4',
+         main: "#0288d1",
+         dark:'#01579b'
       }
-  },
+   },
+
   typography: {
       fontFamily: '"Quicksand", sans-serif',
+      // fontFamily: '"Gilroy-black", sans-serif',
       h1: {
-          fontSize: 55,
-          fontWeight: 700,
-          color: "#444"
+        fontSize: 40,
+        fontWeight: 700,
+        color: "#444",
+        marginBottom: 30
       }
   }
 })
@@ -110,7 +130,37 @@ function App() {
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )
+          }/>
+          <Route path="/courses/:id/flip-cards" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <FlipCardAdd />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/>
+          <Route path="/courses/:id/flip-cards/edit" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <FlipCardEdit />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
           }/> 
+
+          <Route path="/courses/:id/quiz" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <AddQuizz />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+          <Route path="/courses/:id/quiz/edit" exact element={
+            session ? ( // Si une session est trouvée (= si on est connecté)
+              <EditQuizz />
+            ) : (
+              <Navigate to="login" /> // Sinon on est renvoyé vers 404
+            )
+          }/> 
+
           <Route path="/courses/:id/parameters" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <CourseParameters />

@@ -7,21 +7,13 @@ import { useSession } from  'react-use-session';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Alert, AppBar, IconButton, List, ListItem, Toolbar } from '@mui/material';
-import { AirlineSeatLegroomNormalOutlined } from '@mui/icons-material';
-import {bcrypt} from "bcryptjs"
+import { AppBar, Toolbar } from '@mui/material';
 
 
 
@@ -66,20 +58,22 @@ function ResetPassword() {
 
 
     const handleSubmit = (e) => {
-        axios.put("/api/users/" + searchParams.get('user_id') + "/reset-password", user) // Lien pour modifier un user
-            .then((res) => {
-                navigate("/login")
-            })
-            .catch(err => {
-                console.log(err)
-            })
+        if(searchParams.get('user_id')){
+            axios.put("/api/users/" + searchParams.get('user_id') + "/reset-password", user) // Lien pour modifier un user
+                .then((res) => {
+                    navigate("/login")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        }
     }
 
     const getUser = async () => {
         try {
-            console.log(session)
             const user = await axios.get("/api/users/find/" + searchParams.get('user_id'))
             setUser(user.data);
+            console.log(user)
         } catch (err) {
             console.error(err.message);
         }
@@ -120,6 +114,7 @@ function ResetPassword() {
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
+                            type="password"
                             margin="normal"
                             required
                             fullWidth

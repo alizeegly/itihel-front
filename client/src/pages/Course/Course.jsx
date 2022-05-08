@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./course.scss"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
@@ -10,23 +10,25 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
-import moment from 'moment'
-import ReactCardFlip from 'react-card-flip';
-import Quiz from 'react-quiz-component';
-import { quiz } from './quiz';
 import { Box } from '@mui/system'
-import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@mui/material'
+import { Button, Grid, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from './Navbar'
 import HeaderCourse from './HeaderCourse'
+import FlipCard from './FlipCards/FlipCard'
+import {Carousel} from '3d-react-carousal';
+// import Quiz from './Quizz/Quiz'
+import Quiz from "react-quiz-component";
+// import { quiz } from './quiz';
 
 const drawerWidth = 240;
 
-function Course(){
+
+const Course = () => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
+    const location = useLocation()
     const [course, setCourse] = useState({})
     const { id } = useParams();
     const [user, setUser] = useState({
@@ -42,9 +44,15 @@ function Course(){
         updatedAt: "",
         _id: ""
     })
-    const [editorState, setEditorState] = useState({})
-    const [isFlipped, setIsFlipped] = useState(false)
+    const [showEdit, setShowEdit] = useState(false)
+    const [editorState, setEditorState] = useState(EditorState.createEmpty())
+    const [flipcards, setFlipcards] = useState([])
+    const [quizz, setQuizz] = useState({})
 
+    const cards = []
+    flipcards.length > 0 && flipcards.map((card, index) => {
+        cards.push(<FlipCard card={card} key={index}/>)
+    })
 
 
     const getCourse = async () => {
@@ -68,6 +76,25 @@ function Course(){
         }
     };
 
+    const getQuiz = async () => {
+        try {
+            const quiz = await axios.get("/api/quizz/course/" + id)
+            console.log(quiz.data)
+            setQuizz(quiz.data[0]);
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
+
+    const getFlipCards = async () => {
+        try {
+            const flipcards = await axios.get("/api/flip-cards/courses/" + id)
+            setFlipcards(flipcards.data);
+        } catch (err) {
+            console.error(err.message);
+        }
+    }
+
     const handleChange = (editorState) => {
         setEditorState(editorState)
         setCourse({
@@ -80,27 +107,24 @@ function Course(){
         e.preventDefault()
         axios.put("/api/courses/" + course._id, course)
             .then((res) => {
-                console.log(res)
                 console.log("modifié")
+                setShowEdit(false)
             })
             .catch(err => {
                 console.log(err)
             })
     }
 
-    const handleFlippedCard = (e) => {
-        e.preventDefault();
-        setIsFlipped(!isFlipped)
-    }
-
     useEffect(()=>{
         getCourse()
         getUser()
-        console.log(course)
+        getFlipCards()
+        getQuiz()
+        console.log(quizz)
     }, [])
 
     return (
-        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden" }}>
+        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden", overflowY: "hidden" }}>
             <SidebarCourseComponent course={course}/>
             <Box
                 component="main"
@@ -127,14 +151,80 @@ function Course(){
                     container
                     direction={{ xs: "column", md: "row" }}
                     spacing={3}
-                    sx={{ mb: 2, mt: 3, px: { xs: 0, md: 7 } }}
+                    sx={{ mb: 2, mt: 3, px: { xs: 5, md: 7 } }}
                 >
                     <Box sx={{ mb: 2, mt: 2 }}>
-                        <Typography variant="h1">{course.title}</Typography>
+                        <Typography variant="h1" className="h1_notes">{course.title}</Typography>
                         <Typography variant="body" sx={{ mt: 2 }}>{course.description}</Typography>
+                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3, mb: 2 }}>
+                            {
+                                !showEdit ? (
+                                    <Button onClick={() => setShowEdit(!showEdit)} variant="contained" sx={{ margin: "0 auto" }}>Modifier</Button>
+                                ) : (
+                                    ""
+                                )
+                            }
+                        </Box>
                     </Box>
-                    <Box>
-                        {ReactHtmlParser(course.text)}
+                    <Box id="notes">
+                        {
+                            !showEdit ? ReactHtmlParser(course.text) : (
+                                <>
+                                    <form onSubmit={handleSubmit} style={{ background: "#FFF", padding: 20 }}>
+                                        <Editor
+                                            editorState={editorState}
+                                            toolbarClassName="toolbarClassName"
+                                            wrapperClassName="wrapperEditor"
+                                            editorClassName="editor"
+                                            onEditorStateChange={handleChange}
+                                            toolbar={{
+                                                options: ['inline', 'blockType', 'fontSize', 'list', 'textAlign', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history']
+                                            }}
+                                        />
+                                        <Box sx={{ width: "100%", display: "flex", justifyContent: "center", mt: 3, mb: 2 }}>
+                                            <Button type="submit" variant="contained">Modifier</Button>
+                                        </Box>
+                                    </form>
+                                </>
+                            )
+                        }
+                    </Box>
+
+                    <Box sx={{ mt: 5, width: "100%" }} id="flip-cards">
+                        <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
+                            <Typography variant="h1" component="div">FLIP CARDS</Typography>
+                            <Stack direction="row" spacing={1}>
+                                <Button variant="contained" color="primary" href={"/courses/" + course._id + "/flip-cards"}>Ajouter</Button>
+                                <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/flip-cards/edit"}>Modifier</Button>
+                            </Stack>
+                        </Toolbar>
+                        <Stack direction="row" spacing={2} style={{ marginTop: 30 }} className="cards-slider">
+                            {
+                                cards.length > 1 ? (
+                                    <Carousel slides={cards} arrows={true} />
+                                ) : cards[0]
+                            }
+                        </Stack>
+                    </Box>
+
+                    <Box sx={{ mt: 5, width: "100%" }} id="quiz">
+                        <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
+                            <Typography variant="h1" component="div">Quiz</Typography>
+                            <Stack direction="row" spacing={1}>
+                                {
+                                    !quizz || !quizz.quizTitle ? (
+                                        <Button variant="contained" color="primary" href={"/courses/" + course._id + "/quiz"}>Ajouter</Button>
+                                    ) : (
+                                        <Button variant="contained" color="secondary" href={"/courses/" + course._id + "/quiz/edit"}>Modifier</Button>
+                                    )
+                                }
+                            </Stack>
+                        </Toolbar>
+                        <Stack direction="row" spacing={2} style={{ margin: "30px auto" }}>
+                            {
+                                quizz && quizz.quizTitle ? (<Quiz quiz={quizz}/>) : "Pas de quiz"
+                            }
+                        </Stack>
                     </Box>
                 </Grid>
             </Box>

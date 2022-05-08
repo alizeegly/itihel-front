@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import CreateCourse from './CreateCourse'
 import Sidebar from '../../components/Sidebar/Sidebar.js'
-import CourseItem from '../../components/Course/CourseItem.js'
 import axios from 'axios'
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
-import Clear from '@mui/icons-material/Clear'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Alert, Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, TextField, Modal } from '@mui/material'
+import { Alert, Avatar, Box, CardMedia, Grid, Menu, MenuItem, TextField } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
 import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import ProfileCard from '../Profil/ProfilCard'
 import CheckIcon from '@mui/icons-material/Check';
 import Highlighter from "react-highlight-words";
 import {theme} from '../../App';
@@ -171,7 +166,7 @@ const SharedCourses = ({page}) => {
 
 
     return (
-        <Box sx={{ display: 'flex', position: "relative", overflowX: "hidden"  }}>
+        <Box sx={{ display: 'flex', position: "relative", overflow: "hidden"  }}>
             <Sidebar user={user}/>
             <Box
                 component="main"
@@ -180,7 +175,6 @@ const SharedCourses = ({page}) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
 
                 {
                     isCreated ? (
@@ -263,7 +257,7 @@ const SharedCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.course_id.title}
-                                        />,
+                                        />
                                     </Typography>
                                     <Typography variant="body2" color="text.secondary">
                                         <Highlighter
@@ -271,7 +265,7 @@ const SharedCourses = ({page}) => {
                                             searchWords={[searchQuery]}
                                             autoEscape={true}
                                             textToHighlight={course.course_id.description}
-                                        />,
+                                        />
                                     </Typography>
                                 </CardContent>
                                 <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>

@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import "./course-shared.scss"
 import Modal from 'react-modal'
 import { FaTimes } from "react-icons/fa";
-import { useSession } from  'react-use-session'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'

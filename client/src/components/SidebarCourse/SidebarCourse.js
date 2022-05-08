@@ -1,14 +1,10 @@
 import React from 'react'
-import styled from 'styled-components';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import {Link, Link as LinkS} from 'react-scroll';
-import {Link as LinkR, Navigate} from 'react-router-dom';
-import { AppBar, Avatar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
+import { MobileView} from 'react-device-detect';
 import { useSession } from 'react-use-session';
 import { FiSettings } from 'react-icons/fi';
-import {theme} from '../../App';
+
 
 
 const drawerWidth = 240;
@@ -49,20 +45,20 @@ const SidebarCourseComponent = (props) => {
                 <ListItemButton component='a' href={"/courses/" + props.course._id + "#notes"}>
                     <ListItemText primary="Prise de notes" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"/courses/" + props.course._id + "#quiz"}>
-                    <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
-                </ListItemButton>
                 <ListItemButton component='a' href={"/courses/" + props.course._id + "#flip-cards"}>
                     <ListItemText primary="Flip cards" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
+                <ListItemButton component='a' href={"/courses/" + props.course._id + "#quiz"}>
+                    <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
             </List>
-            <List>
-                <ListItem button sx={{ background: theme.palette.primary.main }} component='button'>
+            {/* <List>
+                <ListItem button sx={{ background: theme.palette.primary.main }} component='button' href={"/courses/" + props.course._id + "/edit"}>
                     <Typography variant="h6"  component="h6">
                         Modifier
                     </Typography>
                 </ListItem>
-            </List>
+            </List> */}
             <List>
                 <ListItemButton component='a' href={"/courses/" + props.course._id + "/parameters"}>
                     <FiSettings size="1.5em"/>

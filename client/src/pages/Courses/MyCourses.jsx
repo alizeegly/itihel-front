@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import CreateCourse from './CreateCourse'
 import Sidebar from '../../components/Sidebar/Sidebar.js'
-import CourseItem from '../../components/Course/CourseItem.js'
+
 import axios from 'axios'
 import { useNavigate, Link } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
-import Clear from '@mui/icons-material/Clear'
 import Card from '@mui/material/Card'
 import CardActions from '@mui/material/CardActions'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
-import { Alert, Avatar, Box, CardMedia, Divider, Grid, IconButton, Menu, MenuItem, TextField, Modal } from '@mui/material'
+import { Alert, Avatar, Box, CardMedia, Grid, TextField } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
 import SearchIcon from '@mui/icons-material/Search';
-import ClearIcon from '@mui/icons-material/Clear';
-import ProfileCard from '../Profil/ProfilCard'
 import CheckIcon from '@mui/icons-material/Check';
 import Highlighter from "react-highlight-words";
 import {theme} from '../../App';
 
 const drawerWidth = 240;
 
-const MyCourses = ({page}) => {
+const MyCourses = () => {
     const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
     const [courses, setCourses] = useState([])
@@ -188,7 +185,7 @@ const MyCourses = ({page}) => {
                                                 searchWords={[searchQuery]}
                                                 autoEscape={true}
                                                 textToHighlight={course.title}
-                                            />,
+                                            />
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             <Highlighter
@@ -196,7 +193,7 @@ const MyCourses = ({page}) => {
                                                 searchWords={[searchQuery]}
                                                 autoEscape={true}
                                                 textToHighlight={course.description}
-                                            />,
+                                            />
                                         </Typography>
                                     </CardContent>
                                     <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>

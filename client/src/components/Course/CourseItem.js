@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./course.scss"
-import styled from 'styled-components'
 import moment from 'moment'
-import axios from 'axios'
+
 
 
 const CourseItem = (props) => {
@@ -21,7 +20,7 @@ const CourseItem = (props) => {
         // if(props.page === "cours-publics"){
             // getCreator()
         // }
-        console.log(props.course)
+        // console.log(props.course)
     }, [])
     return (
         <a href={"/courses/" + props.id} className="card_cours">

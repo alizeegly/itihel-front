@@ -1,6 +1,4 @@
 import React, {createRef, useState} from 'react'
-import Sidebar from '../../components/Sidebar/Sidebar'
-import Container from '../../components/User/Container'
 import Modal from 'react-modal'
 import { FaTimes } from "react-icons/fa";
 import { useSession } from  'react-use-session'

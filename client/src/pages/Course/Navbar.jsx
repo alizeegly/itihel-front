@@ -19,7 +19,7 @@ const Navbar = () => {
             <Toolbar sx={{ justifyContent: "space-between" }}>
                 <div>
                     <Button color="inherit" href="/courses">Mes cours</Button>
-                    <Button color="inherit" href="/shared-whith-me-courses">Partagés avec moi</Button>
+                    <Button color="inherit" href="/shared-whith-me-courses">Partagé avec moi</Button>
                     <Button color="inherit" href="/public-courses">Tous les cours</Button>
                 </div>
                 <div>
@@ -49,7 +49,7 @@ const Navbar = () => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleClose}>Profile</MenuItem>
+                        <MenuItem onClick={handleClose}>Profil</MenuItem>
                         <MenuItem onClick={handleClose}>Se déconnecter</MenuItem>
                     </Menu>
                 </div>
