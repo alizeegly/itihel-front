@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import "./course.scss"
-import styled from 'styled-components'
 import moment from 'moment'
-import axios from 'axios'
+
 
 
 const CourseItem = (props) => {

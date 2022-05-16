@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./course.scss"
-import { useNavigate, Link, useLocation } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
@@ -10,12 +10,10 @@ import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from 'draft-js';
 import ReactHtmlParser from 'react-html-parser';
 import { convertToHTML, convertFromHTML } from 'draft-convert';
-import moment from 'moment'
 import { Box } from '@mui/system'
-import { AppBar, Button, Grid, IconButton, Menu, MenuItem, Stack, Toolbar, Typography } from '@mui/material'
+import { Button, Grid, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
-import AccountCircle from '@mui/icons-material/AccountCircle';
 import Navbar from './Navbar'
 import HeaderCourse from './HeaderCourse'
 import FlipCard from './FlipCards/FlipCard'
