@@ -5,7 +5,7 @@ import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
 import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
-import Navbar from '../../components/Navbar/Navbar'
+import NavbarCourse from '../../components/Navbar/NavbarCourse'
 import Checkbox from 'react-simple-checkbox'
 import SharedModal from './Modal/SharedModal'
 import { FaRegTrashAlt } from 'react-icons/fa'
@@ -119,7 +119,7 @@ function CourseParameters(){
     return (
         <>
             <div className="course-parameters">
-                <Navbar user={user} />
+                <NavbarCourse user={user} />
                 <SidebarCourseComponent course={course}/>
                 <div className="page page3">
                     <div className="container">

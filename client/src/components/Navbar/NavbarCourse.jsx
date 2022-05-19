@@ -4,7 +4,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 const drawerWidth = 240;
 
-const Navbar = () => {
+const NavbarCourse = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -58,4 +58,4 @@ const Navbar = () => {
     )
 }
 
-export default Navbar
+export default NavbarCourse

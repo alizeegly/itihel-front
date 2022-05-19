@@ -14,7 +14,7 @@ import { Box } from '@mui/system'
 import { Button, Grid, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
-import Navbar from './Navbar'
+import NavbarCourse from '../../components/Navbar/NavbarCourse'
 import HeaderCourse from './HeaderCourse'
 import FlipCard from './FlipCards/FlipCard'
 import {Carousel} from '3d-react-carousal';
@@ -133,7 +133,7 @@ const Course = () => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <Navbar/>
+                <NavbarCourse/>
 
                 <HeaderCourse course={course}/>
 

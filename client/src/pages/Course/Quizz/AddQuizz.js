@@ -3,7 +3,7 @@ import axios from 'axios'
 import React, { useState, useEffect } from 'react'
 import { BrowserView } from 'react-device-detect'
 import { useParams } from 'react-router-dom'
-import Navbar from '../../../components/Navbar/Navbar'
+import NavbarOld from '../../../components/Navbar/NavbarOld'
 import Papers from '../../../components/Papers/Papers'
 import SidebarCourseComponent from '../../../components/SidebarCourse/SidebarCourse'
 import HeaderCourse from '../HeaderCourse'
@@ -49,7 +49,7 @@ const AddQuizz = () => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <Navbar/>
+                <NavbarOld/>
 
                 <HeaderCourse course={course}/>
 

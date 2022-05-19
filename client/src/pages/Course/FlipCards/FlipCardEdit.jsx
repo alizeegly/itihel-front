@@ -8,7 +8,7 @@ import SidebarCourseComponent from '../../../components/SidebarCourse/SidebarCou
 import HeaderCourse from '../HeaderCourse'
 import CheckIcon from '@mui/icons-material/Check';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Navbar from '../Navbar'
+import NavbarCourse from '../../../components/Navbar/NavbarCourse'
 import { confirmAlert } from 'react-confirm-alert'; 
 import 'react-confirm-alert/src/react-confirm-alert.css'; 
 
@@ -100,7 +100,7 @@ const FlipCardEdit = () => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <Navbar/>
+                <NavbarCourse/>
 
                 <HeaderCourse course={course}/>
 

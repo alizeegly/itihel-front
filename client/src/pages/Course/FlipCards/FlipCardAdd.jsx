@@ -7,7 +7,7 @@ import Papers from '../../../components/Papers/Papers'
 import SidebarCourseComponent from '../../../components/SidebarCourse/SidebarCourse'
 import HeaderCourse from '../HeaderCourse'
 import CheckIcon from '@mui/icons-material/Check';
-import Navbar from '../Navbar'
+import NavbarCourse from '../../../components/Navbar/NavbarCourse'
 
 const drawerWidth = 240;
 
@@ -62,7 +62,7 @@ const FlipCardAdd = () => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <Navbar/>
+                <NavbarCourse/>
 
                 <HeaderCourse course={course}/>
 

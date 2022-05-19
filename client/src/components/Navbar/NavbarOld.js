@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import "./navbar.scss"
 
-const Navbar = ({user}) => {
+const NavbarOld = ({user}) => {
     return (
         <div className="navbar_course">
             <div className="navbar_course__container">
@@ -32,4 +32,4 @@ const Navbar = ({user}) => {
     )
 }
 
-export default Navbar
+export default NavbarOld
