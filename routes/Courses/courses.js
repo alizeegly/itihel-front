@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const mongoose = require('mongoose');
 const Course = require("../../models/Courses/Course")
+const Quiz = require("../../models/Quizz/Quiz")
 const Category = require("../../models/Courses/Category")
 const CourseShared = require("../../models/Courses/CourseShared")
 const User = require("../../models/Users/User")
@@ -84,6 +85,7 @@ router.get("/find/:id", async (req, res) => {
         .findById(req.params.id)
         .populate("owner_id")
         .populate("categories")
+        .populate("quiz")
         res.status(200).json(course)
     } catch(err) {
         res.status(500).json(err)

@@ -23,6 +23,7 @@ import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
 import EditQuizz from "./pages/Course/Quizz/EditQuizz";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import QuizzPage from "./pages/Course/Quizz/QuizzPage";
 
 export const theme = createTheme({
    palette: {
@@ -158,7 +159,7 @@ function App() {
           }/> 
           <Route path="/courses/:id/quiz/edit" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
-              <EditQuizz />
+              <QuizzPage />
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )

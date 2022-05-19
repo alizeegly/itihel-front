@@ -135,14 +135,6 @@ const EditQuizz = () => {
 
                 <HeaderCourse course={course}/>
 
-                {
-                    isCreated ?? (
-                        <Stack sx={{ width: '95%', margin: "0 auto" }} spacing={2}>
-                            <Alert icon={<CheckIcon fontSize="inherit" color='#5EB760' />} severity="success" onClose={() => {setIsCreated(false)}} sx={{ background: "#EDF7ED", color: "#5EB760", fontWeight: "bold" }}>Le quizz a bien été modifié</Alert>
-                        </Stack>
-                    )
-                }
-
                 <BrowserView>
                     <Papers
                         bg1="#94DDDE"
@@ -323,9 +315,9 @@ const EditQuizz = () => {
                             
                             <Button type="submit" variant="contained" color="secondary" sx={{ margin: "0 auto", mt: 5, textAlign: "center" }}>Modifier</Button>
                         </Box>
-                            <Box sx={{ mt: 3, mb: 3, textAlign: "center" }}>
-                                <AddQuestion questions={questions} quizz={quizz}/>
-                            </Box>
+                        <Box sx={{ mt: 3, mb: 3, textAlign: "center" }}>
+                            <AddQuestion questions={questions} quizz={quizz}/>
+                        </Box>
                     </Grid>
                 </Grid>
             </Box>
