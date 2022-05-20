@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react'
 import { BrowserView } from 'react-device-detect';
 import { useParams } from 'react-router-dom';
 import HeaderCourse from '../pages/Course/HeaderCourse';
-import Navbar from './Navbar/Navbar';
+import NavbarCourse from './Navbar/NavbarCourse';
 import Papers from './Papers/Papers';
 import SidebarCourseComponent from './SidebarCourse/SidebarCourse';
 
@@ -38,7 +38,7 @@ const CourseLayout = (props) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <Navbar/>
+                <NavbarCourse/>
 
                 <HeaderCourse course={course}/>
 
