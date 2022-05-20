@@ -11,6 +11,7 @@ import SettingsCard from './SettingCard'
 import Papers from '../../components/Papers/Papers'
 import { BrowserView } from 'react-device-detect'
 import Alert from '@mui/material/Alert';
+import './profil-common-header.scss'
 
 const drawerWidth = 240;
 
@@ -60,7 +61,7 @@ function Profil(){
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                <div className="headerImageProfil" style={{ width: "100%", height: "200px" }}></div>
                 
                 {
                     isModified ? (

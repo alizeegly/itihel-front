@@ -15,6 +15,7 @@ import Papers from '../../components/Papers/Papers'
 import SearchIcon from '@mui/icons-material/Search';
 import Highlighter from "react-highlight-words";
 import {theme} from '../../App';
+import "./courses-common-header.scss";
 // import Modal from 'react-modal'
 
 const drawerWidth = 240;
@@ -173,7 +174,8 @@ const PublicCourses = ({page}) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                
+                <div className="headerImageCourses" style={{ width: "100%", height: "200px" }}></div>
 
                 <BrowserView>
                     <Papers

@@ -16,6 +16,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import CheckIcon from '@mui/icons-material/Check';
 import Highlighter from "react-highlight-words";
 import {theme} from '../../App';
+import './courses-common-header.scss'
 // import Modal from 'react-modal'
 
 const drawerWidth = 240;
@@ -175,6 +176,8 @@ const SharedCourses = ({page}) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
+
+                <div className="headerImageCourses" style={{ width: "100%", height: "200px" }}></div>
 
                 {
                     isCreated ? (
