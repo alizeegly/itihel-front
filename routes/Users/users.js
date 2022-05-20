@@ -21,206 +21,140 @@ const { registerLimiter, loginLimiter } = require("../../utils/rateLimiter");
 /**
  * @method - POST
  * @param - /signup
- * @description - User SignUp
+ * @description - User register
  */
 router.post("/signup", registerLimiter, registerUser );
-// router.post("/signup", async (req, res) => {
-//     const {
-//         first_name,
-//         last_name,
-//         pseudo,
-//         email,
-//         password,
-//         profile_picture
-//     } = req.body;
-//     try {
-//         let user = await User.findOne({
-//             email
-//         });
-//         if (user) {
-//             return res.status(400).json({
-//                 msg: "User Already Exists"
-//             });
-//         }
-
-//         user = new User({
-//             first_name,
-//             last_name,
-//             pseudo,
-//             email,
-//             password,
-//             profile_picture
-//         });
-
-//         const salt = await bcrypt.genSalt(10);
-//         user.password = await bcrypt.hash(password, salt);
-
-//         await user.save();
-
-//         const payload = {
-//             user: {
-//                 id: user.id
-//             }
-//         };
-
-//         jwt.sign(
-//             payload,
-//             "randomString", {
-//                 expiresIn: 10000
-//             },
-//             (err, token) => {
-//                 if (err) throw err;
-//                 req.session.isAuth = true
-//                 req.session.user = user
-//                 req.session.token = token
-    
-//                 console.log(req.session)
-
-//                 res.status(200).json({
-//                     token
-//                 });
-//             }
-//         );
-        
-//     } catch (err) {
-//         console.log(err.message);
-//         res.status(500).send("Error in Saving");
-//     }
-// });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /**
  * @method - POST
  * @param - /login
  * @description - User SignIn
  */
-router.post("/login",
-    [
-        check("password", "Please enter a valid password").isLength({
-            min: 6
-        })
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-
-        if (!errors.isEmpty()) {
-            console.log("error not empty")
-            return res.status(400).json({
-                errors: errors.array()
-            });
-        }
-
-        const {
-            email,
-            pseudo,
-            password
-        } = req.body;
-        try {
-            let user
-            if(email){
-                user = await User.findOne({email});
-            } else if(pseudo){
-                user = await User.findOne({pseudo});
-            }
-            if (!user)
-                return res.status(400).json({
-                    message: "User Not Exist"
-                });
-            
-            console.log(password)
-            console.log(user.password)
-
-            bcrypt.compare(password, user.password, (err, data) => {
-                if (err) throw err
-                console.log("data : " + data)
-                if (data) {
-                    const payload = {
-                        user: {
-                            id: user.id
-                        }
-                    };
+ router.post("/login", loginLimiter, loginUser );
+// router.post("/login", async (req, res) => {
+//     const {
+//         email,
+//         pseudo,
+//         password
+//     } = req.body;
+//     try {
+//         let user
+//         if(email){
+//             user = await User.findOne({email});
+//         } else if(pseudo){
+//             user = await User.findOne({pseudo});
+//         }
+//         if (!user)
+//             return res.status(400).json({
+//                 message: "User Not Exist"
+//             });
         
-                    User.updateOne(user, {
-                        last_connection: Date.now()
-                    });
-        
-                    jwt.sign(
-                        payload,
-                        "randomString", {
-                            expiresIn: 3600
-                        },
-                        (err, token) => {
-                            if (err) throw err;
-                            req.session.isAuth = true
-                            req.session.user = user
-                            req.session.token = token
-        
-                            if(user.pseudo == "SUPER_ADMIN"){
-                                req.session.isAdmin = true
-                            } else {
-                                req.session.isAdmin = false
-                            }
-                            
-                            console.log("Connected as", req.session.user.pseudo)
-                            // console.log(req.session)
-        
-                            return res.status(200).json(
-                                req.session
-                            );
-                        }
-                    );
-                    // return res.status(200).json({ msg: "Login success" })
-                } else {
-                    return res.status(401).json({ message: "Invalid credencial" })
-                }
+//         console.log(password)
+//         console.log(user.password)
 
-            })
-        } catch (e) {
-            console.error(e);
-            console.log("Server Error")
-            res.status(500).json({
-                message: "Server Error"
-            });
-        }
-    }
-);
+//         bcrypt.compare(password, user.password, (err, data) => {
+//             if (err) throw err
+//             console.log("data : " + data)
+//             if (data) {
+//                 const payload = {
+//                     user: {
+//                         id: user.id
+//                     }
+//                 };
+    
+//                 User.updateOne(user, {
+//                     last_connection: Date.now()
+//                 });
+    
+//                 jwt.sign(
+//                     payload,
+//                     "randomString", {
+//                         expiresIn: 3600
+//                     },
+//                     (err, token) => {
+//                         if (err) throw err;
+//                         req.session.isAuth = true
+//                         req.session.user = user
+//                         req.session.token = token
+    
+//                         if(user.pseudo == "SUPER_ADMIN"){
+//                             req.session.isAdmin = true
+//                         } else {
+//                             req.session.isAdmin = false
+//                         }
+                        
+//                         console.log("Connected as", req.session.user.pseudo)
+//                         // console.log(req.session)
+    
+//                         return res.status(200).json(
+//                             req.session
+//                         );
+//                     }
+//                 );
+//                 // return res.status(200).json({ msg: "Login success" })
+//             } else {
+//                 return res.status(401).json({ message: "Invalid credencial" })
+//             }
+
+//         })
+//     } catch (e) {
+//         console.error(e);
+//         console.log("Server Error")
+//         res.status(500).json({
+//             message: "Server Error"
+//         });
+//     }
+// });
+
+/**
+ * @method - DELETE
+ * @param - /logout
+ * @description - User Logout
+ */
+//  router.get("/logout", async (req, res) => {
+//     res.clearCookie()
+//     console.log("------------------------------------------------")
+//     console.log(req.session)
+//     req.session.isAuth = false
+//     req.session.user = null
+//     req.session.token = ""
+//     req.session.isAdmin = false
+//     req.session.destroy((err) => {
+//         console.log(logout)
+//         if(err) {
+//             return console.log(err);
+//         }
+//         res.status(500).json({
+//             message: "Logout"
+//         });
+//     });
+// })
+router.delete("/logout", logoutUser );
 
 /**
  * @method - GET
  * @param - /logout
- * @description - User Logout
+ * @description - Check if user is Authenticated by reading session data
  */
- router.get("/logout", async (req, res) => {
-    res.clearCookie()
-    console.log("------------------------------------------------")
-    console.log(req.session)
-    req.session.isAuth = false
-    req.session.user = null
-    req.session.token = ""
-    req.session.isAdmin = false
-    req.session.destroy((err) => {
-        console.log(logout)
-        if(err) {
-            return console.log(err);
-        }
-        res.status(500).json({
-            message: "Logout"
-        });
-    });
-})
+router.get("/authchecker", authChecker );
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @method - GET

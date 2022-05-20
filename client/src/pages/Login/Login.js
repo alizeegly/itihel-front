@@ -44,10 +44,10 @@ function Login({message}) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formData.email === "" || formData.password === "") {
-            setError("Les champs sont requis pour se connecter");
-            return;
-        } else {
+        // if (formData.email === "" || formData.password === "") {
+        //     setError("Les champs sont requis pour se connecter");
+        //     return;
+        // } else {
             axios.post("/api/users/login", {email: formData.email, password: formData.password})
                 .then((res) => {
                     saveJWT(res.data.token) // Créer la session
@@ -55,9 +55,9 @@ function Login({message}) {
                     navigate("/courses"); // Redirection vers la page profile
                 })
             .catch(err => {
-                setError("Mauvais email ou mauvais mot de passe")
+                setError("error")
             })
-        }
+        // }
     }
 
     const handleChange = (e) => {
