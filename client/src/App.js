@@ -21,6 +21,9 @@ import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
 import AddQuizz from "./pages/Course/Quizz/AddQuizz";
 import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
 import EditQuizz from "./pages/Course/Quizz/EditQuizz";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import QuizzPage from "./pages/Course/Quizz/QuizzPage";
 
 export const theme = createTheme({
    palette: {
@@ -83,6 +86,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
+        <ToastContainer />
         <Routes>
           <Route path="" element={<Home />} />
           <Route path="login" element={<Login />} />
@@ -91,7 +95,7 @@ function App() {
           <Route path="reset" element={<ResetPassword />} />
           <Route path="404" element={<NotFound />} />
           <Route path="*" element={<Navigate to ="/404" />}/>
-          {/*<Route path="profile" element={<Profil />}/>*/}
+
           <Route path="profile" element={
             session ? ( // Si une session est trouvée (= si on est connecté)
               <Profil />
@@ -155,7 +159,7 @@ function App() {
           }/> 
           <Route path="/courses/:id/quiz/edit" exact element={
             session ? ( // Si une session est trouvée (= si on est connecté)
-              <EditQuizz />
+              <QuizzPage />
             ) : (
               <Navigate to="login" /> // Sinon on est renvoyé vers 404
             )

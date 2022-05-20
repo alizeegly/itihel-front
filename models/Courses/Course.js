@@ -28,6 +28,9 @@ const CourseSchema = new mongoose.Schema({
     description: {
         type: String,
         default: ""
+    },
+    quiz: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Quiz'
     }
 }, {
     timestamps: true

@@ -116,6 +116,7 @@ router.post("/login",
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
+            console.log("error not empty")
             return res.status(400).json({
                 errors: errors.array()
             });
@@ -137,49 +138,55 @@ router.post("/login",
                 return res.status(400).json({
                     message: "User Not Exist"
                 });
+            
+            console.log(password)
+            console.log(user.password)
 
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch)
-                return res.status(400).json({
-                    message: "Incorrect Password !"
-                });
-
-            const payload = {
-                user: {
-                    id: user.id
-                }
-            };
-
-            await User.updateOne(user, {
-                last_connection: Date.now()
-            });
-
-            jwt.sign(
-                payload,
-                "randomString", {
-                    expiresIn: 3600
-                },
-                (err, token) => {
-                    if (err) throw err;
-                    req.session.isAuth = true
-                    req.session.user = user
-                    req.session.token = token
-
-                    if(user.pseudo == "SUPER_ADMIN"){
-                        req.session.isAdmin = true
-                    } else {
-                        req.session.isAdmin = false
-                    }
-                    
-                    console.log("Connected as", req.session.user.pseudo)
-                    // console.log(req.session)
-
-                    res.status(200).json(
-                        req.session
+            bcrypt.compare(password, user.password, (err, data) => {
+                if (err) throw err
+                console.log("data : " + data)
+                if (data) {
+                    const payload = {
+                        user: {
+                            id: user.id
+                        }
+                    };
+        
+                    User.updateOne(user, {
+                        last_connection: Date.now()
+                    });
+        
+                    jwt.sign(
+                        payload,
+                        "randomString", {
+                            expiresIn: 3600
+                        },
+                        (err, token) => {
+                            if (err) throw err;
+                            req.session.isAuth = true
+                            req.session.user = user
+                            req.session.token = token
+        
+                            if(user.pseudo == "SUPER_ADMIN"){
+                                req.session.isAdmin = true
+                            } else {
+                                req.session.isAdmin = false
+                            }
+                            
+                            console.log("Connected as", req.session.user.pseudo)
+                            // console.log(req.session)
+        
+                            return res.status(200).json(
+                                req.session
+                            );
+                        }
                     );
+                    // return res.status(200).json({ msg: "Login success" })
+                } else {
+                    return res.status(401).json({ message: "Invalid credencial" })
                 }
-            );
 
+            })
         } catch (e) {
             console.error(e);
             console.log("Server Error")
@@ -367,6 +374,17 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
+
+
+
+
+
+
+
+// VOIR POUR MODIFIER ÇA : Ça ne marche plus
+
+
+
 /**
  * @method - PUT
  * @param - /:id
@@ -385,60 +403,83 @@ router.delete("/:id", async (req, res) => {
     }
 })
 
-router.post('/forgotPassword', (req, res) => {
+router.post('/forgotPassword', async(req, res) => {
+    console.log("")
+    console.log("")
     console.log("")
     if (req.body.email === '') {
         console.log("email required")
         res.status(400).send('email required');
     }
-    User.findOne({email: req.body.email.email}).then((user) => {
-        if (!user) {
-            console.log('email not in database');
-            res.status(200).send('email not in db');
-        } else {
-            console.log("=>" + user.email)
-            const token = crypto.randomBytes(20).toString('hex');
-            console.log("token : " + token)
-            user.update({
-                resetPasswordToken: token,
-                resetPasswordExpires: Date.now() + 3600000,
-            });
 
-            const transporter = nodemailer.createTransport({
-                service: 'gmail',
-                auth: {
-                    user: "itihel.iim@gmail.com",
-                    pass: "waitrxsfmvockhfm",
-                },
-            });
+    let range = {min: 100000, max: 999999}
+    let delta = range.max - range.min
+    const newPassword = Math.round(range.min + Math.random() * delta)
+    console.log("newPassword : " + newPassword)
 
-            const mailOptions = {
-                from: 'itihel.iim@gmail.com',
-                to: user.email,
-                subject: 'Link To Reset Password',
-                text:
-                    'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n'
-                    + 'Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n'
-                    + `http://localhost:3000/reset?token=${token}&user_id=${user._id}\n\n`
-                    + 'If you did not request this, please ignore this email and your password will remain unchanged.\n',
-            };
-
-            console.log('sending mail');
-            console.log('...');
-
-            transporter.sendMail(mailOptions, (err, response) => {
-                if (err) {
-                    console.error('there was an error: ', err);
+    bcrypt.genSalt(10, function(err, salt) {
+        console.log("here")
+        console.log(salt)
+        bcrypt.hashSync(newPassword, salt, function(err, hash) {
+            console.log("there")
+            console.log(hash)
+            User.findOneAndUpdate({ "email": req.body.email.email }, {"$set": {"password": hash}}, { returnNewDocument: true }).then(updatedDocument => {
+                if(updatedDocument) {
+                    console.log(`Mot de passe modifié`)
                 } else {
-                    console.log('here is the res: ', response);
-                    res.status(200).json('recovery email sent');
+                    console.log("No document matches the provided query.")
                 }
-            });
-        }
+                return updatedDocument
+            })
+            .catch(err => console.error(`Failed to find and update document: ${err}`))
+        });
     });
+    // const salt = await bcrypt.genSalt(10);
+    // bcrypt.hash(newPassword, salt, function(err, hash) {
+    //     console.log(hash)
+    //     User.findOneAndUpdate({ "email": req.body.email.email }, {"$set": {"password": hash}}, { returnNewDocument: true }).then(updatedDocument => {
+    //         if(updatedDocument) {
+    //             console.log(`Mot de passe modifié`)
+    //         } else {
+    //             console.log("No document matches the provided query.")
+    //         }
+    //         return updatedDocument
+    //     })
+    //     .catch(err => console.error(`Failed to find and update document: ${err}`))
+    // })
 })
 
 
 
 
 module.exports = router;
+
+
+
+                // const transporter = nodemailer.createTransport({
+                //     service: 'gmail',
+                //     auth: {
+                //         user: "itihel.iim@gmail.com",
+                //         pass: "waitrxsfmvockhfm",
+                //     },
+                // });
+    
+                // const mailOptions = {
+                //     from: 'itihel.iim@gmail.com',
+                //     to: updatedDocument.email,
+                //     subject: 'Link To Reset Password',
+                //     text:
+                //         'Vosu recevez ce mail parce que vous (ou quelqu\'un d\'autre avez fait la demande pour changer de mot de passe.\n\n'
+                //         + `Votre nouveau mot de passs est : ${newPassword}. Vous pouvez vous connecter à votre compte en l'utilisant.`
+                // };
+    
+                // console.log('sending mail');
+    
+                // transporter.sendMail(mailOptions, (err, response) => {
+                //     if (err) {
+                //         console.error('there was an error: ', err);
+                //     } else {
+                //         console.log('here is the res: ', response);
+                //         res.status(200).json('recovery email sent');
+                //     }
+                // });

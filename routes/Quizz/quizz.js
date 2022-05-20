@@ -10,6 +10,11 @@ router.post("/", async (req, res) => {
     const newQuiz = new Quiz(req.body)
     try{
         const savedQuiz = await newQuiz.save()
+        Course.findOne({_id: mongoose.Types.ObjectId(newQuiz.course_id)}, function(err, course) {
+            if (err) return console.log(err)
+            course.quiz = savedQuiz
+            course.save()
+        });
         res.status(201).json(savedQuiz)
     }catch(err){
         res.status(500).json(err)

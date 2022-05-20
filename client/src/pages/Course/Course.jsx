@@ -207,7 +207,7 @@ const Course = () => {
                         </Stack>
                     </Box>
 
-                    <Box sx={{ mt: 5, width: "100%" }} id="quiz">
+                    {/* <Box sx={{ mt: 5, width: "100%" }} id="quiz">
                         <Toolbar disableGutters sx={{ width: "100%", justifyContent: "space-between" }}>
                             <Typography variant="h1" component="div">Quiz</Typography>
                             <Stack direction="row" spacing={1}>
@@ -225,7 +225,7 @@ const Course = () => {
                                 quizz && quizz.quizTitle ? (<Quiz quiz={quizz}/>) : "Pas de quiz"
                             }
                         </Stack>
-                    </Box>
+                    </Box> */}
                 </Grid>
             </Box>
         </Box>

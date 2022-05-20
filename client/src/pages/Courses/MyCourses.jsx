@@ -44,20 +44,22 @@ const MyCourses = () => {
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
 
-    const getCourses = async () => {
-        try {
-            let courses = await axios.get("http://localhost:8800/api/courses/user/617dab88d80551e2ac0d309f")
-            setCourses(courses.data)
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
+    // const getCourses = async () => {
+    //     try {
+    //         if (user){
+                
+    //         }
+    //     } catch (err) {
+    //         console.error(err.message);
+    //     }
+    // };
 
     const getUser = async () => {
         try {
             const user = await axios.get("/api/users/find/" + session.user.id)
             setUser(user.data);
-            // setUserShared(user.data._id)
+            let courses = await axios.get("http://localhost:8800/api/courses/user/" + user.data._id)
+            setCourses(courses.data)
         } catch (err) {
             console.error(err.message);
         }
@@ -85,7 +87,7 @@ const MyCourses = () => {
     }
 
     useEffect(()=>{
-        getCourses()
+        // getCourses()
         getUser()
     }, [])
 

@@ -31,7 +31,10 @@ function Sign_up() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formData.email === "" || formData.password === "" || formData.pseudo === "" || formData.first_name === "" || formData.last_name === "") {
+        if (formData.password.length < 6) {
+            setError("Le mot de passe doit faire plus de 6 caractères");
+            return;
+        } else if (formData.email === "" || formData.password === "" || formData.pseudo === "" || formData.first_name === "" || formData.last_name === "") {
             setError("Les champs sont requis pour s'inscrire");
             return;
         } else {
@@ -47,7 +50,7 @@ function Sign_up() {
                     navigate("/profile"); // Redirection vers la page profile
                 })
                 .catch(err => {
-                    setError("Erreur lors de l'inscription")
+                    setError(err.msg)
                 })
         }
     }
@@ -113,6 +116,17 @@ function Sign_up() {
                                     label="Nom"
                                     name="last_name"
                                     autoComplete="family-name"
+                                    onChange={handleChange}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    id="pseudo"
+                                    label="Pseudo"
+                                    name="pseudo"
+                                    autoComplete="pseudo"
                                     onChange={handleChange}
                                 />
                             </Grid>
