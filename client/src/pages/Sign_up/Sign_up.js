@@ -31,13 +31,13 @@ function Sign_up() {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        if (formData.password.length < 6) {
-            setError("Le mot de passe doit faire plus de 6 caractères");
-            return;
-        } else if (formData.email === "" || formData.password === "" || formData.pseudo === "" || formData.first_name === "" || formData.last_name === "") {
-            setError("Les champs sont requis pour s'inscrire");
-            return;
-        } else {
+        // if (formData.password.length < 6) {
+        //     setError("Le mot de passe doit faire plus de 6 caractères");
+        //     return;
+        // } else if (formData.email === "" || formData.password === "" || formData.pseudo === "" || formData.first_name === "" || formData.last_name === "") {
+        //     setError("Les champs sont requis pour s'inscrire");
+        //     return;
+        // } else {
             axios.post("/api/users/signup", {
                 pseudo: formData.pseudo,
                 first_name: formData.first_name,
@@ -52,7 +52,7 @@ function Sign_up() {
                 .catch(err => {
                     setError(err.msg)
                 })
-        }
+        // }
     }
 
     const handleChange = (e) => {

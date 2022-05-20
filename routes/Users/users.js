@@ -14,92 +14,93 @@ const User = require("../../models/Users/User");
 const nodemailer = require('nodemailer');
 
 
+const { registerUser, loginUser, logoutUser, authChecker } = require("../../controllers/userController");
+const { registerLimiter, loginLimiter } = require("../../utils/rateLimiter");
+
+
 /**
  * @method - POST
  * @param - /signup
  * @description - User SignUp
  */
-router.post("/signup",
-    [
-        check("pseudo", "Please enter a Pseudo").not().isEmpty(),
-        check("first_name", "Please enter a first name").not().isEmpty(),
-        check("last_name", "Please enter a last name").not().isEmpty(),
-        check("email", "Please enter a valid email").isEmail(),
-        check("password", "Please enter a valid password").isLength({
-            min: 6
-        })
-    ],
-    async (req, res) => {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({
-                errors: errors.array()
-            });
-        }
+router.post("/signup", registerLimiter, registerUser );
+// router.post("/signup", async (req, res) => {
+//     const {
+//         first_name,
+//         last_name,
+//         pseudo,
+//         email,
+//         password,
+//         profile_picture
+//     } = req.body;
+//     try {
+//         let user = await User.findOne({
+//             email
+//         });
+//         if (user) {
+//             return res.status(400).json({
+//                 msg: "User Already Exists"
+//             });
+//         }
 
-        const {
-            first_name,
-            last_name,
-            pseudo,
-            email,
-            password,
-            profile_picture
-        } = req.body;
-        try {
-            let user = await User.findOne({
-                email
-            });
-            if (user) {
-                return res.status(400).json({
-                    msg: "User Already Exists"
-                });
-            }
+//         user = new User({
+//             first_name,
+//             last_name,
+//             pseudo,
+//             email,
+//             password,
+//             profile_picture
+//         });
 
-            user = new User({
-                first_name,
-                last_name,
-                pseudo,
-                email,
-                password,
-                profile_picture
-            });
+//         const salt = await bcrypt.genSalt(10);
+//         user.password = await bcrypt.hash(password, salt);
 
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
+//         await user.save();
 
-            await user.save();
+//         const payload = {
+//             user: {
+//                 id: user.id
+//             }
+//         };
 
-            const payload = {
-                user: {
-                    id: user.id
-                }
-            };
+//         jwt.sign(
+//             payload,
+//             "randomString", {
+//                 expiresIn: 10000
+//             },
+//             (err, token) => {
+//                 if (err) throw err;
+//                 req.session.isAuth = true
+//                 req.session.user = user
+//                 req.session.token = token
+    
+//                 console.log(req.session)
 
-            jwt.sign(
-                payload,
-                "randomString", {
-                    expiresIn: 10000
-                },
-                (err, token) => {
-                    if (err) throw err;
-                    req.session.isAuth = true
-                    req.session.user = user
-                    req.session.token = token
+//                 res.status(200).json({
+//                     token
+//                 });
+//             }
+//         );
         
-                    console.log(req.session)
+//     } catch (err) {
+//         console.log(err.message);
+//         res.status(500).send("Error in Saving");
+//     }
+// });
 
-                    res.status(200).json({
-                        token
-                    });
-                }
-            );
-            
-        } catch (err) {
-            console.log(err.message);
-            res.status(500).send("Error in Saving");
-        }
-    }
-);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * @method - POST
