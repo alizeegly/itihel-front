@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import { Routes, Route, Navigate } from 'react-router-dom';
-import PublicCourses from "./pages/Courses/PublicCourses";
-import MyCourses from "./pages/Courses/MyCourses";
-import SharedCourses from "./pages/Courses/SharedCourses";
+// import PublicCourses from "./pages/Courses/PublicCourses";
+// import MyCourses from "./pages/Courses/MyCourses";
+// import SharedCourses from "./pages/Courses/SharedCourses";
 import Profil from "./pages/Profil/Profil";
 import Home from "./pages/home/Home";
-import CourseParameters from "./pages/Course/CourseParameters";
-import Course from "./pages/Course/Course";
+// import CourseParameters from "./pages/Course/CourseParameters";
+// import Course from "./pages/Course/Course";
 import Login from "./pages/Login/Login";
 import Sign_up from "./pages/Sign_up/Sign_up";
 import NotFound from "./pages/Errors/NotFound"
@@ -15,15 +15,18 @@ import { useSession } from  'react-use-session';
 
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import ForgotPassword from "./pages/Login/ForgotPassword";
-import ResetPassword from "./pages/Login/ResetPassword";
-import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
-import AddQuizz from "./pages/Course/Quizz/AddQuizz";
-import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
-import EditQuizz from "./pages/Course/Quizz/EditQuizz";
+// import ForgotPassword from "./pages/Login/ForgotPassword";
+// import ResetPassword from "./pages/Login/ResetPassword";
+// import FlipCardAdd from "./pages/Course/FlipCards/FlipCardAdd";
+// import AddQuizz from "./pages/Course/Quizz/AddQuizz";
+// import FlipCardEdit from "./pages/Course/FlipCards/FlipCardEdit";
+// import EditQuizz from "./pages/Course/Quizz/EditQuizz";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import QuizzPage from "./pages/Course/Quizz/QuizzPage";
+// import QuizzPage from "./pages/Course/Quizz/QuizzPage";
+// import { Switch } from "@mui/material";
+import store from "./redux/store";
+import { Provider } from 'react-redux';
 
 export const theme = createTheme({
    palette: {
@@ -84,97 +87,96 @@ function App() {
   const { session, saveJWT, clear } = useSession('itihel');
 
   return (
-    <ThemeProvider theme={theme}>
-      <div className="App">
-        <ToastContainer />
-        <Routes>
-          <Route path="" element={<Home />} />
-          <Route path="login" element={<Login />} />
-          <Route path="signup" element={<Sign_up />} />
-          <Route path="forgot" element={<ForgotPassword />} />
-          <Route path="reset" element={<ResetPassword />} />
-          <Route path="404" element={<NotFound />} />
-          <Route path="*" element={<Navigate to ="/404" />}/>
-
-          <Route path="profile" element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <Profil />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/>
+    // <ThemeProvider theme={theme}>
+    //   <div className="App">
+    //     <ToastContainer />
+    //     <Routes>
+    //       <Route path="forgot" element={<ForgotPassword />} />
+    //       <Route path="reset" element={<ResetPassword />} />
+    //       <Route path="404" element={<NotFound />} />
+    //       <Route path="*" element={<Navigate to ="/404" />}/>
 
 
-          <Route path="/courses" element={
-            session ? ( 
-              <MyCourses page={"mes-cours"} />
-            ) : (
-              <Navigate to="login" /> 
-            )
-          }/>
-          <Route path="/public-courses" exact element={
-            session ? ( 
-              <PublicCourses page={"cours-publics"} />
-            ) : (
-              <Navigate to="login" /> 
-            )
-          }/>
-          <Route path="/shared-whith-me-courses" exact element={
-            session ? ( 
-              <SharedCourses page={"partages-avec-moi"} />
-            ) : (
-              <Navigate to="login" /> 
-            )
-          }/>
+    //       <Route path="/courses" element={
+    //         session ? ( 
+    //           <MyCourses page={"mes-cours"} />
+    //         ) : (
+    //           <Navigate to="login" /> 
+    //         )
+    //       }/>
+    //       <Route path="/public-courses" exact element={
+    //         session ? ( 
+    //           <PublicCourses page={"cours-publics"} />
+    //         ) : (
+    //           <Navigate to="login" /> 
+    //         )
+    //       }/>
+    //       <Route path="/shared-whith-me-courses" exact element={
+    //         session ? ( 
+    //           <SharedCourses page={"partages-avec-moi"} />
+    //         ) : (
+    //           <Navigate to="login" /> 
+    //         )
+    //       }/>
 
 
-          <Route path="/courses/:id" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <Course />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/>
-          <Route path="/courses/:id/flip-cards" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <FlipCardAdd />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/>
-          <Route path="/courses/:id/flip-cards/edit" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <FlipCardEdit />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/> 
+    //       <Route path="/courses/:id" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <Course />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/>
+    //       <Route path="/courses/:id/flip-cards" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <FlipCardAdd />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/>
+    //       <Route path="/courses/:id/flip-cards/edit" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <FlipCardEdit />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/> 
 
-          <Route path="/courses/:id/quiz" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <AddQuizz />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/> 
-          <Route path="/courses/:id/quiz/edit" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <QuizzPage />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/> 
+    //       <Route path="/courses/:id/quiz" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <AddQuizz />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/> 
+    //       <Route path="/courses/:id/quiz/edit" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <QuizzPage />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/> 
 
-          <Route path="/courses/:id/parameters" exact element={
-            session ? ( // Si une session est trouvée (= si on est connecté)
-              <CourseParameters />
-            ) : (
-              <Navigate to="login" /> // Sinon on est renvoyé vers 404
-            )
-          }/>
-        </Routes>
-      </div>
-    </ThemeProvider>
+    //       <Route path="/courses/:id/parameters" exact element={
+    //         session ? ( // Si une session est trouvée (= si on est connecté)
+    //           <CourseParameters />
+    //         ) : (
+    //           <Navigate to="login" /> // Sinon on est renvoyé vers 404
+    //         )
+    //       }/>
+    //     </Routes>
+    //   </div>
+    // </ThemeProvider>
+
+    <Provider store={store}>
+      <ToastContainer />
+      <Routes>
+        <Route exact path ="/" element={<Home/>}/>
+        <Route exact path ="/profile" element={<Profil/>}/>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Sign_up />} />
+      </Routes>
+    </Provider>
   );
 }
 

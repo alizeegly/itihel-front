@@ -2,17 +2,23 @@ import React, { useEffect, useRef } from 'react'
 import lottie from 'lottie-web';
 import "./home.scss";
 import { useSession } from  'react-use-session';
-import { Button, TextField, Avatar, Tooltip, MenuItem, Menu, Typography, Box, Toolbar, AppBar, IconButton, Container, Paper } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
-import AdbIcon from '@mui/icons-material/Adb';
-import AOS from 'aos';
+import { Button, TextField, Box, Container, Paper } from '@mui/material'
 import NavbarHome from '../../components/Navbar/NavbarHome';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import store from '../../redux/store';
+import PropTypes from "prop-types";
+import {Navigate} from 'react-router-dom';
+import { isAuth } from '../../actions/authActions'
 
 function Home() {
-    const { session, saveJWT, clear } = useSession('itihel');
+    // const { session } = useSession('itihel');
     const container = useRef(null)
 
+    const propTypes = {
+        button: PropTypes.bool,
+        isAuthenticated: PropTypes.bool,
+    };
+    
 
     useEffect (() => {
         lottie.loadAnimation({
@@ -52,15 +58,15 @@ function Home() {
                         </div>
                         <Box textAlign='center'>
                             {
-                                session ? (
-                                    <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />}>
-                                        Commencer un cours !
-                                    </Button>
-                                ) : (
-                                    <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />}>
+                                // session ? (
+                                //     <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />} href="/courses">
+                                //         Commencer un cours !
+                                //     </Button>
+                                // ) : (
+                                    <Button variant="contained" size="large" endIcon={<ArrowForwardIcon />} href="/login">
                                         Commencer l'aventure !
                                     </Button>
-                                )
+                                // )
                             }
                         </Box>
                     </div>

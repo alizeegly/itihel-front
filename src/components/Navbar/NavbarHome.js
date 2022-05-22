@@ -1,8 +1,11 @@
-import React from 'react'
-import { Container, Button, TextField, Avatar, Tooltip, MenuItem, Menu, Typography, Box, Toolbar, AppBar, IconButton } from '@mui/material'
+import React, { useEffect } from 'react'
+import { Container, Button, Avatar, Tooltip, MenuItem, Menu, Typography, Box, Toolbar, AppBar, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useSession } from  'react-use-session';
+import store from '../../redux/store';
+import { isAuth } from '../../actions/authActions'
+import { useSelector } from 'react-redux';
+import { AUTH_SUCCESS } from '../../actions/types';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -10,7 +13,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const NavbarHome = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const { session, saveJWT, clear } = useSession('itihel');
+    const auth = store.dispatch(isAuth())
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -27,8 +30,13 @@ const NavbarHome = () => {
         setAnchorElUser(null);
     };
 
+    useEffect(() => {
+        console.log(store.dispatch(isAuth()))
+        console.log(auth)
+    }, []);
+
     return (
-        <AppBar position="fixed" color="light" elevation={0}>
+        <AppBar position="fixed" color="grey" elevation={0}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
                     <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -61,46 +69,61 @@ const NavbarHome = () => {
                         >
                             <MenuIcon />
                         </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: { xs: 'block', md: 'none' },
-                            }}
-                        >
-                            {
-                                session ? (
-                                    <>
-                                        <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">Tous les cours</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">Mes cours</Typography>
-                                        </MenuItem>
-                                    </>
-                                ) : (
-                                    <>
-                                        <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">Se connecter</Typography>
-                                        </MenuItem>
-                                        <MenuItem onClick={handleCloseNavMenu}>
-                                            <Typography textAlign="center">S'inscrire</Typography>
-                                        </MenuItem>
-                                    </>
-                                )
-                            }
-                        </Menu>
+                        {
+                            1 === 2 ? (
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorElNav}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
+                                    open={Boolean(anchorElNav)}
+                                    onClose={handleCloseNavMenu}
+                                    sx={{
+                                        display: { xs: 'block', md: 'none' },
+                                    }}
+                                >
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">Tous les cours</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">Mes cours</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            ) : (
+                                <Menu
+                                    id="menu-appbar"
+                                    anchorEl={anchorElNav}
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'left',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'left',
+                                    }}
+                                    open={Boolean(anchorElNav)}
+                                    onClose={handleCloseNavMenu}
+                                    sx={{
+                                        display: { xs: 'block', md: 'none' },
+                                    }}
+                                >
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">Se connecter</Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleCloseNavMenu}>
+                                        <Typography textAlign="center">S'inscrire</Typography>
+                                    </MenuItem>
+                                </Menu>
+                            )
+                        }
                     </Box>
                     <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
@@ -123,29 +146,30 @@ const NavbarHome = () => {
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {
-                            session ? (
+                            // session ? (
+                            //     <>
+                            //         <Button
+                            //             onClick={handleCloseNavMenu}
+                            //             sx={{ my: 2, display: 'block' }}
+                            //             color="secondary"
+                            //         >
+                            //             Tous les cours
+                            //         </Button>
+                            //         <Button
+                            //             onClick={handleCloseNavMenu}
+                            //             sx={{ my: 2, display: 'block' }}
+                            //             color="secondary"
+                            //         >
+                            //             Mes cours
+                            //         </Button>
+                            //     </>
+                            // ) : (
                                 <>
                                     <Button
                                         onClick={handleCloseNavMenu}
                                         sx={{ my: 2, display: 'block' }}
                                         color="secondary"
-                                    >
-                                        Tous les cours
-                                    </Button>
-                                    <Button
-                                        onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, display: 'block' }}
-                                        color="secondary"
-                                    >
-                                        Mes cours
-                                    </Button>
-                                </>
-                            ) : (
-                                <>
-                                    <Button
-                                        onClick={handleCloseNavMenu}
-                                        sx={{ my: 2, display: 'block' }}
-                                        color="secondary"
+                                        href="/login"
                                     >
                                         Se connecter
                                     </Button>
@@ -153,18 +177,19 @@ const NavbarHome = () => {
                                         onClick={handleCloseNavMenu}
                                         sx={{ my: 2, display: 'block' }}
                                         color="secondary"
+                                        href="/register"
                                     >
                                         S'inscrire
                                     </Button>
                                 </>
-                            )
+                            // )
                         }
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>
                         <Tooltip title="Open settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                                AB
                             </IconButton>
                         </Tooltip>
                         <Menu

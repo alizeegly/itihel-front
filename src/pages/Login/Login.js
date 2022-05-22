@@ -1,10 +1,5 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import "./login.scss"
-// import Button from '../../components/Button/Button'
-import axios from 'axios'
-import { useNavigate } from "react-router-dom"
-import { useSession } from  'react-use-session';
-
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -16,7 +11,15 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Alert, AppBar, Toolbar } from '@mui/material';
+import { Alert, AppBar, IconButton, Toolbar } from '@mui/material';
+import store from '../../redux/store';
+import { login } from '../../actions/authActions'
+import { buttonClicked } from "../../actions/uiActions";
+import { logout } from '../../actions/authActions';
+import AlertHandler from '../../components/Alert/AlertHandler';
+import { connect } from 'react-redux';
+import { Navigate } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 
@@ -33,56 +36,53 @@ function Copyright(props) {
     );
 }
 
-const initialState = {email: "", password: ""}
-
-function Login({message}) {
-    const [formData, setFormData] = useState(initialState)
-    const [error, setError] = useState('')
-
-    const navigate = useNavigate()
-    const { session, saveJWT, clear } = useSession('itihel'); // Récupérer la session itihel
+function Login(props) {
+    const [formData, setFormData] = useState({email: "", password: ""})
+    const [alertHandler, setAlertHandler] = useState({
+        hasError: false,
+        message: "",
+        id: ""
+    });
+    const { auth, msg } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // if (formData.email === "" || formData.password === "") {
-        //     setError("Les champs sont requis pour se connecter");
-        //     return;
-        // } else {
-            axios.post("/api/users/login", {email: formData.email, password: formData.password})
-                .then((res) => {
-                    saveJWT(res.data.token) // Créer la session
-                    console.log(session)
-                    navigate("/courses"); // Redirection vers la page profile
-                })
-            .catch(err => {
-                setError("error")
-            })
-        // }
+        const user = { email: formData.email, password: formData.password};
+        store.dispatch(login(user, setAlertHandler))
     }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const onLogout = (e) => {
+        e.preventDefault();
+        store.dispatch(logout(setAlertHandler));
+    };
+    
+
+    useEffect(() => { 
+        if (auth && auth.isAuthenticated) {
+            return <Navigate to="/profile" />;
+        }
+        console.log(alertHandler)
+    }, []);
+
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="static" color="secondary">
+                <AppBar position="static" style={{background: "#006064"}}>
                     <Toolbar>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                         Itihel
                     </Typography>
-                    <Button color="inherit" href="/login">Se connecter</Button>
+                    <Button color="inherit">Se connecter</Button>
                     <Button color="inherit" href="/signup">S'inscrire</Button>
                     </Toolbar>
                 </AppBar>
             </Box>
 
-            {
-                error !== "" ? (
-                    <Alert severity="error">{error}</Alert>
-                ) : ""
-            }
+            <AlertHandler alertHandler={alertHandler}/>
 
             <Container component="main" maxWidth="xs">
                 <Box
@@ -93,12 +93,13 @@ function Login({message}) {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                    <Avatar sx={{ m: 1, bgcolor: '#006064' }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Se connecter
                     </Typography>
+                    <Button size="lg" onClick={onLogout} color="primary">Logout</Button>
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
@@ -130,6 +131,7 @@ function Login({message}) {
                             type="submit"
                             fullWidth
                             variant="contained"
+                            color="info"
                             sx={{ mt: 3, mb: 2 }}
                         >
                             Se connecter
@@ -154,4 +156,14 @@ function Login({message}) {
     )
 }
 
-export default Login
+function mapStateToProps(state) {
+    const { auth } = state.auth;
+    const { msg } = state.msg;
+
+    return {
+        auth,
+        msg
+    };
+}
+
+export default connect(mapStateToProps)(Login)
