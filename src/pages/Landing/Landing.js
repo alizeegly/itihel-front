@@ -26,7 +26,7 @@ function Landing({ isAuthenticated }) {
 
     return (
         <>
-            <Navbar />
+            <Navbar color="white" styleSx={{ color: "primary" }}/>
             <div className="home">
                 <div className="shape shape1"></div>
                 <div className="shape shape2"></div>

@@ -9,24 +9,24 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Avatar from '@mui/material/Avatar';
 import AdbIcon from '@mui/icons-material/Adb';
 import Tooltip from '@mui/material/Tooltip';
+import { grey } from '@mui/material/colors';
 
-const settings = ['Profile', 'Mon compte', 'Tableau de bord', 'Se déconnecter'];
+const colorGrey = grey[900]
 
-const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
-	const [anchorElNav, setAnchorElNav] = React.useState(null);
+const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading }, logout }) => {
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
 	};
-
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
 	const authLinks = (
 		<>
 			<Box sx={{ flexGrow: 1, display: "flex" }}>
-				<Button href="/dashboard" sx={{ color: "white" }}>Dashboard</Button>
-				<Button onClick={logout} to="/" sx={{ color: "white" }}>Logout</Button>
+				<Button href="/dashboard" sx={styleButton}>Tableau de bord</Button>
+				<Button onClick={logout} to="/" sx={styleButton}>Se déconnecter</Button>
 			</Box>
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Open settings">
@@ -68,13 +68,13 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 	);
 	const guestLinks = (
 		<Box sx={{ flexGrow: 1, display: "flex" }}>
-			<Button href="/register" sx={{ color: "white" }}>S'inscrire</Button>
-			<Button href="/login" sx={{ color: "white" }}>Se connecter</Button>
+			<Button href="/register" sx={styleButton}>S'inscrire</Button>
+			<Button href="/login" sx={styleButton}>Se connecter</Button>
 		</Box>
 	);
 
 	return (
-		<AppBar position="static">
+		<AppBar position="static" sx={{ background: color }} elevation={5}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
 					<Typography
@@ -87,7 +87,6 @@ const Navbar = ({ auth: { isAuthenticated, loading }, logout }) => {
 							display: { xs: 'none', md: 'flex' },
 							fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 							fontWeight: 700,
-							color: 'inherit',
 							textDecoration: 'none',
 						}}
 					>

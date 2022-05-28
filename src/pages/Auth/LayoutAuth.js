@@ -6,12 +6,15 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Alert from '../../components/layout/Alert';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
+import { cyan } from '@mui/material/colors';
+
+const bg = cyan[50]
 
 const LayoutAuth = ({title, children}) => {
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>
-                <Navbar/>
+                <Navbar color={bg} styleSx={{ color: "white" }} />
             </Box>
             <Container component="main" maxWidth="md">
                 <Box
@@ -22,7 +25,7 @@ const LayoutAuth = ({title, children}) => {
                         alignItems: 'center',
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: '#006064' }}>
+                    <Avatar sx={{ m: 1, p: 2, bgcolor: bg, color: "black" }}>
                         <LockOutlinedIcon />
                     </Avatar>
                     <Typography component="h1" variant="h5">
@@ -32,10 +35,6 @@ const LayoutAuth = ({title, children}) => {
                     <Alert />
                     
                     {children}
-
-                    <p className="link">
-                        Don't have an account? <Link to="/register">Sign Up</Link>
-                    </p>
                 </Box>
             </Container>
         </>

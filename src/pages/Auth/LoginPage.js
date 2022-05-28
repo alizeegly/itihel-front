@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 import Alert from "../../components/layout/Alert";
 import LayoutAuth from "./LayoutAuth";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 const LoginPage = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({
@@ -66,6 +66,9 @@ const LoginPage = ({ login, isAuthenticated }) => {
 					Se connecter
 				</Button>
 			</Box>
+			<Typography>
+				Pas encore de compte ? <Link to="/register">S'inscrire</Link>
+			</Typography>
 		</LayoutAuth>
 	);
 };

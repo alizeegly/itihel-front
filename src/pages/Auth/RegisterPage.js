@@ -5,7 +5,7 @@ import { register } from "../../actions/auth";
 import PropTypes from "prop-types";
 import Alert from "../../components/layout/Alert";
 import { setAlert } from "../../actions/alert";
-import { Box, Button, Grid, TextField } from "@mui/material";
+import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import LayoutAuth from "./LayoutAuth";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
@@ -40,7 +40,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 
 	return (
 		<LayoutAuth title="S'inscrire">
-			<Box component="form" onSubmit={(e) => onSubmit(e)} noValidate sx={{ mt: 1 }}>
+			<Box component="form" onSubmit={(e) => onSubmit(e)} noValidate sx={{ mt: 1, width: "70%" }}>
 				<Grid container spacing={2} columns={12}>
 					<Grid item xs={12} sm={6}>
 						<TextField
@@ -135,6 +135,9 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 					S'inscrire
 				</Button>
 			</Box>
+			<Typography>
+				Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
+			</Typography>
 		</LayoutAuth>
 		// <div className="register-form">
 		// 	<h1 className="heading">Sign Up</h1>
