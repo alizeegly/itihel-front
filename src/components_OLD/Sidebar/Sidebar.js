@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link as LinkR, Navigate} from 'react-router-dom';
+import {Link as LinkR, Navigate, Redirect} from 'react-router-dom';
 import { AppBar, Box, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MobileView } from 'react-device-detect';
@@ -29,7 +29,7 @@ const SidebarComponent = (props) => {
     const logout = () => {
         clear()
         console.log("logout")
-        Navigate("/login") // redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
+        Redirect("/login") // redirect vers page login + test d'envoi de message pour dire qu'on est bien déconnecté (ça marche pas)
     }
     
     const drawer = (

@@ -2,10 +2,6 @@ import React, { useEffect } from 'react'
 import { Container, Button, Avatar, Tooltip, MenuItem, Menu, Typography, Box, Toolbar, AppBar, IconButton } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
 import AdbIcon from '@mui/icons-material/Adb';
-import store from '../../redux/store';
-import { isAuth } from '../../actions/authActions'
-import { useSelector } from 'react-redux';
-import { AUTH_SUCCESS } from '../../actions/types';
 
 const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -13,7 +9,7 @@ const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const NavbarHome = () => {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
-    const auth = store.dispatch(isAuth())
+    // const auth = store.dispatch(isAuth())
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -31,8 +27,8 @@ const NavbarHome = () => {
     };
 
     useEffect(() => {
-        console.log(store.dispatch(isAuth()))
-        console.log(auth)
+        // console.log(store.dispatch(isAuth()))
+        // console.log(auth)
     }, []);
 
     return (

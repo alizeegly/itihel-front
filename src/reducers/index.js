@@ -1,13 +1,7 @@
-import { combineReducers} from 'redux';
-import errorReducer from './errorReducer';
-import authReducer from './authReducer';
-import uiReducer from './uiReducer';
-import statusReducer from './statusReducer';
-
-
+import { combineReducers } from "redux";
+import alert from "./alert";
+import auth from "./auth";
 export default combineReducers({
-    msg: errorReducer,
-    auth: authReducer,
-    ui: uiReducer,
-    status: statusReducer
+	alert,
+	auth,
 });

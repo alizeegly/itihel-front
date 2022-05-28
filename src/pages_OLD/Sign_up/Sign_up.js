@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import "./sign_up.scss"
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
-import { useSession } from  'react-use-session';
 import { Alert, AppBar, Avatar, Button, Container, Grid, Link, TextField, Toolbar, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 const initialState = {last_name: "", first_name: "", pseudo: "", email:"", password: "", password_confirm: ""}
 
@@ -26,38 +26,35 @@ function Sign_up() {
     const [formData, setFormData] = useState(initialState)
     const [error, setError] = useState('')
 
-    const navigate = useNavigate()
-    const { session, saveJWT, clear } = useSession('itihel'); // Récupérer la session itihel
+    const auth = useSelector(state => state.auth);
 
     const handleSubmit = (e) => {
         e.preventDefault()
-        // if (formData.password.length < 6) {
-        //     setError("Le mot de passe doit faire plus de 6 caractères");
-        //     return;
-        // } else if (formData.email === "" || formData.password === "" || formData.pseudo === "" || formData.first_name === "" || formData.last_name === "") {
-        //     setError("Les champs sont requis pour s'inscrire");
-        //     return;
-        // } else {
-            axios.post("/api/users/signup", {
-                pseudo: formData.pseudo,
-                first_name: formData.first_name,
-                last_name: formData.last_name,
-                email: formData.email,
-                password: formData.password})
-                .then((res) => {
-                    saveJWT(res.data.token) // Créer la session
-                    console.log(session)
-                    navigate("/profile"); // Redirection vers la page profile
-                })
-                .catch(err => {
-                    setError(err.msg)
-                })
-        // }
+        axios.post("/api/users/signup", {
+            pseudo: formData.pseudo,
+            first_name: formData.first_name,
+            last_name: formData.last_name,
+            email: formData.email,
+            password: formData.password})
+            .then((res) => {
+                // saveJWT(res.data.token) // Créer la session
+                Redirect("/profile"); // Redirection vers la page profile
+            })
+            .catch(err => {
+                setError(err.msg)
+            })
     }
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value })
     }
+
+    useEffect(() => {
+        console.log(auth)
+        if (!auth.isAuthenticated) {
+            return Redirect("/login")
+        }
+    }, []);
 
     return (
         <>
@@ -68,7 +65,7 @@ function Sign_up() {
                             Itihel
                         </Typography>
                         <Button color="inherit" href="/login">Se connecter</Button>
-                        <Button color="inherit" href="/signup">S'inscrire</Button>
+                        <Button color="inherit">S'inscrire</Button>
                     </Toolbar>
                 </AppBar>
             </Box>
@@ -170,7 +167,7 @@ function Sign_up() {
                         </Button>
                         <Grid container justifyContent="flex-end">
                             <Grid item>
-                                <Link href="/login" variant="body2">
+                                <Link to="/login" variant="body2">
                                     Déjà un compte ?
                                 </Link>
                             </Grid>

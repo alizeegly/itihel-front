@@ -1,24 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import lottie from 'lottie-web';
 import "./home.scss";
-import { useSession } from  'react-use-session';
 import { Button, TextField, Box, Container, Paper } from '@mui/material'
-import NavbarHome from '../../components/Navbar/NavbarHome';
+import Navbar from '../../components/Navbar/Navbar';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import store from '../../redux/store';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import {Navigate} from 'react-router-dom';
-import { isAuth } from '../../actions/authActions'
 
-function Home() {
-    // const { session } = useSession('itihel');
+function Landing({ isAuthenticated }) {
     const container = useRef(null)
-
-    const propTypes = {
-        button: PropTypes.bool,
-        isAuthenticated: PropTypes.bool,
-    };
-    
 
     useEffect (() => {
         lottie.loadAnimation({
@@ -28,11 +19,14 @@ function Home() {
             autoplay: true,
             animationData: require("../../assets/json/home_animation.json")
         })
+        if (isAuthenticated) {
+            return <Redirect to="/dashboard" />;
+        }
     });
 
     return (
         <>
-            <NavbarHome/>
+            <Navbar />
             <div className="home">
                 <div className="shape shape1"></div>
                 <div className="shape shape2"></div>
@@ -156,4 +150,12 @@ function Home() {
     )
 }
 
-export default Home
+Landing.propTypes = {
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+	isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps)(Landing);

@@ -18,8 +18,9 @@ import { buttonClicked } from "../../actions/uiActions";
 import { logout } from '../../actions/authActions';
 import AlertHandler from '../../components/Alert/AlertHandler';
 import { connect } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Redirect } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
+import PropTypes from "prop-types";
 
 
 
@@ -36,19 +37,21 @@ function Copyright(props) {
     );
 }
 
-function Login(props) {
+function Login({ login, isAuthenticated, msg }) {
     const [formData, setFormData] = useState({email: "", password: ""})
     const [alertHandler, setAlertHandler] = useState({
         hasError: false,
         message: "",
         id: ""
     });
-    const { auth, msg } = props;
 
     const handleSubmit = (e) => {
         e.preventDefault()
         const user = { email: formData.email, password: formData.password};
-        store.dispatch(login(user, setAlertHandler))
+        console.log("user")
+        console.log(user)
+        // store.dispatch(login(user, setAlertHandler))
+        login(user, setAlertHandler)
     }
 
     const handleChange = (e) => {
@@ -60,13 +63,9 @@ function Login(props) {
         store.dispatch(logout(setAlertHandler));
     };
     
-
-    useEffect(() => { 
-        if (auth && auth.isAuthenticated) {
-            return <Navigate to="/profile" />;
-        }
-        console.log(alertHandler)
-    }, []);
+    if (isAuthenticated) {
+		return <Redirect to="/dashboard" />;
+	}
 
     return (
         <>
@@ -77,7 +76,7 @@ function Login(props) {
                         Itihel
                     </Typography>
                     <Button color="inherit">Se connecter</Button>
-                    <Button color="inherit" href="/signup">S'inscrire</Button>
+                    <Button color="inherit" href="/register">S'inscrire</Button>
                     </Toolbar>
                 </AppBar>
             </Box>
@@ -138,12 +137,12 @@ function Login(props) {
                         </Button>
                         <Grid container>
                             <Grid item xs>
-                                <Link href="/forgot" variant="body2">
+                                <Link to="/forgot" variant="body2">
                                     Mot de passe oublié?
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="/signup" variant="body2">
+                                <Link to="/signup" variant="body2">
                                     {"Pas encore inscrit?"}
                                 </Link>
                             </Grid>
@@ -156,14 +155,27 @@ function Login(props) {
     )
 }
 
-function mapStateToProps(state) {
-    const { auth } = state.auth;
-    const { msg } = state.msg;
+// function mapStateToProps(state) {
+//     const { auth } = state.auth;
+//     const { msg } = state.msg;
 
-    return {
-        auth,
-        msg
-    };
-}
+//     return {
+//         auth,
+//         msg
+//     };
+// }
 
-export default connect(mapStateToProps)(Login)
+// export default connect(mapStateToProps)(Login)
+
+Login.propTypes = {
+	login: PropTypes.func.isRequired,
+	isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => {
+    return ({
+	isAuthenticated: state.auth.isAuthenticated,
+    msg: state.msg.msg
+})};
+
+export default connect(mapStateToProps, { login })(Login);
