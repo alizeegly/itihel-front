@@ -3,13 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import ProtectedRoute from './ProtectedRoute';
 import routesConfig from './routes.config';
 
-import Dashboard from "../pages/Dashboard";
-import LoginPage from "../pages/Auth/LoginPage";
-import Login from "../components/auth/Login";
-import RegisterPage from "../pages/Auth/RegisterPage";
-import NotFound from "../pages/Errors/NotFound";
-import Landing from "../pages/Landing/Landing";
-
 const MainRouter = (props) => {
     
     return (
