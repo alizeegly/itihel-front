@@ -139,58 +139,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 				Vous avez déjà un compte ? <Link to="/login">Se connecter</Link>
 			</Typography>
 		</LayoutAuth>
-		// <div className="register-form">
-		// 	<h1 className="heading">Sign Up</h1>
-		// 	<p className="lead">
-		// 		<i className="fas fa-user"></i> Create Your Account
-		// 	</p>
-		// 	<Alert />
-		// 	<br />
-		// 	<form className="form" onSubmit={(e) => onSubmit(e)}>
-		// 		<div className="form-group">
-		// 			<input
-		// 				type="text"
-		// 				placeholder="Name"
-		// 				name="name"
-		// 				value={name}
-		// 				onChange={(e) => onChange(e)}
-		// 			/>
-		// 		</div>
-		// 		<div className="form-group">
-		// 			<input
-		// 				type="email"
-		// 				placeholder="Email Address"
-		// 				name="email"
-		// 				value={email}
-		// 				onChange={(e) => onChange(e)}
-		// 			/>
-		// 		</div>
-		// 		<div className="form-group">
-		// 			<input
-		// 				type="password"
-		// 				placeholder="Password"
-		// 				name="password"
-		// 				minLength="6"
-		// 				value={password}
-		// 				onChange={(e) => onChange(e)}
-		// 			/>
-		// 		</div>
-		// 		<div className="form-group">
-		// 			<input
-		// 				type="password"
-		// 				placeholder="Confirm Password"
-		// 				name="password2"
-		// 				minLength="6"
-		// 				value={password2}
-		// 				onChange={(e) => onChange(e)}
-		// 			/>
-		// 		</div>
-		// 		<input type="submit" className="btn btn-primary" value="Register" />
-		// 	</form>
-		// 	<p className="link">
-		// 		Already have an account? <Link to="/login">Sign In</Link>
-		// 	</p>
-		// </div>
 	);
 };
 

@@ -1,14 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {Alert as Alert2} from '@mui/material';
 
 const Alert = ({ alerts }) =>
 	alerts !== null &&
 	alerts.length > 0 &&
 	alerts.map((alert) => (
-		<div key={alert.id} className={`alert alert-${alert.alertType}`}>
+		<Alert2 key={alert.id} severity={alert.alertType}>
 			{alert.msg}
-		</div>
+		</Alert2>
 	));
 
 Alert.propTypes = {

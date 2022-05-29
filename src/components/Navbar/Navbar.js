@@ -13,7 +13,7 @@ import { grey } from '@mui/material/colors';
 
 const colorGrey = grey[900]
 
-const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading }, logout }) => {
+const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading, user }, logout }) => {
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
@@ -26,12 +26,11 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 		<>
 			<Box sx={{ flexGrow: 1, display: "flex" }}>
 				<Button href="/dashboard" sx={styleButton}>Tableau de bord</Button>
-				<Button onClick={logout} to="/" sx={styleButton}>Se déconnecter</Button>
 			</Box>
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Open settings">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt="Remy Sharp">AG</Avatar>
+						<Avatar alt="Remy Sharp">{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
 				<Menu
@@ -88,6 +87,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 							fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 							fontWeight: 700,
 							textDecoration: 'none',
+							color: "black"
 						}}
 					>
 						Itihel
@@ -107,8 +107,11 @@ Navbar.propTypes = {
 	auth: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
+const mapStateToProps = (state) => {
+	// console.log(state)
+	return({
+		auth: state.auth,
+	})
+};
 
 export default connect(mapStateToProps, { logout })(Navbar);

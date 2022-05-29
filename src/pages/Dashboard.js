@@ -8,9 +8,9 @@ const Dashboard = ({ auth: { user } }) => {
 	console.log(user)
 	return (
 		<>
-			<Navbar/>
+			<Navbar color="white"/>
 			<div style={{ marginTop: "5rem", textAlign: "center" }}>
-				<h1>Welcome, {user && user.name}</h1>
+				<h1>Welcome, {user && user.first_name}</h1>
 			</div>
 		</>
 	);
