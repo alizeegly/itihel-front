@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
-import { AppBar, Box, Button, Container, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, Divider, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
@@ -26,9 +26,9 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 				<Button href="/dashboard" sx={styleButton}>Tableau de bord</Button>
 			</Box>
 			<Box sx={{ flexGrow: 0 }}>
-				<Tooltip title="Open settings">
+				<Tooltip title="Ouvrir les paramètres">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt="Remy Sharp">{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
+						<Avatar alt={user && user.first_name[0] + " " + user && user.last_name[0]}>{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
 				<Menu
@@ -50,12 +50,10 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 					<MenuItem component={Link}  to="/dashboard">
 						<Typography textAlign="center">Tableau de bord</Typography>
 					</MenuItem>
-					<MenuItem onClick={handleCloseUserMenu}>
+					<MenuItem component={Link} to="/profile">
 						<Typography textAlign="center">Profil</Typography>
 					</MenuItem>
-					<MenuItem onClick={handleCloseUserMenu}>
-						<Typography textAlign="center">Mon compte</Typography>
-					</MenuItem>
+					<Divider />
 					<MenuItem onClick={logout}>
 						<Typography textAlign="center">Se déconnecter</Typography>
 					</MenuItem>
