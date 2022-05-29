@@ -15,6 +15,7 @@ import {
     CloudUpload as UploadIcon,
     Edit as EditIcon,
 } from "@mui/icons-material";
+import { updateUser } from "../../actions/auth";
 
 const styles = {
   label: {
@@ -51,6 +52,7 @@ console.log(user)
     const handleSubmit = (e) => {
         e.preventDefault()
         //update user
+        updateUser(userState)
     }
 
     return (
@@ -69,7 +71,7 @@ console.log(user)
                                 value={userState && userState.last_name}
                                 onChange={(e) => setUserState(prevState => ({
                                     ...prevState,
-                                    "last_name": e.target.value
+                                    [e.target.name]: e.target.value
                                 }))}
                             />
                         </Grid>
@@ -82,7 +84,10 @@ console.log(user)
                                 fullWidth
                                 sx={{ mb: 2 }}
                                 value={userState && userState.first_name}
-                                onChange={handleChange}
+                                onChange={(e) => setUserState(prevState => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value
+                                }))}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -94,7 +99,10 @@ console.log(user)
                                 fullWidth
                                 sx={{ mb: {sm: 2, xs: 10} }}
                                 value={userState && userState.email}
-                                onChange={handleChange}
+                                onChange={(e) => setUserState(prevState => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value
+                                }))}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -106,7 +114,10 @@ console.log(user)
                                 fullWidth
                                 sx={{ mb: 2 }}
                                 value={userState && userState.pseudo}
-                                onChange={handleChange}
+                                onChange={(e) => setUserState(prevState => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value
+                                }))}
                             />
                         </Grid>
                     </Grid>

@@ -55,7 +55,7 @@ function ProfileCard({ auth: { user } }) {
                     </Grid>
                 </Grid>
 
-                <Grid item style={styles.details} sx={{ width: "100%" }}>
+                {/* <Grid item style={styles.details} sx={{ width: "100%" }}>
                     <Button
                         color="secondary"
                         variant="outlined"
@@ -64,7 +64,7 @@ function ProfileCard({ auth: { user } }) {
                     >
                         Voir les cours
                     </Button>
-                </Grid>
+                </Grid> */}
             </Grid>
         </Card>
     );

@@ -8,6 +8,8 @@ import {
 	LOGIN_SUCCESS,
 	LOGIN_FAIL,
 	LOGOUT,
+	UPDATE_SUCCESS,
+	UPDATE_FAIL,
 } from "./types";
 import setAuthToken from "../redux/setAuthToken";
 
@@ -33,8 +35,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Register User
 export const register =
-	({ first_name, last_name, pseudo, email, password }) =>
-	async (dispatch) => {
+	({ first_name, last_name, pseudo, email, password }) => async (dispatch) => {
 		const config = {
 			headers: {
 				"Content-Type": "application/json",
@@ -108,4 +109,31 @@ export const login = (email, password) => async (dispatch) => {
 // Logout / Clear Profile
 export const logout = () => (dispatch) => {
 	dispatch({ type: LOGOUT });
+};
+
+// Update user
+export const updateUser = ({user}) => async (dispatch) => {
+	try {
+		const res = await axios.put(
+			"http://localhost:8800/api/users/" + user._id,
+			user
+		);
+
+		dispatch({
+			type: UPDATE_SUCCESS,
+			payload: res.data,
+		});
+
+		dispatch(loadUser());
+	} catch (err) {
+		console.log(err)
+		const errors = err.response.data.errors;
+		if (errors) {
+			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
+		}
+
+		dispatch({
+			type: UPDATE_FAIL,
+		});
+	}
 };
