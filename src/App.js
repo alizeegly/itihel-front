@@ -1,4 +1,4 @@
-import React, {Component, useEffect} from "react";
+import React, {useEffect} from "react";
 import { createTheme } from '@mui/material/styles';
 import 'react-toastify/dist/ReactToastify.css';
 import store from "./redux/store";

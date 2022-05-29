@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import "./NotFound.scss"
 import lottie from 'lottie-web'
 import Navbar from '../../components/Navbar/Navbar';

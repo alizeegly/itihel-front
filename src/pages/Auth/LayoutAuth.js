@@ -1,10 +1,7 @@
 import React from 'react'
-// import NavbarHome from '../../components/Navbar/NavbarHome'
-import { AppBar, Avatar, Box, Checkbox, Container, CssBaseline, FormControlLabel, Grid, TextField, Toolbar, Typography } from '@mui/material';
-import { Button } from 'react-scroll';
+import { Avatar, Box, Container, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Alert from '../../components/layout/Alert';
-import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import { cyan } from '@mui/material/colors';
 
