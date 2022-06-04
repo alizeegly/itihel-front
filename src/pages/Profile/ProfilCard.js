@@ -2,8 +2,6 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
-import moment from 'moment';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 

@@ -1,53 +1,16 @@
-import React, { createRef, useEffect, useState } from "react";
+import React, { useState } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
-import { Avatar, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
 import Box from "@mui/material/Box";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import axios from "axios";
-import {
-    CloudUpload as UploadIcon,
-    Edit as EditIcon,
-} from "@mui/icons-material";
 import { updateUser } from "../../actions/auth";
 
-const styles = {
-  label: {
-    fontWeight: "bold",
-    marginBottom: ".5rem"
-  },
-  field: {
-    width: "40%",
-    marginBottom: "2rem"
-  }
-};
-
-  
-function SettingsCard({ handleCallback, auth: { user } }) {
-    const [value, setValue] = React.useState(0);
+function SettingsCard({ auth: { user } }) {
     const [userState, setUserState] = useState(user)
-    const [image, _setImage] = useState(null);
-    const inputFileRef = createRef(null);
-console.log(user)
-    const cleanup = () => {
-        URL.revokeObjectURL(image);
-        inputFileRef.current.value = null;
-    };
-
-    const setImage = (newImage) => {
-        if (image) {
-            cleanup();
-        }
-        _setImage(newImage);
-        const pic = "profile_picture"
-        setUserState({ ...user, [pic]: newImage })
-    };
 
     const handleSubmit = (e) => {
         e.preventDefault()

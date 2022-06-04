@@ -4,8 +4,11 @@ import {
   Profile,
   LoginPage,
   RegisterPage,
-  NotFound
+  NotFound,
+  MyCourses,
+  CGU
 } from "../pages";
+import SharedCourses from "../pages/ListCourses/SharedCourses";
 
 export default {
   routes: [
@@ -34,6 +37,22 @@ export default {
       path: "/profile",
       isAuthenticated: true,
     },
+    {
+      component: MyCourses,
+      path: "/courses",
+      isAuthenticated: true,
+    },
+    {
+      component: SharedCourses,
+      path: "/shared-courses",
+      isAuthenticated: true,
+    },
+    {
+      component: CGU,
+      path: "/cgu",
+      isAuthenticated: false,
+    },
+
 
     // A laisser en dernier
     {

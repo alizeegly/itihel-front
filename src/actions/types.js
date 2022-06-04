@@ -11,3 +11,6 @@ export const LOGOUT = "LOGOUT";
 
 export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
 export const UPDATE_FAIL = "UPDATE_FAIL";
+
+export const GET_LIST = 'GET_LIST';
+export const LIST_FAIL = 'LIST_FAIL';

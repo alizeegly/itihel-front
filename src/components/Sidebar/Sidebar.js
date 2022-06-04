@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link, Link as LinkR, Navigate, Redirect} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import { AppBar, Avatar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { MobileView } from 'react-device-detect';
@@ -75,7 +75,7 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                     <MenuItem component={Link} to="/dashboard">
 						<Typography textAlign="center">Tableau de bord</Typography>
 					</MenuItem>
-                    <MenuItem onClick={handleCloseUserMenu}>Mon profil</MenuItem>
+                    <MenuItem component={Link} to="/profile">Mon profil</MenuItem>
                     <Divider />
                     <MenuItem onClick={logout}>Se déconnecter</MenuItem>
                 </Menu>

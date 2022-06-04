@@ -1,22 +1,14 @@
-import { Box, Grid } from '@mui/material'
-import React, { useState } from 'react'
-import { BrowserView } from 'react-device-detect'
-import Papers from '../../components/Papers/Papers'
-import SidebarComponent from '../../components/Sidebar/Sidebar'
-import LayoutProfile from './LayoutProfile'
+import { Grid } from '@mui/material'
+import React from 'react'
+import LayoutSidebar from '../../layouts/LayoutSidebar'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingsCard'
 
 
 const Profile = () => {
-    const [isModified, setIsModified] = useState(false);
-
-    const handleCallback = (childData) =>{
-        setIsModified(childData)
-    }
 
     return (
-        <LayoutProfile handleCallback={handleCallback}>
+        <LayoutSidebar>
             {/* PROFILE CARD */}
             <Grid item lg={3} md={9}>
                 <ProfileCard />
@@ -24,9 +16,9 @@ const Profile = () => {
 
             {/* SETTINGS CARD */}
             <Grid item lg={9} md={9}>
-                <SettingsCard handleCallback={handleCallback}></SettingsCard>
+                <SettingsCard></SettingsCard>
             </Grid>
-        </LayoutProfile>
+        </LayoutSidebar>
     )
 }
 

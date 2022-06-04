@@ -4,6 +4,9 @@ import Profile from "./Profile/Profile"
 import LoginPage from "./Auth/LoginPage"
 import RegisterPage from "./Auth/RegisterPage"
 import NotFound from "./Errors/NotFound"
+import MyCourses from "./ListCourses/MyCourses"
+import CGU from "./CGU/CGU"
+
 
 export {
     Landing,
@@ -11,5 +14,7 @@ export {
     Profile,
     LoginPage,
     RegisterPage, 
-    NotFound
+    NotFound,
+    MyCourses,
+    CGU
 }

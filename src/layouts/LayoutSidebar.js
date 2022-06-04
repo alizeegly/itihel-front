@@ -1,17 +1,12 @@
+import React from 'react'
 import { BrowserView } from 'react-device-detect'
-import Papers from '../../components/Papers/Papers'
+import Papers from '../components/Papers/Papers'
 import { Box, Grid } from '@mui/material'
-import React, { useState } from 'react'
-import Sidebar from '../../components/Sidebar/Sidebar'
+import Sidebar from '../components/Sidebar/Sidebar'
 
 const drawerWidth = 240;
 
-const LayoutProfile = ({children}) => {
-    const [isModified, setIsModified] = useState(false)
-
-    const handleCallback = (childData) =>{
-        setIsModified(childData)
-    }
+const LayoutSidebar = ({children}) => {
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflow: "hidden" }}>
@@ -45,4 +40,4 @@ const LayoutProfile = ({children}) => {
     )
 }
 
-export default LayoutProfile
+export default LayoutSidebar

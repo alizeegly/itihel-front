@@ -6,6 +6,8 @@ import { loadUser } from "./actions/auth";
 import MainRouter from "./routing/MainRouter";
 import setAuthToken from "./redux/setAuthToken";
 
+
+// Theme dans local storage ?
 export const theme = createTheme({
    palette: {
       primary: {
@@ -67,6 +69,7 @@ function App() {
 	useEffect(() => {
 		store.dispatch(loadUser());
 	}, []);
+
 	return (
 		<>
 			<div className="App">
