@@ -35,7 +35,22 @@ const ListCourses = ({ list }) => {
         setIsOpen(false)
     }
 
-    console.log(list)
+    const filterPosts = (posts, query) => {
+        if (!query) {
+            return posts;
+        }
+    
+        return posts.filter((post) => {
+            const postName = post.title.toLowerCase()
+            const description = post.description.toLowerCase()
+            const pseudo = post.owner_id && post.owner_id.pseudo ? post.owner_id.pseudo.toLowerCase() : ""
+            return postName.includes(query) || description.includes(query) || pseudo.includes(query)
+        });
+    };
+
+    const filteredPosts = filterPosts(list, query)
+
+    console.log(filteredPosts)
 
     return (
         <LayoutSidebar>
@@ -69,7 +84,7 @@ const ListCourses = ({ list }) => {
                     mt: 3
                 }}
             >
-                {list && list.length > 0 && list.map((course, index) => (
+                {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((course, index) => (
                     <Grid item xs={12} md={4} key={index} height="400px">
                         <Card sx={{ position: "relative", height: "100%" }}>
                             <CardMedia
