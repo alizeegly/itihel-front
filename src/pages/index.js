@@ -16,5 +16,5 @@ export {
     RegisterPage, 
     NotFound,
     MyCourses,
-    CGU
+    CGU,
 }

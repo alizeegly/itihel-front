@@ -13,4 +13,8 @@ export const UPDATE_SUCCESS = "UPDATE_SUCCESS";
 export const UPDATE_FAIL = "UPDATE_FAIL";
 
 export const GET_LIST = 'GET_LIST';
+export const SET_LIST = 'SET_LIST';
 export const LIST_FAIL = 'LIST_FAIL';
+
+export const GET_USERS = 'GET_USERS';
+export const USERS_ERROR = 'USERS_ERROR'

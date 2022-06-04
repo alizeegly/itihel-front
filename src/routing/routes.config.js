@@ -6,7 +6,7 @@ import {
   RegisterPage,
   NotFound,
   MyCourses,
-  CGU
+  CGU,
 } from "../pages";
 import SharedCourses from "../pages/ListCourses/SharedCourses";
 
