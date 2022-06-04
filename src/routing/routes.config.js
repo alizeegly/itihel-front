@@ -7,8 +7,9 @@ import {
   NotFound,
   MyCourses,
   CGU,
+  SharedCourses,
+  PublicCourses
 } from "../pages";
-import SharedCourses from "../pages/ListCourses/SharedCourses";
 
 export default {
   routes: [
@@ -45,6 +46,11 @@ export default {
     {
       component: SharedCourses,
       path: "/shared-courses",
+      isAuthenticated: true,
+    },
+    {
+      component: PublicCourses,
+      path: "/public-courses",
       isAuthenticated: true,
     },
     {

@@ -43,11 +43,11 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                 <ListItemButton component='a' href={"/courses"}>
                     <ListItemText primary="Mes cours" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"/shared-whith-me-courses"}>
+                <ListItemButton component='a' href={"/shared-courses"}>
                     <ListItemText primary="Partagé avec moi" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
                 <ListItemButton component='a' href={"/public-courses"}>
-                    <ListItemText primary="Tous les cours" primaryTypographyProps={{fontSize: '18px'}} />
+                    <ListItemText primary="Cours publics" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
             </List>
             <Box display={"flex"} justifyContent={"center"}>

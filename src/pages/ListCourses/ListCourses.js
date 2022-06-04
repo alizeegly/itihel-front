@@ -4,6 +4,7 @@ import LayoutSidebar from '../../layouts/LayoutSidebar'
 import SearchIcon from '@mui/icons-material/Search';
 import Highlighter from 'react-highlight-words'
 import Modal from 'react-modal'
+import Alert from '../../components/layout/Alert';
 
 const customStyles = {
     content: {
@@ -31,8 +32,11 @@ const ListCourses = ({ list }) => {
         setIsOpen(false)
     }
 
+    console.log(list)
+
     return (
         <LayoutSidebar>
+            <Alert/>
             <Box component="form" sx={{ width: "50%", margin: "0 auto", display: "flex", justifyContent: "space-between"}}>
                 <TextField
                     type="search"
@@ -63,7 +67,7 @@ const ListCourses = ({ list }) => {
                 }}
             >
                 {list && list.length > 0 && list.map((course, index) => (
-                    <Grid item xs={12} md={4} key={index} height="100%">
+                    <Grid item xs={12} md={4} key={index} height="400px">
                         <Card sx={{ position: "relative", height: "100%" }}>
                             <CardMedia
                                 component="img"
@@ -95,12 +99,14 @@ const ListCourses = ({ list }) => {
                                         setModalData(course);
                                         setIsOpen(true);
                                     }}>
-                                        <Avatar>AG</Avatar>
+                                        <Avatar>
+                                            {course && course.owner_id && course.owner_id.first_name[0]+course.owner_id.last_name[0]}
+                                        </Avatar>
                                     </IconButton>
                                 </Tooltip>
                                 <Button
                                     size="small" 
-                                    href={"/courses/" + "course._id"}
+                                    href={"/courses/" + course._id}
                                 >Voir le cours</Button>
                             </CardActions>
                         </Card>
