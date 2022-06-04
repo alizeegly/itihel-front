@@ -2,28 +2,31 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import { Button, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
+import moment from "moment";
 
 
 const styles = {
-  details: {
-    padding: "1rem",
-    borderTop: "1px solid #e1e1e1",
-    height: 80,
-    display: "flex",
-    alignItems: "center"
-  },
-  value: {
-    padding: "1rem 2rem",
-    borderTop: "1px solid #e1e1e1",
-    color: "#ff558f",
-    height: 80,
-    display: "flex",
-    alignItems: "center"
-  }
+    details: {
+        padding: "1rem",
+        borderTop: "1px solid #e1e1e1",
+        height: 80,
+        display: "flex",
+        alignItems: "center"
+    },
+    value: {
+        padding: "1rem",
+        borderTop: "1px solid #e1e1e1",
+        color: "#ff558f",
+        height: 80,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-end"
+    }
 };
 
 function ProfileCard({user}) {
     console.log(user)
+    
     return (
         <Card variant="outlined" sx={{ height: "100%" }}>
             <Grid
@@ -42,12 +45,12 @@ function ProfileCard({user}) {
 
                 <Grid container>
                     <Grid item xs={7}>
-                        {/* <Typography style={styles.details}>Dernière connexion</Typography> */}
-                        <Typography style={styles.details}>Nombre de cours</Typography>
+                        <Typography style={styles.details}>Membre depuis</Typography>
+                        {/* <Typography style={styles.details}>Nombre de cours</Typography> */}
                     </Grid>
                     <Grid item xs={5} sx={{ textAlign: "end" }}>
-                        {/* <Typography style={styles.value}>{moment(user.last_connection).format('DD/MM/YYYY')}</Typography> */}
-                        <Typography style={styles.value}>{user.courses.length}</Typography>
+                        <Typography style={styles.value}>{moment(user.createdAt).format('DD/MM/YYYY')}</Typography>
+                        {/* <Typography style={styles.value}>{publicCourses.length}</Typography> */}
                     </Grid>
                 </Grid>
 

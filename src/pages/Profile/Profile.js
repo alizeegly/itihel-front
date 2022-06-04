@@ -1,19 +1,18 @@
 import { Grid } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import LayoutSidebar from '../../layouts/LayoutSidebar'
 import ProfileCard from './ProfilCard'
 import SettingsCard from './SettingsCard'
 import { connect } from 'react-redux'
-import PropTypes from "prop-types"
 
 
-const Profile = ({ auth: { user } }) => {
-    console.log(user)
+const Profile = ({ auth: { user }, list: { publicCourses } }) => {
+
     return (
         <LayoutSidebar>
             {/* PROFILE CARD */}
             <Grid item lg={3} md={3}>
-                {user && <ProfileCard user={user}/>}
+                {user && publicCourses && <ProfileCard user={user} />}
             </Grid>
 
             {/* SETTINGS CARD */}
@@ -26,6 +25,7 @@ const Profile = ({ auth: { user } }) => {
 
 const mapStateToProps = (state) => ({
 	auth: state.auth,
+    list: state.list
 });
 
 export default connect(mapStateToProps)(Profile);

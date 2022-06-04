@@ -15,7 +15,7 @@ const MyCourses = (props) => {
         <>
             {
                 props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list.courses}/>
+                    <ListCourses list={props.list}/>
                 )
             }
         </>

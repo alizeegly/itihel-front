@@ -1,6 +1,5 @@
 import axios from "axios";
-import { GET_LIST, LIST_FAIL, SET_LIST } from "./types";
-import { setAlert } from "./alert";
+import { LIST_FAIL, SET_LIST, GET_PUBLIC_COURSES } from "./types";
 
 export const getCoursesOfUser = ( id ) => async (dispatch) => {
     const config = {
@@ -21,7 +20,6 @@ export const getCoursesOfUser = ( id ) => async (dispatch) => {
         })
 	}
 };
-
 
 export const getCoursesShared = ( id ) => async (dispatch) => {
     const config = {
@@ -57,6 +55,28 @@ export const getPublicCourses = () => async (dispatch) => {
         })
     } catch (err) {
 		dispatch( {
+            type: LIST_FAIL,
+            payload: console.log(err),
+        })
+	}
+};
+
+export const getPublicCoursesOfUser = ( id ) => async (dispatch) => {
+    const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+    try {
+        const res = await axios.get(`http://localhost:8800/api/users/${id}/courses/public`, config)
+        console.log(res.data)
+        dispatch( {
+            type: GET_PUBLIC_COURSES,
+            payload: res.data
+        })
+    } catch (err) {
+        console.log("error")
+        dispatch( {
             type: LIST_FAIL,
             payload: console.log(err),
         })

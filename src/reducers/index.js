@@ -6,5 +6,5 @@ import listReducers from './listReducers'
 export default combineReducers({
 	alert,
 	auth,
-	list: listReducers,
+	list: listReducers
 });

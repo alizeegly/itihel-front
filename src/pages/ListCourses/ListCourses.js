@@ -18,7 +18,7 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         padding: 35,
-        width: "350px",
+        width: "375px",
         zIndex: 1000
     },
     overlay: {zIndex: 1000}
@@ -48,9 +48,7 @@ const ListCourses = ({ list }) => {
         });
     };
 
-    const filteredPosts = filterPosts(list, query)
-
-    console.log(filteredPosts)
+    const filteredPosts = filterPosts(list.courses, query)
 
     return (
         <LayoutSidebar>
@@ -85,7 +83,7 @@ const ListCourses = ({ list }) => {
                 }}
             >
                 {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((course, index) => (
-                    <Grid item xs={12} md={4} key={index} height="400px">
+                    <Grid item xs={12} md={4} key={index} height="450px">
                         <Card sx={{ position: "relative", height: "100%" }}>
                             <CardMedia
                                 component="img"
@@ -107,7 +105,7 @@ const ListCourses = ({ list }) => {
                                         highlightStyle={{background: "yellow"}}
                                         searchWords={[searchQuery]}
                                         autoEscape={true}
-                                        textToHighlight={course.description.length > 100 ? course.description.substr(0, 100)+"..." : course.description}
+                                        textToHighlight={course.description.length > 250 ? course.description.substr(0, 250)+"..." : course.description}
                                     />
                                 </Typography>
                             </CardContent>

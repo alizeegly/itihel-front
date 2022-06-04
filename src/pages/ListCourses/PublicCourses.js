@@ -9,13 +9,13 @@ const PublicCourses = (props) => {
         if (props.list.courses.length <= 0) {
             props.getPublicCourses()
         }
-    }, [props.getPublicCourses]);
+    }, [props.auth, props.getPublicCourses]);
 
     return (
         <>
             {
                 props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list.courses}/>
+                    <ListCourses list={props.list} />
                 )
             }
         </>
