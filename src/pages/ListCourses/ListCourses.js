@@ -5,6 +5,9 @@ import SearchIcon from '@mui/icons-material/Search';
 import Highlighter from 'react-highlight-words'
 import Modal from 'react-modal'
 import Alert from '../../components/layout/Alert';
+import ProfileCard from '../Profile/ProfilCard';
+
+Modal.setAppElement('#root');
 
 const customStyles = {
     content: {
@@ -15,7 +18,7 @@ const customStyles = {
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
         padding: 35,
-        width: "40%",
+        width: "350px",
         zIndex: 1000
     },
     overlay: {zIndex: 1000}
@@ -119,7 +122,7 @@ const ListCourses = ({ list }) => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                {modalData}
+                <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
             </Modal>
         </LayoutSidebar>
     )

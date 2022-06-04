@@ -1,9 +1,7 @@
 import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
-import { Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
-import { connect } from 'react-redux';
-import PropTypes from "prop-types";
 
 
 const styles = {
@@ -24,8 +22,8 @@ const styles = {
   }
 };
 
-function ProfileCard({ auth: { user } }) {
-
+function ProfileCard({user}) {
+    console.log(user)
     return (
         <Card variant="outlined" sx={{ height: "100%" }}>
             <Grid
@@ -37,43 +35,35 @@ function ProfileCard({ auth: { user } }) {
                 <Grid item sx={{ p: "1.5rem 0rem" }}>
                     <Avatar
                         sx={{ width: 50, height: 50, mb: 15, margin: "0 auto" }}
-                    >{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
-                    <Typography variant="h5" sx={{ textAlign: "center", mt: 2 }}>{user && user.pseudo}</Typography>
+                    >{user.first_name[0]}{user.last_name[0]}</Avatar>
+                    <Typography variant="h5" sx={{ textAlign: "center", mt: 2 }}>{user.pseudo}</Typography>
                     <Typography color="text.secondary" sx={{ textAlign: "center" }}></Typography>
                 </Grid>
 
                 <Grid container>
-                    <Grid item xs={6}>
+                    <Grid item xs={7}>
                         {/* <Typography style={styles.details}>Dernière connexion</Typography> */}
                         <Typography style={styles.details}>Nombre de cours</Typography>
                     </Grid>
-                    <Grid item xs={6} sx={{ textAlign: "end" }}>
+                    <Grid item xs={5} sx={{ textAlign: "end" }}>
                         {/* <Typography style={styles.value}>{moment(user.last_connection).format('DD/MM/YYYY')}</Typography> */}
-                        <Typography style={styles.value}>{user && user.courses.length}</Typography>
+                        <Typography style={styles.value}>{user.courses.length}</Typography>
                     </Grid>
                 </Grid>
 
-                {/* <Grid item style={styles.details} sx={{ width: "100%" }}>
+                <Grid item style={styles.details} sx={{ width: "100%" }}>
                     <Button
                         color="secondary"
                         variant="outlined"
                         sx={{ width: "99%", p: 1, my: 2 }}
-                        href={"/public-courses?q=" + user && user.pseudo}
+                        href={"/public-courses?q=" + user.pseudo}
                     >
                         Voir les cours
                     </Button>
-                </Grid> */}
+                </Grid>
             </Grid>
         </Card>
     );
 }
 
-ProfileCard.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(ProfileCard);
+export default ProfileCard;
