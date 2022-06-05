@@ -1,1 +1,5 @@
 - Component menu dropdown
+- Page course
+- Page paramètre
+- Delete course
+- breadcrumbs sur toutes les pages
