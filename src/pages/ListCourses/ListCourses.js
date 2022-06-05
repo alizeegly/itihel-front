@@ -4,8 +4,10 @@ import LayoutSidebar from '../../layouts/LayoutSidebar'
 import SearchIcon from '@mui/icons-material/Search';
 import Highlighter from 'react-highlight-words'
 import Modal from 'react-modal'
-import Alert from '../../components/layout/Alert';
 import ProfileCard from '../Profile/ProfilCard';
+import CreateCourse from '../../components/Modal/CreateCourse';
+import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 Modal.setAppElement('#root');
 
@@ -24,7 +26,7 @@ const customStyles = {
     overlay: {zIndex: 1000}
 };
 
-const ListCourses = ({ list }) => {
+const ListCourses = ({ list, course: {course} }) => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
@@ -41,8 +43,8 @@ const ListCourses = ({ list }) => {
         }
     
         return posts.filter((post) => {
-            const postName = post.title.toLowerCase()
-            const description = post.description.toLowerCase()
+            const postName = post.title ? post.title.toLowerCase() : ""
+            const description = post.description ? post.description.toLowerCase() : ""
             const pseudo = post.owner_id && post.owner_id.pseudo ? post.owner_id.pseudo.toLowerCase() : ""
             return postName.includes(query) || description.includes(query) || pseudo.includes(query)
         });
@@ -50,28 +52,43 @@ const ListCourses = ({ list }) => {
 
     const filteredPosts = filterPosts(list.courses, query)
 
+    if (course && course._id) {
+		return <Redirect to={"/courses/" + course._id} />;
+	}
+
     return (
         <LayoutSidebar>
-            <Alert/>
-            <Box component="form" sx={{ width: "50%", margin: "0 auto", display: "flex", justifyContent: "space-between"}}>
-                <TextField
-                    type="search"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="input"
-                    placeholder="Rechercher"
-                    name="q"
-                    sx={{
-                        outline: "none",
-                        pl: 1,
-                        width: "80%"
-                    }}
-                    InputProps={{
-                        startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
-                    }}
-                />
-                <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
-            </Box>
+            <Grid 
+                container 
+                columns={12} 
+                sx={{ 
+                    px: { xs: 0, md: 7 }
+                }}
+                direction={{xs: "column", md: "row"}}
+                alignItems="center"
+                justifyContent="center"
+            >
+                <Grid item md={7}>
+                    <Box component="form" sx={{ margin: "0 auto", display: "flex"}}>
+                        <TextField
+                            type="search"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="input"
+                            placeholder="Rechercher"
+                            name="q"
+                            sx={{
+                                outline: "none",
+                                width: "80%"
+                            }}
+                            InputProps={{
+                                startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
+                            }}
+                        />
+                        <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
+                    </Box>
+                </Grid>
+            </Grid>
             <Grid
                 container
                 columns={12}
@@ -137,8 +154,15 @@ const ListCourses = ({ list }) => {
             >
                 <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
             </Modal>
+            <CreateCourse/>
         </LayoutSidebar>
     )
 }
 
-export default ListCourses
+const mapStateToProps  = (state) => {
+    return ({
+        course: state.course,
+    })
+}
+
+export default connect(mapStateToProps)(ListCourses);

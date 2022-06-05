@@ -20,5 +20,5 @@ export {
     CGU,
     MyCourses,
     PublicCourses,
-    SharedCourses
+    SharedCourses,
 }

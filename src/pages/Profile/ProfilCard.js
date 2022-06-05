@@ -25,7 +25,6 @@ const styles = {
 };
 
 function ProfileCard({user}) {
-    console.log(user)
     
     return (
         <Card variant="outlined" sx={{ height: "100%" }}>

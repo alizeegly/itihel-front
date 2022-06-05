@@ -10,6 +10,7 @@ import {
   SharedCourses,
   PublicCourses
 } from "../pages";
+import Course from "../pages_OLD/Course/Course";
 
 export default {
   routes: [
@@ -57,6 +58,11 @@ export default {
       component: CGU,
       path: "/cgu",
       isAuthenticated: false,
+    },
+    {
+      component: Course,
+      path: "/courses/:id",
+      isAuthenticated: true,
     },
 
 

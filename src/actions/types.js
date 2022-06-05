@@ -15,3 +15,6 @@ export const UPDATE_FAIL = "UPDATE_FAIL";
 export const GET_PUBLIC_COURSES = 'GET_PUBLIC_COURSES';
 export const SET_LIST = 'SET_LIST';
 export const LIST_FAIL = 'LIST_FAIL';
+
+export const ADD_COURSE_SUCCESS = 'ADD_COURSE_SUCCESS';
+export const ADD_COURSE_FAIL = 'ADD_COURSE_FAIL';

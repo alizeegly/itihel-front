@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAlert } from "./alert";
+import { setAlert } from "./alertActions";
 import {
 	REGISTER_SUCCESS,
 	REGISTER_FAIL,
@@ -20,7 +20,7 @@ export const loadUser = () => async (dispatch) => {
 	}
 
 	try {
-		const res = await axios.get("http://localhost:8800/api/users/auth");
+		const res = await axios.get("http://localhost:8800/api/auth/auth");
 
 		dispatch({
 			type: USER_LOADED,
@@ -45,7 +45,7 @@ export const register = ({ first_name, last_name, pseudo, email, password }) => 
 
 	try {
 		const res = await axios.post(
-			"http://localhost:8800/api/users/register",
+			"http://localhost:8800/api/auth/register",
 			body,
 			config
 		);
@@ -81,7 +81,7 @@ export const login = (email, password) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			"http://localhost:8800/api/users/login",
+			"http://localhost:8800/api/auth/login",
 			body,
 			config
 		);

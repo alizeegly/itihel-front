@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
-import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
+import SidebarCourseComponent from '../../components_OLD/SidebarCourse/SidebarCourse'
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { EditorState } from 'draft-js';
@@ -14,7 +14,6 @@ import { Box } from '@mui/system'
 import { Button, Grid, Stack, Toolbar, Typography } from '@mui/material'
 import { BrowserView } from 'react-device-detect'
 import Papers from '../../components/Papers/Papers'
-import NavbarCourse from '../../components/Navbar/NavbarCourse'
 import HeaderCourse from './HeaderCourse'
 import FlipCard from './FlipCards/FlipCard'
 import {Carousel} from '3d-react-carousal';
@@ -26,7 +25,7 @@ const drawerWidth = 240;
 
 
 const Course = () => {
-    const navigate = useNavigate()
+    
     const { session, saveJWT, clear } = useSession('itihel')
     const location = useLocation()
     const [course, setCourse] = useState({})
@@ -133,7 +132,6 @@ const Course = () => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <NavbarCourse/>
 
                 <HeaderCourse course={course}/>
 

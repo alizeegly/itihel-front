@@ -5,14 +5,15 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { MobileView } from 'react-device-detect';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { logout } from "../../actions/auth";
-
+import { logout } from "../../actions/authActions";
+import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
 const Sidebar = ({ window, auth: { user }, logout }) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [anchorEl, setAnchorElUser] = React.useState(null);
+    const path = useLocation().pathname
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -24,7 +25,7 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
-    
+
     const drawer = (
         <div style={{
             display: "flex",
@@ -40,13 +41,13 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                 </ListItem>
             </List>
             <List>
-                <ListItemButton component='a' href={"/courses"}>
+                <ListItemButton component='a' href={"/courses"} sx={{ background: path === "/courses" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Mes cours" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"/shared-courses"}>
+                <ListItemButton component='a' href={"/shared-courses"} sx={{ background: path === "/shared-courses" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Partagé avec moi" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"/public-courses"}>
+                <ListItemButton component='a' href={"/public-courses"} sx={{ background: path === "/public-courses" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Cours publics" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
             </List>

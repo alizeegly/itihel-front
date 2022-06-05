@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { logout } from "../../actions/auth";
+import { logout } from "../../actions/authActions";
 import { AppBar, Box, Button, Container, Divider, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
 import IconButton from '@mui/material/IconButton';
 import Avatar from '@mui/material/Avatar';
@@ -24,6 +24,9 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 		<>
 			<Box sx={{ flexGrow: 1, display: "flex" }}>
 				<Button href="/dashboard" sx={styleButton}>Tableau de bord</Button>
+				<Button href="/courses" sx={styleButton}>Mes cours</Button>
+				<Button href="/shared-courses" sx={styleButton}>Partagés avec moi</Button>
+				<Button href="/public-courses" sx={styleButton}>Cours publics</Button>
 			</Box>
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Ouvrir les paramètres">

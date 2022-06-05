@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import ListCourses from './ListCourses';
-import { getCoursesShared } from '../../actions/list';
+import { getCoursesShared } from '../../actions/listActions';
 
 const SharedCourses = (props) => {
 

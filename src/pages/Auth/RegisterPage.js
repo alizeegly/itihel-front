@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { register } from "../../actions/auth";
+import { register } from "../../actions/authActions";
 import PropTypes from "prop-types";
-import { setAlert } from "../../actions/alert";
+import { setAlert } from "../../actions/alertActions";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import LayoutAuth from "./LayoutAuth";
 
