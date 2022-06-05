@@ -1,8 +1,12 @@
-import { Avatar, Card, CardActions, CardContent, CardMedia, Button, IconButton, Tooltip, Typography, Chip, Stack } from '@mui/material';
+import { Avatar, Card, CardActions, CardContent, CardMedia, Button, IconButton, Tooltip, Typography, Chip, Stack, Fab } from '@mui/material';
 import React from 'react'
 import Highlighter from 'react-highlight-words';
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
+import { useLocation } from 'react-router-dom';
 
 const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
+    const path = useLocation().pathname
+
     return (
         <Card sx={{ position: "relative", height: "100%" }}>
             <CardMedia
@@ -45,7 +49,7 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                         course.is_public ? (
                             <Chip label="Public" color="success" size="small" />
                         ) : (        
-                            <Chip label="Privé" color="error" size="small" />
+                            <Chip label="Privé" color="warning" size="small" />
                         )
                     }
                 </Stack>
@@ -56,6 +60,24 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                     color='info'
                 >Voir le cours</Button>
             </CardActions>
+
+            {
+                path === "/courses" ? (
+                    <Tooltip title="Supprimer un cours">
+                        <Fab
+                            sx={{
+                                position: "absolute",
+                                top: 0,
+                                right: 0
+                            }}
+                            color="error"
+                            size="small"
+                        >
+                            <DeleteRoundedIcon />
+                        </Fab>
+                    </Tooltip>
+                ) : null
+            }
         </Card>
     )
 }
