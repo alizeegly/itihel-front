@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, TextField, Tooltip, Typography } from '@mui/material'
+import { Grid } from '@mui/material'
 import LayoutSidebar from '../../layouts/LayoutSidebar'
-import SearchIcon from '@mui/icons-material/Search';
-import Highlighter from 'react-highlight-words'
 import Modal from 'react-modal'
 import ProfileCard from '../Profile/ProfilCard';
 import CreateCourse from '../../components/Modal/CreateCourse';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import CourseCard from '../../components/Courses/CourseCard';
+import SearchBar from '../../components/Courses/SearchBar';
 
 Modal.setAppElement('#root');
 
@@ -52,7 +52,6 @@ const ListCourses = ({ list, course: {course} }) => {
 
     const filteredPosts = filterPosts(list.courses, query)
 
-    console.log(filteredPosts)
     if (course && course._id) {
 		return <Redirect to={"/courses/" + course._id} />;
 	}
@@ -70,24 +69,7 @@ const ListCourses = ({ list, course: {course} }) => {
                 justifyContent="center"
             >
                 <Grid item md={7}>
-                    <Box component="form" sx={{ margin: "0 auto", display: "flex"}}>
-                        <TextField
-                            type="search"
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="input"
-                            placeholder="Rechercher"
-                            name="q"
-                            sx={{
-                                outline: "none",
-                                width: "80%"
-                            }}
-                            InputProps={{
-                                startAdornment: <SearchIcon color="light" sx={{ pr: 1, width: 35, height: 35 }}/>
-                            }}
-                        />
-                        <Button type="submit" color="primary" variant="outlined">Rechercher</Button>
-                    </Box>
+                    <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
                 </Grid>
             </Grid>
             <Grid
@@ -101,50 +83,7 @@ const ListCourses = ({ list, course: {course} }) => {
                 }}
             >
                 {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
-                    <Grid item xs={12} md={4} key={index} height="450px">
-                        <Card sx={{ position: "relative", height: "100%" }}>
-                            <CardMedia
-                                component="img"
-                                height="140"
-                                image={"https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
-                                alt={filterCourse.title}
-                            />
-                            <CardContent sx={{mb: 7}}>
-                                <Typography gutterBottom variant="h5" component="div">
-                                    <Highlighter
-                                        highlightStyle={{background: "yellow"}}
-                                        searchWords={[searchQuery]}
-                                        autoEscape={true}
-                                        textToHighlight={filterCourse.title}
-                                    />
-                                </Typography>
-                                <Typography variant="body2" color="text.secondary">
-                                    <Highlighter
-                                        highlightStyle={{background: "yellow"}}
-                                        searchWords={[searchQuery]}
-                                        autoEscape={true}
-                                        textToHighlight={filterCourse.description.length > 250 ? filterCourse.description.substr(0, 250)+"..." : filterCourse.description}
-                                    />
-                                </Typography>
-                            </CardContent>
-                            <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
-                                <Tooltip title="Voir le profil">
-                                    <IconButton onClick={()=> {
-                                        setModalData(filterCourse);
-                                        setIsOpen(true);
-                                    }}>
-                                        <Avatar>
-                                            {filterCourse && filterCourse.owner_id && filterCourse.owner_id.first_name[0]+filterCourse.owner_id.last_name[0]}
-                                        </Avatar>
-                                    </IconButton>
-                                </Tooltip>
-                                <Button
-                                    size="small" 
-                                    href={"/courses/" + filterCourse._id}
-                                >Voir le cours</Button>
-                            </CardActions>
-                        </Card>
-                    </Grid>
+                    <CourseCard key={index} course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
                 ))}
             </Grid>
             <Modal
