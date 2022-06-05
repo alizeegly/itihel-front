@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import ListCourses from './ListCourses';
-import { getPublicCourses } from '../../redux/actions/listActions';
+import { getCoursesShared } from '../../redux/actions/listActions';
 
-const PublicCourses = (props) => {
-    
+const SharedCoursesPage = (props) => {
+
     useEffect(() => {
-        if (props.list.courses.length <= 0) {
-            props.getPublicCourses()
+        if (props.auth && props.auth.user && props.auth.user._id && props.list.courses.length <= 0) {
+            props.getCoursesShared(props.auth.user._id)
         }
-    }, [props.auth, props.getPublicCourses]);
+    }, [props, props.auth, props.getCoursesShared]);
 
     return (
         <>
@@ -29,4 +29,4 @@ const mapStateToProps  = (state) => {
     })
 }
 
-export default connect(mapStateToProps, {getPublicCourses})(PublicCourses);
+export default connect(mapStateToProps, {getCoursesShared})(SharedCoursesPage);

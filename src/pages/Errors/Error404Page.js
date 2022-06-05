@@ -3,7 +3,7 @@ import "./NotFound.scss"
 import lottie from 'lottie-web'
 import {Navbar} from '../../components';
 
-function NotFound() {
+function Error404Page() {
     
     const container = useRef(null)
 
@@ -29,4 +29,4 @@ function NotFound() {
     )
 }
 
-export default NotFound;
+export default Error404Page;

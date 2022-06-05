@@ -1,24 +1,26 @@
-import Landing from "./Landing/Landing"
-import Dashboard from "./Dashboard/Dashboard"
-import Profile from "./Profile/Profile"
+import LandingPage from "./Landing/LandingPage"
+import DashboardPage from "./Dashboard/DashboardPage"
+import ProfilePage from "./Profile/ProfilePage"
 import LoginPage from "./Auth/LoginPage"
 import RegisterPage from "./Auth/RegisterPage"
-import NotFound from "./Errors/NotFound"
+import Error404Page from "./Errors/Error404Page"
 import CGU from "./CGU/CGU"
-import MyCourses from "./ListCourses/MyCourses"
-import PublicCourses from "./ListCourses/PublicCourses"
-import SharedCourses from "./ListCourses/SharedCourses"
+import MyCoursesPage from "./ListCourses/MyCoursesPage"
+import PublicCoursesPage from "./ListCourses/PublicCoursesPage"
+import SharedCoursesPage from "./ListCourses/SharedCoursesPage"
+import CoursePage from "./Course/CoursePage"
 
 
 export {
-    Landing,
-    Dashboard,
-    Profile,
+    LandingPage,
+    DashboardPage,
+    ProfilePage,
     LoginPage,
     RegisterPage, 
-    NotFound,
+    Error404Page,
     CGU,
-    MyCourses,
-    PublicCourses,
-    SharedCourses,
+    MyCoursesPage,
+    PublicCoursesPage,
+    SharedCoursesPage,
+    CoursePage
 }

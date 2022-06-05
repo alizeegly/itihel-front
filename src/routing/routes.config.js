@@ -1,21 +1,21 @@
 import { 
-  Dashboard, 
-  Landing, 
-  Profile,
+  DashboardPage, 
+  LandingPage, 
+  ProfilePage,
   LoginPage,
   RegisterPage,
-  NotFound,
-  MyCourses,
+  Error404Page,
+  MyCoursesPage,
   CGU,
-  SharedCourses,
-  PublicCourses
+  SharedCoursesPage,
+  PublicCoursesPage,
+  CoursePage
 } from "../pages";
-import Course from "../pages_OLD/Course/Course";
 
 export default {
   routes: [
     {
-      component: Landing,
+      component: LandingPage,
       path: '/',
       isAuthenticated: false,
     },
@@ -30,27 +30,27 @@ export default {
       isAuthenticated: false,
     },
     {
-      component: Dashboard,
+      component: DashboardPage,
       path: "/dashboard",
       isAuthenticated: true,
     },
     {
-      component: Profile,
+      component: ProfilePage,
       path: "/profile",
       isAuthenticated: true,
     },
     {
-      component: MyCourses,
+      component: MyCoursesPage,
       path: "/courses",
       isAuthenticated: true,
     },
     {
-      component: SharedCourses,
+      component: SharedCoursesPage,
       path: "/shared-courses",
       isAuthenticated: true,
     },
     {
-      component: PublicCourses,
+      component: PublicCoursesPage,
       path: "/public-courses",
       isAuthenticated: true,
     },
@@ -60,7 +60,7 @@ export default {
       isAuthenticated: false,
     },
     {
-      component: Course,
+      component: CoursePage,
       path: "/courses/:id",
       isAuthenticated: true,
     },
@@ -68,7 +68,7 @@ export default {
 
     // A laisser en dernier
     {
-      component: NotFound,
+      component: Error404Page,
       path: "",
       isAuthenticated: false,
     },

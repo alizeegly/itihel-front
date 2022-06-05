@@ -51,7 +51,7 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                 </Stack>
                 <Button
                     size="small" 
-                    to={"/courses/" + course._id}
+                    href={"/courses/" + course._id}
                     variant="outlined"
                     color='info'
                 >Voir le cours</Button>

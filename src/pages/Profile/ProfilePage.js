@@ -5,7 +5,7 @@ import { SettingsCard, ProfileCard } from '../../components'
 import { connect } from 'react-redux'
 
 
-const Profile = ({ auth: { user }, list: { publicCourses } }) => {
+const ProfilePage = ({ auth: { user }, list: { publicCourses } }) => {
 
     return (
         <LayoutSidebar>
@@ -27,4 +27,4 @@ const mapStateToProps = (state) => ({
     list: state.list
 });
 
-export default connect(mapStateToProps)(Profile);
+export default connect(mapStateToProps)(ProfilePage);

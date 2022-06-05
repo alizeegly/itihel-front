@@ -8,7 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 
-function Landing({ isAuthenticated }) {
+function LandingPage({ isAuthenticated }) {
     const container = useRef(null)
 
     useEffect (() => {
@@ -150,7 +150,7 @@ function Landing({ isAuthenticated }) {
     )
 }
 
-Landing.propTypes = {
+LandingPage.propTypes = {
 	isAuthenticated: PropTypes.bool,
 };
 
@@ -158,4 +158,4 @@ const mapStateToProps = (state) => ({
 	isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps)(Landing);
+export default connect(mapStateToProps)(LandingPage);
