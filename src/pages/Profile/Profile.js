@@ -1,8 +1,7 @@
 import { Grid } from '@mui/material'
 import React, { useEffect } from 'react'
 import LayoutSidebar from '../../layouts/LayoutSidebar'
-import ProfileCard from './ProfilCard'
-import SettingsCard from './SettingsCard'
+import { SettingsCard, ProfileCard } from '../../components'
 import { connect } from 'react-redux'
 
 

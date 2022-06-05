@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import lottie from 'lottie-web';
 import "./home.scss";
 import { Button, TextField, Box, Container, Paper } from '@mui/material'
-import Navbar from '../../components/Navbar/Navbar';
+import {Navbar} from '../../components';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';

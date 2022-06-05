@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Navbar from "../../components/Navbar/Navbar";
+import { Navbar } from "../../components"
 
 const Dashboard = ({ auth: { user } }) => {
 	console.log(user)

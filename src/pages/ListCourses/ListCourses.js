@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import { Grid } from '@mui/material'
 import LayoutSidebar from '../../layouts/LayoutSidebar'
 import Modal from 'react-modal'
-import ProfileCard from '../Profile/ProfilCard';
-import CreateCourse from '../../components/Modal/CreateCourse';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import CourseCard from '../../components/Courses/CourseCard';
-import SearchBar from '../../components/Courses/SearchBar';
+import { CourseCard, CreateCourse, SearchBar, ProfileCard } from '../../components';
 
 Modal.setAppElement('#root');
 

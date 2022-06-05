@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import "./NotFound.scss"
 import lottie from 'lottie-web'
-import Navbar from '../../components/Navbar/Navbar';
+import {Navbar} from '../../components';
 
 function NotFound() {
     
