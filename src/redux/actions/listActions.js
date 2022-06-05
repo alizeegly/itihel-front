@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setAlert } from "./alertActions";
 import { LIST_FAIL, SET_LIST, GET_PUBLIC_COURSES, ADD_COURSE_SUCCESS, ADD_COURSE_FAIL } from "./types";
 
 export const getCoursesOfUser = ( id ) => async (dispatch) => {

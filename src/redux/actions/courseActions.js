@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 import { setAlert } from "./alertActions";
 import { ADD_COURSE_SUCCESS, ADD_COURSE_FAIL } from "./types";
 
@@ -10,8 +9,6 @@ export const addCourse = ( course ) => async (dispatch) => {
 			"Content-Type": "application/json",
 		},
 	};
-
-	// const body = JSON.stringify(course);
 
 	try {
 		const res = await axios.post(

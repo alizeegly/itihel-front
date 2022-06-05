@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import ListCourses from './ListCourses';
-import { getCoursesShared } from '../../actions/listActions';
+import { getCoursesShared } from '../../redux/actions/listActions';
 
 const SharedCourses = (props) => {
 
@@ -15,7 +15,7 @@ const SharedCourses = (props) => {
         <>
             {
                 props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list}/>
+                    <ListCourses list={props.list} />
                 )
             }
         </>

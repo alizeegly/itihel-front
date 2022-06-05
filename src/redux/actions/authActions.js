@@ -11,7 +11,7 @@ import {
 	UPDATE_SUCCESS,
 	UPDATE_FAIL,
 } from "./types";
-import setAuthToken from "../redux/setAuthToken";
+import setAuthToken from "../setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {

@@ -5,7 +5,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { MobileView } from 'react-device-detect';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { logout } from "../../actions/authActions";
+import { logout } from "../../redux/actions/authActions";
 import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;

@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
-import alert from "./alert";
-import auth from "./auth";
+import alertReducers from "./alertReducers";
+import authReducers from "./authReducers";
 import courseReducers from "./courseReducers";
 import listReducers from './listReducers'
 
 export default combineReducers({
-	alert,
-	auth,
+	alert: alertReducers,
+	auth: authReducers,
 	list: listReducers,
 	course: courseReducers
 });

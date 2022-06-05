@@ -52,6 +52,7 @@ const ListCourses = ({ list, course: {course} }) => {
 
     const filteredPosts = filterPosts(list.courses, query)
 
+    console.log(filteredPosts)
     if (course && course._id) {
 		return <Redirect to={"/courses/" + course._id} />;
 	}
@@ -99,14 +100,14 @@ const ListCourses = ({ list, course: {course} }) => {
                     mt: 3
                 }}
             >
-                {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((course, index) => (
+                {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
                     <Grid item xs={12} md={4} key={index} height="450px">
                         <Card sx={{ position: "relative", height: "100%" }}>
                             <CardMedia
                                 component="img"
                                 height="140"
                                 image={"https://image.freepik.com/free-photo/river-foggy-mountains-landscape_1204-511.jpg"}
-                                alt={"course.title"}
+                                alt={filterCourse.title}
                             />
                             <CardContent sx={{mb: 7}}>
                                 <Typography gutterBottom variant="h5" component="div">
@@ -114,7 +115,7 @@ const ListCourses = ({ list, course: {course} }) => {
                                         highlightStyle={{background: "yellow"}}
                                         searchWords={[searchQuery]}
                                         autoEscape={true}
-                                        textToHighlight={course.title}
+                                        textToHighlight={filterCourse.title}
                                     />
                                 </Typography>
                                 <Typography variant="body2" color="text.secondary">
@@ -122,24 +123,24 @@ const ListCourses = ({ list, course: {course} }) => {
                                         highlightStyle={{background: "yellow"}}
                                         searchWords={[searchQuery]}
                                         autoEscape={true}
-                                        textToHighlight={course.description.length > 250 ? course.description.substr(0, 250)+"..." : course.description}
+                                        textToHighlight={filterCourse.description.length > 250 ? filterCourse.description.substr(0, 250)+"..." : filterCourse.description}
                                     />
                                 </Typography>
                             </CardContent>
                             <CardActions sx={{ position: "absolute", bottom: 0, left: 0, display: "flex", justifyContent: "space-between", width: "100%" }}>
                                 <Tooltip title="Voir le profil">
                                     <IconButton onClick={()=> {
-                                        setModalData(course);
+                                        setModalData(filterCourse);
                                         setIsOpen(true);
                                     }}>
                                         <Avatar>
-                                            {course && course.owner_id && course.owner_id.first_name[0]+course.owner_id.last_name[0]}
+                                            {filterCourse && filterCourse.owner_id && filterCourse.owner_id.first_name[0]+filterCourse.owner_id.last_name[0]}
                                         </Avatar>
                                     </IconButton>
                                 </Tooltip>
                                 <Button
                                     size="small" 
-                                    href={"/courses/" + course._id}
+                                    href={"/courses/" + filterCourse._id}
                                 >Voir le cours</Button>
                             </CardActions>
                         </Card>

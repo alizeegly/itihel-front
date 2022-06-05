@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "../../actions/authActions";
+import { login } from "../../redux/actions/authActions";
 import LayoutAuth from "./LayoutAuth";
 import { Box, Button, TextField, Typography } from "@mui/material";
 

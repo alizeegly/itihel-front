@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { updateUser } from "../../actions/authActions";
+import { updateUser } from "../../redux/actions/authActions";
 
 function SettingsCard({ auth: { user } }) {
     const [userState, setUserState] = useState(user)

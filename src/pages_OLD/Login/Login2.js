@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import "./login.scss"
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -11,15 +11,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Alert, AppBar, IconButton, Toolbar } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 import store from '../../redux/store';
-import { login } from '../../actions/authActions'
-import { buttonClicked } from "../../actions/uiActions";
-import { logout } from '../../actions/authActions';
+import { login, logout } from '../../redux/actions/authActions';
 import AlertHandler from '../../components/Alert/AlertHandler';
 import { connect } from 'react-redux';
-import { Navigate, Redirect } from 'react-router-dom';
-import CloseIcon from '@mui/icons-material/Close';
+import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 
 

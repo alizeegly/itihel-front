@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
-import { register } from "../../actions/authActions";
+import { register } from "../../redux/actions/authActions";
 import PropTypes from "prop-types";
 
 const Register = ({ register, isAuthenticated }) => {
