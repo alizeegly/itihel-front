@@ -45,7 +45,7 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                     <ListItemText primary="Mes cours" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
                 <ListItemButton component='a' href={"/shared-courses"} sx={{ background: path === "/shared-courses" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
-                    <ListItemText primary="Partagé avec moi" primaryTypographyProps={{fontSize: '18px'}} />
+                    <ListItemText primary="Partagés avec moi" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
                 <ListItemButton component='a' href={"/public-courses"} sx={{ background: path === "/public-courses" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Cours publics" primaryTypographyProps={{fontSize: '18px'}} />

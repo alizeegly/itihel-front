@@ -83,7 +83,9 @@ const ListCourses = ({ list, course: {course} }) => {
                 }}
             >
                 {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
-                    <CourseCard key={index} course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
+                    <Grid item xs={12} md={4} height="450px">
+                        <CourseCard key={index} course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
+                    </Grid>
                 ))}
             </Grid>
             <Modal
