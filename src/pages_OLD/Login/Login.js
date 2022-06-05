@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../redux/actions/authActions";
-import Alert from "../../components/layout/Alert";
+import Alert from "../../components/Alert/Alert";
 
 const Login = ({ login, isAuthenticated }) => {
 	const [formData, setFormData] = useState({

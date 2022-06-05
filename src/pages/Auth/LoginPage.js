@@ -3,7 +3,7 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../redux/actions/authActions";
-import LayoutAuth from "./LayoutAuth";
+import LayoutAuth from "../../layouts/LayoutAuth";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 const LoginPage = ({ login, isAuthenticated }) => {

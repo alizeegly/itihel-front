@@ -5,7 +5,7 @@ import { register } from "../../redux/actions/authActions";
 import PropTypes from "prop-types";
 import { setAlert } from "../../redux/actions/alertActions";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
-import LayoutAuth from "./LayoutAuth";
+import LayoutAuth from "../../layouts/LayoutAuth";
 
 const Register = ({ setAlert, register, isAuthenticated }) => {
 	const [formData, setFormData] = useState({

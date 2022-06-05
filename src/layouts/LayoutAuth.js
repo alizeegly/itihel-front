@@ -1,8 +1,8 @@
 import React from 'react'
 import { Avatar, Box, Container, Typography } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Alert from '../../components/layout/Alert';
-import Navbar from '../../components/Navbar/Navbar';
+import Alert from '../components/Alert/Alert';
+import Navbar from '../components/Navbar/Navbar';
 import { cyan } from '@mui/material/colors';
 
 const bg = cyan[50]

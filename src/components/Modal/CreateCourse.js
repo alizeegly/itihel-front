@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
 import { Box, Button, Fab, TextField, Tooltip, Typography } from '@mui/material'
-import Alert from '../../components/layout/Alert';
+import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
 import { addCourse } from '../../redux/actions/courseActions';
 import { connect } from 'react-redux';
