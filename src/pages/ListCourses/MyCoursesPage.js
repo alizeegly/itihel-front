@@ -15,7 +15,7 @@ const MyCoursesPage = (props) => {
         <>
             {
                 props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list}/>
+                    <ListCourses list={props.list} title="Mes Cours"/>
                 )
             }
         </>

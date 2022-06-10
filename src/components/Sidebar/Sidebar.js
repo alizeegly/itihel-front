@@ -2,6 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom';
 import { AppBar, Avatar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemText, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { MobileView } from 'react-device-detect';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
@@ -10,10 +11,11 @@ import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-const Sidebar = ({ window, auth: { user }, logout }) => {
+const Sidebar = ({ window, auth: { user }, logout, course = null, title }) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [anchorEl, setAnchorElUser] = React.useState(null);
     const path = useLocation().pathname
+    const hash = useLocation().hash
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -84,6 +86,40 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
         </div>
     );
 
+    const drawerCourse = (
+        <div style={{
+            display: "flex",
+            justifyContent: "space-between", 
+            flexDirection: "column",
+            height: "90vh"
+        }}>
+            <List>
+                <ListItem button  component='a' href={"/"}>
+                    <Typography variant="h3"  component="h1">
+                        Itihel
+                    </Typography>
+                </ListItem>
+            </List>
+            <List>
+                <ListItemButton component='a' href={"#prise-de-notes"} sx={{ background: hash === "#prise-de-notes" || hash === null ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                    <ListItemText primary="Prise de notes" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
+                <ListItemButton component='a' href={"#flip-cards"} sx={{ background: hash === "#flip-cards" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                    <ListItemText primary="Flip cards" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
+                <ListItemButton component='a' href={"#quiz"} sx={{ background: hash === "#quiz" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                    <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
+            </List>
+            <List>
+                <ListItemButton component='a' href={course ? "/courses/" + course._id + "/parameters" : null} sx={{ background: hash === "#quiz" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                    <SettingsIcon sx={{ mr: 1 }}/>
+                    <ListItemText primary="Paramètres" primaryTypographyProps={{fontSize: '18px'}} />
+                </ListItemButton>
+            </List>
+        </div>
+    );
+
     const container = window !== undefined ? () => window().document.body : undefined;
     
     return (
@@ -109,7 +145,7 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                             <MenuIcon color="primary" />
                         </IconButton>
                         <Typography variant="h6" component="div" color="secondary" sx={{ flexGrow: 1 }}>
-                            Mon compte
+                            {title}
                         </Typography>
                     </Toolbar>
                 </AppBar>
@@ -132,7 +168,9 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                         '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
                     }}
                 >
-                    {drawer}
+                    {
+                        course ? drawerCourse : drawer
+                    }
                 </Drawer>
                 <Drawer
                     variant="permanent"
@@ -143,7 +181,9 @@ const Sidebar = ({ window, auth: { user }, logout }) => {
                     }}
                     open
                 >
-                    {drawer}
+                    {
+                        course ? drawerCourse : drawer
+                    }
                 </Drawer>
             </Box>
         </>

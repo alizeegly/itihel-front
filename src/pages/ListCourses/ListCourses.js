@@ -23,7 +23,7 @@ const customStyles = {
     overlay: {zIndex: 1000}
 };
 
-const ListCourses = ({ list, course: {course} }) => {
+const ListCourses = ({ title, list, course: {course}, loading }) => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
@@ -34,7 +34,7 @@ const ListCourses = ({ list, course: {course} }) => {
         setIsOpen(false)
     }
 
-    const filterPosts = (posts, query) => {
+    const filterPosts = (posts, query, title) => {
         if (!query) {
             return posts;
         }
@@ -54,7 +54,7 @@ const ListCourses = ({ list, course: {course} }) => {
 	}
 
     return (
-        <LayoutSidebar>
+        <LayoutSidebar title={title}>
             <Grid 
                 container 
                 columns={12} 
@@ -79,11 +79,15 @@ const ListCourses = ({ list, course: {course} }) => {
                     mt: 3
                 }}
             >
-                {filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
-                    <Grid item xs={12} md={4} height="450px">
-                        <CourseCard key={index} course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
-                    </Grid>
-                ))}
+                {
+                    loading ? (
+                        <p>...</p>
+                    ) : filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
+                        <Grid item xs={12} md={4} height="450px" key={index}>
+                            <CourseCard course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
+                        </Grid>
+                    ))
+                }
             </Grid>
             <Modal
                 isOpen={modalIsOpen}
@@ -101,6 +105,7 @@ const ListCourses = ({ list, course: {course} }) => {
 const mapStateToProps  = (state) => {
     return ({
         course: state.course,
+        loading: state.auth.loading
     })
 }
 

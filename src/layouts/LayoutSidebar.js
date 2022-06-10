@@ -6,11 +6,11 @@ import Sidebar from '../components/Sidebar/Sidebar'
 
 const drawerWidth = 240;
 
-const LayoutSidebar = ({children}) => {
+const LayoutSidebar = ({title, children}) => {
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflow: "hidden" }}>
-            <Sidebar/>
+            <Sidebar title={title} />
             <Box
                 component="main"
                 sx={{ 

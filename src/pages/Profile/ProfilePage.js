@@ -8,7 +8,7 @@ import { connect } from 'react-redux'
 const ProfilePage = ({ auth: { user }, list: { publicCourses } }) => {
 
     return (
-        <LayoutSidebar>
+        <LayoutSidebar title="Mon profil">
             {/* PROFILE CARD */}
             <Grid item lg={3} md={3}>
                 {user && publicCourses && <ProfileCard user={user} />}
