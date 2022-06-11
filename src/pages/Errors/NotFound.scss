@@ -2,18 +2,23 @@
   height: 400px;
 }
 
-.redirections-404 {
+.redirection-404 {
   display: flex;
-  margin: auto;
-  justify-content: space-between;
-  width: 900px;
+  align-items: center;
+  flex-direction: column;
+
+  .redirection-404-buttons {
+    a {
+      margin: 0 25px;
+    }
+  }
 }
 
-.link-404 {
-  font-size: 30px;
-  color: #95DDDC;
-}
-
-.link-404 a:visited {
-  color: #95DDDC;
-}
+//.link-404 {
+//  font-size: 30px;
+//  color: #95DDDC;
+//}
+//
+//.link-404 a:visited {
+//  color: #95DDDC;
+//}
