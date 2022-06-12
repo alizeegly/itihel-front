@@ -60,24 +60,6 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                     color='info'
                 >Voir le cours</Button>
             </CardActions>
-
-            {
-                path === "/courses" ? (
-                    <Tooltip title="Supprimer un cours">
-                        <Fab
-                            sx={{
-                                position: "absolute",
-                                top: 0,
-                                right: 0
-                            }}
-                            color="error"
-                            size="small"
-                        >
-                            <DeleteRoundedIcon />
-                        </Fab>
-                    </Tooltip>
-                ) : null
-            }
         </Card>
     )
 }

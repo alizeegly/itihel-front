@@ -11,7 +11,7 @@ import { grey } from '@mui/material/colors';
 
 const colorGrey = grey[900]
 
-const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading, user }, logout }) => {
+const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading, user }, logout, course = null }) => {
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
@@ -75,22 +75,26 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 		<AppBar position="static" sx={{ background: color }} elevation={5}>
 			<Container maxWidth="xl">
 				<Toolbar disableGutters>
-					<Typography
-						variant="h4"
-						noWrap
-						component="a"
-						href="/"
-						sx={{
-							mr: 2,
-							display: { xs: 'none', md: 'flex' },
-							fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-							fontWeight: 700,
-							textDecoration: 'none',
-							color: "black"
-						}}
-					>
-						Itihel
-					</Typography>
+					{
+						course && (
+							<Typography
+								variant="h4"
+								noWrap
+								component="a"
+								href="/"
+								sx={{
+									mr: 2,
+									display: { xs: 'none', md: 'flex' },
+									fontFamily: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+									fontWeight: 700,
+									textDecoration: 'none',
+									color: "black"
+								}}
+							>
+								Itihel
+							</Typography>
+						)
+					}
 					
 					{!loading && (
 						<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>

@@ -11,6 +11,7 @@ import {
   PublicCoursesPage,
   CoursePage
 } from "../pages";
+import Course from '../pages_OLD/Course/Course';
 
 export default {
   routes: [
@@ -62,6 +63,11 @@ export default {
     {
       component: CoursePage,
       path: "/courses/:id",
+      isAuthenticated: true,
+    },
+    {
+      component: Course,
+      path: "/courses/:id/old",
       isAuthenticated: true,
     },
 

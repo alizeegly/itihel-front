@@ -6,11 +6,11 @@ import Sidebar from '../components/Sidebar/Sidebar'
 
 const drawerWidth = 240;
 
-const LayoutSidebar = ({title, children}) => {
+const LayoutSidebar = ({title, children, appbar = null, course=null}) => {
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflow: "hidden" }}>
-            <Sidebar title={title} />
+            <Sidebar title={title} course={course} />
             <Box
                 component="main"
                 sx={{ 
@@ -18,7 +18,13 @@ const LayoutSidebar = ({title, children}) => {
                     width: { sm: `calc(100% - ${drawerWidth}px)` } 
                 }}
             >
-                <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                {
+                    appbar ? (
+                        appbar
+                    ) : (
+                        <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                    )
+                }
                 <BrowserView>
                     <Papers
                         bg1="#94DDDE"
