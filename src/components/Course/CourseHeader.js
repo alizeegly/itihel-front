@@ -43,14 +43,18 @@ const CourseHeader = ({ course, roles }) => {
                     </AlertTitle>
                     <ul>
                         {
-                            roles.map((role, index) => (
-                                <>{role.name}{roles.length-1 != index && ', '}</>
-                            ))
+                            roles.length > 0 ? 
+                                roles.map((role, index) => (
+                                    <>{role.name}{roles.length-1 != index && ', '}</>
+                                ))
+                            : (
+                                "Lecture du cours"
+                            )
                         }
                     </ul>
                 </Alert>
             </Grid>
-            <Grid item md={3} display="flex" direction="row" justifyContent="flex-end" alignItems="center">
+            <Grid item md={3} display="flex" justifyContent="flex-end" alignItems="center">
                 Par &nbsp; 
                 <Tooltip title="Voir le profil">
                     <Link 
@@ -65,15 +69,15 @@ const CourseHeader = ({ course, roles }) => {
                     </Link>
                 </Tooltip>
                 <Chip label={course.is_public ? "Public" : "Privé"} variant="outlined" color={course.is_public ? "success" : "warning"} sx={{ ml: 3 }}/>
+                <Modal
+                    isOpen={modalIsOpen}
+                    onRequestClose={closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal"
+                >
+                    <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
+                </Modal>
             </Grid>
-            <Modal
-                isOpen={modalIsOpen}
-                onRequestClose={closeModal}
-                style={customStyles}
-                contentLabel="Example Modal"
-            >
-                <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
-            </Modal>
         </Grid>
     )
 }

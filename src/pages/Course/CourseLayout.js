@@ -27,7 +27,7 @@ const CourseLayout = ({ course, roles }) => {
             <Grid item md={12}>
                 <Alert/>
             </Grid>
-            <Grid item md={12} sx={{ pt: 0 }}>
+            <Grid item md={12} sx={{ pt: 0 }} id="prise-de-notes">
                 {ReactHtmlParser(course.text)}
             </Grid>
         </Grid>

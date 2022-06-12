@@ -85,11 +85,11 @@ export const getCourseSharedOfCourse = ( user, course ) => async (dispatch) => {
 		});
 	} catch (err) {
         console.log(err)
-		const errors = err.response.data.errors;
+		// const errors = err.response.data.errors;
 
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
-		}
+		// if (errors) {
+		// 	errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
+		// }
 
 		dispatch({
 			type: GET_COURSE_SHARED_FAIL,
