@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
-import Error404Page from '../Errors/Error404Page';
 
 const CoursePermissions = (props) => {
     if(props.user && props.user._id) props.getCourseSharedOfCourse(props.user._id, props.course)
@@ -15,7 +14,7 @@ const CoursePermissions = (props) => {
         couldShow = true;
     }
     
-    return couldShow ? props.children : <Error404Page />;
+    return couldShow ? props.children : props.errorReturn;
 };
 
 const mapStateToProps = state => ({
