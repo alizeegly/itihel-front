@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import "./courseParameters.scss"
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { useSession } from  'react-use-session'
 import { useParams } from 'react-router'
 import axios from 'axios'
-import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
-import NavbarCourse from '../../components/Navbar/NavbarCourse'
+// import SidebarCourseComponent from '../../components/SidebarCourse/SidebarCourse'
+// import NavbarCourse from '../../components/Navbar/NavbarCourse'
 import Checkbox from 'react-simple-checkbox'
 import SharedModal from './Modal/SharedModal'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
-function CourseParameters(){
-    const navigate = useNavigate()
+function CourseParameters2(){
+    // const navigate = useNavigate()
     const { session, saveJWT, clear } = useSession('itihel')
     const [course, setCourse] = useState({})
     const [shared, setShared] = useState([])
@@ -83,7 +83,7 @@ function CourseParameters(){
                     axios.delete("/api/courses-shared/" + cs._id)
                     .then((res) => {
                         console.log("supprimé")
-                        navigate("/courses/" + course._id)
+                        // navigate("/courses/" + course._id)
                     })
                     .catch(err => {
                         console.log(err)
@@ -103,7 +103,7 @@ function CourseParameters(){
         axios.put("/api/courses/" + course._id, course)
             .then((res) => {
                 console.log("modifié")
-                navigate("/courses/" + course._id)
+                // navigate("/courses/" + course._id)
             })
             .catch(err => {
                 console.log(err)
@@ -119,8 +119,8 @@ function CourseParameters(){
     return (
         <>
             <div className="course-parameters">
-                <NavbarCourse user={user} />
-                <SidebarCourseComponent course={course}/>
+                {/* <NavbarCourse user={user} /> */}
+                {/* <SidebarCourseComponent course={course}/> */}
                 <div className="page page3">
                     <div className="container">
                         <div className="carre_1"></div>
@@ -181,7 +181,7 @@ function CourseParameters(){
                                 <div className="shared">
                                     <div className="shared_bloc1">
                                         <h6>Utilisateurs</h6>
-                                        {shared.map(s => {
+                                        {/* {shared.map(s => {
                                             return(
                                                 <div className="role_user" key={s._id}>
                                                     <p onClick={() => {setUserShared(s.user_id._id)}} key={s._id}>
@@ -201,10 +201,10 @@ function CourseParameters(){
                                                     }
                                                 </div>
                                             )
-                                        })}
+                                        })} */}
                                         <SharedModal modal="add" user={null} userroles={null} courseid={course._id} id={null}/>
                                     </div>
-                                    <div className="shared_bloc2">
+                                    {/* <div className="shared_bloc2">
                                         <h6>Rôles</h6>
                                         {
                                             userShared && shared ? shared
@@ -212,7 +212,7 @@ function CourseParameters(){
                                                 <p key={r._id}>{r.name}</p>
                                             )) :  <p key={user._id}>Administrateur</p>
                                         }
-                                    </div>
+                                    </div> */}
                                 </div>
                             </div>
                         </div>
@@ -223,4 +223,4 @@ function CourseParameters(){
     )
 }
 
-export default CourseParameters
+export default CourseParameters2

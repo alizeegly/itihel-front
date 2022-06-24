@@ -3,7 +3,7 @@ import "./course-shared.scss"
 import Modal from 'react-modal'
 import { FaTimes } from "react-icons/fa";
 import axios from 'axios'
-import { useNavigate } from "react-router-dom"
+// import { useNavigate } from "react-router-dom"
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Checkbox from 'react-simple-checkbox'
 import { FiEdit2 } from 'react-icons/fi';
@@ -30,7 +30,7 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
     const [modalIsOpen, setIsOpen] = useState(false)
     const [users, setUsers] = useState([])
     const [roles, setRoles] = useState([])
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     const [courseShared, setCourseShared] = useState({user_id: "", roles: [], course_id: ""})
 
     function openModal() {
@@ -81,7 +81,7 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
                 axios.put("/api/courses-shared/" + id, courseShared)
                     .then((res) => {
                         console.log("modifié")
-                        navigate("/courses/" + courseid + "/parameters")
+                        // navigate("/courses/" + courseid + "/parameters")
                     })
                     .catch(err => {
                         console.log(err)
@@ -93,7 +93,7 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
                 axios.post("/api/courses-shared/", courseShared)
                     .then((res) => {
                         console.log("ajouté")
-                        navigate("/courses/" + courseid + "/parameters")
+                        // navigate("/courses/" + courseid + "/parameters")
                     })
                     .catch(err => {
                         console.log(err)

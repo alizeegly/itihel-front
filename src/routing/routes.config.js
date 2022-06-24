@@ -9,8 +9,10 @@ import {
   CGU,
   SharedCoursesPage,
   PublicCoursesPage,
-  CoursePage
+  CoursePage,
+  CourseParameters
 } from "../pages";
+import CourseParameters2 from "../pages_OLD/Course/CourseParameters2";
 import Course from '../pages_OLD/Course/Course';
 
 export default {
@@ -68,6 +70,16 @@ export default {
     {
       component: Course,
       path: "/courses/:id/old",
+      isAuthenticated: true,
+    },
+    {
+      component: CourseParameters,
+      path: "/courses/:id/parameters",
+      isAuthenticated: true,
+    },
+    {
+      component: CourseParameters2,
+      path: "/courses/:id/parameters/old",
       isAuthenticated: true,
     },
 
