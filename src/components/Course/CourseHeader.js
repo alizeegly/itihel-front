@@ -65,7 +65,7 @@ const CourseHeader = ({ course, roles }) => {
                         underline="hover"
                         sx={{ cursor: "pointer" }}
                     >
-                        @{course.owner_id.pseudo}
+                        @{course && course.owner_id && course.owner_id.pseudo ? course.owner_id.pseudo : "anonymous"}
                     </Link>
                 </Tooltip>
                 <Chip label={course.is_public ? "Public" : "Privé"} variant="outlined" color={course.is_public ? "success" : "warning"} sx={{ ml: 3 }}/>

@@ -53,6 +53,7 @@ const Course = () => {
         cards.push(<FlipCard card={card} key={index}/>)
     })
 
+    console.log(cards)
 
     const getCourse = async () => {
         try {

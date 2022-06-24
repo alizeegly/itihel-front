@@ -9,7 +9,7 @@ import FlipCards from '../../components/Course/FlipCards'
 
 const CourseLayout = ({ course, roles, cards }) => {
     return (
-        <Grid container>
+        <>
             <Grid item md={12}>
                 <CourseHeader course={course} roles={roles}/>
             </Grid>
@@ -31,10 +31,8 @@ const CourseLayout = ({ course, roles, cards }) => {
             <Grid item md={12} sx={{ pt: 0 }} id="prise-de-notes">
                 {ReactHtmlParser(course.text)}
             </Grid>
-            <Grid item md={12} sx={{ pt: 0 }} id="flip-cards">
                 <FlipCards course={course._id} cards={cards}/>
-            </Grid>
-        </Grid>
+        </>
     )
 }
 
