@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { getCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
+import { getCourse, getCourseSharedOfCourse, getFlipCardsOfCourse } from '../../redux/actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
 import Sidebar from '../../components/Sidebar/Sidebar';
@@ -18,7 +18,10 @@ const CoursePage = (props) => {
     if(!props.course._id){
       props.getCourse(id)
     }
-  }, [props, props.course, props.roles, props.getCourse]);
+    if(!props.cards || (props.cards && props.cards.length <= 0)){
+      props.getFlipCardsOfCourse(id)
+    }
+  }, [props, props.course, props.roles, props.getCourse, props.cards, props.getFlipCardsOfCourse]);
 
   return (
     <>
@@ -29,7 +32,7 @@ const CoursePage = (props) => {
         errorReturn={Error404Page}
       >
         <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={props.course.title} course={props.course}>
-          <CourseLayout course={props.course} roles={props.roles}/>
+          <CourseLayout course={props.course} roles={props.roles} cards={props.cards}/>
         </LayoutSidebar>
       </ShowForPermission>
     </>
@@ -41,8 +44,9 @@ const mapStateToProps = (state) => {
     user: state.auth.user,
     loading: state.auth.loading || state.course.loading,
     course: state.course.course,
-    roles: state.course.user_roles
+    roles: state.course.user_roles,
+    cards: state.course.flipCards
   })
 }
 
-export default connect(mapStateToProps, { setAlert, getCourse })(CoursePage);
+export default connect(mapStateToProps, { setAlert, getCourse, getFlipCardsOfCourse })(CoursePage);

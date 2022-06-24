@@ -45,7 +45,7 @@ const CourseHeader = ({ course, roles }) => {
                         {
                             roles.length > 0 ? 
                                 roles.map((role, index) => (
-                                    <>{role.name}{roles.length-1 != index && ', '}</>
+                                    <div key={index}>{role.name}{roles.length-1 != index && ', '}</div>
                                 ))
                             : (
                                 "Lecture du cours"

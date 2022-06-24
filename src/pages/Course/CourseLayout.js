@@ -1,12 +1,13 @@
-import { Button, Grid } from '@mui/material'
+import { Button, Grid, Stack, Toolbar, Typography } from '@mui/material'
 import React from 'react'
 import Alert from '../../components/Alert/Alert'
 import CourseHeader from '../../components/Course/CourseHeader'
 import { ShowForPermission } from './CoursePermissions'
 import ReactHtmlParser from 'react-html-parser'
 import { Box } from '@mui/system'
+import FlipCards from '../../components/Course/FlipCards'
 
-const CourseLayout = ({ course, roles }) => {
+const CourseLayout = ({ course, roles, cards }) => {
     return (
         <Grid container>
             <Grid item md={12}>
@@ -29,6 +30,9 @@ const CourseLayout = ({ course, roles }) => {
             </Grid>
             <Grid item md={12} sx={{ pt: 0 }} id="prise-de-notes">
                 {ReactHtmlParser(course.text)}
+            </Grid>
+            <Grid item md={12} sx={{ pt: 0 }} id="flip-cards">
+                <FlipCards course={course._id} cards={cards}/>
             </Grid>
         </Grid>
     )
