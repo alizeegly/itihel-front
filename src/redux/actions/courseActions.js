@@ -1,6 +1,6 @@
 import axios from "axios";
 import { setAlert } from "./alertActions";
-import { ADD_COURSE_SUCCESS, ADD_COURSE_FAIL, GET_COURSE_SUCCESS, GET_COURSE_FAIL, GET_COURSE_SHARED_SUCCESS, GET_COURSE_SHARED_FAIL, GET_FLIP_CARDS, GET_FLIP_CARDS_FAIL } from "./types";
+import { ADD_COURSE_SUCCESS, ADD_COURSE_FAIL, GET_COURSE_SUCCESS, GET_COURSE_FAIL, GET_COURSE_SHARED_SUCCESS, GET_COURSE_SHARED_FAIL, GET_FLIP_CARDS, GET_FLIP_CARDS_FAIL, GET_USER_ROLES, GET_USER_ROLES_FAIL } from "./types";
 
 
 export const addCourse = ( course ) => async (dispatch) => {
@@ -66,7 +66,7 @@ export const getCourse = ( id ) => async (dispatch) => {
 	}
 };
 
-export const getCourseSharedOfCourse = ( user, course ) => async (dispatch) => {
+export const getCourseSharedOfUserCourse = ( user, course ) => async (dispatch) => {
 	const config = {
 		headers: {
 			"Content-Type": "application/json",
@@ -79,6 +79,37 @@ export const getCourseSharedOfCourse = ( user, course ) => async (dispatch) => {
 			config
 		);
 		
+		dispatch({
+			type: GET_USER_ROLES,
+			payload: res.data,
+		});
+	} catch (err) {
+        console.log(err)
+		// const errors = err.response.data.errors;
+
+		// if (errors) {
+		// 	errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
+		// }
+
+		dispatch({
+			type: GET_USER_ROLES_FAIL,
+		});
+	}
+};
+
+export const getCourseSharedOfCourse = ( course ) => async (dispatch) => {
+	const config = {
+		headers: {
+			"Content-Type": "application/json",
+		},
+	};
+
+	try {
+		const res = await axios.get(
+			"http://localhost:8800/api/courses-shared/course/" + course,
+			config
+		);
+
 		dispatch({
 			type: GET_COURSE_SHARED_SUCCESS,
 			payload: res.data,

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
+import { getCourse, getCourseSharedOfUserCourse } from '../../redux/actions/courseActions';
 
 const CoursePermissions = (props) => {
-    if(props.user && props.user._id) props.getCourseSharedOfCourse(props.user._id, props.course)
+    if(props.user && props.user._id) props.getCourseSharedOfUserCourse(props.user._id, props.course)
 
     let couldShow = false;
     if(props.userPermissions){
@@ -22,4 +22,4 @@ const mapStateToProps = state => ({
     user: state.auth.user
 });
 
-export const ShowForPermission = connect(mapStateToProps, { getCourseSharedOfCourse })(CoursePermissions);
+export const ShowForPermission = connect(mapStateToProps, { getCourseSharedOfUserCourse })(CoursePermissions);
