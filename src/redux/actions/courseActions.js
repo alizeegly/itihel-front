@@ -54,11 +54,7 @@ export const getCourse = ( id ) => async (dispatch) => {
 		});
 	} catch (err) {
         console.log(err)
-		const errors = err.response.data.errors;
-
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
-		}
+		dispatch(setAlert(err.message, "error"))
 
 		dispatch({
 			type: GET_COURSE_FAIL,

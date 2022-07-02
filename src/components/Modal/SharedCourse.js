@@ -45,10 +45,6 @@ const SharedCourse = ({ courseShared = {} }) => {
         }
     }
 
-    const handleOnSelect = (item) => {
-        console.log(item)
-    }
-
     const formatResult = (item) => {
         return item
     }
@@ -57,10 +53,54 @@ const SharedCourse = ({ courseShared = {} }) => {
         console.log("send")
     }
 
+    const items = [
+        {
+          id: 0,
+          name: 'Cobol'
+        },
+        {
+          id: 1,
+          name: 'JavaScript'
+        },
+        {
+          id: 2,
+          name: 'Basic'
+        },
+        {
+          id: 3,
+          name: 'PHP'
+        },
+        {
+          id: 4,
+          name: 'Java'
+        }
+      ]
+
+    const handleOnSearch = (string, results) => {
+        // onSearch will have as the first callback parameter
+        // the string searched and for the second the results.
+        console.log(string, results)
+    }
+
+    const handleOnHover = (result) => {
+        // the item hovered
+        console.log(result)
+    }
+
+    const handleOnSelect = (item) => {
+        // the item selected
+        console.log(item)
+    }
+
+    const handleOnFocus = () => {
+        console.log('Focused')
+    }
+    
+
     useEffect(()=>{
-        // if(users.length <= 0){
-        //     getUsers()
-        // }
+        if(users.length <= 0){
+            getUsers()
+        }
     }, [])
 
     return (
@@ -96,23 +136,19 @@ const SharedCourse = ({ courseShared = {} }) => {
                         ) : (
                             <>
                                 <label>Utilisateur</label>
-                                <ReactSearchAutocomplete
-                                    items={users}
-                                    fuseOptions={{ keys: ["pseudo"] }}
-                                    // onSearch={handleOnSearch}
-                                    onSelect={handleOnSelect}
-                                    autoFocus
-                                    formatResult={formatResult}
-                                    resultStringKeyName="pseudo"
-                                    showIcon={false}
-                                    placeholder="@..."
-                                    styling={
-                                        {
-                                            border: "none",
-                                            outline: "none"
-                                        }
-                                    }
-                                />
+                                {
+                                    users.length > 0 && (
+                                        <ReactSearchAutocomplete
+                                            items={items}
+                                            onSearch={handleOnSearch}
+                                            onHover={handleOnHover}
+                                            onSelect={handleOnSelect}
+                                            onFocus={handleOnFocus}
+                                            autoFocus
+                                            formatResult={formatResult}
+                                        />
+                                    )
+                                }
                             </>
                         )
                     }

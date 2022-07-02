@@ -57,11 +57,8 @@ export const register = ({ first_name, last_name, pseudo, email, password }) => 
 
 		dispatch(loadUser());
 	} catch (err) {
-		const errors = err.response.data.errors;
-
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
-		}
+		console.log(err)
+		dispatch(setAlert(err.message, "error"))
 
 		dispatch({
 			type: REGISTER_FAIL,
@@ -94,10 +91,7 @@ export const login = (email, password) => async (dispatch) => {
 		dispatch(loadUser());
 	} catch (err) {
 		console.log(err)
-		const errors = err.response.data.errors;
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
-		}
+		dispatch(setAlert(err.message, "error"))
 
 		dispatch({
 			type: LOGIN_FAIL,
@@ -126,10 +120,7 @@ export const updateUser = ({user}) => async (dispatch) => {
 		dispatch(loadUser());
 	} catch (err) {
 		console.log(err)
-		const errors = err.response.data.errors;
-		if (errors) {
-			errors.forEach((error) => dispatch(setAlert(error.msg, "error")));
-		}
+		dispatch(setAlert(err.message, "error"))
 
 		dispatch({
 			type: UPDATE_FAIL,
