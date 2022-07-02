@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux';
-import { getCourse, getCourseSharedOfUserCourse, getFlipCardsOfCourse } from '../../redux/actions/courseActions';
+import { getCourse, getFlipCardsOfCourse } from '../../redux/actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
 import Sidebar from '../../components/Sidebar/Sidebar';

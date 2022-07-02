@@ -1,9 +1,13 @@
 import PropTypes from 'prop-types';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { getCourse, getCourseSharedOfUserCourse } from '../../redux/actions/courseActions';
 
 const CoursePermissions = (props) => {
-    if(props.user && props.user._id) props.getCourseSharedOfUserCourse(props.user._id, props.course)
+    useEffect(() => {
+        if(props.user && props.user._id) props.getCourseSharedOfUserCourse(props.user._id, props.course)
+    }, [getCourseSharedOfUserCourse])
+    
 
     let couldShow = false;
     if(props.userPermissions){

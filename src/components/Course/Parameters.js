@@ -7,6 +7,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
+import SharedCourse from '../Modal/SharedCourse';
 
 Modal.setAppElement('#root');
 
@@ -26,19 +27,19 @@ const customStyles = {
 };
 
 const Parameters = (props) => {
-    const [modalIsOpen, setIsOpen] = useState(false)
+    const [modalProfileIsOpen, setProfileIsOpen] = useState(false)
     const [modalData, setModalData] = useState(null)
     const [roles, setRoles] = useState([])
     const [course, setCourse] = useState(props.course);
     const [coursesShared, setCoursesShared] = useState(props.courses_shared);
 
-    function closeModal() {
-        setIsOpen(false)
+    function closeProfileModal() {
+        setProfileIsOpen(false)
     }
 
     const getRoles = async () => {
         try {
-            const roles = await axios.get("/api/roles/")
+            const roles = await axios.get("http://localhost:8800/api/roles/")
             setRoles(roles.data)
         } catch (err) {
             console.error(err.message);
@@ -49,7 +50,7 @@ const Parameters = (props) => {
         if(roles.length <= 0){
             getRoles()
         }
-    }, [roles, getRoles]);
+    }, [getRoles]);
 
     return (
         <>
@@ -141,7 +142,7 @@ const Parameters = (props) => {
                                                     <Link
                                                         onClick={()=> {
                                                             setModalData(row);
-                                                            setIsOpen(true);
+                                                            setProfileIsOpen(true);
                                                         }}
                                                         underline="hover"
                                                         sx={{ cursor: "pointer" }}
@@ -167,11 +168,7 @@ const Parameters = (props) => {
                                                 {
                                                     props.user.pseudo !== row.user_id.pseudo && (
                                                         <>
-                                                            <Tooltip title={"Modifier les rôles de " + row.user_id.pseudo}>
-                                                                <IconButton>
-                                                                    <EditIcon />
-                                                                </IconButton>
-                                                            </Tooltip>
+                                                            <SharedCourse courseShared={row}/>
                                                             <Tooltip title={"Ne plus partager le cours avec " + row.user_id.pseudo}>
                                                                 <IconButton>
                                                                     <CloseIcon />
@@ -187,19 +184,15 @@ const Parameters = (props) => {
                             }
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell align="center" colSpan={3}>
-                                    <Tooltip title="Ajouter un utilisateur au cours">
-                                        <IconButton>
-                                            <AddIcon />
-                                        </IconButton>
-                                    </Tooltip>
+                                    <SharedCourse/>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
                     </Table>
                 </TableContainer>
                 <Modal
-                    isOpen={modalIsOpen}
-                    onRequestClose={closeModal}
+                    isOpen={modalProfileIsOpen}
+                    onRequestClose={closeProfileModal}
                     style={customStyles}
                     contentLabel="Example Modal"
                 >

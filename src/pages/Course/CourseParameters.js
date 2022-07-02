@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
-import { getCourse, getCourseSharedOfUserCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
+import { getCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
 import { setAlert } from "../../redux/actions/alertActions";
 import LayoutSidebar from '../../layouts/LayoutSidebar'
 import Error404Page from '../Errors/Error404Page'
@@ -21,7 +21,7 @@ const CourseParameters = (props) => {
           props.getCourseSharedOfCourse(id)
         }
     }, [props, props.course, props.courses_shared, props.roles, props.getCourse, props.getCourseSharedOfCourse]);
-
+ 
     return (
         <ShowForPermission
             course={id} 

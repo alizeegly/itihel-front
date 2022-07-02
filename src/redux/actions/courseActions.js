@@ -84,7 +84,7 @@ export const getCourseSharedOfUserCourse = ( user, course ) => async (dispatch) 
 			payload: res.data,
 		});
 	} catch (err) {
-        console.log(err)
+        console.log(err.message)
 		// const errors = err.response.data.errors;
 
 		// if (errors) {

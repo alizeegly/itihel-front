@@ -184,8 +184,8 @@ function CourseParameters2(){
                                         {/* {shared.map(s => {
                                             return(
                                                 <div className="role_user" key={s._id}>
-                                                    <p onClick={() => {setUserShared(s.user_id._id)}} key={s._id}>
-                                                        {s.user_id.pseudo} {s.user_id._id === user._id ? "(Moi)" : ""}
+                                                    <p onClick={() => {s.user_id && setUserShared(s.user_id._id)}} key={s._id}>
+                                                        { s.user_id && s.user_id.pseudo} {s.user_id && s.user_id._id === user._id ? "(Moi)" : ""}
                                                     </p>
                                                     {
                                                         s.user_id._id === user._id ? "" : (
@@ -204,7 +204,7 @@ function CourseParameters2(){
                                         })} */}
                                         <SharedModal modal="add" user={null} userroles={null} courseid={course._id} id={null}/>
                                     </div>
-                                    {/* <div className="shared_bloc2">
+                                    <div className="shared_bloc2">
                                         <h6>Rôles</h6>
                                         {
                                             userShared && shared ? shared
@@ -212,7 +212,7 @@ function CourseParameters2(){
                                                 <p key={r._id}>{r.name}</p>
                                             )) :  <p key={user._id}>Administrateur</p>
                                         }
-                                    </div> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>
