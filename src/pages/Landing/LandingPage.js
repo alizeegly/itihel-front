@@ -7,6 +7,8 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import ScrollToTop from "react-scroll-up"
+import upArrow from "../../assets/img/up-arrow.png"
 
 function LandingPage({ isAuthenticated }) {
     const container = useRef(null)
@@ -146,6 +148,9 @@ function LandingPage({ isAuthenticated }) {
 
                 </div>
             </div>
+            <ScrollToTop showUnder={160}>
+                <span><img src={upArrow} style={{height: "50px", position: "relative", bottom: "50px"}}></img></span>
+            </ScrollToTop>
         </>
     )
 }
