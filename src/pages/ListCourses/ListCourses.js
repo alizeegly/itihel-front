@@ -5,6 +5,7 @@ import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { CourseCard, CreateCourse, SearchBar, ProfileCard } from '../../components';
+import courseImg from '../../assets/img/bureau-pc-cours.jpg'
 
 Modal.setAppElement('#root');
 
@@ -54,7 +55,7 @@ const ListCourses = ({ title, list, course: {course}, loading }) => {
 	}
 
     return (
-        <LayoutSidebar title={title}>
+        <LayoutSidebar title={title} image={courseImg} position={"bottom 5% right 0"}>
             <Grid 
                 container 
                 columns={12} 

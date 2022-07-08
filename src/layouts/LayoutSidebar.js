@@ -3,10 +3,28 @@ import { BrowserView } from 'react-device-detect'
 import Papers from '../components/Papers/Papers'
 import { Box, Grid } from '@mui/material'
 import Sidebar from '../components/Sidebar/Sidebar'
+import { styled } from "@mui/material/styles";
 
 const drawerWidth = 240;
 
-const LayoutSidebar = ({title, children, appbar = null, course=null}) => {
+const LayoutSidebar = ({title, children, image, position, appbar = null, course=null}) => {
+
+    const HeaderDiv = styled("div")(({ theme }) => ({
+        background: `url(${image})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: `${position}`,
+        height: "250px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    }));
+
+    const TitleH2 = styled("h2")(({ theme }) => ({
+        color: "white",
+        textTransform: "uppercase",
+        textShadow: "1px 1px 2px black"
+    }));
 
     return (
         <Box sx={{ display: 'flex', position: "relative", overflow: "hidden" }}>
@@ -22,7 +40,10 @@ const LayoutSidebar = ({title, children, appbar = null, course=null}) => {
                     appbar ? (
                         appbar
                     ) : (
-                        <img src="https://iris2.gettimely.com/images/default-cover-image.jpg" style={{ width: "100%", height: "200px" }} alt="Profil"/>
+                        <HeaderDiv>
+                            <TitleH2>{title}</TitleH2>
+                        </HeaderDiv>
+                        // <img src={image} style={{ width: "100%", height: "200px" }} alt="Profil"/>
                     )
                 }
                 <BrowserView>
