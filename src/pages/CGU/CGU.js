@@ -2,11 +2,16 @@ import React from 'react'
 import { Grid } from '@mui/material'
 import LayoutAuth from '../../layouts/LayoutAuth';
 import Navbar from '../../components/Navbar/Navbar';
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs';
+
 
 const CGU = () => {
   return (
     <LayoutAuth img={false} appbar={<Navbar color="white"/>}>
           <Grid item md={12}>
+
+
+<Breadcrumbs></Breadcrumbs>
           <h1>CONDITIONS GÉNÉRALES D'UTILISATION</h1>
             <h2>Définitions :</h2>
               <p>Client :tout professionnel ou personne physique capable au sens des articles 1123 et suivants du Code civil, ou personne morale, qui visite le Site objet des présentes conditions générales.</p>
