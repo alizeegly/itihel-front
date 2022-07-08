@@ -95,7 +95,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 							</Typography>
 						)
 					}
-					
+
 					{!loading && (
 						<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
 					)}

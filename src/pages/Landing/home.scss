@@ -142,6 +142,10 @@
 .presentation {
     .col_2 {
         margin: 0 0 150px;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
     }
 }
 

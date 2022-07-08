@@ -70,7 +70,7 @@ function LandingPage() {
                         </div>
                         <div data-aos="fade-up" data-aos-delay="400">
                             <h2>Partagez vos notes entre amis !</h2>
-                            <p>Testez vos connaissances à l'aide de plusieurs mini jeux ! Réalisez des flip cards ou des quizz afin de tester vos amis sur leurs connaissances sur un cours ! De cette manière, apprenez tout en vous amusant ! Les flips cards comportent des cartes virtuelles avec des questions sur une face et les réponses de l'autre, et les quizz comportent une listes de questions avec la bonne réponses à choisir !</p>
+                            <p>Testez vos connaissances à l'aide de plusieurs mini jeux ! <br />Réalisez des flip cards ou des quizz afin de tester vos amis sur leurs connaissances sur un cours ! De cette manière, apprenez tout en vous amusant ! <br />Les flips cards comportent des cartes virtuelles avec des questions sur une face et les réponses de l'autre, et les quizz comportent une listes de questions avec la bonne réponses à choisir !</p>
                         </div>
                     </div>
                     <div className="col_2">
