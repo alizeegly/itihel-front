@@ -4,10 +4,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Alert from '../components/Alert/Alert';
 import Navbar from '../components/Navbar/Navbar';
 import { cyan } from '@mui/material/colors';
+import { useDispatch, useSelector } from 'react-redux';
 
 const bg = cyan[50]
 
 const LayoutAuth = ({title, children}) => {
+    
     return (
         <>
             <Box sx={{ flexGrow: 1 }}>

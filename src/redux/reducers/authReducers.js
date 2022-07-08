@@ -1,60 +1,55 @@
 import {
-	REGISTER_SUCCESS,
-	REGISTER_FAIL,
+	USER_REGISTER_SUCCESS,
+	USER_REGISTER_FAIL,
 	USER_LOADED,
 	AUTH_ERROR,
-	LOGIN_SUCCESS,
-	LOGIN_FAIL,
-	LOGOUT,
-	UPDATE_SUCCESS,
+	USER_LOGIN_SUCCESS,
+	USER_LOGIN_FAIL,
+	USER_LOGOUT,
+	USER_UPDATE_SUCCESS,
+	USER_UPDATE_FAIL,
+	USER_LOGIN_REQUEST,
+	USER_REGISTER_REQUEST,
+	USER_UPDATE_REQUEST
 } from "../actions/types";
 
-const initialState = {
-	token: localStorage.getItem("token"),
-	isAuthenticated: null,
-	loading: true,
-	user: null
-};
-
-export default function (state = initialState, action) {
-	const { type, payload } = action;
-
-	switch (type) {
-		case USER_LOADED:
-			return {
-				...state,
-				isAuthenticated: true,
-				loading: false,
-				user: payload,
-			};
-		case REGISTER_SUCCESS:
-		case LOGIN_SUCCESS:
-			localStorage.setItem("token", payload.token);
-			return {
-				...state,
-				...payload,
-				isAuthenticated: true,
-				loading: false,
-			};
-		case UPDATE_SUCCESS:
-			return {
-				...state,
-				isAuthenticated: true,
-				loading: false,
-				user: payload,
-			};
-		case REGISTER_FAIL:
-		case AUTH_ERROR:
-		case LOGIN_FAIL:
-		case LOGOUT:
-			localStorage.removeItem("token");
-			return {
-				...state,
-				token: null,
-				isAuthenticated: false,
-				loading: false,
-			};
+export const userLoginReducer = (state = {}, action) => {
+	switch (action.type) {
+		case USER_LOGIN_REQUEST:
+			return { loading: true };
+		case USER_LOGIN_SUCCESS:
+			return { loading: false, userInfo: action.payload, isAuthenticated: true };
+		case USER_LOGIN_FAIL:
+			return { loading: false, error: action.payload };
+		case USER_LOGOUT:
+			return {};
 		default:
 			return state;
 	}
-}
+};
+
+export const userRegisterReducer = (state = {}, action) => {
+	switch (action.type) {
+		case USER_REGISTER_REQUEST:
+			return { loading: true };
+		case USER_REGISTER_SUCCESS:
+			return { loading: false, userInfo: action.payload };
+		case USER_REGISTER_FAIL:
+			return { loading: false, error: action.payload };
+		default:
+			return state;
+	}
+  };
+  
+export const userUpdateReducer = (state = {}, action) => {
+	switch (action.type) {
+		case USER_UPDATE_REQUEST:
+			return { loading: true };
+		case USER_UPDATE_SUCCESS:
+			return { loading: false, userInfo: action.payload, success: true };
+		case USER_UPDATE_FAIL:
+			return { loading: false, error: action.payload, success: false };
+		default:
+			return state;
+	}
+};

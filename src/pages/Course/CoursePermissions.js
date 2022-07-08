@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getCourse, getCourseSharedOfUserCourse } from '../../redux/actions/courseActions';
 
 const CoursePermissions = (props) => {
+    
     useEffect(() => {
         if(props.user && props.user._id) props.getCourseSharedOfUserCourse(props.user._id, props.course)
     }, [getCourseSharedOfUserCourse])

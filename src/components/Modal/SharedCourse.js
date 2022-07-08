@@ -46,35 +46,12 @@ const SharedCourse = ({ courseShared = {} }) => {
     }
 
     const formatResult = (item) => {
-        return item
+        return item.pseudo
     }
 
     const onSubmit = (e) => {
         console.log("send")
     }
-
-    const items = [
-        {
-          id: 0,
-          name: 'Cobol'
-        },
-        {
-          id: 1,
-          name: 'JavaScript'
-        },
-        {
-          id: 2,
-          name: 'Basic'
-        },
-        {
-          id: 3,
-          name: 'PHP'
-        },
-        {
-          id: 4,
-          name: 'Java'
-        }
-      ]
 
     const handleOnSearch = (string, results) => {
         // onSearch will have as the first callback parameter
@@ -135,20 +112,22 @@ const SharedCourse = ({ courseShared = {} }) => {
                             <Typography>{courseShared.user_id.pseudo}</Typography>
                         ) : (
                             <>
-                                <label>Utilisateur</label>
-                                {
-                                    users.length > 0 && (
-                                        <ReactSearchAutocomplete
-                                            items={items}
-                                            onSearch={handleOnSearch}
-                                            onHover={handleOnHover}
-                                            onSelect={handleOnSelect}
-                                            onFocus={handleOnFocus}
-                                            autoFocus
-                                            formatResult={formatResult}
-                                        />
-                                    )
-                                }
+                                <Box sx={{ marginTop: 3 }}>
+                                    <Typography>Utilisateur</Typography>
+                                    {
+                                        users.length > 0 && (
+                                            <ReactSearchAutocomplete
+                                                items={users}
+                                                onSearch={handleOnSearch}
+                                                onHover={handleOnHover}
+                                                onSelect={handleOnSelect}
+                                                onFocus={handleOnFocus}
+                                                autoFocus
+                                                formatResult={formatResult}
+                                            />
+                                        )
+                                    }
+                                </Box>
                             </>
                         )
                     }

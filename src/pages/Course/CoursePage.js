@@ -25,16 +25,16 @@ const CoursePage = (props) => {
 
   return (
     <>
-      <ShowForPermission 
-        course={id} 
-        permissionRequired={["618702283f5059816c261d99", "62a5dcb352fda754f6c97349"]} 
-        coursePublic={props.course.is_public}
-        errorReturn={Error404Page}
-      >
         <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={props.course.title} course={props.course}>
-          <CourseLayout course={props.course} roles={props.roles} cards={props.cards}/>
+          <ShowForPermission 
+            course={id} 
+            permissionRequired={["618702283f5059816c261d99", "62a5dcb352fda754f6c97349"]} 
+            coursePublic={props.course.is_public}
+            errorReturn={Error404Page}
+          >
+              <CourseLayout course={props.course} roles={props.roles} cards={props.cards}/>
+          </ShowForPermission>
         </LayoutSidebar>
-      </ShowForPermission>
     </>
   )
 }

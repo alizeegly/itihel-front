@@ -5,19 +5,19 @@ import { getCoursesOfUser } from '../../redux/actions/listActions';
 
 const MyCoursesPage = (props) => {
     
-    useEffect(() => {
-        if (props.auth && props.auth.user && props.auth.user._id && props.list.courses.length <= 0) {
-            props.getCoursesOfUser(props.auth.user._id)
-        }
-    }, [props, props.auth, props.getCoursesOfUser]);
+    // const dispatch = useDispatch();
+
+    // const noteList = useSelector((state) => state.noteList);
+    // const { loading, error, notes } = noteList;
+    // useEffect(() => {
+    //     if (props.auth && props.auth.user && props.auth.user._id && props.list.courses.length <= 0) {
+    //         props.getCoursesOfUser(props.auth.user._id)
+    //     }
+    // }, [props, props.auth, props.getCoursesOfUser]);
 
     return (
         <>
-            {
-                props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list} title="Mes Cours"/>
-                )
-            }
+            {/* <ListCourses list={notes} title="Mes Cours"/> */}
         </>
     )
 }
@@ -25,7 +25,7 @@ const MyCoursesPage = (props) => {
 const mapStateToProps  = (state) => {
     return ({
         auth: state.auth,
-        list: state.list
+        // list: state.list
     })
 }
 

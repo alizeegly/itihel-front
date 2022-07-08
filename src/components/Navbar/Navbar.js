@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../redux/actions/authActions";
 import { AppBar, Box, Button, Container, Divider, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
@@ -11,7 +11,17 @@ import { grey } from '@mui/material/colors';
 
 const colorGrey = grey[900]
 
-const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { isAuthenticated, loading, user }, logout, course = null }) => {
+const Navbar = ({color = "primary", styleButton = {color: colorGrey}, course = null }) => {
+	
+	const dispatch = useDispatch();
+	
+	const userLogin = useSelector((state) => state.userLogin);
+	const { loading, error, userInfo } = userLogin;
+
+	const logoutHandler = () => {
+		dispatch(logout());
+	};
+
 	const [anchorElUser, setAnchorElUser] = React.useState(null);
 	const handleOpenUserMenu = (event) => {
 		setAnchorElUser(event.currentTarget);
@@ -31,7 +41,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Ouvrir les paramètres">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt={user && user.first_name[0] + " " + user && user.last_name[0]}>{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
+						<Avatar alt={userInfo && userInfo.first_name[0] + " " + userInfo && userInfo.last_name[0]}>{userInfo && userInfo.first_name[0]}{userInfo && userInfo.last_name[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
 				<Menu
@@ -57,7 +67,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 						<Typography textAlign="center">Profil</Typography>
 					</MenuItem>
 					<Divider />
-					<MenuItem onClick={logout}>
+					<MenuItem onClick={logoutHandler}>
 						<Typography textAlign="center">Se déconnecter</Typography>
 					</MenuItem>
 				</Menu>
@@ -97,7 +107,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 					}
 					
 					{!loading && (
-						<Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+						<Fragment>{userInfo ? authLinks : guestLinks}</Fragment>
 					)}
 				</Toolbar>
 			</Container>
@@ -105,16 +115,4 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, auth: { is
 	);
 };
 
-Navbar.propTypes = {
-	logout: PropTypes.func.isRequired,
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => {
-	// console.log(state)
-	return({
-		auth: state.auth,
-	})
-};
-
-export default connect(mapStateToProps, { logout })(Navbar);
+export default Navbar;

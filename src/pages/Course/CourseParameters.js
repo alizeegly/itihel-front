@@ -17,9 +17,9 @@ const CourseParameters = (props) => {
         if(!props.course._id){
             props.getCourse(id)
         }
-        if(props.courses_shared.length <= 0){
+        // if(props.courses_shared.length <= 0){
           props.getCourseSharedOfCourse(id)
-        }
+        // }
     }, [props, props.course, props.courses_shared, props.roles, props.getCourse, props.getCourseSharedOfCourse]);
  
     return (

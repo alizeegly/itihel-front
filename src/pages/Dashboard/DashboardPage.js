@@ -1,26 +1,20 @@
 import React from "react";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Navbar } from "../../components"
 
-const DashboardPage = ({ auth: { user } }) => {
-	console.log(user)
+const DashboardPage = () => {
+	const userLogin = useSelector((state) => state.userLogin);
+	const { loading, error, userInfo } = userLogin;
+
 	return (
 		<>
 			<Navbar color="white"/>
 			<div style={{ marginTop: "5rem", textAlign: "center" }}>
-				<h1>Welcome, {user && user.first_name}</h1>
+				<h1>Welcome, {userInfo && userInfo.first_name}</h1>
 			</div>
 		</>
 	);
 };
 
-DashboardPage.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(DashboardPage);
+export default DashboardPage;

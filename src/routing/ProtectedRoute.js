@@ -1,19 +1,18 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import { connect } from "react-redux";
+import { connect, useSelector } from "react-redux";
 
-const ProtectedRoute = ({
-	component: Component,
-	auth: { isAuthenticated, loading },
-	...rest
-}) => {
+const ProtectedRoute = ({ component: Component, ...rest }) => {
+
+	const userLogin = useSelector((state) => state.userLogin);
+	const { loading, error, userInfo } = userLogin;
 
 	return(
 		<Route
 			{...rest}
 			render={(props) =>
-				!isAuthenticated && !loading ? (
+				!userInfo && !loading ? (
 					<Redirect to="/login" />
 				) : (
 					<Component {...props} />
@@ -23,14 +22,4 @@ const ProtectedRoute = ({
 	);
 }
 
-
-ProtectedRoute.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => {
-	return({
-	auth: state.auth,
-})}
-
-export default connect(mapStateToProps)(ProtectedRoute);
+export default ProtectedRoute;

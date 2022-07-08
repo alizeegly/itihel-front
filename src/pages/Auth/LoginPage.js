@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { login } from "../../redux/actions/authActions";
 import LayoutAuth from "../../layouts/LayoutAuth";
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { login } from "../../redux/actions/authActions"
 
-const LoginPage = ({ login, isAuthenticated }) => {
+const LoginPage = () => {
+	const dispatch = useDispatch();
+	const userLogin = useSelector((state) => state.userLogin);
+	const { loading, error, userInfo } = userLogin;
+
 	const [formData, setFormData] = useState({
 		email: "",
 		password: "",
@@ -14,19 +18,18 @@ const LoginPage = ({ login, isAuthenticated }) => {
 
 	const { email, password } = formData;
 
-	const onChange = (e) =>
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-
+	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 	const onSubmit = async (e) => {
 		e.preventDefault();
-
-		login(email, password);
+		dispatch(login(email, password));
 	};
 
+	
 	// Redirect if logged in
-	if (isAuthenticated) {
+	if (userInfo) {
 		return <Redirect to="/dashboard" />;
 	}
+	
 
 	return (
 		<LayoutAuth title="Se connecter">
@@ -72,13 +75,4 @@ const LoginPage = ({ login, isAuthenticated }) => {
 	);
 };
 
-LoginPage.propTypes = {
-	login: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { login })(LoginPage);
+export default LoginPage;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import { register } from "../../redux/actions/authActions";
 import PropTypes from "prop-types";
@@ -7,7 +7,11 @@ import { setAlert } from "../../redux/actions/alertActions";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import LayoutAuth from "../../layouts/LayoutAuth";
 
-const Register = ({ setAlert, register, isAuthenticated }) => {
+const Register = () => {
+	const dispatch = useDispatch();
+	const userLogin = useSelector((state) => state.userLogin);
+	const { userInfo } = userLogin;
+
 	const [formData, setFormData] = useState({
 		first_name: "",
 		last_name: "",
@@ -16,24 +20,21 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 		password: "",
 		password2: "",
 	});
-
-	const { first_name, last_name, pseudo, email, password, password2 } = formData;
-
-	const onChange = (e) =>
-		setFormData({ ...formData, [e.target.name]: e.target.value });
-
+	
+	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+	
 	const onSubmit = async (e) => {
-		console.log("Form data", e);
+		console.log(formData)
 		e.preventDefault();
-		if (password !== password2) {
-			setAlert("Password do not match", "danger");
+		if (formData.password !== formData.password2) {
+			dispatch(setAlert("Les mots de passe ne sont pas identique", "error"))
 		} else {
-			register({ first_name, last_name, pseudo, email, password });
+			dispatch(register(formData));
 		}
 	};
 
 	// Redirect if logged in
-	if (isAuthenticated) {
+	if (userInfo) {
 		return <Redirect to="/dashboard" />;
 	}
 
@@ -51,7 +52,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 							name="first_name"
 							autoComplete="first_name"
 							autoFocus
-							value={first_name}
+							value={formData.first_name}
 							onChange={(e) => onChange(e)}
 						/>
 					</Grid>
@@ -64,8 +65,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 							label="Nom"
 							name="last_name"
 							autoComplete="last_name"
-							autoFocus
-							value={last_name}
+							value={formData.last_name}
 							onChange={(e) => onChange(e)}
 						/>
 					</Grid>
@@ -78,8 +78,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 					label="Pseudo"
 					name="pseudo"
 					autoComplete="pseudo"
-					autoFocus
-					value={pseudo}
+					value={formData.pseudo}
 					onChange={(e) => onChange(e)}
 				/>
 				<TextField
@@ -90,8 +89,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 					label="Email"
 					name="email"
 					autoComplete="email"
-					autoFocus
-					value={email}
+					value={formData.email}
 					onChange={(e) => onChange(e)}
 				/>
 				<Grid container spacing={2}>
@@ -105,7 +103,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 							type="password"
 							id="password"
 							autoComplete="password"
-							value={password}
+							value={formData.password}
 							onChange={(e) => onChange(e)}
 						/>
 					</Grid>
@@ -119,7 +117,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 							type="password"
 							id="password2"
 							autoComplete="password2"
-							value={password2}
+							value={formData.password2}
 							onChange={(e) => onChange(e)}
 						/>
 					</Grid>
@@ -141,14 +139,4 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
 	);
 };
 
-Register.propTypes = {
-	setAlert: PropTypes.func.isRequired,
-	register: PropTypes.func.isRequired,
-	isAuthenticated: PropTypes.bool,
-};
-
-const mapStateToProps = (state) => ({
-	isAuthenticated: state.auth.isAuthenticated,
-});
-
-export default connect(mapStateToProps, { setAlert, register })(Register);
+export default Register;

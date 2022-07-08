@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import { createTheme } from '@mui/material/styles';
 import 'react-toastify/dist/ReactToastify.css';
 import store from "./redux/store";
-import { loadUser } from "./redux/actions/authActions";
+// import { loadUser } from "./redux/actions/authActions";
 import MainRouter from "./routing/MainRouter";
 import setAuthToken from "./redux/setAuthToken";
 
@@ -61,14 +61,14 @@ export const theme = createTheme({
   }
 })
 
-if (localStorage.token) {
-	setAuthToken(localStorage.token);
-}
+// if (localStorage.token) {
+// 	setAuthToken(localStorage.token);
+// }
 
 function App() {
-	useEffect(() => {
-		store.dispatch(loadUser());
-	}, []);
+	// useEffect(() => {
+	// 	store.dispatch(loadUser());
+	// }, []);
 
 	return (
 		<>

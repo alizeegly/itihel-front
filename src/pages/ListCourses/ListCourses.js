@@ -23,7 +23,7 @@ const customStyles = {
     overlay: {zIndex: 1000}
 };
 
-const ListCourses = ({ title, list, course: {course}, loading }) => {
+const ListCourses = ({ title, list, loading }) => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
@@ -48,10 +48,6 @@ const ListCourses = ({ title, list, course: {course}, loading }) => {
     };
 
     const filteredPosts = filterPosts(list.courses, query)
-
-    if (course && course._id) {
-		return <Redirect to={"/courses/" + course._id} />;
-	}
 
     return (
         <LayoutSidebar title={title}>
@@ -104,7 +100,6 @@ const ListCourses = ({ title, list, course: {course}, loading }) => {
 
 const mapStateToProps  = (state) => {
     return ({
-        course: state.course,
         loading: state.auth.loading
     })
 }
