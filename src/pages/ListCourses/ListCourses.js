@@ -47,7 +47,7 @@ const ListCourses = ({ title, list, loading }) => {
         });
     };
 
-    const filteredPosts = filterPosts(list.courses, query)
+    const filteredPosts = filterPosts(list, query)
 
     return (
         <LayoutSidebar title={title}>
@@ -98,10 +98,4 @@ const ListCourses = ({ title, list, loading }) => {
     )
 }
 
-const mapStateToProps  = (state) => {
-    return ({
-        loading: state.auth.loading
-    })
-}
-
-export default connect(mapStateToProps)(ListCourses);
+export default ListCourses;

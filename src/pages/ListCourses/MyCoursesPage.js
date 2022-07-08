@@ -1,32 +1,33 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import { Link, Redirect } from "react-router-dom";
+import { connect, useDispatch, useSelector } from 'react-redux';
 import ListCourses from './ListCourses';
 import { getCoursesOfUser } from '../../redux/actions/listActions';
 
-const MyCoursesPage = (props) => {
+const MyCoursesPage = () => {
     
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-    // const noteList = useSelector((state) => state.noteList);
-    // const { loading, error, notes } = noteList;
-    // useEffect(() => {
-    //     if (props.auth && props.auth.user && props.auth.user._id && props.list.courses.length <= 0) {
-    //         props.getCoursesOfUser(props.auth.user._id)
-    //     }
-    // }, [props, props.auth, props.getCoursesOfUser]);
+    const coursesList = useSelector((state) => state.coursesList);
+    const { loading, error, courses } = coursesList;
 
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    
+    useEffect(() => {
+        dispatch(getCoursesOfUser());
+        if (!userInfo) {
+            return <Redirect to="/login" />;
+        }
+    }, [getCoursesOfUser, userInfo]);
+    
+    console.log(coursesList)
+    
     return (
         <>
-            {/* <ListCourses list={notes} title="Mes Cours"/> */}
+            <ListCourses list={courses} title="Mes Cours" loading={loading}/>
         </>
     )
 }
 
-const mapStateToProps  = (state) => {
-    return ({
-        auth: state.auth,
-        // list: state.list
-    })
-}
-
-export default connect(mapStateToProps, {getCoursesOfUser})(MyCoursesPage);
+export default MyCoursesPage;

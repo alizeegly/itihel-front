@@ -4,14 +4,14 @@ import { AppBar, Avatar, Box, Divider, Drawer, IconButton, List, ListItem, ListI
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { MobileView } from 'react-device-detect';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { logout } from "../../redux/actions/authActions";
 import { useLocation } from 'react-router-dom';
 
 const drawerWidth = 240;
 
-const Sidebar = ({ window, auth: { user }, logout, course = null, title }) => {
+const Sidebar = ({ window, course = null, title }) => {
     const [mobileOpen, setMobileOpen] = React.useState(false);
     const [anchorEl, setAnchorElUser] = React.useState(null);
     const path = useLocation().pathname
@@ -27,6 +27,9 @@ const Sidebar = ({ window, auth: { user }, logout, course = null, title }) => {
 	const handleCloseUserMenu = () => {
 		setAnchorElUser(null);
 	};
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
 
     const drawer = (
         <div style={{
@@ -56,7 +59,7 @@ const Sidebar = ({ window, auth: { user }, logout, course = null, title }) => {
             <Box display={"flex"} justifyContent={"center"}>
                 <Tooltip title="Ouvrir les paramètres">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt={user && user.first_name[0] + " " + user && user.last_name[0]}>{user && user.first_name[0]}{user && user.last_name[0]}</Avatar>
+						<Avatar alt={userInfo && userInfo.first_name[0] + " " + userInfo && userInfo.last_name[0]}>{userInfo && userInfo.first_name[0]}{userInfo && userInfo.last_name[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
                 <Menu
@@ -190,12 +193,4 @@ const Sidebar = ({ window, auth: { user }, logout, course = null, title }) => {
     )
 }
 
-Sidebar.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps, { logout })(Sidebar);
+export default Sidebar;
