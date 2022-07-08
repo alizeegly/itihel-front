@@ -6,11 +6,13 @@ import { ShowForPermission } from './CoursePermissions'
 import ReactHtmlParser from 'react-html-parser'
 import { Box } from '@mui/system'
 import FlipCards from '../../components/Course/FlipCards'
+import Breadcrumbs from '../../components/Breadcrumbs/Breadcrumbs'
 
 const CourseLayout = ({ course, roles, cards }) => {
     return (
         <>
             <Grid item md={12}>
+                <Breadcrumbs/>
                 <CourseHeader course={course} roles={roles}/>
             </Grid>
             <Grid item md={12}>

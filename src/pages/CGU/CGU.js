@@ -11,7 +11,7 @@ const CGU = () => {
           <Grid item md={12}>
 
 
-<Breadcrumbs></Breadcrumbs>
+          <Breadcrumbs />
           <h1>CONDITIONS GÉNÉRALES D'UTILISATION</h1>
             <h2>Définitions :</h2>
               <p>Client :tout professionnel ou personne physique capable au sens des articles 1123 et suivants du Code civil, ou personne morale, qui visite le Site objet des présentes conditions générales.</p>
