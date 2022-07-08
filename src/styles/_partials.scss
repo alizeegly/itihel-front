@@ -21,6 +21,35 @@ section {
     }
 }
 
+.col_2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 50px;
+
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+
+    &.reverse {
+        flex-direction: row-reverse;
+    }
+
+    > div {
+        width: 48%;
+
+        &:first-of-type {
+            display: flex;
+
+            img {
+                max-width: 350px;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
 h1,
 .h1 {
     font-size: 44px;
@@ -52,6 +81,7 @@ h2,
 .h2 {
     font-size: 32px;
     line-height: 40px;
+    font-weight: 600;
     color: $black;
     margin: 30px 0 24px;
 
@@ -125,7 +155,7 @@ p {
     font-size: 16px;
     color: $white !important;
     padding: 10px 15px;
-    margin-right : 20px;
+    margin-right: 20px;
     border-radius: 4px;
     background-color: $second_blue;
     border: 2px solid transparent;

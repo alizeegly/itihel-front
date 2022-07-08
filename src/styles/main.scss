@@ -1,6 +1,7 @@
 // variable de couleur
 $main_blue: #95DDDC;
 $second_blue: #3B8FBF;
+$blue: #202938;
 $pink: #FFD9E0;
 $yellow: #FEE996;
 $white: #fff;
@@ -42,13 +43,13 @@ ul {
 }
 
 ::selection {
-    color: black;
-    background-color: $pink;
+    color: $white;
+    background-color: $black;
 }
 
 ::-moz-selection {
-    color: black;
-    background-color: $pink;
+    color: $white;
+    background-color: $black;
 }
 
 // Conteneurs principaux
@@ -75,10 +76,6 @@ body {
 
 .left {
     text-align: left;
-}
-
-.right {
-    text-align: right;
 }
 
 .color {
