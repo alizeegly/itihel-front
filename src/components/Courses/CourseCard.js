@@ -41,7 +41,7 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                             setIsOpen(true);
                         }}>
                             <Avatar>
-                                {course && course.owner_id && course.owner_id.first_name[0]+course.owner_id.last_name[0]}
+                                {course && course.owner_id && course.owner_id.pseudo[0]}
                             </Avatar>
                         </IconButton>
                     </Tooltip>

@@ -1,22 +1,30 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import ListCourses from './ListCourses';
 import { getCoursesShared } from '../../redux/actions/listActions';
+import { Redirect } from 'react-router-dom';
 
-const SharedCoursesPage = (props) => {
+const SharedCoursesPage = () => {
 
+    const dispatch = useDispatch();
+
+    const coursesList = useSelector((state) => state.coursesList);
+    const { loading, error, courses } = coursesList;
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    
     useEffect(() => {
-        if (props.auth && props.auth.user && props.auth.user._id && props.list.courses.length <= 0) {
-            props.getCoursesShared(props.auth.user._id)
+        dispatch(getCoursesShared(userInfo._id));
+        if (!userInfo) {
+            return <Redirect to="/login" />;
         }
-    }, [props, props.auth, props.getCoursesShared]);
+    }, [getCoursesShared, userInfo]);
 
     return (
         <>
             {
-                props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list} title="Partagés avec moi" />
-                )
+                <ListCourses list={courses} title="Partagés avec moi" />
             }
         </>
     )

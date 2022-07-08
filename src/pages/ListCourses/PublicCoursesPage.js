@@ -1,23 +1,30 @@
 import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import ListCourses from './ListCourses';
 import { getPublicCourses } from '../../redux/actions/listActions';
+import { Redirect } from 'react-router-dom';
 
-const PublicCoursesPage = (props) => {
+const PublicCoursesPage = () => {
+    
+    const dispatch = useDispatch();
+
+    const coursesList = useSelector((state) => state.coursesList);
+    const { loading, error, courses } = coursesList;
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
     
     useEffect(() => {
-        if (props.list.courses.length <= 0) {
-            props.getPublicCourses()
+        dispatch(getPublicCourses())
+
+        if (!userInfo) {
+            return <Redirect to="/login" />;
         }
-    }, [props.auth, props.getPublicCourses]);
+    }, [getPublicCourses, userInfo]);
 
     return (
         <>
-            {
-                props.list && props.list.courses.length > 0 && (
-                    <ListCourses list={props.list} title="Cours Publics" />
-                )
-            }
+            <ListCourses list={courses} title="Cours Publics" />
         </>
     )
 }

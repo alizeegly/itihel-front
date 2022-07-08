@@ -15,13 +15,12 @@ const MyCoursesPage = () => {
     const { userInfo } = userLogin;
     
     useEffect(() => {
-        dispatch(getCoursesOfUser());
+        dispatch(getCoursesOfUser(userInfo._id))
+
         if (!userInfo) {
             return <Redirect to="/login" />;
         }
     }, [getCoursesOfUser, userInfo]);
-    
-    console.log(coursesList)
     
     return (
         <>

@@ -23,7 +23,9 @@ const LayoutSidebar = ({title, children, image, position, appbar = null, course=
     const TitleH2 = styled("h2")(({ theme }) => ({
         color: "white",
         textTransform: "uppercase",
-        textShadow: "1px 1px 2px black"
+        textShadow: "1px 1px 2px black",
+        fontWeight: "bold",
+        fontSize: "55px"
     }));
 
     return (

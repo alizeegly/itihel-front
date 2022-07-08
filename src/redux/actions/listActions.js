@@ -21,23 +21,20 @@ import { LIST_FAIL, SET_LIST, GET_PUBLIC_COURSES, LIST_REQUEST, LIST_SUCCESS, AD
 // 	}
 // };
 
-export const getCoursesOfUser = () => async (dispatch, getState) => {
+export const getCoursesOfUser = (id) => async (dispatch, getState) => {
     try {
         dispatch({
             type: LIST_REQUEST,
         });
     
         const {userLogin: { userInfo }} = getState();
-    
         const config = {
             headers: {
                 Authorization: `Bearer ${userInfo.token}`,
             },
         };
     
-        const { data } = await axios.get(`/api/users/629b95514cb350b82c300ab3/courses`, config);
-        console.log("here")
-        console.log(data)
+        const { data } = await axios.get(`/api/users/${id}/courses`, config);
         dispatch({
             type: LIST_SUCCESS,
             payload: data,
@@ -54,43 +51,63 @@ export const getCoursesOfUser = () => async (dispatch, getState) => {
     }
   };
 
-export const getCoursesShared = ( id ) => async (dispatch) => {
+export const getCoursesShared = ( id ) => async (dispatch, getState) => {
+    dispatch({
+        type: LIST_REQUEST,
+    });
+    
+    const {userLogin: { userInfo }} = getState();
     const config = {
-		headers: {
-			"Content-Type": "application/json",
-		},
-	};
+        headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+
     try {
-        const res = await axios.get(`/api/users/${id}/courses/shared`, config)
-        dispatch( {
-            type: SET_LIST,
-            payload: res.data
-        })
-    } catch (err) {
-		dispatch( {
+        const { data } = await axios.get(`/api/users/${id}/courses/shared`, config)
+        dispatch({
+            type: LIST_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+		const message =
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        dispatch({
             type: LIST_FAIL,
-            payload: console.log(err),
-        })
+            payload: message,
+        });
 	}
 };
 
-export const getPublicCourses = () => async (dispatch) => {
+export const getPublicCourses = () => async (dispatch, getState) => {
+    dispatch({
+        type: LIST_REQUEST,
+    });
+    
+    const {userLogin: { userInfo }} = getState();
     const config = {
-		headers: {
-			"Content-Type": "application/json",
-		},
-	};
+        headers: {
+            Authorization: `Bearer ${userInfo.token}`,
+        },
+    };
+
     try {
-        const res = await axios.get(`/api/courses/public`, config)
-        dispatch( {
-            type: SET_LIST,
-            payload: res.data
-        })
-    } catch (err) {
-		dispatch( {
+        const { data } = await axios.get(`/api/courses/public`, config)
+        dispatch({
+            type: LIST_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+		const message =
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        dispatch({
             type: LIST_FAIL,
-            payload: console.log(err),
-        })
+            payload: message,
+        });
 	}
 };
 
