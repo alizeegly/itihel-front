@@ -2,16 +2,19 @@ import { Grid } from '@mui/material'
 import React, { useEffect } from 'react'
 import LayoutSidebar from '../../layouts/LayoutSidebar'
 import { SettingsCard, ProfileCard } from '../../components'
-import { connect } from 'react-redux'
+import { connect, useSelector } from 'react-redux'
 import profileImg from '../../assets/img/clavier-ordi.jpg'
 
-const ProfilePage = ({ auth: { user }, list: { publicCourses } }) => {
+const ProfilePage = () => {
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
 
     return (
         <LayoutSidebar title="Mon profil" image={profileImg} position={"bottom 23% right 0"}>
             {/* PROFILE CARD */}
             <Grid item lg={3} md={3}>
-                {user && publicCourses && <ProfileCard user={user} />}
+                <ProfileCard user={userInfo} />
             </Grid>
 
             {/* SETTINGS CARD */}
@@ -22,9 +25,4 @@ const ProfilePage = ({ auth: { user }, list: { publicCourses } }) => {
     )
 }
 
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-    list: state.list
-});
-
-export default connect(mapStateToProps)(ProfilePage);
+export default ProfilePage;

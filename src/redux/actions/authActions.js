@@ -122,12 +122,14 @@ export const updateUser = (user) => async (dispatch, getState) => {
 	
 		const config = {
 			headers: {
-			"Content-Type": "application/json",
-			Authorization: `Bearer ${userInfo.token}`,
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${userInfo.token}`,
 			},
 		};
+
+		console.log(user)
 	
-		const { data } = await axios.post("/api/users/profile", user, config);
+		const { data } = await axios.put(`http://localhost:8800/api/users/${userInfo._id}`, user, config);
 	
 		dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
 	

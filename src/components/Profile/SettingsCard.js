@@ -1,27 +1,51 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@mui/material/Card";
 import Container from "@mui/material/Container";
 import TextField from "@mui/material/TextField";
 import { Grid } from "@mui/material";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
 import { updateUser } from "../../redux/actions/authActions";
 
-function SettingsCard({ auth: { user } }) {
-    const [userState, setUserState] = useState(user)
+function SettingsCard() {
+    
+    const dispatch = useDispatch();
+    let history = useHistory();
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        //update user
-        updateUser(userState)
-    }
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+    
+    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [email, setEmail] = useState("");
+    const [pseudo, setPseudo] = useState();
+
+    const userUpdate = useSelector((state) => state.userUpdate);
+    const { loading, error, success } = userUpdate;
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(updateUser({ first_name: firstName, last_name: lastName, email, pseudo }));
+    };
+
+    useEffect(() => {
+        if (!userInfo) {
+            history.push("/");
+        } else {
+            setLastName(userInfo.last_name);
+            setFirstName(userInfo.first_name);
+            setEmail(userInfo.email);
+            setPseudo(userInfo.pseudo);
+        }
+    }, [history, userInfo]);
 
     return (
         <Card variant="outlined" sx={{ height: "100%", p: 2 }}>
             <Container sx={{ height: "100%" }}>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={submitHandler} noValidate sx={{ mt: 1 }}>
                     <Grid container columns={12} sx={{ mb: {md: 5}, mt: 2 }} spacing={2}>
                         <Grid item xs={12} md={6}>
                             <TextField
@@ -31,11 +55,8 @@ function SettingsCard({ auth: { user } }) {
                                 name="last_name"
                                 fullWidth
                                 sx={{ mb: 2 }}
-                                value={userState && userState.last_name}
-                                onChange={(e) => setUserState(prevState => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value
-                                }))}
+                                value={lastName}
+                                onChange={(e) => setLastName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -46,11 +67,8 @@ function SettingsCard({ auth: { user } }) {
                                 name="first_name"
                                 fullWidth
                                 sx={{ mb: 2 }}
-                                value={userState && userState.first_name}
-                                onChange={(e) => setUserState(prevState => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value
-                                }))}
+                                value={firstName}
+                                onChange={(e) => setFirstName(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -61,11 +79,8 @@ function SettingsCard({ auth: { user } }) {
                                 name="email"
                                 fullWidth
                                 sx={{ mb: {sm: 2, xs: 10} }}
-                                value={userState && userState.email}
-                                onChange={(e) => setUserState(prevState => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value
-                                }))}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                         </Grid>
                         <Grid item xs={12} md={6}>
@@ -76,11 +91,8 @@ function SettingsCard({ auth: { user } }) {
                                 name="pseudo"
                                 fullWidth
                                 sx={{ mb: 2 }}
-                                value={userState && userState.pseudo}
-                                onChange={(e) => setUserState(prevState => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value
-                                }))}
+                                value={pseudo}
+                                onChange={(e) => setPseudo(e.target.value)}
                             />
                         </Grid>
                     </Grid>
@@ -91,12 +103,4 @@ function SettingsCard({ auth: { user } }) {
     );
 }
 
-SettingsCard.propTypes = {
-	auth: PropTypes.object.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-	auth: state.auth,
-});
-
-export default connect(mapStateToProps)(SettingsCard);
+export default SettingsCard;
