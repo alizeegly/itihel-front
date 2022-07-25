@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { getCourse, getFlipCardsOfCourse } from '../../redux/actions/courseActions';
 import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
@@ -13,6 +13,9 @@ import Error404Page from '../Errors/Error404Page';
 
 const CoursePage = (props) => {
   const { id } = props.match.params
+
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
 
   useEffect(() => {
     if(!props.course._id){
@@ -41,7 +44,6 @@ const CoursePage = (props) => {
 
 const mapStateToProps = (state) => {
   return({
-    user: state.auth.user,
     loading: state.auth.loading || state.course.loading,
     course: state.course.course,
     roles: state.course.user_roles,

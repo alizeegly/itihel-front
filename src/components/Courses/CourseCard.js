@@ -3,12 +3,36 @@ import React from 'react'
 import Highlighter from 'react-highlight-words';
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCourseAction } from '../../redux/actions/listActions';
 
 const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
     const path = useLocation().pathname
+    const dispatch = useDispatch();
+
+    const courseDelete = useSelector((state) => state.courseDelete);
+    const {
+        loading: loadingDelete,
+        error: errorDelete,
+        success: successDelete,
+    } = courseDelete;
+
+    const deleteHandler = (id) => {
+        if (window.confirm("Voulez-vous vraiment supprimer ce cours ?")) {
+            dispatch(deleteCourseAction(id));
+        }
+    };
+    
 
     return (
         <Card sx={{ position: "relative", height: "100%" }}>
+            {
+                path === "/courses" && (
+                    <Fab color="error" aria-label="delete" size="small" sx={{ position: "absolute", top: -5, right: -5 }} onClick={() => deleteHandler(course._id)}>
+                        <DeleteRoundedIcon />
+                    </Fab>
+                )
+            }
             <CardMedia
                 component="img"
                 height="140"
@@ -40,7 +64,7 @@ const CourseCard = ({ course, setModalData, setIsOpen, searchQuery }) => {
                             setModalData(course);
                             setIsOpen(true);
                         }}>
-                            <Avatar>
+                            <Avatar sx={{textTransform: "uppercase"}}>
                                 {course && course.owner_id && course.owner_id.pseudo[0]}
                             </Avatar>
                         </IconButton>

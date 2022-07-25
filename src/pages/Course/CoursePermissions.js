@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useSelector } from 'react-redux';
 import { getCourse, getCourseSharedOfUserCourse } from '../../redux/actions/courseActions';
 
 const CoursePermissions = (props) => {
     
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+
     useEffect(() => {
         if(props.user && props.user._id) props.getCourseSharedOfUserCourse(props.user._id, props.course)
     }, [getCourseSharedOfUserCourse])

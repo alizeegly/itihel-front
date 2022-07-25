@@ -35,7 +35,7 @@ const ListCourses = ({ title, list, loading }) => {
         setIsOpen(false)
     }
 
-    const filterPosts = (posts, query, title) => {
+    const filterPosts = (posts, query) => {
         if (!query) {
             return posts;
         }
@@ -48,7 +48,7 @@ const ListCourses = ({ title, list, loading }) => {
         });
     };
 
-    const filteredPosts = filterPosts(list, query)
+    // const filteredPosts = filterPosts(list, query)
 
     return (
         <LayoutSidebar title={title} image={courseImg} position={"bottom 5% right 0"}>
@@ -79,7 +79,12 @@ const ListCourses = ({ title, list, loading }) => {
                 {
                     loading ? (
                         <p>...</p>
-                    ) : filteredPosts && filteredPosts.length > 0 && filteredPosts.map((filterCourse, index) => (
+                    ) : 
+                    list
+                        .filter((filteredCourse) =>
+                            query ? filteredCourse.title.toLowerCase().includes(query) || filteredCourse.description.toLowerCase().includes(query) || filteredCourse.owner_id.pseudo.toLowerCase().includes(query) : list
+                        )
+                        .map((filterCourse, index) => (
                         <Grid item xs={12} md={4} height="450px" key={index}>
                             <CourseCard course={filterCourse} setModalData={setModalData} setIsOpen={setIsOpen} searchQuery={searchQuery} />
                         </Grid>
@@ -90,7 +95,7 @@ const ListCourses = ({ title, list, loading }) => {
                 isOpen={modalIsOpen}
                 onRequestClose={closeModal}
                 style={customStyles}
-                contentLabel="Example Modal"
+                contentLabel="User profile"
             >
                 <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
             </Modal>

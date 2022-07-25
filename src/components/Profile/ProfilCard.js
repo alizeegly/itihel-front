@@ -36,8 +36,8 @@ function ProfileCard({user}) {
             >
                 <Grid item sx={{ p: "1.5rem 0rem" }}>
                     <Avatar
-                        sx={{ width: 50, height: 50, mb: 15, margin: "0 auto" }}
-                    >{user.first_name[0]}{user.last_name[0]}</Avatar>
+                        sx={{ width: 50, height: 50, mb: 15, margin: "0 auto", textTransform: "uppercase" }}
+                    >{user.pseudo[0]}</Avatar>
                     <Typography variant="h5" sx={{ textAlign: "center", mt: 2 }}>{user.pseudo}</Typography>
                     <Typography color="text.secondary" sx={{ textAlign: "center" }}></Typography>
                 </Grid>

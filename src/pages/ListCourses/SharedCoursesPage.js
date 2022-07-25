@@ -23,18 +23,9 @@ const SharedCoursesPage = () => {
 
     return (
         <>
-            {
-                <ListCourses list={courses} title="Partagés avec moi" />
-            }
+            <ListCourses list={courses} title="Partagés avec moi" loading={loading} />
         </>
     )
 }
 
-const mapStateToProps  = (state) => {
-    return ({
-        auth: state.auth,
-        list: state.list
-    })
-}
-
-export default connect(mapStateToProps, {getCoursesShared})(SharedCoursesPage);
+export default SharedCoursesPage;

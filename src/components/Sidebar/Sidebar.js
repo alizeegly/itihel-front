@@ -59,7 +59,7 @@ const Sidebar = ({ window, course = null, title }) => {
             <Box display={"flex"} justifyContent={"center"}>
                 <Tooltip title="Ouvrir les paramètres">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt={userInfo && userInfo.first_name[0] + " " + userInfo && userInfo.last_name[0]}>{userInfo && userInfo.first_name[0]}{userInfo && userInfo.last_name[0]}</Avatar>
+						<Avatar sx={{textTransform: "uppercase"}} alt={userInfo && userInfo.pseudo[0]}>{userInfo && userInfo.pseudo[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
                 <Menu

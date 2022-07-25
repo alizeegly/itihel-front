@@ -41,7 +41,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, course = n
 			<Box sx={{ flexGrow: 0 }}>
 				<Tooltip title="Ouvrir les paramètres">
 					<IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-						<Avatar alt={userInfo && userInfo.pseudo[0]}>{userInfo && userInfo.pseudo[0]}</Avatar>
+						<Avatar sx={{textTransform: "uppercase"}} alt={userInfo && userInfo.pseudo[0]}>{userInfo && userInfo.pseudo[0]}</Avatar>
 					</IconButton>
 				</Tooltip>
 				<Menu

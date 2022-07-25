@@ -24,16 +24,9 @@ const PublicCoursesPage = () => {
 
     return (
         <>
-            <ListCourses list={courses} title="Cours Publics" />
+            <ListCourses list={courses} title="Cours Publics" loading={loading} />
         </>
     )
 }
 
-const mapStateToProps  = (state) => {
-    return ({
-        auth: state.auth,
-        list: state.list
-    })
-}
-
-export default connect(mapStateToProps, {getPublicCourses})(PublicCoursesPage);
+export default PublicCoursesPage;

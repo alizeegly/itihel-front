@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
 import { Box, Button, Fab, TextField, Tooltip, Typography } from '@mui/material'
 import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
 import { addCourse } from '../../redux/actions/courseActions';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import AddIcon from "@mui/icons-material/Add";
+import { createCourseAction } from '../../redux/actions/listActions';
 
 const customStyles = {
     content: {
@@ -25,16 +26,15 @@ const customStyles = {
 
 const CreateCourse = (props) => {
     const [modalIsOpen, setIsOpen] = useState(false)
-    const [course, setCourse] = useState({
-        title: "",
-        text: "",
-        isPublic: false,
-        owner_id: props.auth && props.auth.user && props.auth.user._id ? props.auth.user._id : "",
-        profile_picture: "",
-        categories: [],
-        description: ""
-    })
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("");
+    const dispatch = useDispatch();
 
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
+
+    const courseCreate = useSelector((state) => state.courseCreate);
+  
     function closeModal() {
         setIsOpen(false)
     }
@@ -42,15 +42,31 @@ const CreateCourse = (props) => {
         setIsOpen(true)
     }
 
-    
-    const onChange = (e) =>
-        setCourse({ ...course, [e.target.name]: e.target.value });
-    
-    const onSubmit = async (e) => {
-        e.preventDefault();
-        props.addCourse(course);
-        console.log("Course", course);
+    const resetHandler = () => {
+        setTitle("");
+        setDescription("");
     };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        dispatch(
+            createCourseAction({
+                title,
+                text: "",
+                isPublic: false,
+                owner_id: userInfo._id,
+                profile_picture: "",
+                categories: [],
+                description
+            })
+        )
+        if (!title || !description) return
+    
+        resetHandler()
+        setIsOpen(false)
+    };
+
+    useEffect(() => {}, []);
 
     return (
         <>
@@ -73,7 +89,7 @@ const CreateCourse = (props) => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <Box component="form" onSubmit={(e) => onSubmit(e)} noValidate>
+                <Box component="form" onSubmit={submitHandler} noValidate>
                     <Typography variant="h4">Créer un cours</Typography>
                     <Alert/>
                     <TextField
@@ -85,9 +101,9 @@ const CreateCourse = (props) => {
                         type="text"
                         id="title"
                         multiline
-                        autoComplete="current-password"
-                        value={course.title}
-                        onChange={(e) => onChange(e)}
+                        autoComplete="title"
+                        value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
                     <TextField
                         margin="normal"
@@ -98,8 +114,8 @@ const CreateCourse = (props) => {
                         type="description"
                         id="description"
                         multiline
-                        value={course.description}
-                        onChange={(e) => onChange(e)}
+                        value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
                     <Button
                         type="submit"
