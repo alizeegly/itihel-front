@@ -9,8 +9,10 @@ import { connect, useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import { updateUser } from "../../redux/actions/authActions";
+import Alert from "../Alert/Alert";
+import Loading from "../Alert/Loading";
 
-function SettingsCard() {
+function SettingsCard({ setAlert }) {
     
     const dispatch = useDispatch();
     let history = useHistory();
@@ -45,6 +47,13 @@ function SettingsCard() {
     return (
         <Card variant="outlined" sx={{ height: "100%", p: 2 }}>
             <Container sx={{ height: "100%" }}>
+                {success && (
+                    <Alert variant="success">
+                        Le profil a bien été modifié
+                    </Alert>
+                )}
+                {error && <Alert variant="error">{error}</Alert>}
+
                 <Box component="form" onSubmit={submitHandler} noValidate sx={{ mt: 1 }}>
                     <Grid container columns={12} sx={{ mb: {md: 5}, mt: 2 }} spacing={2}>
                         <Grid item xs={12} md={6}>
@@ -97,6 +106,7 @@ function SettingsCard() {
                         </Grid>
                     </Grid>
                     <Button type="submit" variant="contained">Modifier</Button>
+                    {loading && <Loading />}
                 </Box>
             </Container>
         </Card>
