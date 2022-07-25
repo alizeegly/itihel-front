@@ -15,7 +15,6 @@ const LayoutAuth = ({title, children}) => {
             <Box sx={{ flexGrow: 1 }}>
                 <Navbar color={bg} styleSx={{ color: "white" }} />
             </Box>
-            <Alert />
             <Container component="main" maxWidth="md">
                 <Box
                     sx={{

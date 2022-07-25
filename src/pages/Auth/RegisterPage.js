@@ -1,46 +1,50 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect, useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, useHistory } from "react-router-dom";
 import { register } from "../../redux/actions/authActions";
 import PropTypes from "prop-types";
 import { setAlert } from "../../redux/actions/alertActions";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import LayoutAuth from "../../layouts/LayoutAuth";
+import Loading from "../../components/Alert/Loading";
+import { Alert } from "../../components";
 
 const Register = () => {
 	const dispatch = useDispatch();
-	const userLogin = useSelector((state) => state.userLogin);
-	const { userInfo } = userLogin;
+	const history = useHistory();
 
-	const [formData, setFormData] = useState({
-		first_name: "",
-		last_name: "",
-		pseudo: "",
-		email: "",
-		password: "",
-		password2: "",
-	});
-	
-	const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-	
-	const onSubmit = async (e) => {
-		console.log(formData)
-		e.preventDefault();
-		if (formData.password !== formData.password2) {
-			dispatch(setAlert("Les mots de passe ne sont pas identique", "error"))
-		} else {
-			dispatch(register(formData));
-		}
-	};
+	const userLogin = useSelector((state) => state.userLogin);
+
+	const userRegister = useSelector((state) => state.userRegister);
+	const { loading, error, userInfo } = userRegister;
+
+	const [email, setEmail] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [pseudo, setPseudo] = useState("");
+	const [password, setPassword] = useState("");
+	const [confirmpassword, setConfirmPassword] = useState("");
+	const [message, setMessage] = useState(null);
 
 	// Redirect if logged in
-	if (userInfo) {
+	if (userLogin.userInfo) {
 		return <Redirect to="/dashboard" />;
 	}
+	
+	const submitHandler = (e) => {
+		e.preventDefault();
+	
+		if (password !== confirmpassword) {
+		  setMessage("Les mots de passe ne sont pas identiques");
+		} else dispatch(register({first_name: firstName, last_name: lastName, pseudo, email, password}));
+	};
 
 	return (
 		<LayoutAuth title="S'inscrire">
-			<Box component="form" onSubmit={(e) => onSubmit(e)} noValidate sx={{ mt: 1, width: "70%" }}>
+			{error && <Alert variant="error">{error}</Alert>}
+			{message && <Alert variant="error">{message}</Alert>}
+			{loading && <Loading />}
+			<Box component="form" onSubmit={submitHandler} noValidate sx={{ mt: 1, width: "70%" }}>
 				<Grid container spacing={2} columns={12}>
 					<Grid item xs={12} sm={6}>
 						<TextField
@@ -52,8 +56,8 @@ const Register = () => {
 							name="first_name"
 							autoComplete="first_name"
 							autoFocus
-							value={formData.first_name}
-							onChange={(e) => onChange(e)}
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
 						/>
 					</Grid>
 					<Grid item xs={12} md={6}>
@@ -65,8 +69,8 @@ const Register = () => {
 							label="Nom"
 							name="last_name"
 							autoComplete="last_name"
-							value={formData.last_name}
-							onChange={(e) => onChange(e)}
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
 						/>
 					</Grid>
 				</Grid>
@@ -78,8 +82,8 @@ const Register = () => {
 					label="Pseudo"
 					name="pseudo"
 					autoComplete="pseudo"
-					value={formData.pseudo}
-					onChange={(e) => onChange(e)}
+					value={pseudo}
+					onChange={(e) => setPseudo(e.target.value)}
 				/>
 				<TextField
 					margin="normal"
@@ -89,8 +93,8 @@ const Register = () => {
 					label="Email"
 					name="email"
 					autoComplete="email"
-					value={formData.email}
-					onChange={(e) => onChange(e)}
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
 				/>
 				<Grid container spacing={2}>
 					<Grid item xs={12} md={6}>
@@ -103,8 +107,8 @@ const Register = () => {
 							type="password"
 							id="password"
 							autoComplete="password"
-							value={formData.password}
-							onChange={(e) => onChange(e)}
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
 						/>
 					</Grid>
 					<Grid item xs={12} sm={6}>
@@ -117,8 +121,8 @@ const Register = () => {
 							type="password"
 							id="password2"
 							autoComplete="password2"
-							value={formData.password2}
-							onChange={(e) => onChange(e)}
+							value={confirmpassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
 						/>
 					</Grid>
 				</Grid>

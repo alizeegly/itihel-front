@@ -4,7 +4,7 @@ import { AppBar, Avatar, Box, Divider, Drawer, IconButton, List, ListItem, ListI
 import MenuIcon from '@mui/icons-material/Menu';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { MobileView } from 'react-device-detect';
-import { connect, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { logout } from "../../redux/actions/authActions";
 import { useLocation } from 'react-router-dom';
@@ -16,6 +16,7 @@ const Sidebar = ({ window, course = null, title }) => {
     const [anchorEl, setAnchorElUser] = React.useState(null);
     const path = useLocation().pathname
     const hash = useLocation().hash
+    const dispatch = useDispatch();
 
     const handleDrawerToggle = () => {
         setMobileOpen(!mobileOpen);
@@ -30,6 +31,10 @@ const Sidebar = ({ window, course = null, title }) => {
 
     const userLogin = useSelector((state) => state.userLogin);
     const { userInfo } = userLogin;
+
+    const logoutHandler = () => {
+        dispatch(logout());
+      };
 
     const drawer = (
         <div style={{
@@ -83,7 +88,7 @@ const Sidebar = ({ window, course = null, title }) => {
 					</MenuItem>
                     <MenuItem component={Link} to="/profile">Mon profil</MenuItem>
                     <Divider />
-                    <MenuItem onClick={logout}>Se déconnecter</MenuItem>
+                    <MenuItem onClick={logoutHandler}>Se déconnecter</MenuItem>
                 </Menu>
             </Box>
         </div>

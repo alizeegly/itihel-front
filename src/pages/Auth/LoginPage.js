@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import LayoutAuth from "../../layouts/LayoutAuth";
 import { Box, Button, TextField, Typography } from "@mui/material";
 import { login } from "../../redux/actions/authActions"
+import Loading from "../../components/Alert/Loading";
+import { Alert } from "../../components";
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const LoginPage = () => {
 
 	return (
 		<LayoutAuth title="Se connecter">
+			{error && <Alert variant="error">{error}</Alert>}
+        	{loading && <Loading />}
 			<Box component="form" onSubmit={(e) => onSubmit(e)} noValidate sx={{ mt: 1 }}>
 				<TextField
 					margin="normal"

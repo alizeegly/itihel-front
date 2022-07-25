@@ -61,14 +61,12 @@ export const login = (email, password) => async (dispatch) => {
 	
 		localStorage.setItem("userInfo", JSON.stringify(data));
 	} catch (error) {
-		dispatch(setAlert(error.response.data.errors[0].msg, "error"))
-
+		// dispatch(setAlert(error.response.data.errors[0].msg, "error"))
 		dispatch({
 			type: USER_LOGIN_FAIL,
-			payload:
-				error.response && error.response.data.message
-					? error.response.data.message
-					: error.message,
+			payload:  error.response && error.response.data.errors && error.response.data.errors[0]
+			? error.response.data.errors[0].msg
+			: error.msg,
 		});
 	}
 };
@@ -99,15 +97,14 @@ export const register = (formData) => async (dispatch) => {
 	
 		localStorage.setItem("userInfo", JSON.stringify(data));
 	} catch (error) {
-		console.log(error.response)
-		dispatch(setAlert(error.response.data.errors[0].msg, "error"))
+		console.log(error)
+		// dispatch(setAlert(error.response.data.errors[0].msg, "error"))
 
 		dispatch({
 			type: USER_REGISTER_FAIL,
-			payload:
-			error.response && error.response.data.message
-				? error.response.data.message
-				: error.message,
+			payload:  error.response && error.response.data
+			? error.response.data.msg
+			: error.msg,
 		});
 	}
 };
