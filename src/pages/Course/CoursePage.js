@@ -10,6 +10,8 @@ import CourseLayout from './CourseLayout';
 import { Redirect } from 'react-router-dom';
 import { ShowForPermission } from './CoursePermissions';
 import Error404Page from '../Errors/Error404Page';
+import ScrollToTop from "react-scroll-up"
+import upArrow from "../../assets/img/up-arrow.png"
 
 const CoursePage = (props) => {
   const { id } = props.match.params
@@ -37,6 +39,9 @@ const CoursePage = (props) => {
           >
               <CourseLayout course={props.course} roles={props.roles} cards={props.cards}/>
           </ShowForPermission>
+          <ScrollToTop showUnder={160}>
+            <span><img src={upArrow} style={{height: "50px", position: "relative", bottom: "50px"}}></img></span>
+          </ScrollToTop>
         </LayoutSidebar>
     </>
   )

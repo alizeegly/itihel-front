@@ -5,7 +5,9 @@ import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { CourseCard, CreateCourse, SearchBar, ProfileCard } from '../../components';
-import courseImg from '../../assets/img/bureau-pc-cours.jpg'
+import courseImg from '../../assets/img/bureau-pc-cours.jpg';
+import ScrollToTop from "react-scroll-up"
+import upArrow from "../../assets/img/up-arrow.png"
 
 Modal.setAppElement('#root');
 
@@ -100,6 +102,9 @@ const ListCourses = ({ title, list, loading }) => {
                 <ProfileCard user={modalData && modalData.owner_id ? modalData.owner_id : null}/>
             </Modal>
             <CreateCourse/>
+            <ScrollToTop showUnder={160}>
+                <span><img src={upArrow} style={{height: "50px", position: "relative", bottom: "50px"}}></img></span>
+            </ScrollToTop>
         </LayoutSidebar>
     )
 }
