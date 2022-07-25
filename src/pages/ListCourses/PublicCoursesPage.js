@@ -24,7 +24,7 @@ const PublicCoursesPage = () => {
 
     return (
         <>
-            <ListCourses list={courses} title="Cours Publics" loading={loading} />
+            <ListCourses list={courses} title="Cours Publics" loading={loading} error={error} />
         </>
     )
 }

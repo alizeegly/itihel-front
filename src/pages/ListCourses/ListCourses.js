@@ -4,10 +4,11 @@ import LayoutSidebar from '../../layouts/LayoutSidebar'
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { CourseCard, CreateCourse, SearchBar, ProfileCard } from '../../components';
+import { CourseCard, CreateCourse, SearchBar, ProfileCard, Alert } from '../../components';
 import courseImg from '../../assets/img/bureau-pc-cours.jpg';
 import ScrollToTop from "react-scroll-up"
 import upArrow from "../../assets/img/up-arrow.png"
+import Loading from '../../components/Alert/Loading';
 
 Modal.setAppElement('#root');
 
@@ -26,7 +27,7 @@ const customStyles = {
     overlay: {zIndex: 1000}
 };
 
-const ListCourses = ({ title, list, loading }) => {
+const ListCourses = ({ title, list, loading, error=null }) => {
     const { search } = window.location;
     const query = new URLSearchParams(search).get('q');
     const [searchQuery, setSearchQuery] = useState(query || '');
@@ -36,21 +37,6 @@ const ListCourses = ({ title, list, loading }) => {
     function closeModal() {
         setIsOpen(false)
     }
-
-    const filterPosts = (posts, query) => {
-        if (!query) {
-            return posts;
-        }
-    
-        return posts.filter((post) => {
-            const postName = post.title ? post.title.toLowerCase() : ""
-            const description = post.description ? post.description.toLowerCase() : ""
-            const pseudo = post.owner_id && post.owner_id.pseudo ? post.owner_id.pseudo.toLowerCase() : ""
-            return postName.includes(query) || description.includes(query) || pseudo.includes(query)
-        });
-    };
-
-    // const filteredPosts = filterPosts(list, query)
 
     return (
         <LayoutSidebar title={title} image={courseImg} position={"bottom 5% right 0"}>
@@ -78,9 +64,10 @@ const ListCourses = ({ title, list, loading }) => {
                     mt: 3
                 }}
             >
+                {error && <Alert variant="error">{error}</Alert>}
                 {
                     loading ? (
-                        <p>...</p>
+                        <Loading/>
                     ) : 
                     list
                         .filter((filteredCourse) =>

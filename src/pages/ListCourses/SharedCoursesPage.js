@@ -23,7 +23,7 @@ const SharedCoursesPage = () => {
 
     return (
         <>
-            <ListCourses list={courses} title="Partagés avec moi" loading={loading} />
+            <ListCourses list={courses} title="Partagés avec moi" loading={loading} error={error} />
         </>
     )
 }

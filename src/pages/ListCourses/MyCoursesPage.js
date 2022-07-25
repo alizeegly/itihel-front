@@ -24,7 +24,7 @@ const MyCoursesPage = () => {
     
     return (
         <>
-            <ListCourses list={courses} title="Mes Cours" loading={loading}/>
+            <ListCourses list={courses} title="Mes Cours" loading={loading} error={error}/>
         </>
     )
 }
