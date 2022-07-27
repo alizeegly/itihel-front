@@ -2,8 +2,9 @@ import { combineReducers } from "redux";
 import alertReducers from "./alertReducers";
 import { userLoginReducer, userRegisterReducer, userUpdateReducer } from "./authReducers";
 import { CourseCreateReducer, courseDeleteReducer, ListReducer } from "./listReducers";
-import courseReducers from "./courseReducers";
 import listReducers from './listReducers'
+import { GetCourseReducer, GetRolesOfUserReducer } from "./courseReducers";
+import { GetFlashCardsOfCourseReducer } from "./gameReducers";
 
 export default combineReducers({
 	alert: alertReducers,
@@ -11,7 +12,9 @@ export default combineReducers({
 	userRegister: userRegisterReducer,
 	userUpdate: userUpdateReducer,
 	coursesList: ListReducer,
-	course: courseReducers,
+	// course: GetCourseReducer,
 	courseCreate: CourseCreateReducer,
-	courseDelete: courseDeleteReducer
+	courseDelete: courseDeleteReducer,
+	// rolesOfUser: GetRolesOfUserReducer,
+	// cards: GetFlashCardsOfCourseReducer
 });

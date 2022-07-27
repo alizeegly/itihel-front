@@ -8,6 +8,9 @@ import { Box } from '@mui/system'
 import FlipCards from '../../components/Course/FlipCards'
 
 const CourseLayout = ({ course, roles, cards }) => {
+    // console.log(course)
+    // console.log(roles)
+    // console.log(cards)
     return (
         <>
             <Grid item md={12}>
@@ -25,9 +28,9 @@ const CourseLayout = ({ course, roles, cards }) => {
             <Grid item md={12}>
                 <h1>{course.title}</h1>
             </Grid>
-            <Grid item md={12}>
+            {/* <Grid item md={12}>
                 <Alert/>
-            </Grid>
+            </Grid> */}
             <Grid item md={12} sx={{ pt: 0 }} id="prise-de-notes">
                 {ReactHtmlParser(course.text)}
             </Grid>

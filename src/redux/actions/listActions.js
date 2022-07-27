@@ -208,3 +208,37 @@ export const deleteCourseAction = (id) => async (dispatch, getState) => {
         });
     }
 };
+
+export const getCourses = () => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: LIST_REQUEST,
+        });
+    
+        const {
+            userLogin: { userInfo },
+        } = getState();
+    
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userInfo.token}`,
+            },
+        };
+    
+        const { data } = await axios.delete(`/api/courses/`, config);
+    
+        dispatch({
+            type: LIST_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        const message =
+            error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
+        dispatch({
+            type: LIST_FAIL,
+            payload: message,
+        });
+    }
+};
