@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Modal from 'react-modal'
-import { Box, Button, Fab, IconButton, TextField, Tooltip, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, Fab, IconButton, TextField, Tooltip, Typography } from '@mui/material'
 import Alert from '../../components/Alert/Alert';
 import { setAlert } from "../../redux/actions/alertActions";
 import { addCourse } from '../../redux/actions/courseActions';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
-import { ReactSearchAutocomplete } from 'react-search-autocomplete';
+import Checkbox from 'react-simple-checkbox'
 
 const customStyles = {
     content: {
@@ -25,9 +25,22 @@ const customStyles = {
 };
 
 
-const SharedCourse = ({ courseShared = {} }) => {
+const SharedCourse = ({ course, courseShared = {} }) => {
     const [modalIsOpen, setIsOpen] = useState(false)
-    const [users, setUsers] = useState([])
+    const [roles, setRoles] = useState([])
+
+    // Nouveau user
+    const [user, setUser] = useState("");
+    const [userRoles, setUserRoles] = useState([])
+
+    const getRoles = async () => {
+        try {
+            const roles = await axios.get("http://localhost:8800/api/roles/")
+            setRoles(roles.data)
+        } catch (err) {
+            console.error(err.message);
+        }
+    };
 
     function closeModal() {
         setIsOpen(false)
@@ -36,49 +49,31 @@ const SharedCourse = ({ courseShared = {} }) => {
         setIsOpen(true)
     }
 
-    const getUsers = async () => {
-        try {
-            const users = await axios.get("http://localhost:8800/api/users/")
-            setUsers(users.data);
-        } catch (err) {
-            console.error(err.message);
+    const handleChange = (role) => {
+        setUserRoles(roles => roles.includes(role) ? roles.filter(r => r !== role) : [role, ...roles])
+    }
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+        if(user != "" && userRoles.length > 0){
+            axios.post("http://localhost:8800/api/courses-shared/", {course_id: course._id, user_id: user, roles: userRoles})
+                .then((res) => {
+                    console.log("ajouté")
+                    // navigate("/courses/" + courseid + "/parameters")
+                })
+                .catch(err => {
+                    console.log(err)
+                })
+        } else {
+            console.log("here")
         }
     }
 
-    const formatResult = (item) => {
-        return item.pseudo
-    }
-
-    const onSubmit = (e) => {
-        console.log("send")
-    }
-
-    const handleOnSearch = (string, results) => {
-        // onSearch will have as the first callback parameter
-        // the string searched and for the second the results.
-        console.log(string, results)
-    }
-
-    const handleOnHover = (result) => {
-        // the item hovered
-        console.log(result)
-    }
-
-    const handleOnSelect = (item) => {
-        // the item selected
-        console.log(item)
-    }
-
-    const handleOnFocus = () => {
-        console.log('Focused')
-    }
-    
-
-    useEffect(()=>{
-        if(users.length <= 0){
-            getUsers()
+    useEffect(() => {
+        if(roles.length <= 0){
+            getRoles()
         }
-    }, [])
+    }, [getRoles, roles]);
 
     return (
         <>
@@ -103,9 +98,8 @@ const SharedCourse = ({ courseShared = {} }) => {
                 style={customStyles}
                 contentLabel="Example Modal"
             >
-                <Box component="form" onSubmit={(e) => onSubmit(e)} noValidate>
+                <Box component="form" onSubmit={submitHandler} noValidate>
                     <Typography variant="h4">Partager le cours</Typography>
-                    <Alert/>
 
                     {
                         courseShared && courseShared._id ? (
@@ -113,24 +107,48 @@ const SharedCourse = ({ courseShared = {} }) => {
                         ) : (
                             <>
                                 <Box sx={{ marginTop: 3 }}>
-                                    <Typography>Utilisateur</Typography>
+                                    <TextField
+                                        margin="normal"
+                                        fullWidth
+                                        name="user"
+                                        label="Pseudo de l'utilisateur"
+                                        type="text"
+                                        id="user"
+                                        value={user}
+                                        onChange={(e) => setUser(e.target.value)}
+                                        InputProps={{
+                                            style: {background: "white"}
+                                        }}
+                                    />
                                     {
-                                        users.length > 0 && (
-                                            <ReactSearchAutocomplete
-                                                items={users}
-                                                onSearch={handleOnSearch}
-                                                onHover={handleOnHover}
-                                                onSelect={handleOnSelect}
-                                                onFocus={handleOnFocus}
-                                                autoFocus
-                                                formatResult={formatResult}
-                                            />
-                                        )
+                                        roles.filter(role => role.identifiant !== "ROLE_ADMIN").map(role => (
+                                            <div className="roles" key={role._id}>
+                                                <Checkbox 
+                                                    color="#94DDDE"
+                                                    onChange={() => handleChange(role)} 
+                                                    size="3"
+                                                    checked={userRoles.some(item => role.name === item.name)}
+                                                    id={role.id}
+                                                    className="role-checkbox"
+                                                />
+                                                <label htmlFor={role.id}>{role.name}</label>
+                                            </div>
+                                        ))
                                     }
                                 </Box>
                             </>
                         )
                     }
+
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        color="info"
+                        sx={{ mt: 3, mb: 2 }}
+                    >
+                        Ajouter
+                    </Button>
                 </Box>
             </Modal>
         </>

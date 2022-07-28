@@ -4,7 +4,7 @@ import Modal from 'react-modal'
 import { FaTimes } from "react-icons/fa";
 import axios from 'axios'
 // import { useNavigate } from "react-router-dom"
-import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+// import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 import Checkbox from 'react-simple-checkbox'
 import { FiEdit2 } from 'react-icons/fi';
 
@@ -167,7 +167,7 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
                                     modal === "add" ? (
                                         <div className="form__item">
                                             <label>Utilisateur</label>
-                                            <ReactSearchAutocomplete
+                                            {/* <ReactSearchAutocomplete
                                                 items={users}
                                                 fuseOptions={{ keys: ["pseudo"] }}
                                                 // onSearch={handleOnSearch}
@@ -183,7 +183,7 @@ const CourseSharedModal = ({modal, user, userroles, courseid, id}) => {
                                                         outline: "none"
                                                     }
                                                 }
-                                            />
+                                            /> */}
                                         </div>
                                     ) : null
                                 }

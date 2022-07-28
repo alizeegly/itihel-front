@@ -32,10 +32,9 @@ const Parameters = (props) => {
     // const { id } = props.match.params
     const [modalProfileIsOpen, setProfileIsOpen] = useState(false)
     const [modalData, setModalData] = useState(null)
-    const [roles, setRoles] = useState([])
+    const [userRoles, setUserRoles] = useState([])
     const [course, setCourse] = useState(props.course);
     const [coursesShared, setCoursesShared] = useState([]);
-    const [userRoles, setUserRoles] = useState([])
     const [title, setTitle] = useState(props.course.title)
     const [description, setDescription] = useState(props.course.description)
     const [isPublic, setIsPublic] = useState(props.course.is_public)
@@ -47,15 +46,6 @@ const Parameters = (props) => {
     function closeProfileModal() {
         setProfileIsOpen(false)
     }
-
-    const getRoles = async () => {
-        try {
-            const roles = await axios.get("http://localhost:8800/api/roles/")
-            setRoles(roles.data)
-        } catch (err) {
-            console.error(err.message);
-        }
-    };
 
     const getUsersRole = async (user, course) => {
         const res = await axios.get("http://localhost:8800/api/courses-shared/" + user + "/" + course)
@@ -74,16 +64,13 @@ const Parameters = (props) => {
     };
 
     useEffect(() => {
-        if(roles.length <= 0){
-            getRoles()
-        }
 
         if(coursesShared.length <= 0){
             getCourseSharedOfCourse(props.course._id)
         }
 
         if(props.user && course && course._id && userRoles && userRoles.length <= 0) getUsersRole(props.user._id, course._id)
-    }, [getRoles, userRoles, getUsersRole, course, props, props.user, getCourseSharedOfCourse]);
+    }, [userRoles, getUsersRole, course, props, props.user, getCourseSharedOfCourse]);
 
     return (
         <>
@@ -223,7 +210,7 @@ const Parameters = (props) => {
                             }
                             <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                 <TableCell align="center" colSpan={3}>
-                                    <SharedCourse/>
+                                    <SharedCourse course={course}/>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
