@@ -10,7 +10,9 @@ import {
   SharedCoursesPage,
   PublicCoursesPage,
   CoursePage,
-  CourseParameters
+  CourseParameters,
+  EditFlipCardsPage,
+  AddFlipCardsPage
 } from "../pages";
 import CourseParameters2 from "../pages_OLD/Course/CourseParameters2";
 import Course from '../pages_OLD/Course/Course';
@@ -65,6 +67,16 @@ export default {
     {
       component: CoursePage,
       path: "/courses/:id",
+      isAuthenticated: true,
+    },
+    {
+      component: AddFlipCardsPage,
+      path: "/courses/:id/flip-cards",
+      isAuthenticated: true,
+    },
+    {
+      component: EditFlipCardsPage,
+      path: "/courses/:id/flip-cards/edit",
       isAuthenticated: true,
     },
     {

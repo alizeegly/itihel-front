@@ -29,7 +29,7 @@ const LoginPage = () => {
 	
 	// Redirect if logged in
 	if (userInfo) {
-		return <Redirect to="/dashboard" />;
+		return <Redirect to="/courses" />;
 	}
 	
 

@@ -10,6 +10,8 @@ import PublicCoursesPage from "./ListCourses/PublicCoursesPage"
 import SharedCoursesPage from "./ListCourses/SharedCoursesPage"
 import CoursePage from "./Course/CoursePage"
 import CourseParameters from "./Course/CourseParameters"
+import EditFlipCardsPage from "./Course/EditFlipCardsPage"
+import AddFlipCardsPage from "./Course/AddFlipCardsPage"
 
 
 export {
@@ -24,5 +26,7 @@ export {
     PublicCoursesPage,
     SharedCoursesPage,
     CoursePage,
-    CourseParameters
+    CourseParameters,
+    EditFlipCardsPage,
+    AddFlipCardsPage
 }

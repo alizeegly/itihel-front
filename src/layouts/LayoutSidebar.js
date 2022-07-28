@@ -25,7 +25,8 @@ const LayoutSidebar = ({title, children, image, position, appbar = null, course=
         textTransform: "uppercase",
         textShadow: "1px 1px 2px black",
         fontWeight: "bold",
-        fontSize: "55px"
+        fontSize: "55px",
+        fontFamily: "'Roboto','Helvetica','Arial',sans-serif"
     }));
 
     return (

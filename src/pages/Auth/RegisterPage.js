@@ -28,7 +28,7 @@ const Register = () => {
 
 	// Redirect if logged in
 	if (userLogin.userInfo) {
-		return <Redirect to="/dashboard" />;
+		return <Redirect to="/courses" />;
 	}
 	
 	const submitHandler = (e) => {

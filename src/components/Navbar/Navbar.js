@@ -33,7 +33,7 @@ const Navbar = ({color = "primary", styleButton = {color: colorGrey}, course = n
 	const authLinks = (
 		<>
 			<Box sx={{ flexGrow: 1, display: "flex" }}>
-				<Button href="/dashboard" sx={styleButton}>Tableau de bord</Button>
+				{/* <Button href="/dashboard" sx={styleButton}>Tableau de bord</Button> */}
 				<Button href="/courses" sx={styleButton}>Mes cours</Button>
 				<Button href="/shared-courses" sx={styleButton}>Partagés avec moi</Button>
 				<Button href="/public-courses" sx={styleButton}>Cours publics</Button>

@@ -33,7 +33,7 @@ const FlipCards = (props) => {
                         coursePublic={props.course && props.course.is_public}
                         errorReturn={null}
                     >
-                        <Button variant="contained" color="primary" href={"/courses/" + props.course + "/flip-cards"}>Ajouter</Button>
+                        <Button variant="contained" color="primary" href={"/courses/" + props.course._id + "/flip-cards"}>Ajouter</Button>
                     </ShowForPermission>
                     {
                         flipcards.length > 0 ? (
@@ -43,7 +43,7 @@ const FlipCards = (props) => {
                                 coursePublic={props.course && props.course.is_public}
                                 errorReturn={null}
                             >
-                                <Button variant="contained" color="secondary" href={"/courses/" + props.course + "/flip-cards/edit"}>Modifier</Button>
+                                <Button variant="contained" color="secondary" href={"/courses/" + props.course._id + "/flip-cards/edit"}>Modifier</Button>
                             </ShowForPermission>
                         ) : null
                     }
