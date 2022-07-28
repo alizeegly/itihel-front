@@ -73,7 +73,13 @@ const SharedCourse = ({ course, courseShared = {} }) => {
         if(roles.length <= 0){
             getRoles()
         }
-    }, [getRoles, roles]);
+        
+        if(courseShared && courseShared._id && userRoles.length <= 0){
+            courseShared.roles.forEach(role => {
+                setUserRoles(oldArray => [...userRoles,role] );
+            });
+        }
+    }, [getRoles, roles, courseShared, userRoles]);
 
     return (
         <>
@@ -104,41 +110,41 @@ const SharedCourse = ({ course, courseShared = {} }) => {
                     {
                         courseShared && courseShared._id ? (
                             <Typography>{courseShared.user_id.pseudo}</Typography>
-                        ) : (
-                            <>
-                                <Box sx={{ marginTop: 3 }}>
-                                    <TextField
-                                        margin="normal"
-                                        fullWidth
-                                        name="user"
-                                        label="Pseudo de l'utilisateur"
-                                        type="text"
-                                        id="user"
-                                        value={user}
-                                        onChange={(e) => setUser(e.target.value)}
-                                        InputProps={{
-                                            style: {background: "white"}
-                                        }}
-                                    />
-                                    {
-                                        roles.filter(role => role.identifiant !== "ROLE_ADMIN").map(role => (
-                                            <div className="roles" key={role._id}>
-                                                <Checkbox 
-                                                    color="#94DDDE"
-                                                    onChange={() => handleChange(role)} 
-                                                    size="3"
-                                                    checked={userRoles.some(item => role.name === item.name)}
-                                                    id={role.id}
-                                                    className="role-checkbox"
-                                                />
-                                                <label htmlFor={role.id}>{role.name}</label>
-                                            </div>
-                                        ))
-                                    }
-                                </Box>
-                            </>
-                        )
+                        ) : null
                     }
+                    <Box sx={{ marginTop: 3 }}>
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            name="user"
+                            label="Pseudo de l'utilisateur"
+                            type="text"
+                            id="user"
+                            value={user}
+                            onChange={(e) => setUser(e.target.value)}
+                            InputProps={{
+                                style: {background: "white"}
+                            }}
+                        />
+                        {
+                            roles.filter(role => role.identifiant !== "ROLE_ADMIN").map(role => {
+                                return (
+                                    <div className="roles" key={role._id}>
+                                        <Checkbox 
+                                            color="#94DDDE"
+                                            onChange={() => handleChange(role)} 
+                                            size="3"
+                                            checked={userRoles && userRoles.some(item => role.name === item.name)}
+                                            // checked={courseShared && courseShared.roles && courseShared.roles.length > 0 ? courseShared.roles.find(r => r._id === role._id) ? true : false : userRoles.some(item => role.name === item.name)}
+                                            id={role.id}
+                                            className="role-checkbox"
+                                        />
+                                        <label htmlFor={role.id}>{role.name}</label>
+                                    </div>
+                                )
+                            })
+                        }
+                    </Box>
 
                     <Button
                         type="submit"

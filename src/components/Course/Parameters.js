@@ -194,7 +194,7 @@ const Parameters = (props) => {
                                                 {
                                                     props.user.pseudo !== row.user_id.pseudo && (
                                                         <>
-                                                            <SharedCourse courseShared={row}/>
+                                                            {/* <SharedCourse course={course} courseShared={row}/> */}
                                                             <Tooltip title={"Ne plus partager le cours avec " + row.user_id.pseudo}>
                                                                 <IconButton>
                                                                     <CloseIcon />
