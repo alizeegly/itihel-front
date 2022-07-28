@@ -3,7 +3,7 @@ import alertReducers from "./alertReducers";
 import { userLoginReducer, userRegisterReducer, userUpdateReducer } from "./authReducers";
 import { CourseCreateReducer, courseDeleteReducer, ListReducer } from "./listReducers";
 import listReducers from './listReducers'
-import { GetCourseReducer, GetRolesOfUserReducer } from "./courseReducers";
+import { courseUpdateReducer, GetCourseReducer, GetRolesOfUserReducer, GetSharedOfCourse } from "./courseReducers";
 import { GetFlashCardsOfCourseReducer } from "./gameReducers";
 
 export default combineReducers({
@@ -12,9 +12,11 @@ export default combineReducers({
 	userRegister: userRegisterReducer,
 	userUpdate: userUpdateReducer,
 	coursesList: ListReducer,
-	// course: GetCourseReducer,
+	course: GetCourseReducer,
 	courseCreate: CourseCreateReducer,
 	courseDelete: courseDeleteReducer,
+	courseShared: GetSharedOfCourse,
+	courseUpdate: courseUpdateReducer
 	// rolesOfUser: GetRolesOfUserReducer,
 	// cards: GetFlashCardsOfCourseReducer
 });

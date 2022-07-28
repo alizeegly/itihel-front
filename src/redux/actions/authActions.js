@@ -142,4 +142,4 @@ export const updateUser = (user) => async (dispatch, getState) => {
 				: error.message,
 		});
 	}
-  };
+};

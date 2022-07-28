@@ -8,6 +8,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import axios from 'axios';
 import SharedCourse from '../Modal/SharedCourse';
+import { getCourseSharedOfCourse, updateCourse } from '../../redux/actions/courseActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 Modal.setAppElement('#root');
 
@@ -27,11 +29,20 @@ const customStyles = {
 };
 
 const Parameters = (props) => {
+    // const { id } = props.match.params
     const [modalProfileIsOpen, setProfileIsOpen] = useState(false)
     const [modalData, setModalData] = useState(null)
     const [roles, setRoles] = useState([])
     const [course, setCourse] = useState(props.course);
-    const [coursesShared, setCoursesShared] = useState(props.courses_shared);
+    const [coursesShared, setCoursesShared] = useState([]);
+    const [userRoles, setUserRoles] = useState([])
+    const [title, setTitle] = useState(props.course.title)
+    const [description, setDescription] = useState(props.course.description)
+    const [isPublic, setIsPublic] = useState(props.course.is_public)
+    
+    const dispatch = useDispatch();
+
+    const courseShared = useSelector((state) => state.courseShared);
 
     function closeProfileModal() {
         setProfileIsOpen(false)
@@ -46,11 +57,33 @@ const Parameters = (props) => {
         }
     };
 
+    const getUsersRole = async (user, course) => {
+        const res = await axios.get("http://localhost:8800/api/courses-shared/" + user + "/" + course)
+        setUserRoles(res.data)
+    }
+
+    const getCourseSharedOfCourse = async (course) => {
+        const res = await axios.get("http://localhost:8800/api/courses-shared/course/" + course)
+        setCoursesShared(res.data)
+    }
+
+    const updateHandler = (e) => {
+        e.preventDefault();
+
+        dispatch(updateCourse(course));
+    };
+
     useEffect(() => {
         if(roles.length <= 0){
             getRoles()
         }
-    }, [getRoles]);
+
+        if(coursesShared.length <= 0){
+            getCourseSharedOfCourse(props.course._id)
+        }
+
+        if(props.user && course && course._id && userRoles && userRoles.length <= 0) getUsersRole(props.user._id, course._id)
+    }, [getRoles, userRoles, getUsersRole, course, props, props.user, getCourseSharedOfCourse]);
 
     return (
         <>
@@ -58,7 +91,7 @@ const Parameters = (props) => {
                 <h1>Paramètres</h1>
             </Grid>
             <Grid item sm={12} md={6}>
-                <Box component="form">
+                <Box component="form" onSubmit={updateHandler}>
                     <Grid item sm={12}>
                         <TextField
                             margin="normal"
@@ -74,6 +107,9 @@ const Parameters = (props) => {
                                 ...course,
                                 title: e.target.value
                             })}
+                            InputProps={{
+                                style: {background: "white"}
+                            }}
                         />
                     </Grid>
                     <Grid item sm={12}>
@@ -90,17 +126,20 @@ const Parameters = (props) => {
                                 ...course,
                                 description: e.target.value
                             })}
+                            InputProps={{
+                                style: {background: "white"}
+                            }}
                         />
                     </Grid>
                     <Grid item sm={12}>
                         <FormControlLabel 
                             control={
                                 <Switch
-                                    checked={course.is_public}
-                                    onChange={(e) => setCourse({
-                                        ...course,
-                                        is_public: e.target.value
-                                    })}
+                                checked={course.is_public}
+                                onChange={(e) => setCourse({
+                                    ...course,
+                                    is_public: e.target.value
+                                })}
                                     inputProps={{ 'aria-label': 'controlled' }}
                                 />
                             } 

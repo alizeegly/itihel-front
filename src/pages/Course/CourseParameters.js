@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux';
+import React, { useEffect, useState } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { getCourse, getCourseSharedOfCourse } from '../../redux/actions/courseActions';
 import { setAlert } from "../../redux/actions/alertActions";
 import LayoutSidebar from '../../layouts/LayoutSidebar'
@@ -8,42 +8,42 @@ import CourseLayout from './CourseLayout'
 import { ShowForPermission } from './CoursePermissions'
 import { Navbar } from '../../components';
 import Parameters from '../../components/Course/Parameters';
+import axios from 'axios';
 
 const CourseParameters = (props) => {
 
     const { id } = props.match.params
+    const dispatch = useDispatch();
+
+    const courseUpdate = useSelector((state) => state.course);
+    const { loading, error } = courseUpdate;
+
+    const userLogin = useSelector((state) => state.userLogin);
+    const { userInfo } = userLogin;
   
+    const [course, setCourse] = useState({});
+
     useEffect(() => {
-        if(!props.course._id){
-            props.getCourse(id)
-        }
-        // if(props.courses_shared.length <= 0){
-          props.getCourseSharedOfCourse(id)
-        // }
-    }, [props, props.course, props.courses_shared, props.roles, props.getCourse, props.getCourseSharedOfCourse]);
- 
+        const fetching = async () => {
+            const { data } = await axios.get(`http://localhost:8800/api/courses/find/${id}`);
+            setCourse(data);
+        };
+
+        fetching();
+    }, [id, setCourse]);
+
     return (
         <ShowForPermission
             course={id} 
             permissionRequired={["618702283f5059816c261d99", "62a5dcb352fda754f6c97349"]} 
-            coursePublic={props.course.is_public}
+            coursePublic={course && course.is_public}
             errorReturn={Error404Page}
         >
-            <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={props.course.title} course={props.course}>
-                <Parameters course={props.course} courses_shared={props.courses_shared} user={props.user}/>
+            <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={course && course.title} course={course}>
+                <Parameters course={course} user={userInfo}/>
             </LayoutSidebar>
         </ShowForPermission>
     )
 }
 
-const mapStateToProps = (state) => {
-    return({
-        user: state.auth.user,
-        loading: state.auth.loading || state.course.loading,
-        course: state.course.course,
-        roles: state.course.user_roles,
-        courses_shared: state.course.course_shared
-    })
-}
-  
-export default connect(mapStateToProps, { setAlert, getCourse, getCourseSharedOfCourse })(CourseParameters);
+export default CourseParameters;
