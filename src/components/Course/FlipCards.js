@@ -6,7 +6,7 @@ import FlipCard from './FlipCard';
 import '../../styles/carousel.scss'
 
 const FlipCards = (props) => {
-    
+    console.log(props)
     const [flipcards, setFlipcards] = useState([]);
 
     useEffect(() => {
@@ -14,8 +14,6 @@ const FlipCards = (props) => {
             props.cards.length > 0 && props.cards.map((card, index) => {
                 setFlipcards(oldArray => [...oldArray, <FlipCard card={card} key={index}/>]);
             })
-            console.log(flipcards)
-            // console.log(props.cards)
         }
     }, [props, props.cards, flipcards, setFlipcards])
     
@@ -24,18 +22,25 @@ const FlipCards = (props) => {
             <Toolbar disableGutters sx={{ width: "100%", mt: 3, justifyContent: "space-between" }}>
                 <h1 style={{ fontWeight: "bold" }}>FLIP CARDS</h1>
                 <Stack direction="row" spacing={1}>
-                    <ShowForPermission 
+                    {/* <ShowForPermission 
                         course={props.course} 
                         permissionRequired={["618702283f5059816c261d99", "6173234a35654816126ff1cf"]}
+                        errorReturn={null}
+                    > */}
+                    <ShowForPermission 
+                        course={props.course._id} 
+                        permissionRequired={["618702283f5059816c261d99", "6173234a35654816126ff1cf"]} 
+                        coursePublic={props.course && props.course.is_public}
                         errorReturn={null}
                     >
                         <Button variant="contained" color="primary" href={"/courses/" + props.course + "/flip-cards"}>Ajouter</Button>
                     </ShowForPermission>
                     {
-                        props.cards.length > 0 ? (
+                        flipcards.length > 0 ? (
                             <ShowForPermission 
-                                course={props.course} 
+                                course={props.course._id} 
                                 permissionRequired={["618702283f5059816c261d99", "617effba64f5c17ca15e72fb", "617effc664f5c17ca15e72fd"]}
+                                coursePublic={props.course && props.course.is_public}
                                 errorReturn={null}
                             >
                                 <Button variant="contained" color="secondary" href={"/courses/" + props.course + "/flip-cards/edit"}>Modifier</Button>

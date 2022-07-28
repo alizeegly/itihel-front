@@ -8,7 +8,7 @@ import { Box } from '@mui/system'
 import FlipCards from '../../components/Course/FlipCards'
 
 const CourseLayout = ({ course, roles, cards }) => {
-    // console.log(course)
+    console.log(course)
     // console.log(roles)
     // console.log(cards)
     return (
@@ -20,6 +20,7 @@ const CourseLayout = ({ course, roles, cards }) => {
                 <ShowForPermission 
                     course={course._id} 
                     permissionRequired={["618702283f5059816c261d99", "62a5e7af6cfa057af79fc341"]}
+                    coursePublic={course && course.is_public}
                     errorReturn={null}
                 >
                     <Button variant="contained" sx={{ margin: "0 auto" }}>Modifier</Button>
@@ -34,7 +35,7 @@ const CourseLayout = ({ course, roles, cards }) => {
             <Grid item md={12} sx={{ pt: 0 }} id="prise-de-notes">
                 {ReactHtmlParser(course.text)}
             </Grid>
-                <FlipCards course={course._id} cards={cards}/>
+                <FlipCards course={course} cards={cards}/>
         </>
     )
 }

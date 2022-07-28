@@ -109,15 +109,15 @@ const Sidebar = ({ window, course = null, title }) => {
                 </ListItem>
             </List>
             <List>
-                <ListItemButton component='a' href={"#prise-de-notes"} sx={{ background: hash === "#prise-de-notes" || hash === null ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                <ListItemButton component='a' href={course ? "/courses/" + course._id +"#prise-de-notes" : "#prise-de-notes"} sx={{ background: hash === "#prise-de-notes" || hash === null ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Prise de notes" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"#flip-cards"} sx={{ background: hash === "#flip-cards" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                <ListItemButton component='a' href={course ? "/courses/" + course._id +"#flip-cards" : "#flip-cards"} sx={{ background: hash === "#flip-cards" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Flip cards" primaryTypographyProps={{fontSize: '18px'}} />
                 </ListItemButton>
-                <ListItemButton component='a' href={"#quiz"} sx={{ background: hash === "#quiz" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
+                {/* <ListItemButton component='a' href={"/courses/" + course._id +"#quiz"} sx={{ background: hash === "#quiz" ? "rgba(0, 0, 0, 0.04)" : "none" }}>
                     <ListItemText primary="Quiz" primaryTypographyProps={{fontSize: '18px'}} />
-                </ListItemButton>
+                </ListItemButton> */}
             </List>
             <List>
                 <ListItemButton component='a' href={course ? "/courses/" + course._id + "/parameters" : null} sx={{ background: hash === "#quiz" ? "rgba(0, 0, 0, 0.04)" : "none" }}>

@@ -55,35 +55,26 @@ const CoursePage = (props) => {
   
   return (
     <>
-        <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={course && course.title} course={course && course}>
-          <ShowForPermission 
-            course={id} 
-            permissionRequired={["618702283f5059816c261d99", "62a5dcb352fda754f6c97349"]} 
-            coursePublic={course && course.is_public}
-            errorReturn={Error404Page}
-          >
-            {/* {
-              course && rolesOfUser && rolesOfUser.user_roles && cards && ( */}
-                <CourseLayout course={course} roles={userRoles} cards={cards}/>
-              {/* )
-            }
-            <p>Hey</p> */}
-          </ShowForPermission>
-          <ScrollToTop showUnder={160}>
-            <span><img src={upArrow} style={{height: "50px", position: "relative", bottom: "50px"}}></img></span>
-          </ScrollToTop>
-        </LayoutSidebar>
+      <LayoutSidebar img={false} appbar={<Navbar color="white"/>} title={course && course.title} course={course && course}>
+        <ShowForPermission 
+          course={id} 
+          permissionRequired={["618702283f5059816c261d99", "62a5dcb352fda754f6c97349"]} 
+          coursePublic={course && course.is_public}
+          errorReturn={Error404Page}
+        >
+          {/* {
+            course && rolesOfUser && rolesOfUser.user_roles && cards && ( */}
+              <CourseLayout course={course} roles={userRoles} cards={cards}/>
+            {/* )
+          } */}
+          {/* <p>Hey</p> */}
+        </ShowForPermission>
+        <ScrollToTop showUnder={160}>
+          <span><img src={upArrow} style={{height: "50px", position: "relative", bottom: "50px"}}></img></span>
+        </ScrollToTop>
+      </LayoutSidebar>
     </>
   )
 }
-
-// const mapStateToProps = (state) => {
-//   return({
-//     loading: state.auth.loading || state.course.loading,
-//     course: state.course.course,
-//     roles: state.course.user_roles,
-//     cards: state.course.flipCards
-//   })
-// }
 
 export default CoursePage;
