@@ -48,12 +48,12 @@ const Parameters = (props) => {
     }
 
     const getUsersRole = async (user, course) => {
-        const res = await axios.get("http://localhost:8800/api/courses-shared/" + user + "/" + course)
+        const res = await axios.get(process.env.LINK_API + "/api/courses-shared/" + user + "/" + course)
         setUserRoles(res.data)
     }
 
     const getCourseSharedOfCourse = async (course) => {
-        const res = await axios.get("http://localhost:8800/api/courses-shared/course/" + course)
+        const res = await axios.get(process.env.LINK_API + "/api/courses-shared/course/" + course)
         setCoursesShared(res.data)
     }
 

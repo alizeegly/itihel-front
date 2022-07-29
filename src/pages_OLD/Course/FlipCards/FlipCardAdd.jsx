@@ -36,7 +36,7 @@ const FlipCardAdd = () => {
             answer
         }
         setFlipcard(data)
-        axios.post("http://localhost:8800/api/flip-cards/create", flipcard)
+        axios.post(process.env.LINK_API + "/api/flip-cards/create", flipcard)
             .then((res) => {
                 setIsCreated(true)
                 setQuestion("")

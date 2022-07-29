@@ -58,7 +58,7 @@ const MyCourses = () => {
         try {
             const user = await axios.get("/api/users/find/" + session.user.id)
             setUser(user.data);
-            let courses = await axios.get("http://localhost:8800/api/courses/user/" + user.data._id)
+            let courses = await axios.get(process.env.LINK_API + "/api/courses/user/" + user.data._id)
             setCourses(courses.data)
         } catch (err) {
             console.error(err.message);

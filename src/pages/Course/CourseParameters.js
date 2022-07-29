@@ -25,7 +25,7 @@ const CourseParameters = (props) => {
 
     useEffect(() => {
         const fetching = async () => {
-            const { data } = await axios.get(`http://localhost:8800/api/courses/find/${id}`);
+            const { data } = await axios.get(process.env.LINK_API + `/api/courses/find/${id}`);
             setCourse(data);
         };
 

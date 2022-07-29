@@ -12,7 +12,7 @@ export const addCourse = ( course ) => async (dispatch) => {
 
 	try {
 		const res = await axios.post(
-			"http://localhost:8800/api/courses",
+			process.env.LINK_API + "/api/courses",
 			course,
 			config
 		);
@@ -52,7 +52,7 @@ export const getCourse = ( id ) => async (dispatch, getState) => {
             },
         };
     
-        const { data } = await axios.get("http://localhost:8800/api/courses/find/" + id, config);
+        const { data } = await axios.get(process.env.LINK_API + "/api/courses/find/" + id, config);
     
         dispatch({
             type: COURSE_GET_SUCCESS,
@@ -87,7 +87,7 @@ export const getRolesOfUserCourse = ( user, course ) => async (dispatch, getStat
             },
         };
     
-        const { data } = await axios.get("http://localhost:8800/api/courses-shared/" + user + "/" + course, config);
+        const { data } = await axios.get(process.env.LINK_API + "/api/courses-shared/" + user + "/" + course, config);
 
         dispatch({
             type: COURSE_GET_USER_ROLES_SUCCESS,
@@ -122,7 +122,7 @@ export const getCourseSharedOfCourse = ( id ) => async (dispatch, getState) => {
             },
         };
     
-        const { data } = await axios.get("http://localhost:8800/api/courses-shared/course/" + id, config);
+        const { data } = await axios.get(process.env.LINK_API + "/api/courses-shared/course/" + id, config);
         console.log(data)
     
         dispatch({
@@ -158,7 +158,7 @@ export const getFlipCardsOfCourse = ( course ) => async (dispatch, getState) => 
             },
         };
     
-        const { data } = await axios.get("http://localhost:8800/api/flip-cards/courses/" + course, config);
+        const { data } = await axios.get(process.env.LINK_API + "/api/flip-cards/courses/" + course, config);
     
         dispatch({
             type: GET_FLIP_CARDS_SUCCESS,
@@ -192,7 +192,7 @@ export const updateCourse = (course) => async (dispatch, getState) => {
 			},
 		};
 
-		const { data } = await axios.put(`http://localhost:8800/api/courses/${course._id}`, course, config);
+		const { data } = await axios.put(process.env.LINK_API + `/api/courses/${course._id}`, course, config);
 	
 		dispatch({ type: COURSE_UPDATE_SUCCESS, payload: data });
 	} catch (error) {

@@ -27,17 +27,17 @@ const CoursePage = (props) => {
   const [cards, setCards] = useState([])
 
   const getCourse = async (id) => {
-    const res = await axios.get("http://localhost:8800/api/courses/find/" + id)
+    const res = await axios.get(process.env.LINK_API + "/api/courses/find/" + id)
     setCourse(res.data)
   }
 
   const getUsersRole = async (user, course) => {
-    const res = await axios.get("http://localhost:8800/api/courses-shared/" + user + "/" + course)
+    const res = await axios.get(process.env.LINK_API + "/api/courses-shared/" + user + "/" + course)
     setUserRoles(res.data)
   }
 
   const getCards = async (course) => {
-    const res = await axios.get("http://localhost:8800/api/flip-cards/courses/" + course)
+    const res = await axios.get(process.env.LINK_API + "/api/flip-cards/courses/" + course)
     setCards(res.data)
   }
 

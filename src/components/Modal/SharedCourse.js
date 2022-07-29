@@ -35,7 +35,7 @@ const SharedCourse = ({ course, courseShared = {} }) => {
 
     const getRoles = async () => {
         try {
-            const roles = await axios.get("http://localhost:8800/api/roles/")
+            const roles = await axios.get(process.env.LINK_API + "/api/roles/")
             setRoles(roles.data)
         } catch (err) {
             console.error(err.message);
@@ -56,7 +56,7 @@ const SharedCourse = ({ course, courseShared = {} }) => {
     const submitHandler = (e) => {
         e.preventDefault();
         if(user != "" && userRoles.length > 0){
-            axios.post("http://localhost:8800/api/courses-shared/", {course_id: course._id, user_id: user, roles: userRoles})
+            axios.post(process.env.LINK_API + "/api/courses-shared/", {course_id: course._id, user_id: user, roles: userRoles})
                 .then((res) => {
                     console.log("ajouté")
                     // navigate("/courses/" + courseid + "/parameters")

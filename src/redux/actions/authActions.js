@@ -20,7 +20,7 @@ import setAuthToken from "../setAuthToken";
 // export const updateUser = ({user}) => async (dispatch) => {
 // 	try {
 // 		const res = await axios.put(
-// 			"http://localhost:8800/api/users/" + user._id,
+// 			process.env.LINK_API + "/api/users/" + user._id,
 // 			user
 // 		);
 
@@ -126,7 +126,7 @@ export const updateUser = (user) => async (dispatch, getState) => {
 
 		console.log(user)
 	
-		const { data } = await axios.put(`http://localhost:8800/api/users/${userInfo._id}`, user, config);
+		const { data } = await axios.put(process.env.LINK_API + `/api/users/${userInfo._id}`, user, config);
 	
 		dispatch({ type: USER_UPDATE_SUCCESS, payload: data });
 	

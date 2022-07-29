@@ -8,7 +8,7 @@ import { LIST_FAIL, SET_LIST, GET_PUBLIC_COURSES, LIST_REQUEST, LIST_SUCCESS, AD
 // 		},
 // 	};
 //     try {
-//         const res = await axios.get(`http://localhost:8800/api/users/${id}/courses`, config)
+//         const res = await axios.get(process.env.LINK_API + `/api/users/${id}/courses`, config)
 //         dispatch( {
 //             type: SET_LIST,
 //             payload: res.data
@@ -118,7 +118,7 @@ export const getPublicCoursesOfUser = ( id ) => async (dispatch) => {
 		},
 	};
     try {
-        const res = await axios.get(`http://localhost:8800/api/users/${id}/courses/public`, config)
+        const res = await axios.get(process.env.LINK_API + `/api/users/${id}/courses/public`, config)
         console.log(res.data)
         dispatch( {
             type: GET_PUBLIC_COURSES,
